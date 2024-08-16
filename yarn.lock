@@ -148,6 +148,18 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.21.5.tgz#acad351d582d157bb145535db2a6ff53dd514b5c"
   integrity sha512-tQd/1efJuzPC6rCFwEvLtci/xNFcTZknmXs98FYDfGE4wP9ClFV98nyKrzJKVPMhdDnjzLhdUyMX4PsQAPjwIw==
 
+"@headlessui/vue@^1.7.22":
+  version "1.7.22"
+  resolved "https://registry.yarnpkg.com/@headlessui/vue/-/vue-1.7.22.tgz#8d55a3a670c3d48beb660b7c47a7a8ff76caacfe"
+  integrity sha512-Hoffjoolq1rY+LOfJ+B/OvkhuBXXBFgd8oBlN+l1TApma2dB0En0ucFZrwQtb33SmcCqd32EQd0y07oziXWNYg==
+  dependencies:
+    "@tanstack/vue-virtual" "^3.0.0-beta.60"
+
+"@heroicons/vue@^2.1.5":
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/@heroicons/vue/-/vue-2.1.5.tgz#efbf090d11acebbcefa4badcf3bed42d7ceee219"
+  integrity sha512-IpqR72sFqFs55kyKfFS7tN+Ww6odFNeH/7UxycIOrlVYfj4WUGAdzQtLBnJspucSeqWFQsKM0g0YrgU655BEfA==
+
 "@inertiajs/core@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@inertiajs/core/-/core-1.2.0.tgz#3cdc88bc17c20eefdae99a778eac7be1ead9b14b"
@@ -333,6 +345,18 @@
     lodash.isplainobject "^4.0.6"
     lodash.merge "^4.6.2"
     postcss-selector-parser "6.0.10"
+
+"@tanstack/virtual-core@3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/virtual-core/-/virtual-core-3.9.0.tgz#60db41fe8a19bb1a21873d86d8731416391e838a"
+  integrity sha512-Saga7/QRGej/IDCVP5BgJ1oDqlDT2d9rQyoflS3fgMS8ntJ8JGw/LBqK2GorHa06+VrNFc0tGz65XQHJQJetFQ==
+
+"@tanstack/vue-virtual@^3.0.0-beta.60":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/vue-virtual/-/vue-virtual-3.9.0.tgz#23e141aae10218f430fcd15f0b3891ac31300930"
+  integrity sha512-MVJhQh57OR3wg2pWL/25IN1/nITFNnpFaz4gOvRCqnxhsH0WRePBBKvixOaFTgiyYfmrjFbb4d0nRMTvsjZZdQ==
+  dependencies:
+    "@tanstack/virtual-core" "3.9.0"
 
 "@types/estree@1.0.5":
   version "1.0.5"

@@ -12,7 +12,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        URL::forceScheme('https');
+        URL::forceScheme(config('app.protocol'));
     }
 
     /**
@@ -20,6 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        URL::forceScheme('https');
+        URL::forceScheme(config('app.protocol'));
     }
 }
