@@ -1,12 +1,12 @@
 <script setup>
 import { ref } from 'vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import ApplicationMark from '@/Components/ApplicationMark.vue';
-import Banner from '@/Components/Banner.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import NavLink from '@/Components/NavLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import ApplicationMark from '@/Components/Jetsream/ApplicationMark.vue';
+import Banner from '@/Components/Jetsream/Banner.vue';
+import Dropdown from '@/Components/Jetsream/Dropdown.vue';
+import DropdownLink from '@/Components/Jetsream/DropdownLink.vue';
+import NavLink from '@/Components/Jetsream/NavLink.vue';
+import ResponsiveNavLink from '@/Components/Jetsream/ResponsiveNavLink.vue';
 
 defineProps({
     title: String,
@@ -49,7 +49,7 @@ const logout = () => {
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                    Events
                                 </NavLink>
                             </div>
                         </div>
