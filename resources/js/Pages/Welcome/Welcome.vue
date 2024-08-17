@@ -2,8 +2,6 @@
 
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import Hero from "@/Pages/Welcome/Partials/Hero.vue";
-import { PlusCircleIcon } from "@heroicons/vue/20/solid/index.js";
-import BaseButtonWithIcon from "@/Components/Base/BaseButtonWithIcon.vue";
 </script>
 
 <template>

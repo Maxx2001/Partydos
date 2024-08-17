@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * App\Models\Event
  *
  * @property int    $id
+ * @property string $unique_identifier
  * @property int    $user_id
  * @property string $title
  * @property string $description
@@ -23,8 +25,39 @@ class Event extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['share_link'];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($event) {
+            $event->unique_identifier = Str::random();
+        });
+    }
+
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function guestUser(): belongsTo
+    {
+        return $this->belongsTo(GuestUser::class, 'guest_user_id');
+    }
+
+    public function eventOwner(): belongsTo
+    {
+        if ($this->user_id) {
+            return $this->user();
+        }
+
+        return $this->guestUser();
+    }
+
+    public function getShareLinkAttribute(): string
+    {
+        return config('app.url') . '/event-invite/' . $this->unique_identifier;
     }
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {PlusCircleIcon} from "@heroicons/vue/20/solid";
-import BaseButtonWithIcon from "../../../Components/Base/BaseButtonWithIcon.vue";
+import BaseButtonWithIcon from "../../../Components/Base/BaseButton.vue";
+import {router} from "@inertiajs/vue3";
 </script>
 
 <template>
@@ -18,6 +19,7 @@ import BaseButtonWithIcon from "../../../Components/Base/BaseButtonWithIcon.vue"
             :icon="PlusCircleIcon"
             label="Create event"
             class="mt-6"
+            @click="router.get(route('events.create'))"
         />
     </div>
 </template>
