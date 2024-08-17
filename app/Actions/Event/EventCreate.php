@@ -17,13 +17,16 @@ class EventCreate
         ?string   $endDateTime
     )
     {
-        return Event::create([
+        $event = Event::create([
             'title'           => $title,
             'description'     => $description,
             'location'        => $location,
             'start_date_time' => $startDateTime,
             'end_date_time'   => $endDateTime,
-        ])->guestUser()->associate($guestUser)->save();
+        ]);
 
+        $event->guestUser()->associate($guestUser)->save();
+
+        return $event;
     }
 }
