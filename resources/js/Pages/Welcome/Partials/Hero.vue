@@ -15,11 +15,13 @@ import {router} from "@inertiajs/vue3";
         <p>
             Onze tool maakt het eenvoudig om een datum te prikken, deelnemers uit te nodigen en alles bij te houden – allemaal op één plek.”
         </p>
-        <BaseButtonWithIcon
-            :icon="PlusCircleIcon"
-            label="Create event"
-            class="mt-6"
-            @click="router.get(route('events.create'))"
-        />
+        <div class="w-full md:w-2/3 xl:w-1/3">
+            <BaseButtonWithIcon
+                :icon="PlusCircleIcon"
+                label="Create event"
+                class="mt-6"
+                @click="router.get(route('events.create'))"
+            />
+        </div>
     </div>
 </template>

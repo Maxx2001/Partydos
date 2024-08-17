@@ -38,17 +38,17 @@ const copyToClipboard = async() => {
             <div class="flex flex-col items-center w-full ">
                 Copy the link below and share it with your friends!
             </div>
-            <div class="flex w-1/3 pt-2">
-                <input
+            <div class="flex flex-col xl:flex-row w-3/4 xl:w-1/2 pt-2">
+                <span
                     ref="shareLinkInput"
                     type="text"
-                    :value="event.share_link"
-                    disabled
                     @click="copyToClipboard"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
+                    class="w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                    {{ event.share_link }}
+                </span>
                 <BaseButton
-                    class="w-1/4 ml-2"
+                    class="w-full xl:w-1/4 mt-2 xl:mt-0 xl:ml-2"
                     label="Copy link"
                     :icon="ClipboardDocumentIcon"
                     @click="copyToClipboard"
