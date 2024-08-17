@@ -5,7 +5,7 @@ import ActionSection from '@/Components/Jetsream/ActionSection.vue';
 import DangerButton from '@/Components/Jetsream/DangerButton.vue';
 import DialogModal from '@/Components/Jetsream/DialogModal.vue';
 import InputError from '@/Components/Jetsream/InputError.vue';
-import SecondaryButton from '@/Components/Jetsream/secondaryButton.vue';
+import SecondaryButton from '@/Components/Jetsream/SecondaryButton.vue';
 import TextInput from '@/Components/Jetsream/TextInput.vue';
 
 const confirmingUserDeletion = ref(false);
