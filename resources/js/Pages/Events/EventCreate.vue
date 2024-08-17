@@ -4,7 +4,6 @@ import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import { computed, reactive, ref } from "vue";
 import EventDetailsInput from "@/Pages/Events/Partials/EventDetailsInput.vue";
 import EventDatePicker from "@/Pages/Events/Partials/EventDatePicker.vue";
-import CheckboxInput from "@/Components/Inputs/CheckboxInput.vue";
 import EventGuestSubmit from "@/Pages/Events/Partials/EventGuestSubmit.vue";
 import { router } from "@inertiajs/vue3";
 

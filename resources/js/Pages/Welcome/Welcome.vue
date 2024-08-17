@@ -1,5 +1,4 @@
 <script setup>
-
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import Hero from "@/Pages/Welcome/Partials/Hero.vue";
 </script>
