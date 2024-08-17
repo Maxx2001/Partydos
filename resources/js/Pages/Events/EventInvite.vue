@@ -17,8 +17,12 @@ defineProps({
                   {{ event.title}}
               </h1>
           </div>
+
           <div class="flex flex-col items-center w-full ">
               {{ event.description }}
+          </div>
+          <div class="flex flex-col items-center w-full ">
+              {{ event.location }}
           </div>
       </div>
   </DefaultLayout>
