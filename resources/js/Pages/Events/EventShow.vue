@@ -43,7 +43,7 @@ const copyToClipboard = async() => {
                     ref="shareLinkInput"
                     type="text"
                     :value="event.share_link"
-                    readonly
+                    disabled
                     @click="copyToClipboard"
                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
