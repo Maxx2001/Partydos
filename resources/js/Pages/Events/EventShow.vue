@@ -35,8 +35,8 @@ const copyToClipboard = async() => {
                     Invite the people!
                 </h1>
             </div>
-            <div class="flex flex-col items-center w-full ">
-                Copy the link below and share it with your friends!
+            <div class="flex flex-col items-center w-full px-8 text-base py-0.5 text-gray-600">
+                Copy and share the link with your friends!
             </div>
             <div class="flex flex-col xl:flex-row w-3/4 xl:w-1/2 pt-2">
                 <span
