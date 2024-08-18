@@ -31,7 +31,7 @@ const submitForm = () => {
 
 <template>
     <DefaultLayout>
-        <div class="py-24 px-6 flex flex-col items-center justify-center bg-slate-100 rounded">
+        <div class="py-16 md:py-24 px-6 flex flex-col items-center justify-center bg-slate-100 rounded">
             <form @submit.prevent="submitForm" class="w-full md:w-2/3 xl:w-1/3 flex flex-col items-center">
                 <EventDetailsInput
                     v-if=showEventDetailsInput

@@ -5,7 +5,7 @@ import {router} from "@inertiajs/vue3";
 </script>
 
 <template>
-    <div class="py-16 md:py-32 px-12 md:px-6 border flex flex-col items-center justify-center bg-slate-100">
+    <div class="py-16 md:py-24 px-12 md:px-6 border flex flex-col items-center justify-center bg-slate-100">
         <h1 class="text-3xl font-bold pb-4">
             Partydos
         </h1>
