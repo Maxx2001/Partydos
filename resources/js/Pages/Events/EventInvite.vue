@@ -33,7 +33,7 @@ defineProps({
                         Event location:
                     </span>
                     <div
-                        class="bg-slate-100 p-3 w-10/12"
+                        class="bg-slate-100 p-2 w-10/12 rounded"
                         :class="event.location ?? 'italic text-gray-800' "
                     >
                         {{ event.location ?? 'No event location available.'}}
