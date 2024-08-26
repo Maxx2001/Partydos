@@ -4,6 +4,7 @@ import EventInviteDetails from "@/Pages/EventInvite/Partials/EventInviteDetails.
 import EventRegisterForm from "@/Pages/EventInvite/Partials/EventRegisterForm.vue";
 import ParticipantsList from "@/Pages/EventInvite/Partials/ParticipantsList.vue";
 import { ref } from "vue";
+import { Head } from '@inertiajs/vue3'
 
 const props = defineProps({
     event: {
@@ -16,6 +17,10 @@ const moveEventRegisterDown = ref(false);
 </script>
 
 <template>
+    <Head>
+        <title>Your page title</title>
+        <meta name="description" content="Your page description">
+    </Head>
     <DefaultLayout>
         <div class="py-16 md:py-24 px-8 lg:px-0 bg-slate-100">
             <div class="flex flex-col items-center">
