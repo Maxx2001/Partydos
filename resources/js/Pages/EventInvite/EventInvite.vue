@@ -18,8 +18,8 @@ const moveEventRegisterDown = ref(false);
 
 <template>
     <Head>
-        <title>Your page title</title>
-        <meta name="description" content="Your page description">
+        <title>My app</title>
+        <meta head-key="description" name="description" content="This is the default description" />
     </Head>
     <DefaultLayout>
         <div class="py-16 md:py-24 px-8 lg:px-0 bg-slate-100">
