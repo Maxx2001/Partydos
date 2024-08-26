@@ -26,7 +26,10 @@ const moveEventRegisterDown = ref(false);
                 class="flex flex-col items-center"
             >
                 <EventRegisterForm :event="event.data" @register-success="moveEventRegisterDown = true"/>
-                <ParticipantsList :participants="event.data.participants"/>
+                <ParticipantsList
+                    :participants="event.data.participants"
+                    :eventOwner="event.data.guestUserEventOwner"
+                />
             </div>
         </div>
     </DefaultLayout>

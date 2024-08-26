@@ -15,7 +15,7 @@ const copied = ref(false);
 
 const copyToClipboard = async() => {
     try {
-        await navigator.clipboard.writeText(props.event.data.share_link);
+        await navigator.clipboard.writeText(props.event.data.shareLink);
         copied.value = true;
 
         setTimeout(() => {
@@ -45,7 +45,7 @@ const copyToClipboard = async() => {
                     @click="copyToClipboard"
                     class="w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
-                    {{ event.data.share_link }}
+                    {{ event.data.shareLink }}
                 </span>
                 <BaseButton
                     class="w-full xl:w-1/4 mt-2 xl:mt-0 xl:ml-2"

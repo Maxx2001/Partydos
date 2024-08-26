@@ -3,6 +3,10 @@ defineProps({
     participants: {
         type: Array,
         default: () => []
+    },
+    eventOwner: {
+        type: Object,
+        required: true
     }
 });
 </script>
@@ -14,6 +18,9 @@ defineProps({
                Participants
             </span>
             <ul class="w-10/12">
+                <li>
+                    - {{ eventOwner.name }} (Event Owner)
+                </li>
                 <li v-for="participant in participants">
                     - {{ participant.name }}
                 </li>
