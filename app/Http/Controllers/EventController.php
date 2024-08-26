@@ -8,8 +8,10 @@ use App\Models\Event;
 use App\Models\GuestUser;
 use App\Actions\Event\EventCreate;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Resources\EventResource;
 use App\Http\Requests\EventStoreRequest;
 use App\Actions\GuestUser\CreateOrFindGuestUser;
+use App\Http\Requests\EventRegisterGuestRequest;
 
 class EventController extends Controller
 {
@@ -22,7 +24,8 @@ class EventController extends Controller
     {
         /* @var $guestUser GuestUser */
         $guestUser = CreateOrFindGuestUser::handle($eventStoreRequest->name, $eventStoreRequest->email);
-        $event     = EventCreate::handle(
+
+        $event = EventCreate::handle(
             $guestUser,
             $eventStoreRequest->title,
             $eventStoreRequest->description,
@@ -37,14 +40,24 @@ class EventController extends Controller
     public function show(Event $event): Response
     {
         return Inertia::render('Events/EventShow', [
-            'event' => $event,
+            'event' => new EventResource($event),
         ]);
     }
 
-    public function showInvite(Event $event)
+    public function showInvite(Event $event): Response
     {
-        return Inertia::render('Events/EventInvite', [
-            'event' => $event,
+        return Inertia::render('EventInvite/EventInvite', [
+            'event' => new EventResource($event->load('guestUsers')),
         ]);
+    }
+
+    public function registerGuestUser(Event $event, EventRegisterGuestRequest $eventRegisterGuestRequest): RedirectResponse
+    {
+        /* @var $guestUser GuestUser */
+        $guestUser = CreateOrFindGuestUser::handle($eventRegisterGuestRequest->name, $eventRegisterGuestRequest->email);
+
+        $event->guestUsers()->attach($guestUser);
+
+        return redirect()->back();
     }
 }
