@@ -48,8 +48,15 @@ class EventController extends Controller
     {
         return Inertia::render('EventInvite/EventInvite', [
             'event' => new EventResource($event->load('guestUsers', 'guestUser')),
+        ])->withViewData([
+            'title'          => $event->title,
+            'description'    => $event->description,
+            'og:title'       => $event->title,
+            'og:description' => $event->description,
+            'og:url'         => url()->current(),
         ]);
     }
+
 
     public function registerGuestUser(Event $event, EventRegisterGuestRequest $eventRegisterGuestRequest): RedirectResponse
     {

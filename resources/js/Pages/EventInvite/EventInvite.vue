@@ -3,8 +3,7 @@ import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import EventInviteDetails from "@/Pages/EventInvite/Partials/EventInviteDetails.vue";
 import EventRegisterForm from "@/Pages/EventInvite/Partials/EventRegisterForm.vue";
 import ParticipantsList from "@/Pages/EventInvite/Partials/ParticipantsList.vue";
-import { ref } from "vue";
-import { Head } from '@inertiajs/vue3'
+import { onMounted, ref } from "vue";
 
 const props = defineProps({
     event: {
@@ -13,14 +12,24 @@ const props = defineProps({
     }
 });
 
+
+onMounted(() => {
+    document.title = title || "Default Title";
+    document.querySelector('meta[name="description"]')
+            .setAttribute('content', props.event.description || "Default description");
+
+    document.querySelector('meta[property="og:title"]').setAttribute('content', props.event.title || "Default Title");
+    document.querySelector('meta[property="og:description"]')
+            .setAttribute('content', props.event.description || "Default description");
+    document.querySelector('meta[property="og:image"]')
+            .setAttribute('content', props.event.data.image || "default-image.jpg");
+    document.querySelector('meta[property="og:url"]').setAttribute('content', window.location.href);
+});
+
 const moveEventRegisterDown = ref(false);
 </script>
 
 <template>
-    <Head>
-        <title>My app</title>
-        <meta head-key="description" name="description" content="This is the default description" />
-    </Head>
     <DefaultLayout>
         <div class="py-16 md:py-24 px-8 lg:px-0 bg-slate-100">
             <div class="flex flex-col items-center">
