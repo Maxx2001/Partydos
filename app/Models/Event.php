@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\Event
@@ -45,6 +46,12 @@ class Event extends Model
     public function guestUser(): belongsTo
     {
         return $this->belongsTo(GuestUser::class, 'guest_user_id');
+    }
+
+    public function guestUsers(): belongsToMany
+    {
+        return $this->belongsToMany(GuestUser::class)
+            ->withTimestamps();
     }
 
     public function eventOwner(): belongsTo

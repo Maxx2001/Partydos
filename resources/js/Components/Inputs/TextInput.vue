@@ -24,6 +24,10 @@ defineProps({
         type: String,
         default: '',
     },
+    inputType: {
+        type: String,
+        default: 'text',
+    },
 });
 </script>
 
@@ -41,7 +45,7 @@ defineProps({
              </span>
         </label>
         <input
-            type="text"
+            :type="inputType"
             :id="name"
             :required="required"
             :value="modelValue"

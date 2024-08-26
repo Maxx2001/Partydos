@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('event_id')->nullable()->constrained('events')->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
-            $table->foreignId('guest_user_id')->constrained('users')->onDelete('cascade')->nullable();
+            $table->foreignId('guest_user_id')->nullable()->constrained('guest_users')->onDelete('cascade');
             $table->enum('status', ['pending', 'maybe', 'accepted', 'declined'])->default('accepted');
             $table->timestamps();
         });

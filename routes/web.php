@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 
 Route::get('/', function () {
@@ -10,7 +9,10 @@ Route::get('/', function () {
 });
 
 Route::resource('events', EventController::class)->only('create', 'store', 'show');
-Route::get('event-invite/{event:unique_identifier}', [EventController::class, 'showInvite'])->name('events.show-invite');
+Route::get('event-invite/{event:unique_identifier}', [EventController::class, 'showInvite'])
+    ->name('events.show-invite');
+Route::post('event-register-guest/{event:unique_identifier}', [EventController::class, 'registerGuestUser'])
+    ->name('events.register-guest');
 
 Route::middleware([
     'auth:sanctum',
