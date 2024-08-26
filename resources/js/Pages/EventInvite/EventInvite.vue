@@ -14,7 +14,7 @@ const props = defineProps({
 
 
 onMounted(() => {
-    document.title = title || "Default Title";
+    document.title = props.event.title || "Default Title";
     document.querySelector('meta[name="description"]')
             .setAttribute('content', props.event.description || "Default description");
 
