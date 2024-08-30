@@ -22,8 +22,6 @@ const moveEventRegisterDown = ref(false);
         <div class="py-16 md:py-24 px-8 lg:px-0 bg-slate-100">
             <div class="flex flex-col items-center">
                 <EventInviteDetails :event="event.data"/>
-                <EventAddToCalendar :event="event" class="mt-2"/>
-
             </div>
             <div
                 :class="moveEventRegisterDown ? 'flex-col-reverse' : 'flex-col'"
@@ -34,6 +32,9 @@ const moveEventRegisterDown = ref(false);
                     :participants="event.data.participants"
                     :eventOwner="event.data.guestUserEventOwner"
                 />
+            </div>
+            <div class="flex flex-col items-center">
+                <EventAddToCalendar :event="event" class="mt-2"/>
             </div>
         </div>
     </DefaultLayout>

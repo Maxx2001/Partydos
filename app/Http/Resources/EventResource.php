@@ -17,10 +17,11 @@ class EventResource extends JsonResource
             'description'         => $this->description,
             'location'            => $this->location,
             'startDateTime'       => $this->start_date_time,
-            'isoStartDateTime'    => Carbon::parse($this->start_date_time)->format('Ymd\THis\Z'),
+            'isoStartDateTime'    => Carbon::parse($this->start_date_time)->setTimezone('UTC')->format('Ymd\THisO'),
             'endDateTime'         => $this->end_date_time,
             'isoEndDateTime'      => ! $this->end_date_time ? null : Carbon::parse($this->end_date_time)
-                ->format('Ymd\THis\Z'),
+                ->setTimezone('UTC')
+                ->format('Ymd\THisO'),
             'status'              => $this->status,
             'participants'        => ParticipantsResource::collection($this->whenLoaded('guestUsers')),
             'shareLink'           => $this->getShareLinkAttribute(),
