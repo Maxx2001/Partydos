@@ -9,9 +9,12 @@ use App\Models\GuestUser;
 use App\Actions\Event\EventCreate;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Resources\EventResource;
+use Illuminate\Foundation\Application;
+use App\Actions\Event\EventGenerateIcs;
 use App\Http\Requests\EventStoreRequest;
 use App\Actions\GuestUser\CreateOrFindGuestUser;
 use App\Http\Requests\EventRegisterGuestRequest;
+use Illuminate\Contracts\Routing\ResponseFactory;
 
 class EventController extends Controller
 {
@@ -49,11 +52,11 @@ class EventController extends Controller
         return Inertia::render('EventInvite/EventInvite', [
             'event' => new EventResource($event->load('guestUsers', 'guestUser')),
         ])->withViewData([
-            'title'          => $event->title,
-            'description'    => $event->description,
-            'ogTitle'        => $event->title,
-            'ogDescription'  => $event->description,
-            'ogUrl'          => url()->current(),
+            'title'         => $event->title,
+            'description'   => $event->description,
+            'ogTitle'       => $event->title,
+            'ogDescription' => $event->description,
+            'ogUrl'         => url()->current(),
         ]);
     }
 
@@ -66,5 +69,14 @@ class EventController extends Controller
         $event->guestUsers()->attach($guestUser);
 
         return redirect()->back();
+    }
+
+    public function downloadEventICS(Event $event): Application|\Illuminate\Http\Response|ResponseFactory
+    {
+        $ics = EventGenerateIcs::handle($event);
+
+        return response($ics)
+            ->header('Content-Type', 'text/calendar')
+            ->header('Content-Disposition', 'attachment; filename="event.ics"');
     }
 }

@@ -13,6 +13,7 @@ Route::get('event-invite/{event:unique_identifier}', [EventController::class, 's
     ->name('events.show-invite');
 Route::post('event-register-guest/{event:unique_identifier}', [EventController::class, 'registerGuestUser'])
     ->name('events.register-guest');
+Route::get('/event/{event}/download-ics', [EventController::class, 'downloadEventICS'])->name('event.download.ics');
 
 Route::middleware([
     'auth:sanctum',

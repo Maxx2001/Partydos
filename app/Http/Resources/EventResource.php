@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,7 +16,11 @@ class EventResource extends JsonResource
             'title'               => $this->title,
             'description'         => $this->description,
             'location'            => $this->location,
+            'startDateTime'       => $this->start_date_time,
+            'isoStartDateTime'    => Carbon::parse($this->start_date_time)->format('Ymd\THis\Z'),
             'endDateTime'         => $this->end_date_time,
+            'isoEndDateTime'      => ! $this->end_date_time ? null : Carbon::parse($this->end_date_time)
+                ->format('Ymd\THis\Z'),
             'status'              => $this->status,
             'participants'        => ParticipantsResource::collection($this->whenLoaded('guestUsers')),
             'shareLink'           => $this->getShareLinkAttribute(),

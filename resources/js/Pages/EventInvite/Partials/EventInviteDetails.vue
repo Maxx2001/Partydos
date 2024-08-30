@@ -25,16 +25,31 @@ defineProps({
                 class="bg-slate-100 p-2 w-10/12 rounded pt-1 mb-4"
                 :class="event.description ?? 'italic text-gray-800' "
             >
-                {{ event.description ?? 'No event description available.'}}
+                {{ event.description ?? 'No event description set.'}}
             </div>
             <span class="w-10/12">
                     Event location:
                 </span>
             <div
-                class="bg-slate-100 p-2 w-10/12 rounded"
+                class="bg-slate-100 p-2 w-10/12 rounded mb-4"
                 :class="event.location ?? 'italic text-gray-800' "
             >
-                {{ event.location ?? 'No event location available.'}}
+                {{ event.location ?? 'No event location set.'}}
+            </div>
+            <span class="w-10/12">
+                    Date and time:
+                </span>
+            <div
+                class="bg-slate-100 p-2 w-10/12 rounded mb-4"
+                :class="event.startDateTime ?? 'italic text-gray-800' "
+            >
+                {{ event.startDateTime ?? 'No start date set.'}}
+            </div>
+            <div
+                class="bg-slate-100 p-2 w-10/12 rounded mb-4"
+                :class="event.endDateTime ?? 'italic text-gray-800' "
+            >
+                {{ event.endDateTime ?? 'No end date set.'}}
             </div>
         </div>
     </div>
