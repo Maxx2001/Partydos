@@ -15,7 +15,7 @@ const googleCalendarLink =  (
             title
         )}&dates=${isoStartDateTime}/${checkedIsoEndDateTime}&details=${encodeURIComponent(
             description
-        )}&location=${encodeURIComponent(location)}#Intent;scheme=https;package=com.google.android.calendar;end;`;
+        )}&location=${encodeURIComponent(location)}#Intent;scheme=https;package=com.google.android.calendar;S.browser_fallback_url=https%3A%2F%2Fcalendar.google.com;end;`;
     }
 
     return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
