@@ -11,11 +11,11 @@ const googleCalendarLink =  (
     const checkedIsoEndDateTime = isoEndDateTime ? isoEndDateTime : isoStartDateTime;
 
     if(isMobile()) {
-        return `intent://calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-            title
-        )}&dates=${isoStartDateTime}/${checkedIsoEndDateTime}&details=${encodeURIComponent(
-           description
-        )}&location=${encodeURIComponent(location)}#Intent;scheme=https;package=com.google.android.calendar;end;`;
+        return `https://calendar.google.com/calendar/u/0/r/eventedit?text=${encodeURIComponent(
+           title
+        )}&dates=${isoStartDateTime}/${isoEndDateTime}&details=${encodeURIComponent(
+            description
+        )}&location=${encodeURIComponent(location)}`;
     }
 
     return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
