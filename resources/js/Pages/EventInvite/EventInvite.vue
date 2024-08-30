@@ -14,11 +14,16 @@ const props = defineProps({
 });
 
 const moveEventRegisterDown = ref(false);
+function isMobile() {
+    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
 </script>
 
 <template>
     <DefaultLayout>
         <div class="py-16 md:py-24 px-8 lg:px-0 bg-slate-100">
+            {{ isMobile() }}
             <div class="flex flex-col items-center">
                 <EventInviteDetails :event="event.data"/>
                 <EventAddToCalendar :event="event" class="mt-2"/>
