@@ -11,7 +11,7 @@ const googleCalendarLink =  (
     const checkedIsoEndDateTime = isoEndDateTime ? isoEndDateTime : isoStartDateTime;
 
     if(isMobile()) {
-        `intent://calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+        return `intent://calendar/render?action=TEMPLATE&text=${encodeURIComponent(
             title
         )}&dates=${isoStartDateTime}/${checkedIsoEndDateTime}&details=${encodeURIComponent(
            description
