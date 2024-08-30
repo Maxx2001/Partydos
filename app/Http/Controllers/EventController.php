@@ -51,9 +51,9 @@ class EventController extends Controller
         ])->withViewData([
             'title'          => $event->title,
             'description'    => $event->description,
-            'og:title'       => $event->title,
-            'og:description' => $event->description,
-            'og:url'         => url()->current(),
+            'ogTitle'        => $event->title,
+            'ogDescription'  => $event->description,
+            'ogUrl'          => url()->current(),
         ]);
     }
 

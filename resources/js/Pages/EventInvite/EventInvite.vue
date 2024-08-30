@@ -3,27 +3,13 @@ import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import EventInviteDetails from "@/Pages/EventInvite/Partials/EventInviteDetails.vue";
 import EventRegisterForm from "@/Pages/EventInvite/Partials/EventRegisterForm.vue";
 import ParticipantsList from "@/Pages/EventInvite/Partials/ParticipantsList.vue";
-import { onMounted, ref } from "vue";
+import { defineProps, ref } from "vue";
 
 const props = defineProps({
     event: {
         type: Object,
         required: true
     }
-});
-
-
-onMounted(() => {
-    document.title = props.event.title || "Default Title";
-    document.querySelector('meta[name="description"]')
-            .setAttribute('content', props.event.description || "Default description");
-
-    document.querySelector('meta[property="og:title"]').setAttribute('content', props.event.title || "Default Title");
-    document.querySelector('meta[property="og:description"]')
-            .setAttribute('content', props.event.description || "Default description");
-    document.querySelector('meta[property="og:image"]')
-            .setAttribute('content', props.event.data.image || "default-image.jpg");
-    document.querySelector('meta[property="og:url"]').setAttribute('content', window.location.href);
 });
 
 const moveEventRegisterDown = ref(false);
