@@ -15,7 +15,7 @@ defineProps({
                 <span class="text-xl pb-2">
                     You are invited to:
                 </span>
-            <span class="text-2xl my-2">
+            <span class="text-2xl my-2 w-10/12 flex justify-center items-center">
                     {{ event.title }}
                 </span>
             <span class="w-10/12">
