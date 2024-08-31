@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BaseButtonWithIcon from "../Components/Base/BaseButton.vue";
-import { PlusCircleIcon } from '@heroicons/vue/20/solid';
+import { PlusCircleIcon, UserIcon } from '@heroicons/vue/20/solid';
 import { router } from '@inertiajs/vue3';
 </script>
 
@@ -11,16 +11,18 @@ import { router } from '@inertiajs/vue3';
                 <div class="text-gray-500 italic">
                     // Logo
                 </div>
-                <div class="flex items-center">
+                <div class="flex items-center w-full justify-end">
                     <BaseButtonWithIcon
                         :icon="PlusCircleIcon"
                         label="Create event"
                         class="mr-6"
                         @click="router.get(route('events.create'))"
                     />
-                    <div class="text-gray-500 italic">
-                        // Login
-                    </div>
+                    <BaseButtonWithIcon
+                        :icon="UserIcon"
+                        @click="router.get(route('login'))"
+                        label="Login"
+                    />
                 </div>
             </nav>
         </header>

@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Event;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 trait HasEvents
 {
@@ -12,8 +13,9 @@ trait HasEvents
         return $this->hasMany(Event::class);
     }
 
-    public function events(): HasMany
+    public function events(): BelongsToMany
     {
-        return $this->hasMany(Event::class);
+        return $this->belongsToMany(Event::class)
+            ->withTimestamps();
     }
 }

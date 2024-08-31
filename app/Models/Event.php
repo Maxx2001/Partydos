@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int    $id
  * @property string $unique_identifier
  * @property int    $user_id
+ * @property int    $guest_user_id
  * @property string $title
  * @property string $description
  * @property string $location
@@ -36,7 +37,6 @@ class Event extends Model
             $event->unique_identifier = Str::random();
         });
     }
-
 
     public function user(): BelongsTo
     {
