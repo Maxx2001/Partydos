@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Carbon\Carbon;
-use App\Models\Event;
-use App\Models\GuestUser;
+use Domain\Events\Models\Event;
+use Domain\GuestUsers\Models\GuestUser;
 use Illuminate\Database\Seeder;
 
 class GuestUserTestSeeder extends Seeder

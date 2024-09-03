@@ -1,8 +1,7 @@
 <?php
-
-use Inertia\Inertia;
+use App\Http\Events\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventController;
+use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome/Welcome');
