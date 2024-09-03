@@ -15,12 +15,13 @@ Route::post('event-register-guest/{event:unique_identifier}', [EventController::
     ->name('events.register-guest');
 Route::get('/event/{event}/download-ics', [EventController::class, 'downloadEventICS'])->name('event.download.ics');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+Route::middleware(
+    [
+        'auth:sanctum',
+        config('jetstream.auth_session'),
+        'verified',
+    ]
+)->group(function () {
+
+    Route::resource('events', EventController::class)->only('index');
 });
