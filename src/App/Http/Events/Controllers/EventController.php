@@ -7,11 +7,9 @@ use App\Http\Events\Requests\EventStoreRequest;
 use App\Http\Events\Resources\EventResource;
 use Domain\Events\Actions\EventCreateAction;
 use Domain\Events\Actions\EventGenerateIcsAction;
-use Domain\Events\Data\EventData;
 use Domain\Events\Models\Event;
 use Domain\GuestUsers\Actions\CreateOrFindGuestUserAction;
 use Domain\GuestUsers\Models\GuestUser;
-use Domain\Users\Data\UserData;
 use Domain\Users\Models\User;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
@@ -28,9 +26,12 @@ class EventController extends Controller
         /* @var User $user */
         $user = Auth::user();
 
+        $events = $user->events()->get();
+        $ownedEvents = $user->ownedEvents()->get();
+
         return Inertia::render('Dashboard/Index', [
-            'events' => EventData::collect($user->events()->get()),
-            'ownedEvents' => EventData::collect($user->ownedEvents()->get()),
+            'events' => EventResource::collection($events),
+            'ownedEvents' => EventResource::collection($ownedEvents),
         ]);
     }
 

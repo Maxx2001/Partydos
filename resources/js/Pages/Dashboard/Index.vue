@@ -21,6 +21,6 @@ const props = defineProps({
                 Events
             </h2>
         </template>
-        <EventList :owned-events="ownedEvents" :events="events"/>
+        <EventList :owned-events="ownedEvents.data" :events="events.data"/>
     </AppLayout>
 </template>
