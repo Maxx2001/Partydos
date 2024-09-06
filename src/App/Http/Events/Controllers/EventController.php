@@ -67,7 +67,7 @@ class EventController extends Controller
     public function showInvite(Event $event): Response
     {
         return Inertia::render('EventInvite/EventInvite', [
-            'event' => new EventResource($event->load('guestUsers', 'guestUser')),
+            'event' => new EventResource($event->load('guestUsers', $event->getEventOwnerRelation())),
         ])->withViewData([
             'title' => $event->title,
             'description' => $event->description,

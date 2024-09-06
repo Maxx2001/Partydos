@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Support\Resources\ParticipantsResource;
+use function PHPUnit\Framework\assertNotEmpty;
 
 class EventResource extends JsonResource
 {
@@ -27,9 +28,18 @@ class EventResource extends JsonResource
             'status'              => $this->status,
             'participants'        => ParticipantsResource::collection($this->whenLoaded('guestUsers')),
             'shareLink'           => $this->getShareLinkAttribute(),
-            'guestUserEventOwner' => new GuestUserResource($this->whenLoaded('guestUser')),
+            'eventOwner'          => $this->getEventOwner(),     
             'createdAt'           => $this->created_at,
             'updatedAt'           => $this->updated_at,
         ];
+    }
+
+    private function getEventOwner(): GuestUserResource
+    {
+        if (!empty($this->attributes(['guestUser'])->data)){
+            return new GuestUserResource($this->whenLoaded('guestUser'));
+        }
+
+        return new GuestUserResource($this->whenLoaded('user'));
     }
 }

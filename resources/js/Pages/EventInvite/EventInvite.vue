@@ -14,6 +14,7 @@ const props = defineProps({
 });
 
 const moveEventRegisterDown = ref(false);
+const eventOwner = ref(props.event.data.eventOwner);
 
 </script>
 
@@ -30,7 +31,7 @@ const moveEventRegisterDown = ref(false);
                 <EventRegisterForm :event="event.data" @register-success="moveEventRegisterDown = true"/>
                 <EventParticipantsList
                     :participants="event.data.participants"
-                    :eventOwner="event.data.guestUserEventOwner"
+                    :eventOwner="eventOwner"
                 />
             </div>
             <div class="flex flex-col items-center">

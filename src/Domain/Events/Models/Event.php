@@ -13,10 +13,10 @@ use Illuminate\Support\Str;
 /**
  * App\Models\Event
  *
- * @property int    $id
+ * @property int $id
  * @property string $unique_identifier
- * @property int    $user_id
- * @property int    $guest_user_id
+ * @property int $user_id
+ * @property int $guest_user_id
  * @property string $title
  * @property string $description
  * @property string $location
@@ -56,13 +56,13 @@ class Event extends Model
             ->withTimestamps();
     }
 
-    public function eventOwner(): belongsTo
+    public function getEventOwnerRelation(): string
     {
         if ($this->user_id) {
-            return $this->user();
+            return 'user';
         }
 
-        return $this->guestUser();
+        return 'guestUser';
     }
 
     public function getShareLinkAttribute(): string
