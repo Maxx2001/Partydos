@@ -1,11 +1,12 @@
 <script setup>
-
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import { computed, reactive, ref } from "vue";
 import EventDetailsInput from "@/Pages/Events/Partials/EventDetailsInput.vue";
 import EventDatePicker from "@/Pages/Events/Partials/EventDatePicker.vue";
 import EventGuestSubmit from "@/Pages/Events/Partials/EventGuestSubmit.vue";
 import { router } from "@inertiajs/vue3";
+import { setHours, setMinutes } from 'date-fns';
+import { format } from 'date-fns';  // Correct import for format function
 
 const form = reactive({
     title: null,
@@ -20,19 +21,42 @@ const form = reactive({
 const stepIndex = ref(1);
 
 const showEventDetailsInput = computed(() => stepIndex.value === 1);
-const showEventDatePicker= computed(() => stepIndex.value === 2);
-const showEventGuestSubmit= computed(() => stepIndex.value === 3);
+const showEventDatePicker = computed(() => stepIndex.value === 2);
+const showEventGuestSubmit = computed(() => stepIndex.value === 3);
 const showEndDateOption = ref(false);
 
 const submitForm = () => {
     router.post(route('events.store'), form);
-}
+};
+
+// Function to set DateTime in form
+const setDateObject = (dateObject) => {
+    // Combine selected date and time to create DateTime for start
+    const startDateTime = setMinutes(
+        setHours(dateObject.selectedDate, parseInt(dateObject.selectedHour)),
+        parseInt(dateObject.selectedMinute)
+    );
+
+    // Combine selected date and time to create DateTime for end (if selected)
+    let endDateTime = null;
+    if (dateObject.selectedEndHour && dateObject.selectedEndMinute) {
+        endDateTime = setMinutes(
+            setHours(dateObject.selectedDate, parseInt(dateObject.selectedEndHour)),
+            parseInt(dateObject.selectedEndMinute)
+        );
+    }
+
+    // Format the DateTime to MySQL compatible format
+    form.startDateTime = format(startDateTime, 'yyyy-MM-dd HH:mm:ss');
+    form.endDateTime = endDateTime ? format(endDateTime, 'yyyy-MM-dd HH:mm:ss') : null;
+};
 </script>
+
 
 <template>
     <DefaultLayout>
         <div class="py-16 md:py-24 px-6 flex flex-col items-center justify-center bg-slate-100 rounded">
-            <form @submit.prevent="submitForm" class="w-full md:w-2/3 xl:w-1/3 flex flex-col items-center">
+            <form @submit.prevent="submitForm" class="w-full flex flex-col items-center">
                 <EventDetailsInput
                     v-if=showEventDetailsInput
                     :form="form"
@@ -40,11 +64,9 @@ const submitForm = () => {
                 />
                 <EventDatePicker
                     v-if="showEventDatePicker"
-                    :form="form"
-                    :show-end-date-input="showEndDateOption"
+                    @update="setDateObject($event)"
                     @returnToPreviousStep="stepIndex = 1"
                     @submitEventDetails="stepIndex = 3"
-                    @update:modelValue="val => showEndDateOption = val"
                 />
                 <EventGuestSubmit
                     v-if="showEventGuestSubmit"

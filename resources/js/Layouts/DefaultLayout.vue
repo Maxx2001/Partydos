@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import HeaderComponent from "./Partials/HeaderComponent.vue";
 import Footer from "../Layouts/Partials/Footer.vue";
+import {router} from "@inertiajs/vue3";
+
 
 const menuItems = [
     {
         label: 'Home',
         url: '/',
-        active: true
+        active: route().current() === 'home'
     },
     {
         label: 'Features',

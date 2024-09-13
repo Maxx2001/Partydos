@@ -10,7 +10,7 @@ defineProps({
     },
     inputTitle : {
         type: String,
-        required: true,
+        required: false,
     },
     modelValue: {
         type: String,
@@ -26,11 +26,11 @@ defineProps({
 <template>
     <div class="flex flex-col">
         <label :for="name" class="text-gray-500 flex items-center justify-start">
-            <span>
+            <span v-if="inputTitle">
                 {{ inputTitle }}
             </span>
              <span
-                 v-if="required"
+                 v-if="required && inputTitle"
                  class="text-3xl text-red-500 flex items-center h-2 pt-2"
              >
                  *
@@ -43,7 +43,7 @@ defineProps({
             :value="modelValue"
             :placeholder="placeholder"
             @input="$emit('update:modelValue', $event.target.value)"
-            class="rounded-md border border-gray-300 p-2 ring-1 ring-gray-300 focus:ring-1 focus:ring-blue-300 focus:outline-none"
+            class="rounded-md border border-black p-2 ring-1 ring-gray-300 focus:ring-1 focus:ring-blue-300 focus:outline-none"
             rows="4"
         />
     </div>

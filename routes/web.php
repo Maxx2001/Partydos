@@ -6,7 +6,7 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('LandingsPage/Index');
-});
+})->name('home');
 
 Route::resource('events', EventController::class)->only('create', 'store', 'show');
 Route::get('event-invite/{event:unique_identifier}', [EventController::class, 'showInvite'])

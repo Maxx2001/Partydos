@@ -2,6 +2,7 @@
 import TextInput from "@/Components/Inputs/TextInput.vue";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import { ref } from "vue";
+import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 
 const props = defineProps({
     form: {
@@ -10,12 +11,12 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits(['submitEventGuestDetails']);
+const emits = defineEmits(['submitEventGuestDetails', 'returnToPreviousStep']);
 const titleErrorBag = ref([]);
 
 const submitEventDetails = () => {
     if (props.form.name && props.form.email) {
-        emit('submitEventGuestDetails');
+        emits('submitEventGuestDetails');
         return;
     }
 
@@ -32,19 +33,18 @@ const submitEventDetails = () => {
 
 <template>
     <div class="w-full flex justify-center text-2xl font-semibold">
-        <h1>
+        <h1 class="text-3xl">
             Create even as guest
         </h1>
     </div>
-    <div class="flex flex-col items-center w-full ">
+    <div class="flex flex-col items-center w-full md:w-2/3 xl:w-1/3 pt-6">
         <TextInput
             :model-value="form.name"
             :required="true"
             @update:modelValue="val => form.name = val"
             name="name"
-            input-title="Name"
-            placeholder="Jan"
-            class="mx-2 w-full my-3"
+            placeholder="Name"
+            class="mx-2 w-full"
             :error="titleErrorBag['name']"
         />
         <TextInput
@@ -52,16 +52,15 @@ const submitEventDetails = () => {
             :required="true"
             @update:modelValue="val => form.email = val"
             name="email"
-            input-title="Email"
-            placeholder="example@mail.com"
-            class="mx-2 w-full my-3"
+            placeholder="Your Email"
+            class="mx-2 w-full"
             :error="titleErrorBag['email']"
         />
 
         <div class="w-full flex justify-end mt-4">
-            <BaseButton
+            <BaseOutlineButton
                 label="Back to date picker"
-                @click="emit('returnToPreviousStep')"
+                @click="emits('returnToPreviousStep')"
 
             />
             <BaseButton

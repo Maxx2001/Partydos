@@ -30,11 +30,11 @@ const emits = defineEmits(["closeMobileMenu"]);
 
         <!-- Mobile Menu -->
         <div
-            class="fixed top-0 right-0 h-full w-11/12 max-w-full bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg p-8 transform transition-transform duration-300 z-50 flex flex-col"
+            class="fixed top-0 right-0 h-full w-11/12 max-w-full bg-gradient-to-br from-blue-300 to-purple-600 text-white shadow-lg p-8 transform transition-transform duration-300 z-50 flex flex-col"
             :class="props.isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'"
         >
             <!-- Header with Title and Close Button -->
-            <div class="flex items-center justify-between text-white text-3xl font-bold border-b-2 pb-3">
+            <div class="flex items-center justify-between text-white text-3xl font-bold border-b-2 pb-3 h-20">
                 <div>Partydos</div>
                 <button class="text-white flex items-center" @click="emits('closeMobileMenu')">
                     <XMarkIcon class="h-8 w-8" />
@@ -80,7 +80,7 @@ const emits = defineEmits(["closeMobileMenu"]);
             <div class="flex-grow"></div>
 
             <!-- Copyright Section at the Bottom -->
-            <div class="border-t border-blue-500 pt-6">
+            <div class="border-t border-blue-300 pt-6">
                 <p class="text-center text-sm text-gray-200">&copy; 2024 Partydos. All rights reserved.</p>
             </div>
         </div>

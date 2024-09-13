@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="w-full lg:w-1/2 border bg-white mt-2">
+    <div class="w-full lg:w-1/2 shadow-lg rounded-lg bg-white mt-2">
         <div class="flex flex-col justify-center w-full items-center bg-white py-8">
             <span class="text-xl pb-2">
                Participants

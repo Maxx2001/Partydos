@@ -29,7 +29,7 @@ const copyToClipboard = async() => {
 
 <template>
     <DefaultLayout>
-        <div class="py-16 md:py-24 px-6 flex flex-col items-center justify-center bg-slate-100 rounded">
+        <div class="py-16 md:py-24 px-6 flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-purple-50 rounded">
             <div class="w-full flex justify-center text-2xl font-semibold">
                 <h1>
                     Invite the people!
