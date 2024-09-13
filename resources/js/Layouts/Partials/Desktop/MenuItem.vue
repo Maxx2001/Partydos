@@ -1,0 +1,26 @@
+<script setup>
+defineProps({
+    label: {
+        type: String,
+        required: true
+    },
+    url: {
+        type: String,
+        required: true
+    },
+    active: {
+        type: Boolean,
+        default: false
+    }
+})
+</script>
+
+<template>
+    <a
+        class="block py-1 text-2xl font-semibold transition duration-300"
+        :class="active ? 'text-blue-600 border-b-2 border-blue-600' : 'text-black'"
+        :href="url"
+    >
+        {{  label }}
+    </a>
+</template>

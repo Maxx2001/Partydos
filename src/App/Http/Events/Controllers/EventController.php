@@ -66,7 +66,7 @@ class EventController extends Controller
 
     public function showInvite(Event $event): Response
     {
-        return Inertia::render('EventInvite/EventInvite', [
+        return Inertia::render('Events/EventInvite', [
             'event' => EventDTO::fromModel($event),
         ])->withViewData([
             'title' => $event->title,

@@ -1,9 +1,9 @@
 <script setup>
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
-import EventInviteDetails from "@/Pages/EventInvite/Partials/EventInviteDetails.vue";
-import EventRegisterForm from "@/Pages/EventInvite/Partials/EventRegisterForm.vue";
-import EventParticipantsList from "@/Pages/EventInvite/Partials/EventParticipantsList.vue";
-import EventAddToCalendar from "@/Pages/EventInvite/Partials/EventAddToCalendar.vue";
+import EventInviteDetails from "@/Pages/Events/Partials/EventInviteDetails.vue";
+import EventRegisterForm from "@/Pages/Events/Partials/EventRegisterForm.vue";
+import EventParticipantsList from "@/Pages/Events/Partials/EventParticipantsList.vue";
+import EventAddToCalendar from "@/Pages/Events/Partials/EventAddToCalendar.vue";
 import { defineProps, ref } from "vue";
 
 const props = defineProps({

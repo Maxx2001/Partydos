@@ -3,6 +3,7 @@ import BaseButton from "@/Components/Base/BaseButton.vue";
 import DateTimeInput from "@/Components/Inputs/DateTimeInput.vue";
 import { ref } from "vue";
 import CheckboxInput from "@/Components/Inputs/CheckboxInput.vue";
+import DatePicker from "@/Pages/Events/Partials/DatePicker.vue";
 
 const props = defineProps({
     form: {
