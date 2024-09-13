@@ -139,6 +139,10 @@ return [
             AppServiceProvider::class,
             \Support\Providers\RouteServiceProvider::class,
             \Support\Providers\FortifyServiceProvider::class,
+            /*
+            * Domain Service Providers...
+            */
+            Domain\Events\Providers\EventServiceProvider::class,
 
         ])
         ->toArray(),

@@ -4,9 +4,9 @@ namespace App\Http\Events\Controllers;
 
 use App\Http\Events\Requests\EventRegisterGuestRequest;
 use App\Http\Events\Requests\EventStoreRequest;
-use App\Http\Events\Resources\EventResource;
 use Domain\Events\Actions\EventCreateAction;
 use Domain\Events\Actions\EventGenerateIcsAction;
+use Domain\Events\DataTransferObjects\EventDTO;
 use Domain\Events\Models\Event;
 use Domain\GuestUsers\Actions\CreateOrFindGuestUserAction;
 use Domain\GuestUsers\Models\GuestUser;
@@ -30,8 +30,8 @@ class EventController extends Controller
         $ownedEvents = $user->ownedEvents()->get();
 
         return Inertia::render('Dashboard/Index', [
-            'events' => EventResource::collection($events),
-            'ownedEvents' => EventResource::collection($ownedEvents),
+            'events' => EventDTO::fromCollection($events),
+            'ownedEvents' =>  EventDTO::fromCollection($ownedEvents),
         ]);
     }
 
@@ -60,14 +60,14 @@ class EventController extends Controller
     public function show(Event $event): Response
     {
         return Inertia::render('Events/EventShow', [
-            'event' => new EventResource($event),
+            'event' => EventDTO::fromModel($event),
         ]);
     }
 
     public function showInvite(Event $event): Response
     {
         return Inertia::render('EventInvite/EventInvite', [
-            'event' => new EventResource($event->load('guestUsers', $event->getEventOwnerRelation())),
+            'event' => EventDTO::fromModel($event),
         ])->withViewData([
             'title' => $event->title,
             'description' => $event->description,

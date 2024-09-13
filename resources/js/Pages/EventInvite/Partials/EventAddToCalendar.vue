@@ -10,10 +10,10 @@ const props = defineProps({
     }
 });
 
-const { isoStartDateTime, isoEndDateTime, title, description, location } = props.event.data;
+const { isoStartDateTime, isoEndDateTime, title, description, location } = props.event;
 const fullGoogleCalendarLink = googleCalendarLink(isoStartDateTime, isoEndDateTime, title, description, location);
 
-const calendarLink = `/event/${props.event.data.id}/download-ics`;
+const calendarLink = `/event/${props.event.id}/download-ics`;
 </script>
 
 <template>

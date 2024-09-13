@@ -2,16 +2,16 @@
 
 namespace Domain\Events\Models;
 
+use Domain\Events\Services\EventShareLinkService;
 use Domain\GuestUsers\Models\GuestUser;
 use Domain\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Str;
 
 /**
- * App\Models\Event
+ * Domain\Events\Models\Event
  *
  * @property int $id
  * @property string $unique_identifier
@@ -29,44 +29,24 @@ class Event extends Model
 
     protected $guarded = [];
 
-    protected $appends = ['share_link'];
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($event) {
-            $event->unique_identifier = Str::random();
-        });
-    }
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function guestUser(): belongsTo
+    public function guestUser(): BelongsTo
     {
         return $this->belongsTo(GuestUser::class, 'guest_user_id');
     }
 
-    public function guestUsers(): belongsToMany
+    public function guestUsers(): BelongsToMany
     {
         return $this->belongsToMany(GuestUser::class)
             ->withTimestamps();
     }
 
-    public function getEventOwnerRelation(): string
-    {
-        if ($this->user_id) {
-            return 'user';
-        }
-
-        return 'guestUser';
-    }
-
     public function getShareLinkAttribute(): string
     {
-        return config('app.url') . '/event-invite/' . $this->unique_identifier;
+        return (new EventShareLinkService())->generateShareLink($this);
     }
 }

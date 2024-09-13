@@ -14,7 +14,7 @@ const props = defineProps({
 });
 
 const moveEventRegisterDown = ref(false);
-const eventOwner = ref(props.event.data.eventOwner);
+const eventOwner = ref(props.event.eventOwner);
 
 </script>
 
@@ -22,15 +22,15 @@ const eventOwner = ref(props.event.data.eventOwner);
     <DefaultLayout>
         <div class="py-16 md:py-24 px-8 lg:px-0 bg-slate-100">
             <div class="flex flex-col items-center">
-                <EventInviteDetails :event="event.data"/>
+                <EventInviteDetails :event="event"/>
             </div>
             <div
                 :class="moveEventRegisterDown ? 'flex-col-reverse' : 'flex-col'"
                 class="flex flex-col items-center"
             >
-                <EventRegisterForm :event="event.data" @register-success="moveEventRegisterDown = true"/>
+                <EventRegisterForm :event="event" @register-success="moveEventRegisterDown = true"/>
                 <EventParticipantsList
-                    :participants="event.data.participants"
+                    :participants="event.participants"
                     :eventOwner="eventOwner"
                 />
             </div>
