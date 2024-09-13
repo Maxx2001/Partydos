@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\ServiceProvider;
+use Support\Providers\AppServiceProvider;
+
 return [
 
     /*
@@ -123,5 +126,25 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store'  => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
+    'providers' => ServiceProvider::defaultProviders()
+        ->merge([
+            /*
+             * Package Service Providers...
+             */
+
+            /*
+             * Application Service Providers...
+             */
+            AppServiceProvider::class,
+            \Support\Providers\RouteServiceProvider::class,
+            \Support\Providers\FortifyServiceProvider::class,
+            /*
+            * Domain Service Providers...
+            */
+            Domain\Events\Providers\EventServiceProvider::class,
+
+        ])
+        ->toArray(),
 
 ];

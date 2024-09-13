@@ -33,7 +33,7 @@ services:
             - mariadb
         volumes:
             - ./public:/var/www/html/public:delegated
-            - ./storage/app/public:/var/www/html/public/storage:delegated
+            - ./storage/App/public:/var/www/html/public/storage:delegated
         networks:
             - default
             - traefik-gateway

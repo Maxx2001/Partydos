@@ -15,7 +15,7 @@ const copied = ref(false);
 
 const copyToClipboard = async() => {
     try {
-        await navigator.clipboard.writeText(props.event.data.shareLink);
+        await navigator.clipboard.writeText(props.event.shareLink);
         copied.value = true;
 
         setTimeout(() => {
@@ -29,7 +29,7 @@ const copyToClipboard = async() => {
 
 <template>
     <DefaultLayout>
-        <div class="py-16 md:py-24 px-6 flex flex-col items-center justify-center bg-slate-100 rounded">
+        <div class="py-16 md:py-24 px-6 flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-purple-50 rounded">
             <div class="w-full flex justify-center text-2xl font-semibold">
                 <h1>
                     Invite the people!
@@ -45,7 +45,7 @@ const copyToClipboard = async() => {
                     @click="copyToClipboard"
                     class="w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
-                    {{ event.data.shareLink }}
+                    {{ event.shareLink }}
                 </span>
                 <BaseButton
                     class="w-full xl:w-1/4 mt-2 xl:mt-0 xl:ml-2"

@@ -1,12 +1,12 @@
 <?php
 
-use Inertia\Inertia;
+use App\Http\Events\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventController;
+use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome/Welcome');
-});
+    return Inertia::render('LandingsPage/Index');
+})->name('home');
 
 Route::resource('events', EventController::class)->only('create', 'store', 'show');
 Route::get('event-invite/{event:unique_identifier}', [EventController::class, 'showInvite'])
@@ -20,7 +20,6 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+
+    Route::resource('events', EventController::class)->only('index');
 });

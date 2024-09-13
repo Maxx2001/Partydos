@@ -33,7 +33,7 @@ runScript composer install
 # load the env file
 export $(cat .env | grep APP | xargs)
 
-# Generate an app key if it doesn't exist yes
+# Generate an App key if it doesn't exist yes
 if [ -z ${APP_KEY+x} ] || [ "$APP_KEY" == "" ]; then
 printLine "==[ Generating new app key ]=="
 runScript php artisan key:generate
