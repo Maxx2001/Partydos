@@ -3,6 +3,9 @@ import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import { ref } from "vue";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import { ClipboardDocumentIcon } from "@heroicons/vue/24/solid/index.js";
+import {useTitle} from "@/composables/useTitle.js";
+
+useTitle('Partydos | Invite the people!');
 
 const props = defineProps({
     event: {

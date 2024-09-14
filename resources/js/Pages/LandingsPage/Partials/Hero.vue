@@ -7,15 +7,29 @@
                 data-aos="fade-up"
                 data-aos-duration="1000"
             >
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-center md:text-left">
-                    Plan Your Event Effortlessly with
+                <h1 class="text-2xl md:text-6xl font-extrabold leading-tight text-center md:text-left hidden md:block">
+                    Plan Your Events Effortlessly with
                     <span class="">
                         Partydos
                     </span>
                 </h1>
-                <p class="text-lg md:text-xl text-center md:text-left">
-                    Organize memorable events with our powerful suite of tools, designed to streamline planning from start to finish.
-                </p>
+                <h2 class="text-xl md:text-xl text-center md:text-left">
+                    Effortlessly
+                    <span class="text-yellow-400 font-extrabold">
+                        plan events
+                    </span>,
+                    <span class="text-teal-300 font-extrabold">
+                        send personalized invites
+                    </span>,
+                    <span class="text-pink-300 font-extrabold">
+                        manage attendees
+                    </span>,
+                        and organize your schedule with
+                    <span class="text-orange-400 font-extrabold">
+                        dynamic polls.
+                    </span>
+                </h2>
+
                 <!-- Call to Action -->
                 <div
                     class="flex space-x-4 mt-6 justify-center md:justify-start"
@@ -23,18 +37,10 @@
                     data-aos-duration="1000"
                     data-aos-delay="200"
                 >
-                    <button
-                        class="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg shadow hover:bg-gray-200 transition duration-300"
+                    <BaseOutlineButton
                         @click="router.get(route('events.create'))"
-                    >
-                        Get Started
-                    </button>
-                    <button
-                        class="z-40 bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-white hover:text-blue-600 transition duration-300"
-                        @click="router.get(route('login'))"
-                    >
-                        Login
-                    </button>
+                        label="Create Event!"
+                    />
                 </div>
             </div>
 
@@ -61,6 +67,7 @@ import heroImage from "@/Assets/heroImage.webp";
 // Import AOS styles and initialize AOS
 import AOS from "aos";
 import "aos/dist/aos.css";
+import BaseOutlineButton from "../../../Components/Base/BaseOutlineButton.vue";
 
 AOS.init();
 </script>
