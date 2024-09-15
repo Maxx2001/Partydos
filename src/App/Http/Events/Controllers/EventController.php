@@ -54,7 +54,7 @@ class EventController extends Controller
             $eventStoreRequest->endDateTime
         );
 
-        return redirect()->route('events.show', $event);
+        return redirect()->route('events.show-invite', $event);
     }
 
     public function show(Event $event): Response
