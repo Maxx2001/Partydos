@@ -8,14 +8,14 @@ use Domain\GuestUsers\Models\GuestUser;
 class EventCreateAction
 {
 
-    public static function handle(
+    public static function execute(
         GuestUser $guestUser,
         string    $title,
         ?string   $description,
         ?string   $location,
         string    $startDateTime,
         ?string   $endDateTime
-    )
+    ): Event
     {
         $event = Event::create([
             'title'           => $title,
@@ -25,7 +25,8 @@ class EventCreateAction
             'end_date_time'   => $endDateTime,
         ]);
 
-        $event->guestUser()->associate($guestUser)->save();
+        $event->guestUser()->associate($guestUser);
+        $event->save();
 
         return $event;
     }

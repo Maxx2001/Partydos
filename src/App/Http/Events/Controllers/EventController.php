@@ -9,7 +9,6 @@ use Domain\Events\Actions\EventGenerateIcsAction;
 use Domain\Events\DataTransferObjects\EventDTO;
 use Domain\Events\Models\Event;
 use Domain\GuestUsers\Actions\CreateOrFindGuestUserAction;
-use Domain\GuestUsers\Models\GuestUser;
 use Domain\Users\Models\User;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
@@ -42,10 +41,12 @@ class EventController extends Controller
 
     public function store(EventStoreRequest $eventStoreRequest): RedirectResponse
     {
-        /* @var $guestUser GuestUser */
-        $guestUser = CreateOrFindGuestUserAction::handle($eventStoreRequest->name, $eventStoreRequest->email);
+        $guestUser = CreateOrFindGuestUserAction::execute(
+            $eventStoreRequest->name,
+            $eventStoreRequest->email
+        );
 
-        $event = EventCreateAction::handle(
+        $event = EventCreateAction::execute(
             $guestUser,
             $eventStoreRequest->title,
             $eventStoreRequest->description,
@@ -80,8 +81,10 @@ class EventController extends Controller
 
     public function registerGuestUser(Event $event, EventRegisterGuestRequest $eventRegisterGuestRequest): RedirectResponse
     {
-        /* @var $guestUser GuestUser */
-        $guestUser = CreateOrFindGuestUserAction::handle($eventRegisterGuestRequest->name, $eventRegisterGuestRequest->email);
+        $guestUser = CreateOrFindGuestUserAction::execute(
+            $eventRegisterGuestRequest->name,
+            $eventRegisterGuestRequest->email
+        );
 
         $event->guestUsers()->attach($guestUser);
 

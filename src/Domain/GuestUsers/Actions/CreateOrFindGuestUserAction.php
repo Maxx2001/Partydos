@@ -7,7 +7,7 @@ use Domain\GuestUsers\Models\GuestUser;
 class CreateOrFindGuestUserAction
 {
 
-    public static function handle(string $name, string $email)
+    public static function execute(string $name, string $email): GuestUser
     {
         return GuestUser::firstOrCreate(
             [
@@ -17,6 +17,5 @@ class CreateOrFindGuestUserAction
                 'name' => $name,
             ]
         );
-
     }
 }

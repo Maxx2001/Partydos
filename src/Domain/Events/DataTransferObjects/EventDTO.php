@@ -2,7 +2,6 @@
 
 namespace Domain\Events\DataTransferObjects;
 
-use App\Http\Events\Requests\EventStoreRequest;
 use Carbon\Carbon;
 use Domain\Events\Services\EventShareLinkService;
 use Illuminate\Support\Collection;
@@ -47,19 +46,6 @@ class EventDTO
             updatedAt: $event->updated_at
         );
     }
-
-//    public static function fromRequest(EventStoreRequest $request): self
-//    {
-//        return new self(
-//            title: $request->input('title'),
-//            description: $request->input('description'),
-//            location: $request->input('location'),
-//            startDateTime: $request->input('startDateTime'),
-//            isoStartDateTime: Carbon::parse($request->input('startDateTime'))->setTimezone('UTC')->format('Ymd\THisO'),
-//            endDateTime: $request->input('endDateTime'),
-//            isoEndDateTime: !$request->input('endDateTime') ? null : Carbon::parse($request->input('endDateTime'))->setTimezone('UTC')->format('Ymd\THisO'),
-//        );
-//    }
 
     public static function fromCollection(Collection $events): array
     {
