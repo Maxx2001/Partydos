@@ -13,7 +13,7 @@
             <!-- Navigation Links -->
             <div class="flex flex-col items-center md:items-start space-y-4">
                 <h3 class="text-xl font-semibold">Quick Links</h3>
-                <ul class="space-y-2 text-center">
+                <ul class="space-y-2 text-center md:text-left">
                     <li><a href="#" class="hover:underline hover:text-blue-200 transition duration-300">Home</a></li>
                     <li><a href="#" class="hover:underline hover:text-blue-200 transition duration-300">Features</a></li>
                     <li><a href="#" class="hover:underline hover:text-blue-200 transition duration-300">Roadmap</a></li>
