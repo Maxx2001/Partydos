@@ -51,8 +51,8 @@ defineProps({
             :value="modelValue"
             :placeholder="placeholder"
             @input="$emit('update:modelValue', $event.target.value)"
-            class="rounded-md border-black border p-2 ring-1 focus:ring-1 focus:outline-none"
-            :class="error ? 'border-red-500 ring-red-300 focus:ring-red-500 focus:border-red-500' : 'ring-gray-300  focus:ring-blue-300'"
+            class="rounded-md border-black p-2 focus:outline-none"
+            :class="error ? 'border-red-500 ring-red-300 focus:ring-red-500 focus:border-red-500' : ''"
         >
         <div class="h-6">
             <span class="text-red-500 italic">

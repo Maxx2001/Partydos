@@ -53,28 +53,35 @@ const setDateObject = (dateObject) => {
     form.startDateTime = format(startDateTime, 'yyyy-MM-dd HH:mm:ss');
     form.endDateTime = endDateTime ? format(endDateTime, 'yyyy-MM-dd HH:mm:ss') : null;
 };
+
+const scrollToTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    });
+};
 </script>
 
 
 <template>
     <DefaultLayout>
-        <div class="py-16 md:py-24 px-6 flex flex-col items-center justify-center bg-slate-100 rounded">
+        <div class="py-8 md:py-24 px-6 flex flex-col items-center justify-center bg-slate-100 rounded">
             <form @submit.prevent="submitForm" class="w-full flex flex-col items-center">
                 <EventDetailsInput
                     v-if=showEventDetailsInput
                     :form="form"
-                    @submitEventDetails="stepIndex = 2"
+                    @submitEventDetails="() => { stepIndex = 2; scrollToTop(); }"
                 />
                 <EventDatePicker
                     v-if="showEventDatePicker"
                     @update="setDateObject($event)"
-                    @returnToPreviousStep="stepIndex = 1"
-                    @submitEventDetails="stepIndex = 3"
+                    @returnToPreviousStep="() => { stepIndex = 1; scrollToTop(); }"
+                    @submitEventDetails="() => { stepIndex = 3; scrollToTop(); }"
                 />
                 <EventGuestSubmit
                     v-if="showEventGuestSubmit"
                     :form="form"
-                    @returnToPreviousStep="stepIndex = 2"
+                    @returnToPreviousStep="() => { stepIndex = 2; scrollToTop(); }"
                     @submitEventGuestDetails="submitForm"
                 />
             </form>

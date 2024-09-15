@@ -13,7 +13,7 @@
                         Partydos
                     </span>
                 </h1>
-                <h2 class="text-xl md:text-xl text-center md:text-left">
+                <h2 class="text-2xl text-center md:text-left">
                     Effortlessly
                     <span class="text-yellow-400 font-extrabold">
                         plan events

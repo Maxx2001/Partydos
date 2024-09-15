@@ -75,12 +75,12 @@ const features = [
 
 <template>
     <div class="w-full flex justify-center text-2xl font-semibold">
-        <h1 class="text-3xl">
+        <h1 class="text-2xl md:text-4xl">
             What type of event is it?
         </h1>
     </div>
     <div class="flex flex-col items-center w-full pt-6">
-        <div class="w-full md:w-2/3 xl:w-1/3">
+        <div class="w-full md:w-2/3 xl:w-1/3 flex flex-col items-center">
             <TextInput
                 :model-value="form.title"
                 :required="true"
@@ -111,6 +111,7 @@ const features = [
                 <BaseOutlineButton
                     label="Cancel"
                     class="mr-4"
+                    @click="router.get(route('home'))"
                 />
                 <BaseButton
                     label="Pick a date"
@@ -121,7 +122,7 @@ const features = [
 
         <div class="pt-12">
             <h1 class="text-2xl font-bold pb-8 text-gray-900 text-center">
-                What widgets do you wanne use in your invite?
+                What widgets do you want to use in your invite?
             </h1>
             <div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 auto-cols-max gap-3 md:gap-8 md:px-16 xl:px-20 2xl:px-32 w-full">
                 <FeatureBox

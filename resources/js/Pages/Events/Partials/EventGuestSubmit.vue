@@ -33,7 +33,7 @@ const submitEventDetails = () => {
 
 <template>
     <div class="w-full flex justify-center text-2xl font-semibold">
-        <h1 class="text-3xl">
+        <h1 class="text-2xl md:text-4xl">
             Create even as guest
         </h1>
     </div>

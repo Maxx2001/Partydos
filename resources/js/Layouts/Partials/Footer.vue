@@ -4,7 +4,7 @@
 
             <!-- Logo and Description -->
             <div class="flex flex-col items-center md:items-start space-y-4">
-                <h2 class="text-3xl font-bold">Partydos</h2>
+                <h2 class="text-2xl md:text-4xl font-bold">Partydos</h2>
                 <p class="text-gray-100 text-sm md:text-base max-w-xs text-center md:text-left">
                     Plan your events effortlessly with our suite of powerful tools designed for easy and engaging event management.
                 </p>
@@ -13,7 +13,7 @@
             <!-- Navigation Links -->
             <div class="flex flex-col items-center md:items-start space-y-4">
                 <h3 class="text-xl font-semibold">Quick Links</h3>
-                <ul class="space-y-2">
+                <ul class="space-y-2 text-center">
                     <li><a href="#" class="hover:underline hover:text-blue-200 transition duration-300">Home</a></li>
                     <li><a href="#" class="hover:underline hover:text-blue-200 transition duration-300">Features</a></li>
                     <li><a href="#" class="hover:underline hover:text-blue-200 transition duration-300">Roadmap</a></li>
@@ -31,7 +31,7 @@
             <!-- Social Media Links -->
             <div class="flex flex-col items-center md:items-start space-y-4">
                 <h3 class="text-xl font-semibold">Follow Us</h3>
-                <div class="flex space-x-4 flex flex-col items-center">
+                <div class="flex space-x-4 flex-col items-center">
                     <span class="hover:text-blue-200 transition duration-300 text-center ">
                         Yet to come!
                     </span>

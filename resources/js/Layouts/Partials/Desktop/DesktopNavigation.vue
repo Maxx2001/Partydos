@@ -24,7 +24,7 @@ const emits = defineEmits(['toggleMobileMenu']);
 <template>
     <nav class="flex justify-between mx-6 2xl:mx-24 my-4 md:my-8">
         <div class="w-full flex items-center justify-between md:justify-start">
-            <h1 class="flex font-bold text-xl md:text-4xl">
+            <h1 class="flex font-bold text-2xl md:text-4xl">
                 <span>Party</span>
                 <span class="text-blue-700">dos</span>
             </h1>

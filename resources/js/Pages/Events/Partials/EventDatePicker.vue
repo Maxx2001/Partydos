@@ -11,8 +11,8 @@ const emitSetDateObject = (dateObject) => {
 </script>
 <template>
     <div class="w-full flex justify-center text-2xl font-semibold">
-        <h1 class="text-3xl">
-            When will the event take place?
+        <h1 class="text-2xl md:text-4xl text-center">
+            When will this event take place?
         </h1>
     </div>
 
