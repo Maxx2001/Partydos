@@ -1,4 +1,4 @@
-// composables/useTitle.js
+// Composables/useTitle.js
 import { watch, ref } from 'vue';
 
 export function useTitle(title) {

@@ -42,7 +42,7 @@ class CreateNewUserAction implements CreatesNewUsers
             return $user;
         }
 
-        TransferEventsToUserAction::handle($guestUser, $user);
+        TransferEventsToUserAction::execute($guestUser, $user);
 
         $guestUser->delete();
 

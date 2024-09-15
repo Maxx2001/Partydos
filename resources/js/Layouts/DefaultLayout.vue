@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import HeaderComponent from "./Partials/HeaderComponent.vue";
 import Footer from "../Layouts/Partials/Footer.vue";
-import {router} from "@inertiajs/vue3";
 
 
 const menuItems = [
@@ -12,18 +11,18 @@ const menuItems = [
     },
     {
         label: 'Features',
-        url: '#',
-        active: false
+        url: route('features'),
+        active: route().current() === 'features'
     },
     {
         label: 'Roadmap',
-        url: '#',
-        active: false
+        url: route('roadmap'),
+        active: route().current() === 'roadmap'
     },
     {
         label: 'Contact',
-        url: '#',
-        active: false
+        url: route('contact'),
+        active: route().current() === 'contact'
     },
 ]
 </script>

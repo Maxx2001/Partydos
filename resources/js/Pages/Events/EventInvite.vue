@@ -7,7 +7,7 @@ import EventAddToCalendar from "@/Pages/Events/Partials/EventAddToCalendar.vue";
 import BaseModal from "@/Components/Base/BaseModal.vue";
 import { defineProps, ref } from "vue";
 import SuccesMessage from "@/Components/Messages/SuccesMessage.vue";
-import {useTitle} from "@/composables/useTitle.js";
+import {useTitle} from "@/Composables/useTitle.js";
 import InviteLink from "@/Pages/Events/Partials/InviteLink.vue";
 
 const props = defineProps({

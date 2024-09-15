@@ -3,27 +3,27 @@
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
             <!-- Text Content (2/3 width) -->
             <div
-                class="w-full md:w-2/3 h-full flex flex-col justify-center space-y-6"
+                class="w-full lg:w-2/3  lg:px-0 h-full flex flex-col justify-center space-y-6"
                 data-aos="fade-up"
                 data-aos-duration="1000"
             >
-                <h1 class="text-2xl md:text-6xl font-extrabold leading-tight text-center md:text-left hidden md:block">
+                <h1 class="text-2xl md:text-5xl font-extrabold leading-tight text-center lg:text-left hidden md:block">
                     Plan Your Events Effortlessly with
                     <span class="">
                         Partydos
                     </span>
                 </h1>
-                <h2 class="text-2xl text-center md:text-left">
+                <h2 class="text-2xl text-center lg:text-left">
                     Effortlessly
                     <span class="text-yellow-400 font-extrabold">
-                        plan events
-                    </span>,
+                        plan events,
+                    </span>
                     <span class="text-teal-300 font-extrabold">
-                        send personalized invites
-                    </span>,
+                        send personalized invites,
+                    </span>
                     <span class="text-pink-300 font-extrabold">
-                        manage attendees
-                    </span>,
+                        manage attendees,
+                    </span>
                         and organize your schedule with
                     <span class="text-orange-400 font-extrabold">
                         dynamic polls.
@@ -32,7 +32,7 @@
 
                 <!-- Call to Action -->
                 <div
-                    class="flex space-x-4 mt-6 justify-center md:justify-start"
+                    class="flex space-x-4 mt-6 justify-center lg:justify-start"
                     data-aos="fade-up"
                     data-aos-duration="1000"
                     data-aos-delay="200"
@@ -40,13 +40,12 @@
                     <BaseOutlineButton
                         @click="router.get(route('events.create'))"
                         label="Create Event!"
+                        extra-classes="text-xl px-6"
                     />
                 </div>
             </div>
-
-            <!-- Image Content (1/3 width) -->
             <div
-                class="hidden md:flex md:w-5/12 h-full items-center justify-center"
+                class="hidden lg:flex md:w-5/12 h-full items-center justify-center"
                 data-aos="fade-left"
                 data-aos-duration="1000"
                 data-aos-delay="400"

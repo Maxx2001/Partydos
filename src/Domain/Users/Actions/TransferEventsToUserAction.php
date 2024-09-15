@@ -8,13 +8,7 @@ use Domain\Users\Models\User;
 
 class TransferEventsToUserAction
 {
-    /**
-     * Transfer the events owned by the guest user to the new user.
-     *
-     * @param GuestUser $guestUser
-     * @param User      $user
-     */
-    public static function handle(GuestUser $guestUser, User $user)
+    public static function execute(GuestUser $guestUser, User $user): void
     {
         // Transfer the events owned by the guest user to the new user
         $ownedEvents = $guestUser->ownedEvents()->get();

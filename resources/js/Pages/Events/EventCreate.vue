@@ -7,7 +7,7 @@ import EventGuestSubmit from "@/Pages/Events/Partials/EventGuestSubmit.vue";
 import { router } from "@inertiajs/vue3";
 import { setHours, setMinutes } from 'date-fns';
 import { format } from 'date-fns';  // Correct import for format function
-import { useTitle } from '@/composables/useTitle';
+import { useTitle } from '@/Composables/useTitle';
 
 useTitle('Partydos | Create Event');
 

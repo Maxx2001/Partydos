@@ -24,12 +24,12 @@ const emits = defineEmits(['toggleMobileMenu']);
 <template>
     <nav class="flex justify-between mx-6 2xl:mx-24 my-4 md:my-8">
         <div class="w-full flex items-center justify-between md:justify-start">
-            <h1 class="flex font-bold text-2xl md:text-4xl">
+            <h1 class="flex font-bold text-xl md:text-2xl lg:text-4xl">
                 <span>Party</span>
                 <span class="text-blue-700">dos</span>
             </h1>
 
-            <div class="hidden md:flex pl-12 gap-6 text-xl items-center">
+            <div class="hidden md:flex pl-8 lg:pl-12 gap-6 text-xl items-center">
                 <MenuItem
                     v-for="menuItem in menuItems"
                     :url="menuItem.url"
@@ -50,17 +50,20 @@ const emits = defineEmits(['toggleMobileMenu']);
                 label="Create event"
                 class="mr-6"
                 @click="router.get(route('events.create'))"
+                extra-classes="text-sm"
             />
             <BaseOutlineButton
                 v-if="!$page.props.auth.user"
                 :icon="UserIcon"
                 @click="router.get(route('login'))"
+                extra-classes="text-sm"
                 label="Login"
             />
             <BaseOutlineButton
                 v-else
                 :icon="CalendarDaysIcon"
                 @click="router.get(route('events.index'))"
+                extra-classes="text-sm"
                 label="Events"
             />
         </div>
