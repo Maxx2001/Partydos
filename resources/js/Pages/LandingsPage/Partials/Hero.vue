@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
             <!-- Text Content (2/3 width) -->
             <div
-                class="w-full lg:w-2/3  lg:px-0 h-full flex flex-col justify-center space-y-6"
+                class="w-full lg:w-2/3 lg:px-0 h-full flex flex-col justify-center space-y-6"
                 data-aos="fade-up"
                 data-aos-duration="1000"
             >

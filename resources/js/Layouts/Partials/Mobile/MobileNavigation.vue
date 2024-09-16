@@ -34,7 +34,7 @@ const emits = defineEmits(["closeMobileMenu"]);
             :class="props.isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'"
         >
             <!-- Header with Title and Close Button -->
-            <div class="flex items-center justify-between text-white text-2xl font-bold border-b-2 pb-3 ">
+            <div class="flex items-center justify-between text-white text-2xl font-bold border-b-2 pb-3">
                 <div>Partydos</div>
                 <button class="text-white flex items-center" @click="emits('closeMobileMenu')">
                     <XMarkIcon class="h-8 w-8" />

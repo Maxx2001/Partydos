@@ -85,7 +85,7 @@ const features = [
             </Swiper>
         </div>
 
-        <div class="hidden md:grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 auto-cols-max gap-8 md:px-16 xl:px-20 2xl:px-32 w-full">
+        <div class="hidden md:grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 auto-cols-max gap-8 w-full max-w-7xl mx-auto">
             <FeatureBox
                 v-for="(feature, index) in features"
                 :key="index"
