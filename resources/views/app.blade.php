@@ -12,10 +12,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <meta name="description" content="{{ $description ?? 'Default description' }}">
-        <meta property="og:title" content="{{ $ogTitle ?? 'Default OG Title' }}">
-        <meta property="og:description" content="{{ $ogDescription ?? 'Default OG Description' }}">
-        <meta property="og:image" content="{{ $ogImage ?? 'default-image.jpg' }}">
+        <meta name="description" content="{{ $description ?? 'Effortlessly plan events, send personalized invites, manage attendees, and organize your schedule with dynamic polls with Partydos!' }}">
+        <meta property="og:title" content="{{ $ogTitle ?? 'Partydos.nl' }}">
+        <meta property="og:description" content="{{ $ogDescription ?? 'Effortlessly plan events, send personalized invites, manage attendees, and organize your schedule with dynamic polls Partydos!' }}">
+        <meta property="og:image" content="{{ $ogImage ?? '/public/Partydos.png' }}">
         <meta property="og:url" content="{{ url()->current() }}">
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
