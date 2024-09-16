@@ -14,6 +14,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use Inertia\Response;
 use Support\Controllers\Controller;
@@ -55,6 +56,8 @@ class EventController extends Controller
             $eventStoreRequest->endDateTime
         );
 
+        Session::flash('event_created');
+
         return redirect()->route('events.show-invite', $event);
     }
 
@@ -69,6 +72,7 @@ class EventController extends Controller
     {
         return Inertia::render('Events/EventInvite', [
             'event' => EventDTO::fromModel($event),
+            'showInviteModal' => Session::get('event_created'),
         ])->withViewData([
             'title' => $event->title,
             'description' => $event->description,

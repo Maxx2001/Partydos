@@ -5,22 +5,30 @@ import EventRegisterForm from "@/Pages/Events/Partials/EventRegisterForm.vue";
 import EventParticipantsList from "@/Pages/Events/Partials/EventParticipantsList.vue";
 import EventAddToCalendar from "@/Pages/Events/Partials/EventAddToCalendar.vue";
 import BaseModal from "@/Components/Base/BaseModal.vue";
-import { defineProps, ref } from "vue";
+import {defineProps, ref, toRefs} from "vue";
 import SuccesMessage from "@/Components/Messages/SuccesMessage.vue";
 import {useTitle} from "@/Composables/useTitle.js";
 import InviteLink from "@/Pages/Events/Partials/InviteLink.vue";
+import EventInviteLinkModal from "@/Pages/Events/Partials/EventInviteLinkModal.vue";
 
 const props = defineProps({
     event: {
         type: Object,
         required: true
+    },
+    showInviteModal: {
+        type: Boolean,
+        required: false,
     }
 });
 
 useTitle(`Invite to ${props.event.title}`);
 
+const { showInviteModal } = toRefs(props);
+
 
 const showModal = ref(false);
+const openInviteModal = ref(showInviteModal.value)
 const moveEventRegisterDown = ref(false);
 const eventOwner = ref(props.event.eventOwner);
 const eventRegisterSuccess = ref(false);
@@ -37,6 +45,10 @@ const handleConfirm = () => {
 
 const handleClose = () => {
     showModal.value = false;
+}
+
+const handleShowInviteModalClose = () => {
+    openInviteModal.value = false;
 }
 
 const handleRegisterSuccess = () => {
@@ -67,7 +79,9 @@ const handleRegisterSuccess = () => {
                 <EventAddToCalendar :event="event" class="mt-2" />
             </div>
             <div class="flex flex-col items-center mt-3">
-                <InviteLink :event="event"/>
+                <div class="md:w-1/2">
+                    <InviteLink :event="event"/>
+                </div>
             </div>
         </div>
 
@@ -80,5 +94,11 @@ const handleRegisterSuccess = () => {
         >
             <EventRegisterForm ref="eventRegisterFormRef" :event="event" @register-success="handleRegisterSuccess"/>
         </BaseModal>
+        <EventInviteLinkModal
+            :event="event"
+            :isVisible="openInviteModal"
+            @confirm="handleShowInviteModalClose"
+            @close="handleShowInviteModalClose"
+        />
     </DefaultLayout>
 </template>

@@ -27,7 +27,7 @@ const copyToClipboard = async() => {
 </script>
 
 <template>
-    <div class="py-16 px-6 flex flex-col justify-center w-full lg:w-1/2 shadow-lg rounded-lg bg-white">
+    <div class="py-4 md:px-6 flex flex-col justify-center w-full shadow-lg rounded-lg bg-white">
         <div class="w-full flex justify-center text-2xl font-semibold">
             <h1>
                 Share this invite

@@ -60,7 +60,7 @@ const features = [
 </script>
 
 <template>
-    <div class="py-10 md:py-16 px-6 lg:px-24 flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-purple-50">
+    <div class="py-16 px-6 lg:px-24 flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-purple-50">
         <h1 class="text-2xl md:text-4xl font-bold pb-8 text-gray-900">
             Features
         </h1>

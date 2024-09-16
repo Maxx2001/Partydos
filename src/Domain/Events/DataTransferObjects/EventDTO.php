@@ -3,6 +3,7 @@
 namespace Domain\Events\DataTransferObjects;
 
 use Carbon\Carbon;
+use Domain\Events\Models\Event;
 use Domain\Events\Services\EventShareLinkService;
 use Illuminate\Support\Collection;
 
@@ -26,7 +27,7 @@ class EventDTO
         public Carbon $updatedAt
     ) {}
 
-    public static function fromModel($event): self
+    public static function fromModel(Event $event): self
     {
         return new self(
             id: $event->id,
