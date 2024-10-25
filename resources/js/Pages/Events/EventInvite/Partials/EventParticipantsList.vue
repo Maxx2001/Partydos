@@ -1,7 +1,7 @@
 <script setup>
 import {computed} from "vue";
 import GuestItem from "@/Pages/Events/EventInvite/Partials/GuestItem.vue";
-import ColorService from "@/services/ColorService";
+import ColorService from "@/services/colorService.js";
 
 const props = defineProps({
     guestUsers: {
