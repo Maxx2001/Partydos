@@ -6,14 +6,15 @@ use App\Http\Events\Requests\EventRegisterGuestRequest;
 use App\Http\Events\Requests\EventStoreRequest;
 use Domain\Events\Actions\EventCreateAction;
 use Domain\Events\Actions\EventGenerateIcsAction;
+use Domain\Events\Actions\ViewEventsAction;
 use Domain\Events\DataTransferObjects\EventDTO;
+use Domain\Events\DataTransferObjects\EventEntity;
 use Domain\Events\Models\Event;
 use Domain\GuestUsers\Actions\CreateOrFindGuestUserAction;
 use Domain\Users\Models\User;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -21,12 +22,11 @@ use Support\Controllers\Controller;
 
 class EventController extends Controller
 {
-    public function index(): Response
+    public function index(ViewEventsAction $viewEventsAction): Response
     {
         /* @var User $user */
-        $user = Auth::user();
 
-        $events = $user->events()->get();
+        $events = $viewEventsAction->execute();
         $ownedEvents = $user->ownedEvents()->get();
 
         return Inertia::render('Dashboard/Index', [
@@ -71,7 +71,7 @@ class EventController extends Controller
     public function showInvite(Event $event): Response
     {
         return Inertia::render('Events/EventInvite/EventInvite', [
-            'event' => EventDTO::fromModel($event),
+            'event' => EventEntity::from($event->load('guestUsers')),
             'showInviteModal' => Session::get('event_created'),
         ])->withViewData([
             'title' => $event->title,

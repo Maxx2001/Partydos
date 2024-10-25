@@ -2,6 +2,7 @@
 
 namespace Domain\Events\Models;
 
+use Carbon\Carbon;
 use Domain\Events\Services\EventShareLinkService;
 use Domain\GuestUsers\Models\GuestUser;
 use Domain\Users\Models\User;
@@ -48,5 +49,35 @@ class Event extends Model
     public function getShareLinkAttribute(): string
     {
         return (new EventShareLinkService())->generateShareLink($this);
+    }
+
+    public function getEventOwnerAttribute(): User|GuestUser
+    {
+        return $this->user ?? $this->guestUser;
+    }
+
+    public function getFormattedDateAttribute(): string
+    {
+        return Carbon::parse($this->start_date_time)->format('D d F');
+    }
+
+    public function getFormattedTimeAttribute(): string
+    {
+        $time = Carbon::parse($this->start_date_time)->format('H:i');
+        if ($this->end_date_time) {
+            $time .= ' - ' . Carbon::parse($this->end_date_time)->format('H:i');
+        }
+
+        return $time;
+    }
+
+    public function getIsoStartDateTimeAttribute(): string
+    {
+        return Carbon::parse($this->start_date_time)->toISOString();
+    }
+
+    public function getIsoEndDateTimeAttribute(): ?string
+    {
+        return $this->end_date_time ? Carbon::parse($this->end_date_time)->toISOString() : null;
     }
 }

@@ -4,7 +4,7 @@ import GuestItem from "@/Pages/Events/EventInvite/Partials/GuestItem.vue";
 import ColorService from "@/services/ColorService";
 
 const props = defineProps({
-    participants: {
+    guestUsers: {
         type: Array,
         default: () => []
     },
@@ -19,7 +19,7 @@ const props = defineProps({
 });
 const {getRandomBgColorFromString} = ColorService;
 
-const totalGuests = computed(() => props.participants.length + 1);
+const totalGuests = computed(() => props.guestUsers.length + 1);
 </script>
 
 <template>
@@ -32,7 +32,7 @@ const totalGuests = computed(() => props.participants.length + 1);
                 <ul class="grid lg:grid-cols-8 grid-cols-4 w-full gap-4 justify-items-center mt-4 mx-4 lg:mx-0">
                     <GuestItem :name="eventOwner.name" :bgColor="getRandomBgColorFromString(eventOwner.name)"/>
                     <GuestItem
-                        v-for="(participant, index) in participants"
+                        v-for="(participant, index) in guestUsers"
                         :key="index"
                         :name="participant.name"
                         :bgColor="getRandomBgColorFromString(participant.name)"

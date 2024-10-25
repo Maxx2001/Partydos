@@ -1,16 +1,16 @@
 <script setup>
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
-import EventInviteDetails from "@/Pages/Events/EventInvite/Partials/EventInviteDetails.vue";
+import EventInviteBanner from "@/Pages/Events/EventInvite/Partials/EventInviteBanner.vue";
 import EventRegisterForm from "@/Pages/Events/EventInvite/Partials/EventRegisterForm.vue";
 import EventParticipantsList from "@/Pages/Events/EventInvite/Partials/EventParticipantsList.vue";
 import EventAddToCalendar from "@/Pages/Events/EventInvite/Partials/EventAddToCalendar.vue";
 import BaseModal from "@/Components/Base/BaseModal.vue";
-import {defineProps, onMounted, ref, toRefs} from "vue";
+import {defineProps, ref, toRefs} from "vue";
 import SuccesMessage from "@/Components/Messages/SuccesMessage.vue";
 import {useTitle} from "@/Composables/useTitle.js";
 import InviteLink from "@/Pages/Events/EventCreate/Partials/InviteLink.vue";
 import EventInviteLinkModal from "@/Pages/Events/EventInvite/Partials/EventInviteLinkModal.vue";
-import EventInviteBanner from "@/Pages/Events/EventInvite/Partials/EventInviteBanner.vue";
+import EventInviteHero from "@/Pages/Events/EventInvite/Partials/EventInviteHero.vue";
 
 const props = defineProps({
     event: {
@@ -57,6 +57,7 @@ const handleRegisterSuccess = () => {
 
 import AOS from "aos";
 import "aos/dist/aos.css";
+import EventInviteDetails from "@/Pages/Events/EventInvite/Partials/EventInviteDetails.vue";
 AOS.init();
 </script>
 
@@ -73,26 +74,29 @@ AOS.init();
                 </div>
             </div>
 
-            <EventInviteBanner
+            <EventInviteHero
                 :event="event"
                 @accept-event-invite="showModal = true"
             />
 
-            <EventInviteDetails
+            <EventInviteBanner
                 :event="event"
                 @accept-event-invite="showModal = true"
                 class="hidden md:flex"
             />
 
             <EventParticipantsList
-                :participants="event.participants"
+                :guest-users="event.guestUsers"
                 :eventOwner="eventOwner"
                 :moveEventRegisterDown="moveEventRegisterDown"
             />
 
-            <EventAddToCalendar :event="event" class="mt-2" />
+            <EventInviteDetails :event="event" />
 
-            <InviteLink :event="event"/>
+
+            <EventAddToCalendar :event="event" class="mt-2 pb-12" />
+
+<!--            <InviteLink :event="event"/>-->
 
         </div>
 

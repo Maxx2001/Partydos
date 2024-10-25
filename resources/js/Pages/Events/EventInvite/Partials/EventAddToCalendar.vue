@@ -18,8 +18,8 @@ const calendarLink = `/event/${props.event.id}/download-ics`;
 
 <template>
     <div class="flex flex-col items-center mt-3">
-        <div class="w-full lg:w-1/2 shadow-lg rounded-lg bg-white mx-4">
-            <div class="flex flex-col justify-center w-full items-center bg-white py-16">
+        <div class="w-full lg:w-1/2 mx-4">
+            <div class="flex flex-col justify-center w-full items-center">
                  <span class="text-xl pb-2">
                         Add to your calendar:
                 </span>
