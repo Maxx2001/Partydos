@@ -37,7 +37,7 @@ class EventController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('Events/EventCreate');
+        return Inertia::render('Events/EventCreate/EventCreate');
     }
 
     public function store(EventStoreRequest $eventStoreRequest): RedirectResponse
@@ -70,7 +70,7 @@ class EventController extends Controller
 
     public function showInvite(Event $event): Response
     {
-        return Inertia::render('Events/EventInvite', [
+        return Inertia::render('Events/EventInvite/EventInvite', [
             'event' => EventDTO::fromModel($event),
             'showInviteModal' => Session::get('event_created'),
         ])->withViewData([

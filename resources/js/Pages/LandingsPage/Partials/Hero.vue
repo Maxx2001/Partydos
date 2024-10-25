@@ -1,3 +1,14 @@
+<script setup>
+import { router } from "@inertiajs/vue3";
+import heroImage from "@/Assets/heroImage.webp";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+import BaseOutlineButton from "../../../Components/Base/BaseOutlineButton.vue";
+
+AOS.init();
+</script>
+
 <template>
     <section class="relative bg-gradient-to-br from-blue-500 to-purple-600 text-white py-12 md:py-24 px-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
@@ -58,19 +69,3 @@
         <div class="absolute top-0 left-0 w-24 h-24 bg-white/20 rounded-full blur-lg"></div>
     </section>
 </template>
-
-<script setup lang="ts">
-import { router } from "@inertiajs/vue3";
-import heroImage from "@/Assets/heroImage.webp";
-
-// Import AOS styles and initialize AOS
-import AOS from "aos";
-import "aos/dist/aos.css";
-import BaseOutlineButton from "../../../Components/Base/BaseOutlineButton.vue";
-
-AOS.init();
-</script>
-
-<style scoped>
-/* Removed pulsing animations; background shapes remain static */
-</style>

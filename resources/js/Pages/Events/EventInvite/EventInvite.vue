@@ -1,15 +1,16 @@
 <script setup>
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
-import EventInviteDetails from "@/Pages/Events/Partials/EventInviteDetails.vue";
-import EventRegisterForm from "@/Pages/Events/Partials/EventRegisterForm.vue";
-import EventParticipantsList from "@/Pages/Events/Partials/EventParticipantsList.vue";
-import EventAddToCalendar from "@/Pages/Events/Partials/EventAddToCalendar.vue";
+import EventInviteDetails from "@/Pages/Events/EventInvite/Partials/EventInviteDetails.vue";
+import EventRegisterForm from "@/Pages/Events/EventInvite/Partials/EventRegisterForm.vue";
+import EventParticipantsList from "@/Pages/Events/EventInvite/Partials/EventParticipantsList.vue";
+import EventAddToCalendar from "@/Pages/Events/EventInvite/Partials/EventAddToCalendar.vue";
 import BaseModal from "@/Components/Base/BaseModal.vue";
 import {defineProps, ref, toRefs} from "vue";
 import SuccesMessage from "@/Components/Messages/SuccesMessage.vue";
 import {useTitle} from "@/Composables/useTitle.js";
-import InviteLink from "@/Pages/Events/Partials/InviteLink.vue";
-import EventInviteLinkModal from "@/Pages/Events/Partials/EventInviteLinkModal.vue";
+import InviteLink from "@/Pages/Events/EventCreate/Partials/InviteLink.vue";
+import EventInviteLinkModal from "@/Pages/Events/EventInvite/Partials/EventInviteLinkModal.vue";
+import Hero from "@/Pages/Events/EventInvite/Partials/Hero.vue";
 
 const props = defineProps({
     event: {
@@ -55,11 +56,17 @@ const handleRegisterSuccess = () => {
     showModal.value = false;
     eventRegisterSuccess.value = true;
 }
+
+import heroImage from "@/Assets/heroImage.webp";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+AOS.init();
 </script>
 
 <template>
     <DefaultLayout>
-        <div class="py-8 md:py-12 px-8 lg:px-0 bg-slate-100">
+        <div class="md:px-8 lg:px-0 bg-slate-100">
             <div class="flex flex-col items-center">
                 <div class="w-full lg:w-1/2">
                     <SuccesMessage
@@ -69,9 +76,14 @@ const handleRegisterSuccess = () => {
                     />
                 </div>
             </div>
-            <div class="flex flex-col items-center ">
-                <EventInviteDetails :event="event" @accept-event-invite="showModal = true" />
-            </div>
+
+            <Hero :event="event" @accept-event-invite="showModal = true"/>
+            <EventInviteDetails
+                :event="event"
+                @accept-event-invite="showModal = true"
+                class="hidden md:flex"
+            />
+
             <div :class="moveEventRegisterDown ? 'flex-col-reverse' : 'flex-col'" class="flex flex-col items-center">
                 <EventParticipantsList :participants="event.participants" :eventOwner="eventOwner" />
             </div>

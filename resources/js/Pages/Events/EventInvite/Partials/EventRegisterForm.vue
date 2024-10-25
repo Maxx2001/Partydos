@@ -2,7 +2,6 @@
 import {reactive, ref, defineExpose, defineEmits} from 'vue';
 import {router} from '@inertiajs/vue3';
 import TextInput from "@/Components/Inputs/TextInput.vue";
-import BaseButton from "@/Components/Base/BaseButton.vue";
 
 const form = reactive({
     name: '',

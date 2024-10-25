@@ -2,7 +2,7 @@
 import { defineProps, defineEmits } from 'vue';
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import BaseCancelButton from "@/Components/Base/BaseCancelButton.vue";
-import InviteLink from "@/Pages/Events/Partials/InviteLink.vue";
+import InviteLink from "@/Pages/Events/EventCreate/Partials/InviteLink.vue";
 
 
 // Props for title and visibility

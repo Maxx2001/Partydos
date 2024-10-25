@@ -1,5 +1,5 @@
 <script setup>
-import DatePicker from "../Partials/DatePicker.vue";
+import DatePicker from "./DatePicker.vue";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 
