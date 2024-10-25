@@ -11,7 +11,7 @@ AOS.init();
 
 <template>
     <section class="relative bg-gradient-to-br from-blue-500 to-purple-600 text-white py-12 md:py-24 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
             <!-- Text Content (2/3 width) -->
             <div
                 class="w-full lg:w-2/3 lg:px-0 h-full flex flex-col justify-center space-y-6"

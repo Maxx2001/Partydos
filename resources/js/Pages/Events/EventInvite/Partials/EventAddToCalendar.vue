@@ -17,18 +17,19 @@ const calendarLink = `/event/${props.event.id}/download-ics`;
 </script>
 
 <template>
-    <div class="w-full lg:w-1/2 shadow-lg rounded-lg bg-white mx-4">
-        <div class="flex flex-col justify-center w-full items-center bg-white py-16">
-             <span class="text-xl pb-2">
-                    Add to your calendar:
-            </span>
-            <div class="w-10/12 grid grid-cols-2 lg:grid-cols-4 gap-3">
-                <BaseCalendarLink :url="fullGoogleCalendarLink" label="Google"/>
-                <BaseCalendarLink :url="calendarLink" label="Apple"/>
-                <BaseCalendarLink :url="calendarLink" label="Outlook"/>
-                <BaseCalendarLink :url="calendarLink" label="Other"/>
+    <div class="flex flex-col items-center mt-3">
+        <div class="w-full lg:w-1/2 shadow-lg rounded-lg bg-white mx-4">
+            <div class="flex flex-col justify-center w-full items-center bg-white py-16">
+                 <span class="text-xl pb-2">
+                        Add to your calendar:
+                </span>
+                <div class="w-10/12 grid grid-cols-2 lg:grid-cols-4 gap-3">
+                    <BaseCalendarLink :url="fullGoogleCalendarLink" label="Google"/>
+                    <BaseCalendarLink :url="calendarLink" label="Apple"/>
+                    <BaseCalendarLink :url="calendarLink" label="Outlook"/>
+                    <BaseCalendarLink :url="calendarLink" label="Other"/>
+                </div>
             </div>
-
         </div>
     </div>
 </template>

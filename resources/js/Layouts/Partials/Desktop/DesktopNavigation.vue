@@ -22,7 +22,7 @@ const emits = defineEmits(['toggleMobileMenu']);
 </script>
 
 <template>
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
         <nav class="flex my-4 md:my-8 w-full px-8 xl:px-0">
             <div class="flex items-center justify-between md:justify-start w-full">
                 <h1 class="flex font-bold text-2xl lg:text-4xl">

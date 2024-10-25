@@ -30,7 +30,7 @@ const emits = defineEmits(['acceptEventInvite']);
 
 <template>
     <section class="relative bg-gradient-to-br from-blue-500 to-purple-600 text-white py-8 md:py-24 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
             <div
                 class="w-full lg:px-0 h-full flex flex-col justify-center space-y-6"
                 data-aos="fade-up"

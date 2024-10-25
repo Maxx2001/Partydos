@@ -1,6 +1,6 @@
 <template>
     <footer class="bg-gradient-to-br from-blue-500 to-purple-600 text-white py-12 md:py-16 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start space-y-8 md:space-y-0">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start space-y-8 md:space-y-0">
 
             <!-- Logo and Description -->
             <div class="flex flex-col items-center md:items-start space-y-4">

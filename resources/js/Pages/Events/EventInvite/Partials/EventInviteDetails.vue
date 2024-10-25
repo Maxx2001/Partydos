@@ -1,10 +1,10 @@
 <script setup>
 import heroImage from "@/Assets/heroImage.webp";
-
-import AOS from "aos";
 import "aos/dist/aos.css";
-import {computed} from "vue";
+import {computed, onMounted, ref} from "vue";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
+import {TransitionRoot} from "@headlessui/vue";
+import AOS from "aos";
 
 const props = defineProps({
     event: {
@@ -12,8 +12,6 @@ const props = defineProps({
         required: true,
     },
 });
-
-AOS.init();
 
 const formattedStartDate = computed(() => {
     return props.event.startDateTime ? formatDate(props.event.startDateTime) : 'No start date set.';
@@ -31,19 +29,23 @@ const formatDate = (dateString) => {
 };
 
 const emits = defineEmits(['acceptEventInvite']);
+onMounted(() => {
+    AOS.refresh();
+})
 </script>
 
 <template>
     <div class="flex items-center justify-center">
-        <div class="max-w-7xl flex py-12 flex-row">
+        <div class="max-w-6xl flex py-12 flex-row">
             <div class="w-1/2">
-                <div
-                    class="flex h-full items-center justify-center"
-                    data-aos="fade-right"
-                    data-aos-duration="1000"
-                    data-aos-delay="400"
-                >
-                    <img :src="heroImage" alt="Event Planning Illustration" class="w-full h-auto shadow-lg p-0"/>
+                <div class="flex h-full items-center justify-center">
+                    <img
+                        :src="heroImage"
+                        alt="Event Planning Illustration"
+                        class="w-full h-auto shadow-lg p-0"
+                        data-aos="fade-in"
+                        data-aos-duration="1000"
+                    />
                 </div>
             </div>
             <div

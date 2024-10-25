@@ -1,5 +1,9 @@
 <script setup>
-defineProps({
+import {computed} from "vue";
+import GuestItem from "@/Pages/Events/EventInvite/Partials/GuestItem.vue";
+import ColorService from "@/services/ColorService";
+
+const props = defineProps({
     participants: {
         type: Array,
         default: () => []
@@ -7,25 +11,34 @@ defineProps({
     eventOwner: {
         type: Object,
         required: true
+    },
+    moveEventRegisterDown: {
+        type: Boolean,
+        required: false
     }
 });
+const {getRandomBgColorFromString} = ColorService;
+
+const totalGuests = computed(() => props.participants.length + 1);
 </script>
 
 <template>
-    <div class="w-full lg:w-1/2 shadow-lg rounded-lg bg-white mt-2">
-        <div class="flex flex-col justify-center w-full items-center bg-white py-8">
-            <span class="text-xl pb-2">
-               Participants
-            </span>
-            <ul class="w-10/12">
-                <li>
-                    - {{ eventOwner.name }} (Event Owner)
-                </li>
-                <li v-for="participant in participants">
-                    - {{ participant.name }}
-                </li>
-            </ul>
+    <div class="flex flex-col items-center lg:mt-3 mt-10">
+        <div class="w-full lg:max-w-6xl mx-4">
+            <p class="lg:text-3xl text-2xl text-indigo-700 font-semibold text-center">
+                {{ totalGuests }} Friends already signed up!
+            </p>
+            <div class="flex w-full items-center mt-2">
+                <ul class="grid lg:grid-cols-8 grid-cols-4 w-full gap-4 justify-items-center mt-4 mx-4 lg:mx-0">
+                    <GuestItem :name="eventOwner.name" :bgColor="getRandomBgColorFromString(eventOwner.name)"/>
+                    <GuestItem
+                        v-for="(participant, index) in participants"
+                        :key="index"
+                        :name="participant.name"
+                        :bgColor="getRandomBgColorFromString(participant.name)"
+                    />
+                </ul>
+            </div>
         </div>
-
     </div>
 </template>
