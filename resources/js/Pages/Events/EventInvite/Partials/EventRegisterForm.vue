@@ -2,6 +2,7 @@
 import {reactive, ref, defineExpose, defineEmits} from 'vue';
 import {router} from '@inertiajs/vue3';
 import TextInput from "@/Components/Inputs/TextInput.vue";
+import { EnvelopeIcon } from '@heroicons/vue/20/solid';
 
 const form = reactive({
     name: '',
@@ -17,20 +18,17 @@ const props = defineProps({
 
 const emit = defineEmits(['registerSuccess']);
 
-// Error states
 const errors = reactive({
     name: '',
     email: '',
 });
 
-// Reset form fields
 const resetForm = () => {
     form.name = '';
     form.email = '';
     clearErrors();
 };
 
-// Clear error messages
 const clearErrors = () => {
     errors.name = '';
     errors.email = '';
@@ -75,7 +73,6 @@ const submitRegisterForm = () => {
     }
 };
 
-// Expose the method to the parent component
 defineExpose({submitRegisterForm});
 </script>
 
@@ -83,7 +80,7 @@ defineExpose({submitRegisterForm});
     <div class="w-full bg-white">
         <form class="flex flex-col justify-center w-full items-center bg-white" @submit.prevent="submitRegisterForm">
             <TextInput
-                placeholder="Name"
+                placeholder="Enter your name"
                 name="name"
                 :model-value="form.name"
                 :required="true"
@@ -92,9 +89,10 @@ defineExpose({submitRegisterForm});
                 class="w-full"
             />
             <TextInput
-                placeholder="Email"
+                placeholder="Enter your Email"
                 name="email"
                 input-type="email"
+                :icon="EnvelopeIcon"
                 :model-value="form.email"
                 :required="true"
                 :error="errors.email"

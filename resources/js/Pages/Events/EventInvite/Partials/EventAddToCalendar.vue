@@ -1,5 +1,4 @@
 <script setup>
-import googleCalendarLink from "@/Helpers/agendaLinkHelpers.js";
 import { defineProps } from "vue";
 import BaseCalendarLink from "@/Components/Base/BaseCalendarLink.vue";
 
@@ -10,24 +9,39 @@ const props = defineProps({
     }
 });
 
-const { isoStartDateTime, isoEndDateTime, title, description, location } = props.event;
-const fullGoogleCalendarLink = googleCalendarLink(isoStartDateTime, isoEndDateTime, title, description, location);
-
+const { title, description, location } = props.event;
 const calendarLink = `/event/${props.event.id}/download-ics`;
 </script>
 
 <template>
-    <div class="flex flex-col items-center mt-3">
-        <div class="w-full lg:w-1/2 mx-4">
+    <div class="flex flex-col items-center py-2">
+        <div class="w-full mx-4">
             <div class="flex flex-col justify-center w-full items-center">
-                 <span class="text-xl pb-2">
-                        Add to your calendar:
-                </span>
-                <div class="w-10/12 grid grid-cols-2 lg:grid-cols-4 gap-3">
-                    <BaseCalendarLink :url="fullGoogleCalendarLink" label="Google"/>
-                    <BaseCalendarLink :url="calendarLink" label="Apple"/>
-                    <BaseCalendarLink :url="calendarLink" label="Outlook"/>
-                    <BaseCalendarLink :url="calendarLink" label="Other"/>
+                <div class="lg:w-10/12 w-full grid grid-cols-2 gap-3">
+                    <BaseCalendarLink
+                        :url="event.googleCalendarLink"
+                        label="Google"
+                        backgroundColor="bg-blue-500"
+                        hoverColor="hover:bg-blue-700"
+                    />
+                    <BaseCalendarLink
+                        :url="calendarLink"
+                        label="Apple"
+                        backgroundColor="bg-green-500"
+                        hoverColor="hover:bg-green-700"
+                    />
+                    <BaseCalendarLink
+                        :url="calendarLink"
+                        label="Outlook"
+                        backgroundColor="bg-orange-500"
+                        hoverColor="hover:bg-orange-700"
+                    />
+                    <BaseCalendarLink
+                        :url="calendarLink"
+                        label="Other"
+                        backgroundColor="bg-purple-500"
+                        hoverColor="hover:bg-purple-700"
+                    />
                 </div>
             </div>
         </div>

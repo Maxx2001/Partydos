@@ -25,6 +25,7 @@ class EventEntity extends Data
         public ?string         $formattedTime,
         public ?string         $status,
         public string          $shareLink,
+        public ?string         $googleCalendarLink,
         public UserEntity      $eventOwner,
         #[DataCollectionOf(GuestUserEntity::class)]
         public ?DataCollection $guestUsers,

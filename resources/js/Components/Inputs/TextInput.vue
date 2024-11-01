@@ -28,6 +28,10 @@ defineProps({
         type: String,
         default: 'text',
     },
+    icon: {
+        type: Object,
+        required: false,
+    },
 });
 </script>
 
@@ -44,16 +48,24 @@ defineProps({
                  *
              </span>
         </label>
-        <input
-            :type="inputType"
-            :id="name"
-            :required="required"
-            :value="modelValue"
-            :placeholder="placeholder"
-            @input="$emit('update:modelValue', $event.target.value)"
-            class="rounded-md border-black p-2 focus:outline-none"
-            :class="error ? 'border-red-500 ring-red-300 focus:ring-red-500 focus:border-red-500' : ''"
-        >
+        <div class="relative flex items-center">
+            <span v-if="icon" class="absolute left-3 text-gray-500">
+                <component :is="icon" class="w-5 h-5" />
+            </span>
+            <input
+                :type="inputType"
+                :id="name"
+                :required="required"
+                :value="modelValue"
+                :placeholder="placeholder"
+                @input="$emit('update:modelValue', $event.target.value)"
+                class="rounded-md border-black p-2 focus:outline-none w-full"
+                :class="[
+                    error ? 'border-red-500 ring-red-300 focus:ring-red-500 focus:border-red-500' : '',
+                    icon ? 'pl-10' : ''
+                    ]"
+            >
+        </div>
         <div class="h-6">
             <span class="text-red-500 italic">
             {{ error }}

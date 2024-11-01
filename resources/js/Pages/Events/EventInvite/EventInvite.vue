@@ -8,9 +8,12 @@ import BaseModal from "@/Components/Base/BaseModal.vue";
 import {defineProps, ref, toRefs} from "vue";
 import SuccesMessage from "@/Components/Messages/SuccesMessage.vue";
 import {useTitle} from "@/Composables/useTitle.js";
-import InviteLink from "@/Pages/Events/EventCreate/Partials/InviteLink.vue";
 import EventInviteLinkModal from "@/Pages/Events/EventInvite/Partials/EventInviteLinkModal.vue";
 import EventInviteHero from "@/Pages/Events/EventInvite/Partials/EventInviteHero.vue";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import EventInviteDetails from "@/Pages/Events/EventInvite/Partials/EventInviteDetails.vue";
+import InviteLink from "@/Pages/Events/EventCreate/Partials/InviteLink.vue";
 
 const props = defineProps({
     event: {
@@ -29,7 +32,9 @@ const { showInviteModal } = toRefs(props);
 
 
 const showModal = ref(false);
-const openInviteModal = ref(showInviteModal.value)
+// const openInviteModal = ref(showInviteModal.value)
+const openInviteModal = ref(true)
+const openAddToCalendarModal = ref(false);
 const moveEventRegisterDown = ref(false);
 const eventOwner = ref(props.event.eventOwner);
 const eventRegisterSuccess = ref(false);
@@ -55,10 +60,21 @@ const handleRegisterSuccess = () => {
     eventRegisterSuccess.value = true;
 }
 
-import AOS from "aos";
-import "aos/dist/aos.css";
-import EventInviteDetails from "@/Pages/Events/EventInvite/Partials/EventInviteDetails.vue";
+
 AOS.init();
+const copied = ref(false);
+const copyToClipboard = async() => {
+    try {
+        await navigator.clipboard.writeText(props.event.shareLink);
+        copied.value = true;
+
+        setTimeout(() => {
+            copied.value = false;
+        }, 2000);
+    } catch(err) {
+        console.error('Failed to copy: ', err);
+    }
+}
 </script>
 
 <template>
@@ -91,29 +107,39 @@ AOS.init();
                 :moveEventRegisterDown="moveEventRegisterDown"
             />
 
-            <EventInviteDetails :event="event" />
-
-
-            <EventAddToCalendar :event="event" class="mt-2 pb-12" />
-
-<!--            <InviteLink :event="event"/>-->
+            <EventInviteDetails :event="event" @open-add-to-calendar-modal="openAddToCalendarModal = true"/>
 
         </div>
 
         <BaseModal
             :isVisible="showModal"
-            @close="handleClose"
+            @close="showModal = false"
             @confirm="handleConfirm"
-            title="Sign up for the event"
+            title="Join this event!"
         >
             <EventRegisterForm ref="eventRegisterFormRef" :event="event" @register-success="handleRegisterSuccess"/>
         </BaseModal>
 
-        <EventInviteLinkModal
-            :event="event"
+        <BaseModal
+            :isVisible="openAddToCalendarModal"
+            @close="openAddToCalendarModal = false"
+            :show-submit-button="false"
+            title="Add event to calendar"
+            cancel-button-label="Close"
+        >
+            <EventAddToCalendar :event="event"/>
+        </BaseModal>
+
+        <BaseModal
             :isVisible="openInviteModal"
-            @confirm="handleShowInviteModalClose"
             @close="handleShowInviteModalClose"
-        />
+            :show-submit-button="false"
+            @confirm="handleShowInviteModalClose"
+            cancel-button-label="Close"
+            title="Invite your friends"
+        >
+        <InviteLink :event="event"/>
+        </BaseModal>
+
     </DefaultLayout>
 </template>

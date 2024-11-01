@@ -17,6 +17,7 @@ const getRandomBgColorFromString = (str) => {
         hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
     const index = Math.abs(hash) % tailwindColors.length;
+
     return tailwindColors[index];
 }
 

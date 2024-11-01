@@ -64,7 +64,7 @@ class Event extends Model
     public function getFormattedTimeAttribute(): string
     {
         $time = Carbon::parse($this->start_date_time)->format('H:i');
-        if ($this->end_date_time) {
+        if ($this->end_date_time && $this->end_date_time !== $this->start_date_time) {
             $time .= ' - ' . Carbon::parse($this->end_date_time)->format('H:i');
         }
 
@@ -79,5 +79,32 @@ class Event extends Model
     public function getIsoEndDateTimeAttribute(): ?string
     {
         return $this->end_date_time ? Carbon::parse($this->end_date_time)->toISOString() : null;
+    }
+
+    public function getGoogleCalendarLinkAttribute(): string
+    {
+        // Using the helper function directly within the attribute
+        return $this->generateGoogleCalendarLink(
+            $this->iso_start_date_time,
+            $this->iso_end_date_time,
+            $this->title,
+            $this->description,
+            $this->location
+        );
+    }
+
+    protected function generateGoogleCalendarLink($isoStartDateTime, $isoEndDateTime, $title, $description, $location): string
+    {
+        $checkedIsoEndDateTime = $isoEndDateTime ?: $isoStartDateTime;
+        return "https://www.google.com/calendar/render?action=TEMPLATE&text=" . urlencode($title) .
+            "&dates=" . $this->formatDateForGoogleCalendar($isoStartDateTime) .
+            "/" . $this->formatDateForGoogleCalendar($checkedIsoEndDateTime) .
+            "&details=" . urlencode($description) .
+            "&location=" . urlencode($location);
+    }
+
+    protected function formatDateForGoogleCalendar($isoDateTime): array|string|null
+    {
+        return str_replace(['-', ':', '.000Z'], '', Carbon::parse($isoDateTime)->toISOString());
     }
 }
