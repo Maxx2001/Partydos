@@ -8,7 +8,6 @@ import BaseModal from "@/Components/Base/BaseModal.vue";
 import {defineProps, ref, toRefs} from "vue";
 import SuccesMessage from "@/Components/Messages/SuccesMessage.vue";
 import {useTitle} from "@/Composables/useTitle.js";
-import EventInviteLinkModal from "@/Pages/Events/EventInvite/Partials/EventInviteLinkModal.vue";
 import EventInviteHero from "@/Pages/Events/EventInvite/Partials/EventInviteHero.vue";
 import AOS from "aos";
 import "aos/dist/aos.css";
