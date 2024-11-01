@@ -32,7 +32,7 @@ const { showInviteModal } = toRefs(props);
 
 const showModal = ref(false);
 // const openInviteModal = ref(showInviteModal.value)
-const openInviteModal = ref(true)
+const openInviteModal = ref(false)
 const openAddToCalendarModal = ref(false);
 const moveEventRegisterDown = ref(false);
 const eventOwner = ref(props.event.eventOwner);
