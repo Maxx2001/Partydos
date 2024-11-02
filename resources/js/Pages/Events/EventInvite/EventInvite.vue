@@ -59,15 +59,17 @@ onMounted(() => {
             />
 
             <EventParticipantsList
+                class="pb-12 lg:pb-24"
                 :guest-users="event.guestUsers"
                 :eventOwner="event.eventOwner"
                 :moveEventRegisterDown="moveEventRegisterDown"
-            />
-
-            <EventInviteDetails
-                :event="event"
                 @open-add-to-calendar-modal="eventAddToCalendarModel.openModal()"
             />
+
+<!--            <EventInviteDetails-->
+<!--                :event="event"-->
+<!--                @open-add-to-calendar-modal="eventAddToCalendarModel.openModal()"-->
+<!--            />-->
         </div>
 
         <EventRegisterModal
