@@ -1,9 +1,8 @@
 <script setup>
 import heroImage from "@/Assets/heroImage.webp";
 import "aos/dist/aos.css";
-import {computed, onMounted, ref} from "vue";
+import { computed, onMounted } from "vue";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
-import {TransitionRoot} from "@headlessui/vue";
 import AOS from "aos";
 
 const props = defineProps({
@@ -31,27 +30,30 @@ const formatDate = (dateString) => {
 const emits = defineEmits(['acceptEventInvite']);
 onMounted(() => {
     AOS.refresh();
-})
+});
 </script>
 
 <template>
-    <div class="flex items-center justify-center">
-        <div class="max-w-6xl flex py-12 flex-row">
-            <div class="w-1/2">
-                <div class="flex h-full items-center justify-center">
+    <div class="flex items-center justify-center bg-slate-100 py-12">
+        <div class="max-w-6xl flex flex-row w-full">
+            <div class="w-1/2 flex items-center justify-center">
+                <div
+                    class="h-[380px] w-full bg-gray-200 rounded-l-lg overflow-hidden flex items-center justify-center shadow-lg"
+                    style="aspect-ratio: 4 / 3;"
+                >
                     <img
                         :src="heroImage"
                         alt="Event Planning Illustration"
-                        class="w-full h-auto shadow-lg p-0"
+                        class="w-full h-full object-cover"
                         data-aos="fade-in"
                         data-aos-duration="1000"
                     />
                 </div>
             </div>
             <div
-                class="w-1/2 bg-gradient-to-br from-blue-500 to-purple-600 text-white font-extrabold leading-tight px-0 text-2xl flex flex-col items-center justify-center"
+                class="w-1/2 h-[380px] bg-gradient-to-br from-blue-500  rounded-r-lg to-purple-600 text-white font-extrabold leading-tight text-2xl flex flex-col items-center justify-center"
             >
-                <div class="flex flex-col pb-20">
+                <div class="flex flex-col pb-10 px-8">
                     <p>
                         Location:
                         <span class="ml-4 text-yellow-400">
@@ -72,4 +74,3 @@ onMounted(() => {
         </div>
     </div>
 </template>
-

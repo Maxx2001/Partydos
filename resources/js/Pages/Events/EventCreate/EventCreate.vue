@@ -6,7 +6,7 @@ import EventDatePicker from "@/Pages/Events/EventCreate/Partials/EventDatePicker
 import EventGuestSubmit from "@/Pages/Events/EventInvite/Partials/EventGuestSubmit.vue";
 import { router } from "@inertiajs/vue3";
 import { setHours, setMinutes } from 'date-fns';
-import { format } from 'date-fns';  // Correct import for format function
+import { format } from 'date-fns';
 import { useTitle } from '@/Composables/useTitle.js';
 
 useTitle('Partydos | Create Event');
@@ -26,21 +26,17 @@ const stepIndex = ref(1);
 const showEventDetailsInput = computed(() => stepIndex.value === 1);
 const showEventDatePicker = computed(() => stepIndex.value === 2);
 const showEventGuestSubmit = computed(() => stepIndex.value === 3);
-const showEndDateOption = ref(false);
 
 const submitForm = () => {
     router.post(route('events.store'), form);
 };
 
-// Function to set DateTime in form
 const setDateObject = (dateObject) => {
-    // Combine selected date and time to create DateTime for start
     const startDateTime = setMinutes(
         setHours(dateObject.selectedDate, parseInt(dateObject.selectedHour)),
         parseInt(dateObject.selectedMinute)
     );
 
-    // Combine selected date and time to create DateTime for end (if selected)
     let endDateTime = null;
     if (dateObject.selectedEndHour && dateObject.selectedEndMinute) {
         endDateTime = setMinutes(
@@ -49,7 +45,6 @@ const setDateObject = (dateObject) => {
         );
     }
 
-    // Format the DateTime to MySQL compatible format
     form.start_date_time = format(startDateTime, 'yyyy-MM-dd HH:mm:ss');
     form.end_date_time = endDateTime ? format(endDateTime, 'yyyy-MM-dd HH:mm:ss') : null;
 };
@@ -57,7 +52,7 @@ const setDateObject = (dateObject) => {
 const scrollToTop = () => {
     window.scrollTo({
         top: 0,
-        behavior: 'smooth' // Adds a smooth scroll effect
+        behavior: 'smooth'
     });
 };
 </script>

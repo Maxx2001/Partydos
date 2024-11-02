@@ -34,7 +34,6 @@ const clearErrors = () => {
     errors.email = '';
 };
 
-// Validate form fields
 const validateForm = () => {
     clearErrors();
 
@@ -57,8 +56,8 @@ const validateForm = () => {
     return isValid;
 };
 
-// Submit form
 const submitRegisterForm = () => {
+    console.log('submitting form');
     if (validateForm()) {
         router.post(
             route('events.register-guest', props.event.uniqueIdentifier),
