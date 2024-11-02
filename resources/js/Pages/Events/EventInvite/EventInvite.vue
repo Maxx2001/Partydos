@@ -49,6 +49,7 @@ onMounted(() => {
         <div class="md:px-8 lg:px-0 bg-slate-100">
             <EventInviteHero
                 :event="event"
+                @accept-event-invite="eventRegisterModal.openModal()"
             />
 
             <EventInviteBanner
