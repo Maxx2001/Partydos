@@ -4,6 +4,7 @@ namespace Domain\Events\Models;
 
 use Carbon\Carbon;
 use Domain\Events\Services\EventShareLinkService;
+use Domain\Events\Services\GoogleCalendarLinkService;
 use Domain\GuestUsers\Models\GuestUser;
 use Domain\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -92,28 +93,12 @@ class Event extends Model
 
     public function getGoogleCalendarLinkAttribute(): string
     {
-        // Using the helper function directly within the attribute
-        return $this->generateGoogleCalendarLink(
+        return GoogleCalendarLinkService::generateLink(
             $this->iso_start_date_time,
             $this->iso_end_date_time,
             $this->title,
             $this->description,
             $this->location
         );
-    }
-
-    protected function generateGoogleCalendarLink($isoStartDateTime, $isoEndDateTime, $title, $description, $location): string
-    {
-        $checkedIsoEndDateTime = $isoEndDateTime ?: $isoStartDateTime;
-        return "https://www.google.com/calendar/render?action=TEMPLATE&text=" . urlencode($title) .
-            "&dates=" . $this->formatDateForGoogleCalendar($isoStartDateTime) .
-            "/" . $this->formatDateForGoogleCalendar($checkedIsoEndDateTime) .
-            "&details=" . urlencode($description) .
-            "&location=" . urlencode($location);
-    }
-
-    protected function formatDateForGoogleCalendar($isoDateTime): array|string|null
-    {
-        return str_replace(['-', ':', '.000Z'], '', Carbon::parse($isoDateTime)->toISOString());
     }
 }
