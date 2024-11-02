@@ -28,7 +28,16 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'unique_identifier',
+        'user_id',
+        'guest_user_id',
+        'title',
+        'description',
+        'location',
+        'start_date_time',
+        'end_date_time',
+    ];
 
     public function user(): BelongsTo
     {

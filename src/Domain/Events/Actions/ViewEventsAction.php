@@ -2,7 +2,7 @@
 
 namespace Domain\Events\Actions;
 
-use Domain\Events\DataTransferObjects\EventEntity;
+use Domain\Events\DataTransferObjects\EventEntityData;
 use Domain\Users\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +13,7 @@ class ViewEventsAction
         /* @var User $user */
         $user = Auth::user();
 
-        return EventEntity::collect(
+        return EventEntityData::collect(
             $events = $user->events()->get()
         );
     }

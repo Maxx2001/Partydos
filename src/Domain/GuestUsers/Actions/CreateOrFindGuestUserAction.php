@@ -2,19 +2,20 @@
 
 namespace Domain\GuestUsers\Actions;
 
+use Domain\Events\DataTransferObjects\EventRegisterGuestData;
 use Domain\GuestUsers\Models\GuestUser;
 
 class CreateOrFindGuestUserAction
 {
 
-    public static function execute(string $name, string $email): GuestUser
+    public function execute(EventRegisterGuestData $eventRegisterGuestData): GuestUser
     {
         return GuestUser::firstOrCreate(
             [
-                'email' => $email,
+                'email' => $eventRegisterGuestData->email,
             ],
             [
-                'name' => $name,
+                'name' => $eventRegisterGuestData->name,
             ]
         );
     }

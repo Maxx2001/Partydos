@@ -6,7 +6,7 @@ use Domain\GuestUsers\Models\GuestUser;
 use Domain\Users\Models\User;
 use Illuminate\Support\Collection;
 
-class ParticipantDTO
+class ParticipantData
 {
     public function __construct(
         public int $id,

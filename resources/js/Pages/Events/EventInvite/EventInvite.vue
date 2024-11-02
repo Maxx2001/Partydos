@@ -29,10 +29,8 @@ useTitle(`Invite to ${props.event.title}`);
 
 const { showInviteModal } = toRefs(props);
 
-
 const showModal = ref(false);
-// const openInviteModal = ref(showInviteModal.value)
-const openInviteModal = ref(false)
+const openInviteModal = ref(showInviteModal.value)
 const openAddToCalendarModal = ref(false);
 const moveEventRegisterDown = ref(false);
 const eventOwner = ref(props.event.eventOwner);
@@ -45,15 +43,6 @@ const handleConfirm = () => {
         eventRegisterFormRef.value.submitRegisterForm();
     }
 };
-
-const handleClose = () => {
-    showModal.value = false;
-}
-
-const handleShowInviteModalClose = () => {
-    openInviteModal.value = false;
-}
-
 const handleRegisterSuccess = () => {
     showModal.value = false;
     eventRegisterSuccess.value = true;
@@ -131,9 +120,9 @@ const copyToClipboard = async() => {
 
         <BaseModal
             :isVisible="openInviteModal"
-            @close="handleShowInviteModalClose"
+            @close="openInviteModal = false"
             :show-submit-button="false"
-            @confirm="handleShowInviteModalClose"
+            @confirm="openInviteModal = false"
             cancel-button-label="Close"
             title="Invite your friends"
         >

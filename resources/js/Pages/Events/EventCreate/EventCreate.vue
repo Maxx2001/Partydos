@@ -15,8 +15,8 @@ const form = reactive({
     title: null,
     description: null,
     location: null,
-    startDateTime: null,
-    endDateTime: null,
+    start_date_time: null,
+    end_date_time: null,
     name: null,
     email: null,
 });
@@ -50,8 +50,8 @@ const setDateObject = (dateObject) => {
     }
 
     // Format the DateTime to MySQL compatible format
-    form.startDateTime = format(startDateTime, 'yyyy-MM-dd HH:mm:ss');
-    form.endDateTime = endDateTime ? format(endDateTime, 'yyyy-MM-dd HH:mm:ss') : null;
+    form.start_date_time = format(startDateTime, 'yyyy-MM-dd HH:mm:ss');
+    form.end_date_time = endDateTime ? format(endDateTime, 'yyyy-MM-dd HH:mm:ss') : null;
 };
 
 const scrollToTop = () => {

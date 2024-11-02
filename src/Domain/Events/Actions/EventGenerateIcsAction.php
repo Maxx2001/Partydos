@@ -7,7 +7,7 @@ use Domain\Events\Models\Event;
 
 class EventGenerateIcsAction
 {
-    public static function handle(Event $event): string
+    public function execute(Event $event): string
     {
         $startDate        = Carbon::parse($event->start_date_time)->format('Ymd\THis');
         $endDate          = Carbon::parse($event->start_date_time)->format('Ymd\THis');

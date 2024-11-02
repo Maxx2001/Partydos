@@ -2,32 +2,21 @@
 
 namespace Domain\Events\Actions;
 
+use Domain\Events\DataTransferObjects\EventStoreData;
 use Domain\Events\Models\Event;
 use Domain\GuestUsers\Models\GuestUser;
+use Illuminate\Support\Facades\Session;
 
 class EventCreateAction
 {
-
-    public static function execute(
-        GuestUser $guestUser,
-        string    $title,
-        ?string   $description,
-        ?string   $location,
-        string    $startDateTime,
-        ?string   $endDateTime
-    ): Event
+    public function execute(EventStoreData $eventStoreData, GuestUser $guestUser): Event
     {
-        $event = Event::create([
-            'title'           => $title,
-            'description'     => $description,
-            'location'        => $location,
-            'start_date_time' => $startDateTime,
-            'end_date_time'   => $endDateTime,
-        ]);
-
+        $event = Event::create($eventStoreData->toArray());
         $event->guestUser()->associate($guestUser);
-        $event->save();
 
-        return $event;
+        $event->save();
+        Session::flash('event_created');
+
+        return  $event;
     }
 }

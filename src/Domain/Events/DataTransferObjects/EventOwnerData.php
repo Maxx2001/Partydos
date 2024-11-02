@@ -6,7 +6,7 @@ use App\Http\GuestUsers\Resources\GuestUserResource;
 
 use Domain\Events\Models\Event;
 
-class EventOwnerDTO
+class EventOwnerData
 {
     public static function getOwner(Event $event): ?GuestUserResource
     {

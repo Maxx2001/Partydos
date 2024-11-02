@@ -6,8 +6,9 @@ use Carbon\Carbon;
 use Domain\Events\Models\Event;
 use Domain\Events\Services\EventShareLinkService;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Data;
 
-class EventDTO
+class EventData extends Data
 {
     public function __construct(
         public int $id,
@@ -41,15 +42,10 @@ class EventDTO
             isoEndDateTime: !$event->end_date_time ? null : Carbon::parse($event->end_date_time)->setTimezone('UTC')->format('Ymd\THisO'),
             status: $event->status,
             shareLink: (new EventShareLinkService())->generateShareLink($event),
-            eventOwner: EventOwnerDTO::getOwner($event),
-            participants: ParticipantDTO::fromCollection($event->guestUsers),
+            eventOwner: EventOwnerData::getOwner($event),
+            participants: ParticipantData::fromCollection($event->guestUsers),
             createdAt: $event->created_at,
             updatedAt: $event->updated_at
         );
-    }
-
-    public static function fromCollection(Collection $events): array
-    {
-        return $events->map(fn($event) => self::fromModel($event))->toArray();
     }
 }

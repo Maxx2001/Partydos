@@ -2,13 +2,12 @@
 
 namespace App\Http\Events\Controllers;
 
-use App\Http\Events\Requests\EventRegisterGuestRequest;
-use App\Http\Events\Requests\EventStoreRequest;
 use Domain\Events\Actions\EventCreateAction;
 use Domain\Events\Actions\EventGenerateIcsAction;
 use Domain\Events\Actions\ViewEventsAction;
-use Domain\Events\DataTransferObjects\EventDTO;
-use Domain\Events\DataTransferObjects\EventEntity;
+use Domain\Events\DataTransferObjects\EventEntityData;
+use Domain\Events\DataTransferObjects\EventRegisterGuestData;
+use Domain\Events\DataTransferObjects\EventStoreData;
 use Domain\Events\Models\Event;
 use Domain\GuestUsers\Actions\CreateOrFindGuestUserAction;
 use Domain\Users\Models\User;
@@ -30,8 +29,8 @@ class EventController extends Controller
         $ownedEvents = $user->ownedEvents()->get();
 
         return Inertia::render('Dashboard/Index', [
-            'events' => EventDTO::fromCollection($events),
-            'ownedEvents' =>  EventDTO::fromCollection($ownedEvents),
+            'events' => EventEntityData::collect($events),
+            'ownedEvents' =>  EventEntityData::collect($ownedEvents),
         ]);
     }
 
@@ -40,23 +39,16 @@ class EventController extends Controller
         return Inertia::render('Events/EventCreate/EventCreate');
     }
 
-    public function store(EventStoreRequest $eventStoreRequest): RedirectResponse
+    public function store(
+        EventStoreData $eventStoreData,
+        CreateOrFindGuestUserAction $createOrFindGuestUserAction,
+        EventCreateAction $eventCreateAction
+    ): RedirectResponse
     {
-        $guestUser = CreateOrFindGuestUserAction::execute(
-            $eventStoreRequest->name,
-            $eventStoreRequest->email
-        );
+        $eventRegisterGuestData = EventRegisterGuestData::from($eventStoreData);
+        $guestUser = $createOrFindGuestUserAction->execute($eventRegisterGuestData);
 
-        $event = EventCreateAction::execute(
-            $guestUser,
-            $eventStoreRequest->title,
-            $eventStoreRequest->description,
-            $eventStoreRequest->location,
-            $eventStoreRequest->startDateTime,
-            $eventStoreRequest->endDateTime
-        );
-
-        Session::flash('event_created');
+        $event = $eventCreateAction->execute($eventStoreData, $guestUser);
 
         return redirect()->route('events.show-invite', $event);
     }
@@ -64,14 +56,14 @@ class EventController extends Controller
     public function show(Event $event): Response
     {
         return Inertia::render('Events/EventShow', [
-            'event' => EventDTO::fromModel($event),
+            'event' => EventEntityData::from($event),
         ]);
     }
 
     public function showInvite(Event $event): Response
     {
         return Inertia::render('Events/EventInvite/EventInvite', [
-            'event' => EventEntity::from($event->load('guestUsers')),
+            'event' => EventEntityData::from($event->load('guestUsers')),
             'showInviteModal' => Session::get('event_created'),
         ])->withViewData([
             'title' => $event->title,
@@ -82,22 +74,22 @@ class EventController extends Controller
         ]);
     }
 
-
-    public function registerGuestUser(Event $event, EventRegisterGuestRequest $eventRegisterGuestRequest): RedirectResponse
+    public function registerGuestUser(
+        Event $event,
+        CreateOrFindGuestUserAction $createOrFindGuestUserAction,
+        EventRegisterGuestData $eventRegisterGuestData
+    ): RedirectResponse
     {
-        $guestUser = CreateOrFindGuestUserAction::execute(
-            $eventRegisterGuestRequest->name,
-            $eventRegisterGuestRequest->email
-        );
+        $guestUser = $createOrFindGuestUserAction->execute($eventRegisterGuestData);
 
         $event->guestUsers()->attach($guestUser);
 
         return redirect()->back();
     }
 
-    public function downloadEventICS(Event $event): Application|\Illuminate\Http\Response|ResponseFactory
+    public function downloadEventICS(Event $event, EventGenerateIcsAction $eventGenerateIcsAction): Application|\Illuminate\Http\Response|ResponseFactory
     {
-        $ics = EventGenerateIcsAction::handle($event);
+        $ics = $eventGenerateIcsAction->execute($event);
 
         return response($ics)
             ->header('Content-Type', 'text/calendar')

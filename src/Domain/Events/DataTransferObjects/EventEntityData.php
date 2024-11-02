@@ -9,7 +9,7 @@ use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\DataCollection;
 
-class EventEntity extends Data
+class EventEntityData extends Data
 {
     public function __construct(
         public int             $id,
