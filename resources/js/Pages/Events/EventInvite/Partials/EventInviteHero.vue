@@ -1,5 +1,5 @@
 <script setup>
-import {computed} from "vue";
+import { computed } from "vue";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 import EventBanner from "@/Pages/Events/EventInvite/Partials/EventBanner.vue";
 
@@ -29,39 +29,46 @@ const emits = defineEmits(['acceptEventInvite']);
 </script>
 
 <template>
-    <section class="relative bg-gradient-to-br from-blue-500 to-purple-600 text-white py-8 md:py-24 px-6">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
+    <section class="relative bg-gradient-to-br from-blue-600 to-purple-800 text-white py-10 md:py-24 px-6">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
             <div
-                class="w-full lg:px-0 h-full flex flex-col justify-center space-y-6"
+                class="w-full lg:px-0 h-full flex flex-col justify-center space-y-1 md:space-y-4"
                 data-aos="fade-up"
                 data-aos-duration="1000"
             >
-                <h1 class="text-2xl md:text-5xl font-extrabold leading-tight text-center lg:text-left flex flex-col md:flex-row justify-center">
+                <h1 class="text-3xl md:text-5xl font-extrabold leading-tight text-center lg:text-left flex flex-col md:flex-row justify-center mb-4">
                     You are invited to:
-                    <span class="pl-2 text-green-400">
+                    <span class="pl-2 text-yellow-300">
                         {{ event.title }}
                     </span>
                 </h1>
-                <EventBanner class="block md:hidden"/>
-                <div class="md:pb-20 md:hidden flex flex-col text-lg">
-                    <p class="flex flex-col text-center font-extrabold">
-                        Location:
-                        <span class="ml-2 md:ml-4 text-yellow-400">
+                <div class="md:hidden flex flex-col text-center md:text-left text-xl space-y-2 md:space-y-4">
+                    <p class="font-bold">
+                        At:
+                        <span class="text-pink-300">
                             {{ event.location || 'No event location set.' }}
                         </span>
                     </p>
-                    <p class="pt-1 flex flex-col text-center">
+                    <p class="font-semibold">
                         Event starts at:
-                        <span class="ml-2 md:ml-4 text-pink-300">
+                        <span class="text-blue-200">
                             {{ formattedStartDate }}
                         </span>
                     </p>
                 </div>
+                <!-- Event Banner for Mobile -->
+                <EventBanner class="block md:hidden pt-2 md:pt-0"/>
             </div>
         </div>
         <div class="absolute top-0 left-0 w-24 h-24 bg-white/20 rounded-full blur-lg"></div>
-        <div class="flex justify-center pt-4">
-            <BaseOutlineButton label="Join event!" @click="emits('acceptEventInvite')" class="block md:hidden"/>
+
+        <!-- Button Section -->
+        <div class="flex md:hidden  justify-center pt-4">
+            <BaseOutlineButton
+                label="Join event!"
+                @click="emits('acceptEventInvite')"
+                class="bg-blue-700 font-bold py-3 px-6 rounded-md hover:bg-blue-800 transition duration-300 ease-in-out"
+            />
         </div>
     </section>
 </template>

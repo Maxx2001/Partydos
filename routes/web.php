@@ -23,11 +23,7 @@ Route::get('contact', [ContactController::class, 'index'])->name('contact');
 Route::get('roadmap', [RoadmapController::class, 'index'])->name('roadmap');
 
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 ])->group(function () {
-
     Route::resource('events', EventController::class)->only('index');
 });
