@@ -49,7 +49,7 @@ const emits = defineEmits(['acceptEventInvite']);
                             {{ event.location || 'No event location set.' }}
                         </span>
                     </p>
-                    <p class="font-semibold">
+                    <p class="font-semibold pt-1">
                         Event starts at:
                         <span class="text-blue-200">
                             {{ formattedStartDate }}
