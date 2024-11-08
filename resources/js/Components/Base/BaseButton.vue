@@ -23,7 +23,7 @@ defineProps({
 <template>
     <button
         :type="type"
-        class="inline-flex items-center justify-center gap-x-1.5 rounded-md bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm hover:bg-white hover:text-blue-600 hover:border hover:border-blue-600  border border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition duration-300"
+        class="inline-flex items-center justify-center gap-x-1.5 rounded-md bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm hover:bg-white hover:text-blue-600 hover:border hover:border-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition duration-300"
         :class="extraClasses"
     >
         <component :is="icon" class="-ml-0.5 h-5 w-5" aria-hidden="true" />

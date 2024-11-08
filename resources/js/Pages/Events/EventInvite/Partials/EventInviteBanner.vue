@@ -4,6 +4,7 @@ import "aos/dist/aos.css";
 import { computed, onMounted } from "vue";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 import AOS from "aos";
+import BaseButton from "@/Components/Base/BaseButton.vue";
 
 const props = defineProps({
     event: {
@@ -68,7 +69,11 @@ onMounted(() => {
                     </p>
                 </div>
                 <div class="flex justify-center">
-                    <BaseOutlineButton label="Join event!" @click="emits('acceptEventInvite')"/>
+                    <BaseButton
+                        label="Join event!"
+                        @click="emits('acceptEventInvite')"
+                        class="h-12"
+                    />
                 </div>
             </div>
         </div>
