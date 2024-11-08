@@ -11,6 +11,7 @@ import EventInviteDetails from "@/Pages/Events/EventInvite/Partials/EventInviteD
 import EventRegisterModal from "@/Pages/Events/EventInvite/Partials/Modals/EventRegisterModal.vue";
 import EventAddToCalendarModel from "@/Pages/Events/EventInvite/Partials/Modals/EventAddToCalendarModel.vue";
 import EventInviteLinkeModal from "@/Pages/Events/EventInvite/Partials/Modals/EventInviteLinkeModal.vue";
+import EventDescription from "@/Pages/Events/EventInvite/Partials/EventDescription.vue";
 
 const props = defineProps({
     event: {
@@ -58,12 +59,14 @@ onMounted(() => {
             />
 
             <EventParticipantsList
-                class="pb-12 lg:pb-24"
+                class="pb-6 lg:pb-24"
                 :guest-users="event.guestUsers"
                 :eventOwner="event.eventOwner"
                 :moveEventRegisterDown="moveEventRegisterDown"
                 @open-add-to-calendar-modal="eventAddToCalendarModel.openModal()"
             />
+
+            <EventDescription :event="event" class="pb-12"/>
 
 <!--            <EventInviteDetails-->
 <!--                :event="event"-->

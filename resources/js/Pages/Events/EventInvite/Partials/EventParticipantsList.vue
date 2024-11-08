@@ -75,7 +75,7 @@ const emit = defineEmits(['openAddToCalendarModal']);
                         label="Add to Calendar"
                         @click="emit('openAddToCalendarModal')"
                         extraClasses="text-xl"
-                        class="mt-3 h-24"
+                        class="mt-3 lg:h-24"
                     />
                 </div>
             </div>
