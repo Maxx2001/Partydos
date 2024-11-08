@@ -66,7 +66,7 @@ defineProps({
                     ]"
             >
         </div>
-        <div class="h-6">
+        <div class="h-6" v-if="error">
             <span class="text-red-500 italic">
             {{ error }}
         </span>

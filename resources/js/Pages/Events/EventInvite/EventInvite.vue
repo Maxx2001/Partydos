@@ -7,7 +7,6 @@ import {useTitle} from "@/Composables/useTitle.js";
 import EventInviteHero from "@/Pages/Events/EventInvite/Partials/EventInviteHero.vue";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import EventInviteDetails from "@/Pages/Events/EventInvite/Partials/EventInviteDetails.vue";
 import EventRegisterModal from "@/Pages/Events/EventInvite/Partials/Modals/EventRegisterModal.vue";
 import EventAddToCalendarModel from "@/Pages/Events/EventInvite/Partials/Modals/EventAddToCalendarModel.vue";
 import EventInviteLinkeModal from "@/Pages/Events/EventInvite/Partials/Modals/EventInviteLinkeModal.vue";

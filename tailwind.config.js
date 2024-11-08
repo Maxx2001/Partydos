@@ -33,6 +33,9 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'cancel-red': '#FF4545'
+            }
         },
     },
     plugins: [forms, typography],

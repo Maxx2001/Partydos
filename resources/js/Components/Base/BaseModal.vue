@@ -35,6 +35,7 @@ const emit = defineEmits(['close', 'confirm']);
 const closeModal = () => emit('close');
 const confirmAction = () => emit('confirm');
 </script>
+
 <template>
     <transition
         enter-active-class="transition-opacity duration-300"
@@ -50,26 +51,27 @@ const confirmAction = () => emit('confirm');
             @click="closeModal"
         >
             <div
-                class="bg-white rounded-lg shadow-lg w-11/12 max-w-3xl py-8 px-4 lg:px-12 relative"
+                class="p-1 bg-gradient-to-br from-blue-600 to-purple-800 rounded-xl w-full max-w-3xl m-3"
                 @click.stop
             >
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-2xl font-bold text-indigo-700">{{ title }}</h3>
-                    <button @click="closeModal" class="hover:text-gray-900 text-4xl text-red-500">
-                        &times;
-                    </button>
-                </div>
+                <div class="bg-white rounded-xl shadow-lg w-full h-full py-8 px-4 lg:px-12">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-2xl font-bold text-indigo-700">{{ title }}</h3>
+                        <button @click="closeModal" class="hover:text-gray-900 text-4xl text-cancel-red">
+                            &times;
+                        </button>
+                    </div>
 
-                <div class="text-gray-700 py-2 lg:py-4">
-                    <slot></slot>
-                </div>
+                    <div class="text-gray-700 py-2 lg:py-4">
+                        <slot></slot>
+                    </div>
 
-                <div class="flex justify-end mt-4 space-x-4">
-                    <BaseCancelButton @click="closeModal" :label="cancelButtonLabel" v-if="showCancelButton"/>
-                    <BaseButton @click="confirmAction" :label="submitButtonLabel" :isLoading="isLoading"  v-if="showSubmitButton"/>
+                    <div class="flex justify-end mt-4 space-x-4">
+                        <BaseCancelButton @click="closeModal" :label="cancelButtonLabel" v-if="showCancelButton"/>
+                        <BaseButton @click="confirmAction" :label="submitButtonLabel" :isLoading="isLoading" v-if="showSubmitButton"/>
+                    </div>
                 </div>
             </div>
         </div>
     </transition>
 </template>
-

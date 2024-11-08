@@ -77,7 +77,7 @@ defineExpose({submitRegisterForm});
 
 <template>
     <div class="w-full bg-white">
-        <form class="flex flex-col justify-center w-full items-center bg-white" @submit.prevent="submitRegisterForm">
+        <form class="flex flex-col justify-center w-full items-center bg-white gap-5" @submit.prevent="submitRegisterForm">
             <TextInput
                 placeholder="Enter your name"
                 name="name"
