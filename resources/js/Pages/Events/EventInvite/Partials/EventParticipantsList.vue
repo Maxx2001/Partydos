@@ -71,7 +71,12 @@ const emit = defineEmits(['openAddToCalendarModal']);
                     </ul>
                 </div>
                 <div class=" flex justify-center mt-4 lg:mt-0">
-                    <BaseButton label="Add to Calendar" @click="emit('openAddToCalendarModal')" extraClasses="text-xl" class="mt-3"/>
+                    <BaseButton
+                        label="Add to Calendar"
+                        @click="emit('openAddToCalendarModal')"
+                        extraClasses="text-xl"
+                        class="mt-3 h-24"
+                    />
                 </div>
             </div>
         </div>

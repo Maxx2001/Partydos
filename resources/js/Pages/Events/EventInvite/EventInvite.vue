@@ -33,7 +33,6 @@ const eventRegisterModal = ref('eventRegisterModal');
 const eventAddToCalendarModel = ref('eventAddToCalendarModel');
 const eventInviteLineModel = ref('eventInviteLineModel');
 
-
 onMounted(() => {
     AOS.init();
 
