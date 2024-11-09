@@ -35,7 +35,3 @@ defineProps({
         />
     </header>
 </template>
-
-<style scoped>
-/* Add any additional styles here if needed */
-</style>

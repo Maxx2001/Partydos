@@ -2,7 +2,6 @@
 import HeaderComponent from "./Partials/HeaderComponent.vue";
 import Footer from "../Layouts/Partials/Footer.vue";
 
-
 const menuItems = [
     {
         label: 'Home',

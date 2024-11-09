@@ -1,6 +1,12 @@
 <script setup>
 import { defineProps } from "vue";
-import BaseCalendarLink from "@/Components/Base/BaseCalendarLink.vue";
+import GoogleCalendarButton
+    from "@/Pages/Events/EventInvite/Partials/Modals/Partials/CalendarButtons/GoogleCalendarButton.vue";
+import AppleCalendarButton
+    from "@/Pages/Events/EventInvite/Partials/Modals/Partials/CalendarButtons/AppleCalendarButton.vue";
+import OutlookCalendarButton
+    from "@/Pages/Events/EventInvite/Partials/Modals/Partials/CalendarButtons/OutlookCalendarButton.vue";
+import CalendarButton from "@/Pages/Events/EventInvite/Partials/Modals/Partials/CalendarButtons/CalendarButton.vue";
 
 const props = defineProps({
     event: {
@@ -18,30 +24,10 @@ const calendarLink = `/event/${props.event.id}/download-ics`;
         <div class="w-full mx-4">
             <div class="flex flex-col justify-center w-full items-center">
                 <div class="lg:w-10/12 w-full grid grid-cols-2 gap-3">
-                    <BaseCalendarLink
-                        :url="event.googleCalendarLink"
-                        label="Google"
-                        backgroundColor="bg-blue-500"
-                        hoverColor="hover:bg-blue-700"
-                    />
-                    <BaseCalendarLink
-                        :url="calendarLink"
-                        label="Apple"
-                        backgroundColor="bg-green-500"
-                        hoverColor="hover:bg-green-700"
-                    />
-                    <BaseCalendarLink
-                        :url="calendarLink"
-                        label="Outlook"
-                        backgroundColor="bg-orange-500"
-                        hoverColor="hover:bg-orange-700"
-                    />
-                    <BaseCalendarLink
-                        :url="calendarLink"
-                        label="Other"
-                        backgroundColor="bg-purple-500"
-                        hoverColor="hover:bg-purple-700"
-                    />
+                    <GoogleCalendarButton :url="event.googleCalendarLink"/>
+                    <AppleCalendarButton :url="calendarLink"/>
+                    <OutlookCalendarButton :url="calendarLink"/>
+                    <CalendarButton :url="calendarLink"/>
                 </div>
             </div>
         </div>
