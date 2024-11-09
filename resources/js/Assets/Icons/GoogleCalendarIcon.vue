@@ -3,7 +3,7 @@
         xmlns="http://www.w3.org/2000/svg"
         aria-label="Google Calendar"
         viewBox="0 0 512 512"
-        class="h-full w-full"
+        preserveAspectRatio="xMidYMid meet"
     >
         <rect rx="15%" fill="#fff"/>
         <path d="M100 340h74V174h166v-74H137q-37 0-37 35" fill="#4285f4"/>
