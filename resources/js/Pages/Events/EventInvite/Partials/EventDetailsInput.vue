@@ -80,7 +80,7 @@ const features = [
         </h1>
     </div>
     <div class="flex flex-col items-center w-full pt-6">
-        <div class="w-full md:w-2/3 xl:w-1/3 flex flex-col items-center">
+        <div class="w-full md:w-2/3 xl:w-1/3 flex flex-col items-center gap-4">
             <TextInput
                 :model-value="form.title"
                 :required="true"
