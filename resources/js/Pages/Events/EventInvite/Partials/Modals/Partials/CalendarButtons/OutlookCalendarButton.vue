@@ -20,7 +20,7 @@ const props = defineProps({
         <div class="flex flex-col">
             <OutlookCalendarIcon class="h-20 w-20"/>
             <span class="text-black text-center pb-3 -pt-8">
-                    Google
+                Outlook
             </span>
         </div>
     </a>
