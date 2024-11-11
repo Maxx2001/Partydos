@@ -16,11 +16,11 @@ const props = defineProps({
     <a
         :href="url"
         target="_blank"
-        class="border p-2 rounded bg-purple-500 hover:bg-purple-700 flex justify-center items-center text-white text-xl font-bold h-40 w-full"
+        class="border p-2 rounded bg-purple-100 hover:bg-purple-300 flex justify-center items-center text-white text-xl font-bold h-40 w-full"
     >
         <div class="flex flex-col">
             <CalendarIcon class="h-20 w-20 mt-2"/>
-            <span class="text-black text-center pb-3 ">
+            <span class="text-black text-center pb-3 text-base">
                     Other
             </span>
         </div>
