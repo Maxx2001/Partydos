@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import {defineConfig} from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
@@ -16,5 +16,18 @@ export default defineConfig({
                 },
             },
         }),
+
     ],
+    server: {
+        host: true,
+        strictPort: true,
+        port: 5173,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        },
+        hmr: {
+            protocol: 'wss',
+            host: `${process.env.DDEV_PROJECT}.${process.env.DDEV_TLD}`
+        },
+    }
 });
