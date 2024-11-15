@@ -4,7 +4,7 @@ import { computed, reactive, ref } from "vue";
 import EventDetailsInput from "@/Pages/Events/EventInvite/Partials/EventDetailsInput.vue";
 import EventDatePicker from "@/Pages/Events/EventCreate/Partials/EventDatePicker.vue";
 import EventGuestSubmit from "@/Pages/Events/EventInvite/Partials/EventGuestSubmit.vue";
-import { router } from "@inertiajs/vue3";
+import {router, usePage} from "@inertiajs/vue3";
 import { setHours, setMinutes } from 'date-fns';
 import { format } from 'date-fns';
 import { useTitle } from '@/Composables/useTitle.js';
@@ -27,9 +27,11 @@ const showEventDetailsInput = computed(() => stepIndex.value === 1);
 const showEventDatePicker = computed(() => stepIndex.value === 2);
 const showEventGuestSubmit = computed(() => stepIndex.value === 3);
 
-const submitForm = () => {
-    router.post(route('events.store'), form);
-};
+const submitForm = () => router.post(route('events.store'), form);
+
+const submitAuthenticatedForm = () => router.post(route('events.store'), form)
+
+const isLoggedIn = usePage().props.auth.user;
 
 const setDateObject = (dateObject) => {
     const startDateTime = setMinutes(
@@ -49,6 +51,15 @@ const setDateObject = (dateObject) => {
     form.end_date_time = endDateTime ? format(endDateTime, 'yyyy-MM-dd HH:mm:ss') : null;
 };
 
+const submitEventDetails = (stepIndexNumber) => {
+    if (stepIndexNumber === 3 && isLoggedIn) {
+        submitAuthenticatedForm();
+    }
+
+    stepIndex.value = stepIndexNumber;
+    scrollToTop();
+}
+
 const scrollToTop = () => {
     window.scrollTo({
         top: 0,
@@ -65,18 +76,18 @@ const scrollToTop = () => {
                 <EventDetailsInput
                     v-if=showEventDetailsInput
                     :form="form"
-                    @submitEventDetails="() => { stepIndex = 2; scrollToTop(); }"
+                    @submitEventDetails="() => submitEventDetails(2)"
                 />
                 <EventDatePicker
                     v-if="showEventDatePicker"
                     @update="setDateObject($event)"
-                    @returnToPreviousStep="() => { stepIndex = 1; scrollToTop(); }"
-                    @submitEventDetails="() => { stepIndex = 3; scrollToTop(); }"
+                    @returnToPreviousStep="() => submitEventDetails(1)"
+                    @submitEventDetails="() => submitEventDetails(3)"
                 />
                 <EventGuestSubmit
                     v-if="showEventGuestSubmit"
                     :form="form"
-                    @returnToPreviousStep="() => { stepIndex = 2; scrollToTop(); }"
+                    @returnToPreviousStep="() => submitEventDetails(2)"
                     @submitEventGuestDetails="submitForm"
                 />
             </form>

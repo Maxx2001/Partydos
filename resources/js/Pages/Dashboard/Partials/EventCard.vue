@@ -17,7 +17,7 @@ const uniqueIdentifier = ref(props.event.uniqueIdentifier);
     <li class="rounded bg-blue-50 shadow">
         <Link :href="route('events.show-invite', {event: uniqueIdentifier})">
             <span class="p-2 flex justify-center">
-                {{ event.title }}
+                {{ event.title }} at {{ event.location }}
             </span>
         </Link>
     </li>

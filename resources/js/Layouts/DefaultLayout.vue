@@ -9,6 +9,11 @@ const menuItems = [
         active: route().current() === 'home'
     },
     {
+        label: 'Events',
+        url: route('events.index'),
+        active: route().current() === 'events.index'
+    },
+    {
         label: 'Features',
         url: route('features'),
         active: route().current() === 'features'
@@ -22,16 +27,16 @@ const menuItems = [
         label: 'Contact',
         url: route('contact'),
         active: route().current() === 'contact'
-    },
+    }
 ]
 </script>
 
 <template>
-    <div>
-        <HeaderComponent :menu-items="menuItems"/>
-        <main>
+    <div class="min-h-screen flex flex-col">
+        <HeaderComponent :menu-items="menuItems" />
+        <main class="flex-grow">
             <slot />
         </main>
-        <Footer/>
+        <Footer />
     </div>
 </template>
