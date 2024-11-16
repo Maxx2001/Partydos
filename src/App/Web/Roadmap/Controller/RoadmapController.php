@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Roadmap;
+namespace App\Web\Roadmap\Controller;
 
 use Inertia\Response;
 use Support\Controllers\Controller;

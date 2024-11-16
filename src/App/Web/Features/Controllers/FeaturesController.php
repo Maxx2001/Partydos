@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Features;
+namespace App\Web\Features\Controllers;
 
 use Inertia\Response;
 use Support\Controllers\Controller;

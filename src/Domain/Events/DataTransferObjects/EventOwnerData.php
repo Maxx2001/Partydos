@@ -2,8 +2,6 @@
 
 namespace Domain\Events\DataTransferObjects;
 
-use App\Http\GuestUsers\Resources\GuestUserResource;
-
 use Domain\Events\Models\Event;
 
 class EventOwnerData

@@ -7,16 +7,16 @@ use Domain\Events\Models\Event;
 use Domain\GuestUsers\Models\GuestUser;
 use Illuminate\Support\Facades\Session;
 
-class EventCreateAction
+class GuestEventCreateAction
 {
     public function execute(EventStoreData $eventStoreData, GuestUser $guestUser): Event
     {
-        $event = Event::create($eventStoreData->toArray());
+        $event = Event::create($eventStoreData->all());
         $event->guestUser()->associate($guestUser);
 
         $event->save();
         Session::flash('event_created');
 
-        return  $event;
+        return $event;
     }
 }

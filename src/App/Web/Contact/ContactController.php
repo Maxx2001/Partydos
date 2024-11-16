@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Contact;
+namespace App\Web\Contact;
 
 use Inertia\Response;
 use Support\Controllers\Controller;

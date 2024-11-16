@@ -1,16 +1,14 @@
 <?php
 
+use App\Web\Contact\ContactController;
+use App\Web\Features\Controllers\FeaturesController;
+use App\Web\Roadmap\Controller\RoadmapController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Contact\ContactController;
-use App\Http\Features\FeaturesController;
-use App\Http\Roadmap\RoadmapController;
 
 Route::get('/', function () {
     return Inertia::render('LandingsPage/Index');
 })->name('home');
-
-
 
 Route::get('features', [FeaturesController::class, 'index'])->name('features');
 Route::get('contact', [ContactController::class, 'index'])->name('contact');

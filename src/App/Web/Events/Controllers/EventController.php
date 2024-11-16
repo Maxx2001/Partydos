@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Events\Controllers;
+namespace App\Web\Events\Controllers;
 
 use Domain\Events\Actions\EventCreateAction;
 use Domain\Events\Actions\EventGenerateIcsAction;
@@ -24,6 +24,7 @@ class EventController extends Controller
     public function index(ViewEventsAction $viewEventsAction): Response
     {
         /* @var User $user */
+        $user = auth()->user();
 
         $events = $viewEventsAction->execute();
         $ownedEvents = $user->ownedEvents()->get();
