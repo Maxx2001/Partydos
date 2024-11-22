@@ -29,7 +29,7 @@ const form = useForm({
 </script>
 
 <template>
-    <div class="flex items-center justify-center h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-4">
+    <div class="flex items-center justify-center h-screen overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6">
         <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
             <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
                 Welcome Back! 🎉
@@ -123,16 +123,14 @@ const form = useForm({
     animation: gradientBackground 24s ease infinite;
 }
 
-html {
-    height: -webkit-fill-available;
-}
-
-body {
+html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    min-height: -webkit-fill-available;
+    height: 100%;
+    overflow: hidden; /* Prevent scrolling */
 }
 </style>
+
 
 
