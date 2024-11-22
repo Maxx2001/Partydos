@@ -2,7 +2,6 @@
 import heroImage from "@/Assets/heroImage.webp";
 import "aos/dist/aos.css";
 import { computed, onMounted } from "vue";
-import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 import AOS from "aos";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 
@@ -10,6 +9,10 @@ const props = defineProps({
     event: {
         type: Object,
         required: true,
+    },
+    showInviteButton: {
+        type: Boolean,
+        default: true,
     },
 });
 
@@ -70,6 +73,7 @@ onMounted(() => {
                 </div>
                 <div class="flex justify-center">
                     <BaseButton
+                        v-if="showInviteButton"
                         label="Join event!"
                         @click="emits('acceptEventInvite')"
                         class="h-12"

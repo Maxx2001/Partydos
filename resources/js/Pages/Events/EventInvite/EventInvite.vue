@@ -20,7 +20,11 @@ const props = defineProps({
     showInviteModal: {
         type: Boolean,
         required: false,
-    }
+    },
+    showInviteButton: {
+        type: Boolean,
+        default: true,
+    },
 });
 
 useTitle(`Invite to ${props.event.title}`);
@@ -49,11 +53,13 @@ onMounted(() => {
             <EventInviteHero
                 :event="event"
                 @accept-event-invite="eventRegisterModal.openModal()"
+                :show-invite-button="showInviteButton"
             />
 
             <EventInviteBanner
                 :event="event"
                 @accept-event-invite="eventRegisterModal.openModal()"
+                :show-invite-button="showInviteButton"
                 class="hidden md:flex"
             />
 

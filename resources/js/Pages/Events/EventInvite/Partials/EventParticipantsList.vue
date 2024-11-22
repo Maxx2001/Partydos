@@ -38,7 +38,7 @@ const emit = defineEmits(['openAddToCalendarModal']);
 
 <template>
     <div class="flex flex-col items-center lg:mt-3 mt-6">
-        <div class="w-full lg:max-w-6xl mx-4">
+        <div class="w-full lg:max-w-6xl mx-4 pt-4 lg:pt-0">
             <p class="lg:text-3xl text-2xl text-indigo-700 font-semibold text-center lg:hidden">
                 Organised by
             </p>

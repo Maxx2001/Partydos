@@ -7,7 +7,11 @@ const props = defineProps({
     event: {
         type: Object,
         required: true
-    }
+    },
+    showInviteButton: {
+        type: Boolean,
+        default: true,
+    },
 });
 
 const formattedStartDate = computed(() => {
@@ -29,8 +33,11 @@ const emits = defineEmits(['acceptEventInvite']);
 </script>
 
 <template>
-    <section class="relative bg-gradient-to-br from-blue-600 to-purple-800 text-white py-10 md:py-24 px-6">
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
+    <section
+        class="relative bg-gradient-to-br from-blue-600 to-purple-800 text-white py-10 md:py-24 px-6"
+        :class="showInviteButton ? '' : 'pb-8 lg:pb-0'"
+    >
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-start h-full pb-8">
             <div
                 class="w-full lg:px-0 h-full flex flex-col justify-center space-y-1 md:space-y-4"
                 data-aos="fade-up"
@@ -63,7 +70,7 @@ const emits = defineEmits(['acceptEventInvite']);
         <div class="absolute top-0 left-0 w-24 h-24 bg-white/20 rounded-full blur-lg"></div>
 
         <!-- Button Section -->
-        <div class="flex md:hidden  justify-center pt-4">
+        <div class="flex md:hidden justify-center pt-4" v-if="showInviteButton">
             <BaseOutlineButton
                 label="Join event!"
                 @click="emits('acceptEventInvite')"

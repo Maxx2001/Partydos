@@ -2,6 +2,7 @@
 
 namespace App\Web\Events\Controllers;
 
+use Auth;
 use Domain\Events\Actions\EventGenerateIcsAction;
 use Domain\Events\Actions\GuestEventCreateAction;
 use Domain\Events\Actions\ViewEventsAction;
@@ -66,6 +67,7 @@ class GuestEventController extends Controller
         return Inertia::render('Events/EventInvite/EventInvite', [
             'event' => EventEntityData::from($event->load('guestUsers')),
             'showInviteModal' => Session::get('event_created'),
+            'showInviteButton' => !Auth::user(),
         ])->withViewData([
             'title' => $event->title,
             'description' => $event->description,
