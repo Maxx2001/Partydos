@@ -16,7 +16,6 @@
                         placeholder="party@dos.com"
                         class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
                         :class="{ 'border-red-500': form.errors.email }"
-                        @focus="adjustScroll($event, 300)"
                     />
                     <p v-if="form.errors.email" class="text-sm text-red-500 mt-1">
                         {{ form.errors.email }}
@@ -33,7 +32,6 @@
                         placeholder="********"
                         class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
                         :class="{ 'border-red-500': form.errors.password }"
-                        @focus="adjustScroll($event, 100)"
                     />
                     <p v-if="form.errors.password" class="text-sm text-red-500 mt-1">
                         {{ form.errors.password }}
