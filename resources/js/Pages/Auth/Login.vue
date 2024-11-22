@@ -1,35 +1,5 @@
-<script setup>
-import { ref } from 'vue';
-import {useForm} from "@inertiajs/vue3";
-
-const email = ref('');
-const password = ref('');
-const isInputFocused = ref(false);
-
-const handleSubmit = () => {
-    form.transform(data => ({
-        ...data,
-        remember: form.remember ? 'on' : '',
-    })).post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
-};
-
-const checkFocus = () => {
-    if (!email.value && !password.value) {
-        isInputFocused.value = false;
-    }
-};
-
-const form = useForm({
-    email: '',
-    password: '',
-    remember: false,
-});
-</script>
-
 <template>
-    <div class="flex items-center justify-center h-screen overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6">
+    <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6 overflow-auto">
         <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
             <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
                 Welcome Back! 🎉
@@ -46,8 +16,7 @@ const form = useForm({
                         placeholder="party@dos.com"
                         class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
                         :class="{ 'border-red-500': form.errors.email }"
-                        @focus="isInputFocused = true"
-                        @blur="checkFocus"
+                        @focus="scrollIntoView"
                     />
                     <p v-if="form.errors.email" class="text-sm text-red-500 mt-1">
                         {{ form.errors.email }}
@@ -64,8 +33,7 @@ const form = useForm({
                         placeholder="********"
                         class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
                         :class="{ 'border-red-500': form.errors.password }"
-                        @focus="isInputFocused = true"
-                        @blur="checkFocus"
+                        @focus="scrollIntoView"
                     />
                     <p v-if="form.errors.password" class="text-sm text-red-500 mt-1">
                         {{ form.errors.password }}
@@ -90,6 +58,37 @@ const form = useForm({
         </div>
     </div>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+import { useForm } from "@inertiajs/vue3";
+
+const email = ref('');
+const password = ref('');
+const isInputFocused = ref(false);
+
+const form = useForm({
+    email: '',
+    password: '',
+    remember: false,
+});
+
+const handleSubmit = () => {
+    form.transform(data => ({
+        ...data,
+        remember: form.remember ? 'on' : '',
+    })).post(route('login'), {
+        onFinish: () => form.reset('password'),
+    });
+};
+
+const scrollIntoView = (event) => {
+    event.target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+    });
+};
+</script>
 
 <style>
 @keyframes gradientBackground {
