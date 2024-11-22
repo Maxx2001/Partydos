@@ -16,7 +16,7 @@
                         placeholder="party@dos.com"
                         class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
                         :class="{ 'border-red-500': form.errors.email }"
-                        @focus="scrollIntoView"
+                        @focus="adjustScroll($event, 100)"
                     />
                     <p v-if="form.errors.email" class="text-sm text-red-500 mt-1">
                         {{ form.errors.email }}
@@ -33,7 +33,7 @@
                         placeholder="********"
                         class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
                         :class="{ 'border-red-500': form.errors.password }"
-                        @focus="scrollIntoView"
+                        @focus="adjustScroll($event, 100)"
                     />
                     <p v-if="form.errors.password" class="text-sm text-red-500 mt-1">
                         {{ form.errors.password }}
@@ -82,13 +82,23 @@ const handleSubmit = () => {
     });
 };
 
-const scrollIntoView = (event) => {
-    event.target.scrollIntoView({
+// Custom scroll adjustment function
+const adjustScroll = (event, offset = 0) => {
+    const target = event.target;
+    const targetRect = target.getBoundingClientRect();
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    // Calculate the top position with an offset
+    const scrollTo = scrollTop + targetRect.top - offset;
+
+    // Smooth scroll to the calculated position
+    window.scrollTo({
+        top: scrollTo,
         behavior: 'smooth',
-        block: 'center',
     });
 };
 </script>
+
 
 <style>
 @keyframes gradientBackground {
