@@ -35,7 +35,6 @@ class CreateNewUserAction implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
 
-        /* @var GuestUser $guestUser */
         $guestUser = GuestUser::where('email', $input['email'])->first();
 
         if (! $guestUser) {

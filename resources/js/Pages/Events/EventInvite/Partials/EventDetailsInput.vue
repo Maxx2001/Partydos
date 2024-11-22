@@ -107,7 +107,7 @@ const features = [
                 class="mx-2 w-full"
             />
 
-            <div class="w-full flex justify-end mt-4">
+            <div class="w-full flex justify-between lg:justify-end mt-4">
                 <BaseOutlineButton
                     label="Cancel"
                     class="mr-4"

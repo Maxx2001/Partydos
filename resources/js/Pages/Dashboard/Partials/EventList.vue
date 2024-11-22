@@ -15,13 +15,21 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="py-4">
+    <div class="py-8">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                <ol class="col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:grid-cols-4 gap-8 sm:pr-8 p-8 min-h-24">
-                    <EventCard v-for="event in events"  :key="event.id" :event="event"/>
-                    <EventCard v-for="ownedEvent in ownedEvents"  :key="ownedEvent.id" :event="ownedEvent"/>
-                </ol>
+            <div>
+                <div class="p-2">
+                    <h2 class="text-2xl font-bold text-blue-600 mb-4">Your Organized Events</h2>
+                    <ol class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        <EventCard v-for="ownedEvent in ownedEvents" :key="ownedEvent.id" :event="ownedEvent"/>
+                    </ol>
+                </div>
+                <div class="p-2 mt-6 border-t border-gray-300">
+                    <h2 class="text-2xl font-bold text-purple-600 mb-4">Invited Events</h2>
+                    <ol class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        <EventCard v-for="event in events" :key="event.id" :event="event"/>
+                    </ol>
+                </div>
             </div>
         </div>
     </div>

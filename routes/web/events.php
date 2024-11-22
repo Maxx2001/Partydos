@@ -13,5 +13,5 @@ Route::post('event-register-guest/{event:unique_identifier}', [GuestEventControl
     ->name('events.register-guest');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-        Route::resource('users-events', AuthenticatedEventController::class)->only('index');
+        Route::resource('users-events', AuthenticatedEventController::class)->only('index', 'store');
 });

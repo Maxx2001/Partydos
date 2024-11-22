@@ -1,7 +1,6 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
+import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 import EventList from "@/Pages/Dashboard/Partials/EventList.vue";
-import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 
 const props = defineProps({
     events: {
@@ -17,20 +16,34 @@ const props = defineProps({
 
 <template>
     <DefaultLayout>
-        <section class="relative bg-gradient-to-br from-blue-500 to-purple-600 text-white py-12 md:py-24 px-6 h-12">
-            <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
-                <div
-                    class="w-full lg:w-2/3 lg:px-0 h-full flex flex-col justify-center space-y-6 text-center lg:text-left"
-                    data-aos="fade-up"
-                    data-aos-duration="1000"
-                >
-                    <h1 class="text-2xl md:text-5xl font-extrabold leading-tight">
-                       Events
-                    </h1>
-                </div>
+        <!-- Hero Section -->
+        <section class="relative bg-gradient-to-br from-blue-500 to-purple-600 text-white py-10 md:py-16 px-6">
+            <div class="max-w-6xl mx-auto flex flex-col items-center justify-center text-center space-y-6">
+                <h1 class="text-3xl md:text-5xl font-extrabold leading-tight drop-shadow-lg">
+                    Your Party, Your Events
+                </h1>
+                <p class="text-base md:text-lg text-white/80 max-w-3xl">
+                    Manage events you’re organizing or explore invitations you’ve received.
+                </p>
             </div>
-            <div class="absolute top-0 left-0 w-24 h-24 bg-white/20 rounded-full blur-lg"></div>
+
+            <!-- Decorative Elements -->
+            <div class="absolute -top-10 left-1/4 w-32 h-32 bg-white/20 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
         </section>
-        <EventList :owned-events="ownedEvents" :events="events"/>
+
+        <!-- Event List Section -->
+        <section id="event-list">
+            <div class="max-w-6xl mx-auto px-6">
+                <EventList :owned-events="ownedEvents" :events="events" />
+            </div>
+        </section>
     </DefaultLayout>
 </template>
+
+<style>
+/* For a smooth scrolling experience when navigating to #event-list */
+html {
+    scroll-behavior: smooth;
+}
+</style>
