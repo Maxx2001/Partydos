@@ -49,7 +49,7 @@ AOS.init();
                     data-aos-delay="200"
                 >
                     <BaseOutlineButton
-                        @click="router.get(route('events.create'))"
+                        @click="router.get(route('guest-events.create'))"
                         label="Create Event!"
                         extra-classes="text-xl px-6"
                     />

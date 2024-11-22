@@ -33,14 +33,14 @@ const logout = () => {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('events.index')">
+                                <Link :href="route('guest-events.index')">
                                     <ApplicationMark class="block h-9 w-auto" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('events.index')" :active="route().current('events.index')">
+                                <NavLink :href="route('users-events.index')" :active="route().current('events.index')">
                                     Events
                                 </NavLink>
                             </div>
@@ -125,7 +125,7 @@ const logout = () => {
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('events.index')" :active="route().current('events.index')">
+                        <ResponsiveNavLink :href="route('users-events.index')" :active="route().current('events.index')">
                             Dashboard
                         </ResponsiveNavLink>
                     </div>

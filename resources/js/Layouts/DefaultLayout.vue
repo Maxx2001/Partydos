@@ -10,8 +10,8 @@ const menuItems = [
     },
     {
         label: 'Events',
-        url: route('events.index'),
-        active: route().current() === 'events.index'
+        url: route('users-events.index'),
+        active: route().current() === 'users-events.index'
     },
     {
         label: 'Features',

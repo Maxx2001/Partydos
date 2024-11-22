@@ -2,8 +2,8 @@
 
 namespace App\Web\Events\Controllers;
 
-use Domain\Events\Actions\EventCreateAction;
 use Domain\Events\Actions\EventGenerateIcsAction;
+use Domain\Events\Actions\GuestEventCreateAction;
 use Domain\Events\Actions\ViewEventsAction;
 use Domain\Events\DataTransferObjects\EventEntityData;
 use Domain\Events\DataTransferObjects\EventRegisterGuestData;
@@ -19,7 +19,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Support\Controllers\Controller;
 
-class EventController extends Controller
+class GuestEventController extends Controller
 {
     public function index(ViewEventsAction $viewEventsAction): Response
     {
@@ -43,13 +43,13 @@ class EventController extends Controller
     public function store(
         EventStoreData $eventStoreData,
         CreateOrFindGuestUserAction $createOrFindGuestUserAction,
-        EventCreateAction $eventCreateAction
+        GuestEventCreateAction $guestEventCreateAction
     ): RedirectResponse
     {
         $eventRegisterGuestData = EventRegisterGuestData::from($eventStoreData);
         $guestUser = $createOrFindGuestUserAction->execute($eventRegisterGuestData);
 
-        $event = $eventCreateAction->execute($eventStoreData, $guestUser);
+        $event = $guestEventCreateAction->execute($eventStoreData, $guestUser);
 
         return redirect()->route('events.show-invite', $event);
     }

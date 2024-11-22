@@ -60,7 +60,7 @@ const submitRegisterForm = () => {
     console.log('submitting form');
     if (validateForm()) {
         router.post(
-            route('events.register-guest', props.event.uniqueIdentifier),
+            route('guest-events.register-guest', props.event.uniqueIdentifier),
             form,
             {
                 onSuccess: () => {

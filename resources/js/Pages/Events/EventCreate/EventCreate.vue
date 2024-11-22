@@ -27,9 +27,9 @@ const showEventDetailsInput = computed(() => stepIndex.value === 1);
 const showEventDatePicker = computed(() => stepIndex.value === 2);
 const showEventGuestSubmit = computed(() => stepIndex.value === 3);
 
-const submitForm = () => router.post(route('events.store'), form);
+const submitForm = () => router.post(route('guest-events.store'), form);
 
-const submitAuthenticatedForm = () => router.post(route('events.store'), form)
+const submitAuthenticatedForm = () => router.post(route('users-events.store'), form)
 
 const isLoggedIn = usePage().props.auth.user;
 

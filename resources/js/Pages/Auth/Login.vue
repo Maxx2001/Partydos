@@ -1,25 +1,12 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import AuthenticationCard from '@/Components/Jetsream/AuthenticationCard.vue';
-import AuthenticationCardLogo from '@/Components/Jetsream/AuthenticationCardLogo.vue';
-import Checkbox from '@/Components/Jetsream/Checkbox.vue';
-import InputError from '@/Components/Jetsream/InputError.vue';
-import InputLabel from '@/Components/Jetsream/InputLabel.vue';
-import PrimaryButton from '@/Components/Jetsream/PrimaryButton.vue';
-import TextInput from '@/Components/Jetsream/TextInput.vue';
+import { ref } from 'vue';
+import {useForm} from "@inertiajs/vue3";
 
-defineProps({
-    canResetPassword: Boolean,
-    status: String,
-});
+const email = ref('');
+const password = ref('');
+const isInputFocused = ref(false);
 
-const form = useForm({
-    email: '',
-    password: '',
-    remember: false,
-});
-
-const submit = () => {
+const handleSubmit = () => {
     form.transform(data => ({
         ...data,
         remember: form.remember ? 'on' : '',
@@ -27,68 +14,115 @@ const submit = () => {
         onFinish: () => form.reset('password'),
     });
 };
+
+const checkFocus = () => {
+    if (!email.value && !password.value) {
+        isInputFocused.value = false;
+    }
+};
+
+const form = useForm({
+    email: '',
+    password: '',
+    remember: false,
+});
 </script>
 
 <template>
-    <Head title="Log in" />
+    <div class="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6">
+        <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
+            <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
+                Welcome Back! 🎉
+            </h2>
+            <form @submit.prevent="handleSubmit" class="space-y-6">
+                <div>
+                    <label for="email" class="block text-sm font-bold text-gray-700 mb-1">
+                        Your Email
+                    </label>
+                    <input
+                        id="email"
+                        type="email"
+                        v-model="form.email"
+                        placeholder="party@dos.com"
+                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
+                        :class="{ 'border-red-500': form.errors.email }"
+                        @focus="isInputFocused = true"
+                        @blur="checkFocus"
+                    />
+                    <p v-if="form.errors.email" class="text-sm text-red-500 mt-1">
+                        {{ form.errors.email }}
+                    </p>
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-bold text-gray-700 mb-1">
+                        Your Password
+                    </label>
+                    <input
+                        id="password"
+                        type="password"
+                        v-model="form.password"
+                        placeholder="********"
+                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
+                        :class="{ 'border-red-500': form.errors.password }"
 
-    <AuthenticationCard>
-        <template #logo>
-            <AuthenticationCardLogo />
-        </template>
-
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-            {{ status }}
+                        @focus="isInputFocused = true"
+                        @blur="checkFocus"
+                    />
+                    <p v-if="form.errors.password" class="text-sm text-red-500 mt-1">
+                        {{ form.errors.password }}
+                    </p>
+                </div>
+                <button
+                    type="submit"
+                    class="w-full flex justify-center items-center py-3 bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold rounded-md shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-300 transition-transform transform"
+                >
+                    Let’s Party!
+                </button>
+            </form>
+            <p class="mt-6 text-sm text-center text-gray-700">
+                New here?
+                <a
+                    :href="route('register')"
+                    class="inline-block w-full mt-4 py-3 bg-gradient-to-br from-purple-500 to-pink-500 text-white font-bold text-center rounded-md shadow-md focus:ring-4 focus:ring-pink-300 focus:outline-none transition-transform transform"
+                >
+                    Sign up and Join the Fun! 🚀
+                </a>
+            </p>
         </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-                <TextInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="current-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <Checkbox v-model:checked="form.remember" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-<!--                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">-->
-<!--                    Forgot your password?-->
-<!--                </Link>-->
-
-                <Link v-if="canResetPassword" :href="route('register')" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                    Register
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
-            </div>
-        </form>
-    </AuthenticationCard>
+    </div>
 </template>
+
+<style>
+@keyframes gradientBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.animate-gradient {
+    background: linear-gradient(
+        270deg,
+        #3b82f6, /* Blue */
+        #4c6ff6, /* Soft Blue */
+        #5d5af6, /* Blue transitioning to Purple */
+        #7a4cf6, /* Blue-Purple */
+        #9c4af6, /* Deep Purple */
+        #a855f7, /* Bright Purple */
+        #9c4af6, /* Deep Purple */
+        #7a4cf6, /* Blue-Purple */
+        #5d5af6, /* Blue transitioning to Purple */
+        #4c6ff6, /* Soft Blue */
+        #3b82f6  /* Blue */
+    );
+    background-size: 800% 800%; /* Extra-large size for maximum smoothness */
+    animation: gradientBackground 24s ease infinite; /* Slightly slower animation for elegance */
+}
+</style>
+
+

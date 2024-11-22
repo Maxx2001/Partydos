@@ -58,7 +58,7 @@ const emits = defineEmits(["closeMobileMenu"]);
                     :icon="PlusCircleIcon"
                     label="Create event"
                     class="w-full"
-                    @click="router.get(route('events.create'))"
+                    @click="router.get(route('guest-events.create'))"
                 />
                 <BaseOutlineButton
                     v-if="!$page.props.auth.user"
@@ -70,7 +70,7 @@ const emits = defineEmits(["closeMobileMenu"]);
                 <BaseOutlineButton
                     v-else
                     :icon="CalendarDaysIcon"
-                    @click="router.get(route('events.index'))"
+                    @click="router.get(route('users-events.index'))"
                     label="Events"
                     class="w-full"
                 />

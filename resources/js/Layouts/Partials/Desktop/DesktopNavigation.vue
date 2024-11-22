@@ -52,7 +52,7 @@ const emits = defineEmits(['toggleMobileMenu']);
                     :icon="PlusCircleIcon"
                     label="Create event"
                     class="mr-6"
-                    @click="router.get(route('events.create'))"
+                    @click="router.get(route('guest-events.create'))"
                     extra-classes="text-sm"
                 />
                 <BaseOutlineButton
@@ -65,7 +65,7 @@ const emits = defineEmits(['toggleMobileMenu']);
                 <BaseOutlineButton
                     v-else
                     :icon="CalendarDaysIcon"
-                    @click="router.get(route('events.index'))"
+                    @click="router.get(route('users-events.index'))"
                     extra-classes="text-sm"
                     label="Events"
                 />
