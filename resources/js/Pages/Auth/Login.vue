@@ -29,7 +29,7 @@ const form = useForm({
 </script>
 
 <template>
-    <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6">
+    <div class="flex items-center justify-center h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-4">
         <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
             <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
                 Welcome Back! 🎉
@@ -107,20 +107,31 @@ const form = useForm({
 .animate-gradient {
     background: linear-gradient(
         270deg,
-        #3b82f6, /* Blue */
-        #4c6ff6, /* Soft Blue */
-        #5d5af6, /* Blue transitioning to Purple */
-        #7a4cf6, /* Blue-Purple */
-        #9c4af6, /* Deep Purple */
-        #a855f7, /* Bright Purple */
-        #9c4af6, /* Deep Purple */
-        #7a4cf6, /* Blue-Purple */
-        #5d5af6, /* Blue transitioning to Purple */
-        #4c6ff6, /* Soft Blue */
-        #3b82f6  /* Blue */
+        #3b82f6,
+        #4c6ff6,
+        #5d5af6,
+        #7a4cf6,
+        #9c4af6,
+        #a855f7,
+        #9c4af6,
+        #7a4cf6,
+        #5d5af6,
+        #4c6ff6,
+        #3b82f6
     );
-    background-size: 800% 800%; /* Extra-large size for maximum smoothness */
-    animation: gradientBackground 24s ease infinite; /* Slightly slower animation for elegance */
+    background-size: 800% 800%;
+    animation: gradientBackground 24s ease infinite;
+}
+
+html {
+    height: -webkit-fill-available;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: -webkit-fill-available;
 }
 </style>
 
