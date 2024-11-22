@@ -29,7 +29,7 @@ const form = useForm({
 </script>
 
 <template>
-    <div class="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6">
+    <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6">
         <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
             <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
                 Welcome Back! 🎉
@@ -64,7 +64,6 @@ const form = useForm({
                         placeholder="********"
                         class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
                         :class="{ 'border-red-500': form.errors.password }"
-
                         @focus="isInputFocused = true"
                         @blur="checkFocus"
                     />
