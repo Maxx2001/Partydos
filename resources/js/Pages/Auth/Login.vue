@@ -1,8 +1,5 @@
 <template>
-    <div
-        ref="formContainer"
-        class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6 overflow-hidden"
-    >
+    <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6 overflow-auto">
         <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
             <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
                 Welcome Back! 🎉
@@ -19,7 +16,7 @@
                         placeholder="party@dos.com"
                         class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
                         :class="{ 'border-red-500': form.errors.email }"
-                        @focus="adjustForKeyboard($event)"
+                        @focus="adjustScroll($event, 300)"
                     />
                     <p v-if="form.errors.email" class="text-sm text-red-500 mt-1">
                         {{ form.errors.email }}
@@ -36,7 +33,7 @@
                         placeholder="********"
                         class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
                         :class="{ 'border-red-500': form.errors.password }"
-                        @focus="adjustForKeyboard($event)"
+                        @focus="adjustScroll($event, 100)"
                     />
                     <p v-if="form.errors.password" class="text-sm text-red-500 mt-1">
                         {{ form.errors.password }}
@@ -66,6 +63,10 @@
 import { ref } from 'vue';
 import { useForm } from "@inertiajs/vue3";
 
+const email = ref('');
+const password = ref('');
+const isInputFocused = ref(false);
+
 const form = useForm({
     email: '',
     password: '',
@@ -81,21 +82,22 @@ const handleSubmit = () => {
     });
 };
 
-// Adjust scroll position when an input is focused
-const adjustForKeyboard = (event) => {
-    const inputElement = event.target;
-    const containerElement = inputElement.closest(".w-full");
+// Custom scroll adjustment function
+const adjustScroll = (event, offset = 0) => {
+    const target = event.target;
+    const targetRect = target.getBoundingClientRect();
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-    if (containerElement) {
-        const offset = inputElement.offsetTop - 50; // Add custom offset for visibility
-        containerElement.scrollTo({
-            top: offset,
-            behavior: "smooth",
-        });
-    }
+    // Calculate the top position with an offset
+    const scrollTo = scrollTop + targetRect.top - offset;
+
+    // Smooth scroll to the calculated position
+    window.scrollTo({
+        top: scrollTo,
+        behavior: 'smooth',
+    });
 };
 </script>
-
 
 
 <style>
@@ -126,8 +128,8 @@ const adjustForKeyboard = (event) => {
     );
     background-size: 600% 600%; /* Slightly smaller for faster motion */
     animation: gradientBackground 18s ease infinite; /* Adjusted timing for smoother, dynamic transitions */
-}imation: gradientBackground 24s ease infinite;
 }
+
 
 html, body {
     margin: 0;
