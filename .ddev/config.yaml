@@ -2,10 +2,10 @@ name: Partydos
 type: laravel
 docroot: public
 php_version: "8.2"
-webserver_type: nginx-fpm
+webserver_type: apache-fpm
 router_http_port: "80"
 router_https_port: "443"
-xdebug_enabled: true
+xdebug_enabled: false
 additional_hostnames:
   - "partydos"
 additional_fqdns: []
@@ -28,7 +28,7 @@ hooks:
   post-start:
     - exec: composer install
       service: web
-mutagen_enabled: true
+#mutagen_enabled: true
 # Key features of DDEV's config.yaml:
 
 # name: <projectname> # Name of the project, automatically provides

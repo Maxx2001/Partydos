@@ -17,11 +17,6 @@ services:
             - DB_HOST=mysql
             - APP_DEBUG=true
             - APP_KEY=base64:878JLq7tcZZbXgaUQOJBHcgwOBU5bhT3KeDb9tzGZGs=
-            - GOOGLE_CLIENT_ID=948023160451-shr6u6v41t8br28088q8iksditfp6bc6.apps.googleusercontent.com
-            - GOOGLE_CLIENT_SECRET=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
-            - GOOGLE_CLIENT_HD=nextly.nl
-            - API_GATEWAY_TOKEN=4|Zv8eQbdJxQ7bK6mMpacbuRG5Dj3rpfWDm3XaXELM
-
     mysql:
         image: mysql:latest
         environment:
