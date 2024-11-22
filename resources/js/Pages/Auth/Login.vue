@@ -114,20 +114,19 @@ const adjustForKeyboard = (event) => {
 .animate-gradient {
     background: linear-gradient(
         270deg,
-        #3b82f6,
-        #4c6ff6,
-        #5d5af6,
-        #7a4cf6,
-        #9c4af6,
-        #a855f7,
-        #9c4af6,
-        #7a4cf6,
-        #5d5af6,
-        #4c6ff6,
-        #3b82f6
+        #3b82f6, /* Blue */
+        #5c67f6, /* Intermediate Blue */
+        #7a4cf6, /* Blue-Purple */
+        #9c4af6, /* Purple */
+        #a855f7, /* Bright Purple */
+        #9c4af6, /* Purple */
+        #7a4cf6, /* Blue-Purple */
+        #5c67f6, /* Intermediate Blue */
+        #3b82f6  /* Blue */
     );
-    background-size: 800% 800%;
-    animation: gradientBackground 24s ease infinite;
+    background-size: 600% 600%; /* Slightly smaller for faster motion */
+    animation: gradientBackground 18s ease infinite; /* Adjusted timing for smoother, dynamic transitions */
+}imation: gradientBackground 24s ease infinite;
 }
 
 html, body {
