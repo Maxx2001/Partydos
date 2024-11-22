@@ -63,10 +63,6 @@
 import { ref } from 'vue';
 import { useForm } from "@inertiajs/vue3";
 
-const email = ref('');
-const password = ref('');
-const isInputFocused = ref(false);
-
 const form = useForm({
     email: '',
     password: '',

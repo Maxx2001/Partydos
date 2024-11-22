@@ -1,12 +1,5 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import AuthenticationCard from '@/Components/Jetsream/AuthenticationCard.vue';
-import AuthenticationCardLogo from '@/Components/Jetsream/AuthenticationCardLogo.vue';
-import Checkbox from '@/Components/Jetsream/Checkbox.vue';
-import InputError from '@/Components/Jetsream/InputError.vue';
-import InputLabel from '@/Components/Jetsream/InputLabel.vue';
-import PrimaryButton from '@/Components/Jetsream/PrimaryButton.vue';
-import TextInput from '@/Components/Jetsream/TextInput.vue';
+import {Head, Link, useForm} from '@inertiajs/vue3';
 
 const form = useForm({
     name: '',
@@ -24,89 +17,167 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Register" />
+    <Head title="Register"/>
 
-    <AuthenticationCard>
-        <template #logo>
-            <AuthenticationCardLogo />
-        </template>
+    <div
+        class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6 overflow-auto">
+        <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
+            <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
+                Join the Party! 🎉
+            </h2>
+            <form @submit.prevent="submit" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-bold text-gray-700 mb-1">
+                        Name
+                    </label>
+                    <input
+                        id="name"
+                        v-model="form.name"
+                        type="text"
+                        placeholder="John Doe"
+                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
+                    />
+                    <p v-if="form.errors.name" class="text-sm text-red-500 mt-1">
+                        {{ form.errors.name }}
+                    </p>
+                </div>
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
-                <TextInput
-                    id="name"
-                    v-model="form.name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-                <InputError class="mt-2" :message="form.errors.name" />
-            </div>
+                <div>
+                    <label for="email" class="block text-sm font-bold text-gray-700 mb-1">
+                        Email
+                    </label>
+                    <input
+                        id="email"
+                        v-model="form.email"
+                        type="email"
+                        placeholder="party@dos.com"
+                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
+                    />
+                    <p v-if="form.errors.email" class="text-sm text-red-500 mt-1">
+                        {{ form.errors.email }}
+                    </p>
+                </div>
 
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="username"
-                />
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
+                <div>
+                    <label for="password" class="block text-sm font-bold text-gray-700 mb-1">
+                        Password
+                    </label>
+                    <input
+                        id="password"
+                        v-model="form.password"
+                        type="password"
+                        placeholder="********"
+                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
+                    />
+                    <p v-if="form.errors.password" class="text-sm text-red-500 mt-1">
+                        {{ form.errors.password }}
+                    </p>
+                </div>
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-                <TextInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="new-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
+                <div>
+                    <label for="password_confirmation" class="block text-sm font-bold text-gray-700 mb-1">
+                        Confirm Password
+                    </label>
+                    <input
+                        id="password_confirmation"
+                        v-model="form.password_confirmation"
+                        type="password"
+                        placeholder="********"
+                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
+                    />
+                    <p v-if="form.errors.password_confirmation" class="text-sm text-red-500 mt-1">
+                        {{ form.errors.password_confirmation }}
+                    </p>
+                </div>
 
-            <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-                <TextInput
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="new-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
-            </div>
+                <div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="flex items-start mt-4">
+                    <input
+                        id="terms"
+                        v-model="form.terms"
+                        type="checkbox"
+                        class="w-5 h-5 text-blue-600 rounded focus:ring-4 focus:ring-blue-400 border-gray-300"
+                    />
+                    <label for="terms" class="ml-3 text-sm text-gray-700">
+                        I agree to the
+                        <a
+                            :href="route('terms.show')"
+                            target="_blank"
+                            class="text-blue-600 underline hover:text-blue-800"
+                        >
+                            Terms of Service
+                        </a>
+                        and
+                        <a
+                            :href="route('policy.show')"
+                            target="_blank"
+                            class="text-blue-600 underline hover:text-blue-800"
+                        >
+                            Privacy Policy
+                        </a>.
+                    </label>
+                    <p v-if="form.errors.terms" class="text-sm text-red-500 mt-1 ml-8">
+                        {{ form.errors.terms }}
+                    </p>
+                </div>
 
-            <div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="mt-4">
-                <InputLabel for="terms">
-                    <div class="flex items-center">
-                        <Checkbox id="terms" v-model:checked="form.terms" name="terms" required />
-
-                        <div class="ms-2">
-                            I agree to the <a target="_blank" :href="route('terms.show')" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">Terms of Service</a> and <a target="_blank" :href="route('policy.show')" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">Privacy Policy</a>
-                        </div>
-                    </div>
-                    <InputError class="mt-2" :message="form.errors.terms" />
-                </InputLabel>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link :href="route('login')" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                    Already registered?
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <button
+                    type="submit"
+                    class="w-full flex justify-center items-center py-3 bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold rounded-md shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-300 transition-transform transform"
+                >
                     Register
-                </PrimaryButton>
-            </div>
-        </form>
-    </AuthenticationCard>
+                </button>
+
+                <p class="text-sm text-center text-gray-700 mt-6">
+                    Already have an account?
+                    <a
+                        :href="route('login')"
+                        class="text-blue-600 font-bold underline hover:text-blue-800"
+                    >
+                        Log in!
+                    </a>
+                </p>
+            </form>
+        </div>
+    </div>
 </template>
+
+<style>
+@keyframes gradientBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.animate-gradient {
+    background: linear-gradient(
+        270deg,
+        #3b82f6,
+        #4c6ff6,
+        #5d5af6,
+        #7a4cf6,
+        #9c4af6,
+        #a855f7,
+        #9c4af6,
+        #7a4cf6,
+        #5d5af6,
+        #4c6ff6,
+        #3b82f6
+    );
+    background-size: 800% 800%;
+    animation: gradientBackground 24s ease infinite;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%;
+    overflow: hidden;
+}
+</style>
