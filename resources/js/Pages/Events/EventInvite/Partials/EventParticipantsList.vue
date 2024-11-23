@@ -5,7 +5,7 @@ import ColorService from "@/Services/colorService.js";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 
 const props = defineProps({
-    guestUsers: {
+    invitedUsers: {
         type: Array,
         default: () => []
     },
@@ -20,7 +20,7 @@ const props = defineProps({
 });
 const {getRandomBgColorFromString} = ColorService;
 
-const totalGuests = computed(() => props.guestUsers.length);
+const totalGuests = computed(() => props.invitedUsers.length);
 
 const guestMessage = computed(() => {
     switch (totalGuests.value) {
@@ -63,7 +63,7 @@ const emit = defineEmits(['openAddToCalendarModal']);
                 <div class="flex w-full items-center mt-2 col-span-6 px-10">
                     <ul class="grid lg:grid-cols-7 grid-cols-4 w-full gap-4 justify-items-center mt-4 lg:mx-0">
                         <GuestItem
-                            v-for="(participant, index) in guestUsers"
+                            v-for="(participant, index) in invitedUsers"
                             :key="index"
                             :name="participant.name"
                             :bgColor="getRandomBgColorFromString(participant.name)"

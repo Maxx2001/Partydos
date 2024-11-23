@@ -64,10 +64,17 @@ class GuestEventController extends Controller
 
     public function showInvite(Event $event): Response
     {
+        $showInviteButton = true;
+
+        if ($user = Auth::user()) {
+            $eventUsers = $event->users()->get();
+            $showInviteButton = !$eventUsers->contains($user) && $event->users()->first()?->id === $user->id;
+        }
+
         return Inertia::render('Events/EventInvite/EventInvite', [
-            'event' => EventEntityData::from($event->load('guestUsers')),
+            'event' => EventEntityData::from($event),
             'showInviteModal' => Session::get('event_created'),
-            'showInviteButton' => !Auth::user(),
+            'showInviteButton' => $showInviteButton,
         ])->withViewData([
             'title' => $event->title,
             'description' => $event->description,
@@ -86,6 +93,14 @@ class GuestEventController extends Controller
         $guestUser = $createOrFindGuestUserAction->execute($eventRegisterGuestData);
 
         $event->guestUsers()->attach($guestUser);
+
+        return redirect()->back();
+    }
+
+    public function acceptInvite(Event $event): RedirectResponse
+    {
+        $user = Auth::user();
+        $event->users()->attach($user);
 
         return redirect()->back();
     }

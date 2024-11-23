@@ -50,6 +50,11 @@ class Event extends Model
         return $this->belongsTo(GuestUser::class, 'guest_user_id');
     }
 
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
+    }
+
     public function guestUsers(): BelongsToMany
     {
         return $this->belongsToMany(GuestUser::class)
@@ -100,5 +105,11 @@ class Event extends Model
             $this->description,
             $this->location
         );
+    }
+
+    public function getInvitedUsersAttribute()
+    {
+        $this->load('guestUsers', 'users');
+        return $this->guestUsers->merge($this->users);
     }
 }

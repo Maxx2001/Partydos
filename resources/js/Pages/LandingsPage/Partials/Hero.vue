@@ -19,7 +19,7 @@ AOS.init();
                 data-aos-duration="1000"
             >
                 <h1 class="text-2xl md:text-5xl font-extrabold leading-tight text-center lg:text-left hidden md:block">
-                    Plan Your Events Effortlessly with
+                    Bring people together with
                     <span class="">
                         Partydos
                     </span>
