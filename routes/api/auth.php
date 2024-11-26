@@ -2,6 +2,8 @@
 
 use App\Api\Auth\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Sanctum\Sanctum;
+
 
 // add 'auth' to url  by group
 Route::group(['prefix' => 'auth'], function () {

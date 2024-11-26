@@ -143,6 +143,7 @@ return [
             * Domain Service Providers...
             */
             Domain\Events\Providers\EventServiceProvider::class,
+            Laravel\Sanctum\SanctumServiceProvider::class,
 
         ])
         ->toArray(),
