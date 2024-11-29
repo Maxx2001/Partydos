@@ -58,7 +58,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import { useForm } from "@inertiajs/vue3";
 
 const form = useForm({
@@ -75,35 +74,18 @@ const handleSubmit = () => {
         onFinish: () => form.reset('password'),
     });
 };
-
-// Custom scroll adjustment function
-const adjustScroll = (event, offset = 0) => {
-    const target = event.target;
-    const targetRect = target.getBoundingClientRect();
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-    // Calculate the top position with an offset
-    const scrollTo = scrollTop + targetRect.top - offset;
-
-    // Smooth scroll to the calculated position
-    window.scrollTo({
-        top: scrollTo,
-        behavior: 'smooth',
-    });
-};
 </script>
-
 
 <style>
 @keyframes gradientBackground {
     0% {
-        background-position: 0% 50%;
+        background-position: 0 50%;
     }
     50% {
         background-position: 100% 50%;
     }
     100% {
-        background-position: 0% 50%;
+        background-position: 0 50%;
     }
 }
 
