@@ -10,6 +10,7 @@ class RegisterUserData extends Data
 {
     public function __construct(
         public string $name,
+        #[Rule(['email', 'unique:users,email'])]
         public string $email,
         #[Password(min: 8)]
         #[Rule(['confirmed'])]

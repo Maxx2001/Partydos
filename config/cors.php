@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'], // Add your frontend URLs
+    'allowed_origins' => ['*', 'capacitor://localhost', 'http://localhost'], // Add your frontend URLs
 
     'allowed_origins_patterns' => [],
 
