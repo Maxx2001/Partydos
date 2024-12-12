@@ -19,8 +19,11 @@ AOS.init();
                 data-aos-duration="1000"
             >
                 <h1 class="text-2xl md:text-5xl font-extrabold leading-tight text-center lg:text-left">
-                    Bring people together with
-                    <span>
+                    <span class="text-yellow-400">
+                        Effortlessly
+                    </span>
+                    bring people together with
+                    <span class="text-teal-300">
                         Partydos
                     </span>
                 </h1>
