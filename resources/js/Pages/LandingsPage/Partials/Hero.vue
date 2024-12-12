@@ -18,13 +18,13 @@ AOS.init();
                 data-aos="fade-up"
                 data-aos-duration="1000"
             >
-                <h1 class="text-2xl md:text-5xl font-extrabold leading-tight text-center lg:text-left hidden md:block">
+                <h1 class="text-2xl md:text-5xl font-extrabold leading-tight text-center lg:text-left">
                     Bring people together with
-                    <span class="">
+                    <span>
                         Partydos
                     </span>
                 </h1>
-                <h2 class="text-2xl text-center lg:text-left">
+                <h2 class="text-2xl text-center lg:text-left hidden md:block">
                     Effortlessly
                     <span class="text-yellow-400 font-extrabold">
                         plan events,
