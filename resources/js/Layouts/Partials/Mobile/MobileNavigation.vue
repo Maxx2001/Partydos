@@ -17,6 +17,8 @@ const props = defineProps({
 });
 
 const emits = defineEmits(["closeMobileMenu"]);
+
+const logout = () => router.post(route('logout'));
 </script>
 
 <template>
@@ -28,12 +30,10 @@ const emits = defineEmits(["closeMobileMenu"]);
             @click="emits('closeMobileMenu')"
         ></div>
 
-        <!-- Mobile Menu -->
         <div
             class="fixed top-0 right-0 h-full w-11/12 max-w-full bg-gradient-to-br from-blue-300 to-purple-600 text-white shadow-lg p-8 transform transition-transform duration-300 z-50 flex flex-col"
             :class="props.isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'"
         >
-            <!-- Header with Title and Close Button -->
             <div class="flex items-center justify-between text-white text-2xl font-bold border-b-2 pb-3">
                 <div >Partydos</div>
                 <button class="text-white flex items-center" @click="emits('closeMobileMenu')">
@@ -41,7 +41,6 @@ const emits = defineEmits(["closeMobileMenu"]);
                 </button>
             </div>
 
-            <!-- Menu Items -->
             <div class="flex flex-col space-y-3 mt-6">
                 <MenuItem
                     v-for="menuItem in menuItems"
@@ -52,7 +51,6 @@ const emits = defineEmits(["closeMobileMenu"]);
                 />
             </div>
 
-            <!-- Action Buttons Positioned Directly Under the Nav Items -->
             <div class="mt-6 flex flex-col space-y-4">
                 <BaseButton
                     :icon="PlusCircleIcon"
@@ -76,10 +74,10 @@ const emits = defineEmits(["closeMobileMenu"]);
                 />
             </div>
 
-            <!-- Spacer to Push Copyright to Bottom -->
             <div class="flex-grow"></div>
-
-            <!-- Copyright Section at the Bottom -->
+           <button @click="logout" class="mb-1.5">
+               Logout
+           </button>
             <div class="border-t border-blue-300 pt-6">
                 <p class="text-center text-sm text-gray-200">&copy; 2024 Partydos. All rights reserved.</p>
             </div>
