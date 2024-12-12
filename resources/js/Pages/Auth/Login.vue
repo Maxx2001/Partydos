@@ -14,11 +14,13 @@
                         type="email"
                         v-model="form.email"
                         placeholder="party@dos.com"
+                        required
                         class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
-                        :class="{ 'border-red-500': form.errors.email }"
+                        :class="{ 'border-red-500': form.errors.email || formErrors }"
                     />
-                    <p v-if="form.errors.email" class="text-sm text-red-500 mt-1">
+                    <p v-if="form.errors.email || formErrors" class="text-sm text-red-500 mt-1">
                         {{ form.errors.email }}
+                        {{ formErrors }}
                     </p>
                 </div>
                 <div>
@@ -30,10 +32,11 @@
                         type="password"
                         v-model="form.password"
                         placeholder="********"
+                        required
                         class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
-                        :class="{ 'border-red-500': form.errors.password }"
+                        :class="{ 'border-red-500': form.errors.password || formErrors }"
                     />
-                    <p v-if="form.errors.password" class="text-sm text-red-500 mt-1">
+                    <p v-if="formErrors" class="text-sm text-red-500 mt-1">
                         {{ form.errors.password }}
                     </p>
                 </div>
@@ -59,6 +62,7 @@
 
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import {ref} from "vue";
 
 const form = useForm({
     email: '',
@@ -66,12 +70,23 @@ const form = useForm({
     remember: false,
 });
 
+const formErrors = ref();
+
 const handleSubmit = () => {
     form.transform(data => ({
         ...data,
-        remember: form.remember ? 'on' : '',
-    })).post(route('login'), {
-        onFinish: () => form.reset('password'),
+        remember: form.remember,
+    })).post(route('login.authenticate'), {
+        onError: () => {
+            console.log('error');
+            form.reset('password');
+            formErrors.value = 'Invalid email or password.';
+        },
+        onFinish: () => {
+            console.log('error');
+            form.reset('password');
+            formErrors.value = 'Invalid email or password.';
+        },
     });
 };
 </script>
