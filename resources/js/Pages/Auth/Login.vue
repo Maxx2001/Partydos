@@ -39,7 +39,7 @@
                     <p v-if="formErrors" class="text-sm text-red-500 mt-1">
                         {{ form.errors.password }}
                     </p>
-                    <div class="mt-2">
+                    <div class="mt-4">
                         <label for="remember" >
                             <input
                                 type="checkbox"

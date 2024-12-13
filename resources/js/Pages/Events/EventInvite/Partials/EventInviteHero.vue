@@ -1,7 +1,7 @@
 <script setup>
-import { computed } from "vue";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 import EventBanner from "@/Pages/Events/EventInvite/Partials/EventBanner.vue";
+import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage";
 
 const props = defineProps({
     event: {
@@ -13,21 +13,6 @@ const props = defineProps({
         default: true,
     },
 });
-
-const formattedStartDate = computed(() => {
-    return props.event.startDateTime ? formatDate(props.event.startDateTime) : 'No start date set.';
-});
-
-const formatDate = (dateString) => {
-    const options = {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-    };
-    return new Intl.DateTimeFormat('en-GB', options).format(new Date(dateString));
-};
 
 const emits = defineEmits(['acceptEventInvite']);
 </script>
@@ -57,9 +42,9 @@ const emits = defineEmits(['acceptEventInvite']);
                         </span>
                     </p>
                     <p class="font-semibold pt-1">
-                        Event starts at:
+<!--                        Event starts at:-->
                         <span class="text-blue-200">
-                            {{ formattedStartDate }}
+                            {{ getFormattedEventDateMessage(event) }}
                         </span>
                     </p>
                 </div>

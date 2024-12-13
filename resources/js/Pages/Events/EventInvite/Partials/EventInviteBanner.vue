@@ -4,6 +4,7 @@ import "aos/dist/aos.css";
 import { computed, onMounted } from "vue";
 import AOS from "aos";
 import BaseButton from "@/Components/Base/BaseButton.vue";
+import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage";
 
 const props = defineProps({
     event: {
@@ -65,9 +66,8 @@ onMounted(() => {
                         </span>
                     </p>
                     <p class="pt-3">
-                        Event starts at:
                         <span class="ml-4 text-pink-300">
-                            {{ formattedStartDate }}
+                           {{ getFormattedEventDateMessage(event) }}
                         </span>
                     </p>
                 </div>
