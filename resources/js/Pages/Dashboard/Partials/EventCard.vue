@@ -49,11 +49,19 @@ const gradientForEvent = computed(() => {
             <h3 :class="`text-lg font-semibold ${textColor}`">{{ event.title }}</h3>
             <p :class="`${textColor} text-sm mt-2 flex items-center`">
                 <MapPinIcon :class="`h-5 ${textColor} pr-1`"/>
-                {{ event.location }}
+                <span v-if="event.location">
+                    {{ event.location }}
+                </span>
+                <span v-else>
+                    No location set
+                </span>
             </p>
             <p :class="`${textColor} text-sm mt-2 flex items-center`">
                 <CalendarDaysIcon :class="`h-5 ${textColor} pr-1`"/>
-                {{ getFormattedEventDateMessage(event) }}
+                <span>
+                    {{ event.startDateTime }}
+                </span>
+<!--                {{ getFormattedEventDateMessage(event) }}-->
             </p>
             <p :class="`${textColor} text-sm mt-2 flex items-center`">
                 <UserGroupIcon :class="`h-5 ${textColor} pr-1`"/>
