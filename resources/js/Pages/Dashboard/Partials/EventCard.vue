@@ -60,6 +60,8 @@ const gradientForEvent = computed(() => {
                 <CalendarDaysIcon :class="`h-5 ${textColor} pr-1`"/>
                 <span>
                     {{ event.startDateTime }}
+                    |
+                    {{ event.endDateTime }}
                 </span>
 <!--                {{ getFormattedEventDateMessage(event) }}-->
             </p>
