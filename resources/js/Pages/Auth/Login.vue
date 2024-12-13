@@ -4,7 +4,7 @@
             <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
                 Welcome Back! 🎉
             </h2>
-            <form @submit.prevent="handleSubmit" class="space-y-6">
+            <form @submit.prevent="handleSubmit" class="space-y-4">
                 <div>
                     <label for="email" class="block text-sm font-bold text-gray-700 mb-1">
                         Your Email
@@ -39,6 +39,22 @@
                     <p v-if="formErrors" class="text-sm text-red-500 mt-1">
                         {{ form.errors.password }}
                     </p>
+                    <div class="mt-2">
+                        <label for="remember" >
+                            <input
+                                type="checkbox"
+                                name="remember"
+                                id="remember"
+                                v-model="form.remember"
+                                class=" rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
+
+                            >
+                            Remember
+                            <span class="text-blue-500 font-bold">
+                                Me!
+                            </span>
+                        </label>
+                    </div>
                 </div>
                 <button
                     type="submit"
@@ -63,6 +79,7 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 import {ref} from "vue";
+import Checkbox from "@/Components/Jetsream/Checkbox.vue";
 
 const form = useForm({
     email: '',
