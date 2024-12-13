@@ -27,7 +27,6 @@ const props = defineProps({
                 </p>
             </div>
 
-            <!-- Decorative Elements -->
             <div class="absolute -top-10 left-1/4 w-32 h-32 bg-white/20 rounded-full blur-3xl"></div>
             <div class="absolute bottom-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
         </section>
