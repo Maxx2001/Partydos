@@ -4,7 +4,7 @@
             <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
                 Welcome Back! 🎉
             </h2>
-            <form @submit.prevent="handleSubmit" class="space-y-4">
+            <form @submit.prevent="handleSubmit" class="space-y-6">
                 <div>
                     <label for="email" class="block text-sm font-bold text-gray-700 mb-1">
                         Your Email
