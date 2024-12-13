@@ -15,7 +15,12 @@ defineProps({
             </p>
             <div class="border rounded-lg bg-blue-100 p-3 lg:p-8">
                 <p class="text-gray-700 text-base md:text-lg leading-relaxed br">
-                    {{ event.description }}
+                    <span v-if="event.description">
+                        {{ event.description }}
+                    </span>
+                    <span class="italic underline text-gray-500 text-sm lg:text-base">
+                        No description set
+                    </span>
                 </p>
             </div>
 
