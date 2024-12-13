@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Domain\Events\Models\Event
@@ -111,5 +112,13 @@ class Event extends Model
     {
         $this->load('guestUsers', 'users');
         return $this->guestUsers->merge($this->users);
+    }
+    public function scopeFutureEvents(Builder $query): void
+    {
+        $query->where('start_date_time', '>=', now())
+            ->orWhere(function (Builder $query) {
+                $query->whereNull('end_date_time')
+                    ->orWhere('end_date_time', '>=', now());
+            });
     }
 }

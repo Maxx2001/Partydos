@@ -34,7 +34,7 @@ const submitEventDetails = () => {
 <template>
     <div class="w-full flex justify-center text-2xl font-semibold">
         <h1 class="text-2xl md:text-4xl">
-            Create even as guest
+            Create event as guest
         </h1>
     </div>
     <div class="flex flex-col items-center w-full md:w-2/3 xl:w-1/3 pt-6 gap-4">
