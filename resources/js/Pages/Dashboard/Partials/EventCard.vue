@@ -58,12 +58,7 @@ const gradientForEvent = computed(() => {
             </p>
             <p :class="`${textColor} text-sm mt-2 flex items-center`">
                 <CalendarDaysIcon :class="`h-5 ${textColor} pr-1`"/>
-                <span>
-                    {{ event.startDateTime }}
-                    |
-                    {{ event.endDateTime }}
-                </span>
-<!--                {{ getFormattedEventDateMessage(event) }}-->
+                {{ getFormattedEventDateMessage(event) }}
             </p>
             <p :class="`${textColor} text-sm mt-2 flex items-center`">
                 <UserGroupIcon :class="`h-5 ${textColor} pr-1`"/>
