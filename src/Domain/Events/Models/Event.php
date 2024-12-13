@@ -115,10 +115,11 @@ class Event extends Model
     }
     public function scopeFutureEvents(Builder $query): void
     {
-        $query->where('start_date_time', '>=', now())
-            ->orWhere(function (Builder $query) {
-                $query->whereNull('end_date_time')
-                    ->orWhere('end_date_time', '>=', now());
-            });
+//        $query->where('start_date_time', '>=', now())
+//            ->orWhere(function (Builder $query) {
+//                $query->whereNull('end_date_time')
+//                    ->orWhere('end_date_time', '>=', now());
+//            });
+        $query->where('start_date_time', '>=', now());
     }
 }
