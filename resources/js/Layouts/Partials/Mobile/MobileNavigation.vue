@@ -75,7 +75,11 @@ const logout = () => router.post(route('logout'));
             </div>
 
             <div class="flex-grow"></div>
-           <button @click="logout" class="mb-1.5">
+           <button
+               v-if="$page.props.auth.user"
+               @click="logout"
+               class="mb-1.5"
+           >
                Logout
            </button>
             <div class="border-t border-blue-300 pt-6">

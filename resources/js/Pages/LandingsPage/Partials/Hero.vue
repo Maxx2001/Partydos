@@ -1,12 +1,7 @@
 <script setup>
 import { router } from "@inertiajs/vue3";
 import heroImage from "@/Assets/heroImage.webp";
-
-import AOS from "aos";
-import "aos/dist/aos.css";
 import BaseOutlineButton from "../../../Components/Base/BaseOutlineButton.vue";
-
-AOS.init();
 </script>
 
 <template>

@@ -14,9 +14,7 @@ defineProps({
 
 const showingNavigationDropdown = ref(false);
 
-const logout = () => {
-    router.post(route('logout'));
-};
+const logout = () => router.post(route('logout'));
 </script>
 
 <template>

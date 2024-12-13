@@ -10,7 +10,7 @@ class LoginAction
     public function execute(LoginData $loginData)
     {
         if (Auth::attempt($loginData->only('email', 'password')->toArray(), $loginData->remember)) {
-            return redirect('/');
+            return true;
         }
 
         return false;
