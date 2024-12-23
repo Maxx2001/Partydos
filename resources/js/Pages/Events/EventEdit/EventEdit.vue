@@ -165,9 +165,6 @@ const scrollToTop = () => {
                         </div>
                     </div>
                 </div>
-                <pre>
-                    {{ form }}
-                </pre>
             </form>
         </div>
     </DefaultLayout>
