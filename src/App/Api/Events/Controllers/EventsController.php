@@ -5,7 +5,7 @@ namespace App\Api\Events\Controllers;
 use Domain\Events\Actions\AuthenticatedEventCreateAction;
 use Domain\Events\Actions\AuthenticatedEventUpdateAction;
 use Domain\Events\Actions\ViewEventsAction;
-use Domain\Events\DataTransferObjects\AuthenticatedEventStoreData;
+use Domain\Events\DataTransferObjects\AuthenticatedEventData;
 use Domain\Events\DataTransferObjects\AuthenticatedEventUpdateData;
 use Domain\Events\DataTransferObjects\EventEntityData;
 use Domain\Events\Models\Event;
@@ -33,7 +33,7 @@ class EventsController
         return response()->json(EventEntityData::from($event));
     }
 
-    public function store(AuthenticatedEventCreateAction $authenticatedEventCreateAction, AuthenticatedEventStoreData $authenticatedEventStoreData): JsonResponse
+    public function store(AuthenticatedEventCreateAction $authenticatedEventCreateAction, AuthenticatedEventData $authenticatedEventStoreData): JsonResponse
     {
         $event = $authenticatedEventCreateAction->execute($authenticatedEventStoreData);
 

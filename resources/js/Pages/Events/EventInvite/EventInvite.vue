@@ -72,11 +72,6 @@ onMounted(() => {
             />
 
             <EventDescription :event="event" class="pb-12"/>
-
-<!--            <EventInviteDetails-->
-<!--                :event="event"-->
-<!--                @open-add-to-calendar-modal="eventAddToCalendarModel.openModal()"-->
-<!--            />-->
         </div>
 
         <EventRegisterModal

@@ -2,13 +2,13 @@
 
 namespace Domain\Events\Actions;
 
-use Domain\Events\DataTransferObjects\AuthenticatedEventStoreData;
+use Domain\Events\DataTransferObjects\AuthenticatedEventData;
 use Domain\Events\Models\Event;
 use Illuminate\Support\Facades\Session;
 
 class AuthenticatedEventCreateAction
 {
-    public function execute(AuthenticatedEventStoreData $authenticatedEventStoreData)
+    public function execute(AuthenticatedEventData $authenticatedEventStoreData)
     {
         $event = Event::create($authenticatedEventStoreData->all());
         $event->user()->associate(auth()->user());

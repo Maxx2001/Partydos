@@ -68,7 +68,7 @@ class GuestEventController extends Controller
 
         if ($user = Auth::user()) {
             $eventUsers = $event->users()->get();
-            $showInviteButton = !$eventUsers->contains($user) && $event->users()->first()?->id === $user->id;
+            $showInviteButton = !$eventUsers->contains($user) && $event->user_id !== $user->id;
         }
 
         return Inertia::render('Events/EventInvite/EventInvite', [

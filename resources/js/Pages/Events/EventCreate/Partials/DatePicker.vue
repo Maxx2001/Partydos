@@ -16,7 +16,18 @@ import {
     setHours,
     setMinutes,
     isBefore,
+    addDays,
+    parse,
 } from 'date-fns';
+
+// Props for external values
+const props = defineProps({
+    initialEndTime: {
+        type: String, // Expecting a formatted date-time string
+        required: false,
+        default: null, // Pass a string representing the initial end time
+    },
+});
 
 // State Management with ref
 const currentMonth = ref(new Date());
@@ -52,6 +63,17 @@ const emitUpdate = () => {
     });
 };
 
+// Initialize end time if provided and different from the start time
+if (props.initialEndTime) {
+    console.log(props.initialEndTime)
+    const initialEnd = parse(props.initialEndTime, 'yyyy-MM-dd HH:mm:ss', new Date());
+    if (initialEnd && initialEnd.getTime() !== selectedDate.value.getTime()) {
+        enableEndTime.value = true;
+        selectedEndHour.value = format(initialEnd, 'HH');
+        selectedEndMinute.value = format(initialEnd, 'mm');
+    }
+}
+
 // Method to select a date
 const onDateSelect = (day) => {
     selectedDate.value = setHours(setMinutes(day, parseInt(selectedMinute.value)), parseInt(selectedHour.value));
@@ -61,22 +83,24 @@ const onDateSelect = (day) => {
 // Method to update the selected time
 const onTimeChange = () => {
     selectedDate.value = setHours(setMinutes(selectedDate.value, parseInt(selectedMinute.value)), parseInt(selectedHour.value));
+    onEndTimeChange(); // Revalidate end time after changing the start time
     emitUpdate(); // Emit event on time change
 };
 
 // Method to update the end time
 const onEndTimeChange = () => {
     if (enableEndTime.value) {
-        const endDateTime = setHours(setMinutes(selectedDate.value, parseInt(selectedEndMinute.value)), parseInt(selectedEndHour.value));
-        if (isBefore(selectedDate.value, endDateTime)) {
-            // Valid end time
-            selectedEndHour.value = format(endDateTime, 'HH');
-            selectedEndMinute.value = format(endDateTime, 'mm');
-        } else {
-            // Reset end time if invalid
-            selectedEndHour.value = selectedHour.value;
-            selectedEndMinute.value = selectedMinute.value;
+        let endDateTime = setHours(setMinutes(selectedDate.value, parseInt(selectedEndMinute.value)), parseInt(selectedEndHour.value));
+
+        // Check if the end time is earlier than or equal to the start time
+        if (isBefore(endDateTime, selectedDate.value) || endDateTime.getTime() === selectedDate.value.getTime()) {
+            // Adjust end time to the next day
+            endDateTime = addDays(endDateTime, 1);
         }
+
+        // Update the end time
+        selectedEndHour.value = format(endDateTime, 'HH');
+        selectedEndMinute.value = format(endDateTime, 'mm');
     }
     emitUpdate(); // Emit event on end time change
 };
@@ -133,7 +157,6 @@ const calendarRows = computed(() => {
 });
 </script>
 
-
 <template>
     <div class="flex flex-col md:flex-row md:space-y-6 md:space-x-6 p-4 bg-white shadow-lg rounded-lg">
         <!-- Calendar Section -->
@@ -185,7 +208,6 @@ const calendarRows = computed(() => {
                         v-model="selectedHour"
                         @change="onTimeChange"
                         class="block w-[4rem] text-center p-2 pr-8 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 appearance-none"
-                        :style="{ backgroundImage: 'url(data:image/svg+xml,%3Csvg fill=%22none%22 stroke=%22%23999%22 stroke-width=%222%22 viewBox=%220 0 24 24%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath stroke-linecap=%22round%22 stroke-linejoin=%22round%22 d=%22M19 9l-7 7-7-7%22/%3E%3C/svg%3E)', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.75rem center', backgroundSize: '1rem' }"
                     >
                         <option v-for="hour in hours" :key="hour" :value="hour">{{ hour }}</option>
                     </select>
@@ -194,7 +216,6 @@ const calendarRows = computed(() => {
                         v-model="selectedMinute"
                         @change="onTimeChange"
                         class="block w-[4rem] text-center p-2 pr-8 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 appearance-none"
-                        :style="{ backgroundImage: 'url(data:image/svg+xml,%3Csvg fill=%22none%22 stroke=%22%23999%22 stroke-width=%222%22 viewBox=%220 0 24 24%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath stroke-linecap=%22round%22 stroke-linejoin=%22round%22 d=%22M19 9l-7 7-7-7%22/%3E%3C/svg%3E)', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.75rem center', backgroundSize: '1rem' }"
                     >
                         <option v-for="minute in minutes" :key="minute" :value="minute">{{ minute }}</option>
                     </select>
@@ -220,15 +241,8 @@ const calendarRows = computed(() => {
                     </label>
                 </div>
 
-                <!-- End Time Selection (Conditional Rendering with Transition) -->
-                <transition
-                    enter-active-class="transition ease-out duration-300 transform"
-                    enter-from-class="opacity-0 translate-y-4"
-                    enter-to-class="opacity-100 translate-y-0"
-                    leave-active-class="transition ease-in duration-200 transform"
-                    leave-from-class="opacity-100 translate-y-0"
-                    leave-to-class="opacity-0 translate-y-4"
-                >
+                <!-- End Time Selection -->
+                <transition>
                     <div v-show="enableEndTime" class="flex flex-col items-center space-x-4 mt-4 pt-4">
                         <label class="text-sm font-medium text-gray-700 mb-1">End Time</label>
                         <!-- End Hours Dropdown -->
@@ -237,7 +251,6 @@ const calendarRows = computed(() => {
                                 v-model="selectedEndHour"
                                 @change="onEndTimeChange"
                                 class="block w-[4rem] text-center p-2 pr-8 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 appearance-none"
-                                :style="{ backgroundImage: 'url(data:image/svg+xml,%3Csvg fill=%22none%22 stroke=%22%23999%22 stroke-width=%222%22 viewBox=%220 0 24 24%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath stroke-linecap=%22round%22 stroke-linejoin=%22round%22 d=%22M19 9l-7 7-7-7%22/%3E%3C/svg%3E)', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.75rem center', backgroundSize: '1rem' }"
                             >
                                 <option v-for="hour in hours" :key="hour" :value="hour">{{ hour }}</option>
                             </select>
@@ -246,7 +259,6 @@ const calendarRows = computed(() => {
                                 v-model="selectedEndMinute"
                                 @change="onEndTimeChange"
                                 class="block w-[4rem] text-center p-2 pr-8 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 appearance-none"
-                                :style="{ backgroundImage: 'url(data:image/svg+xml,%3Csvg fill=%22none%22 stroke=%22%23999%22 stroke-width=%222%22 viewBox=%220 0 24 24%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath stroke-linecap=%22round%22 stroke-linejoin=%22round%22 d=%22M19 9l-7 7-7-7%22/%3E%3C/svg%3E)', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.75rem center', backgroundSize: '1rem' }"
                             >
                                 <option v-for="minute in minutes" :key="minute" :value="minute">{{ minute }}</option>
                             </select>
@@ -257,4 +269,3 @@ const calendarRows = computed(() => {
         </div>
     </div>
 </template>
-

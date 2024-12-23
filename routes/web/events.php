@@ -16,5 +16,8 @@ Route::post('event-accept-invite/{event:unique_identifier}', [GuestEventControll
     ->name('events.accept-invite');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-        Route::resource('users-events', AuthenticatedEventController::class)->only('index', 'store');
+    Route::resource('users-events', AuthenticatedEventController::class)
+        ->parameters(['users-events' => 'event'])
+        ->only('index', 'store', 'edit', 'update');
+    Route::get('event-invite/edit/{event:unique_identifier}', [AuthenticatedEventController::class, 'edit'])->name('events.edit');
 });

@@ -19,6 +19,10 @@ const props = defineProps({
         type: Object,
         required: true
     },
+    isEdit: {
+        type: Boolean,
+        default: false
+    }
 });
 
 const emit = defineEmits(['submitEventDetails']);
@@ -75,7 +79,10 @@ const features = [
 
 <template>
     <div class="w-full flex justify-center text-2xl font-semibold">
-        <h1 class="text-2xl md:text-4xl">
+        <h1 v-if="isEdit" class="text-2xl md:text-4xl">
+            Update event
+        </h1>
+        <h1 v-else class="text-2xl md:text-4xl">
             What type of event is it?
         </h1>
     </div>
@@ -120,7 +127,7 @@ const features = [
             </div>
         </div>
 
-        <div class="pt-12">
+        <div class="pt-12" v-if="!isEdit">
             <h1 class="text-2xl font-bold pb-8 text-gray-900 text-center">
                 What widgets do you want to use in your invite?
             </h1>

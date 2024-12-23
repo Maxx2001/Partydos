@@ -19,9 +19,14 @@ const props = defineProps({
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div>
                 <div class="p-2">
-                    <h2 class="text-2xl font-bold text-blue-600 mb-4">Your Organized Events</h2>
+                    <h2 class="text-2xl font-bold text-blue-600 mb-4 text-center">Your Organized Events</h2>
                     <ol class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                        <EventCard v-for="ownedEvent in ownedEvents" :key="ownedEvent.id" :event="ownedEvent"/>
+                        <EventCard
+                            v-for="ownedEvent in ownedEvents"
+                            :key="ownedEvent.id"
+                            :event="ownedEvent"
+                            :can-edit="true"
+                        />
                     </ol>
                     <ol v-if="ownedEvents.length < 1 ">
                         <li class="italic underline text-lg text-gray-500">
@@ -37,7 +42,7 @@ const props = defineProps({
                     </ol>
                 </div>
                 <div class="p-2 mt-6 border-t border-gray-300">
-                    <h2 class="text-2xl font-bold text-purple-600 mb-4">Invited Events</h2>
+                    <h2 class="text-2xl font-bold text-purple-600 mb-4 text-center">Invited Events</h2>
                     <ol class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         <EventCard v-for="event in events" :key="event.id" :event="event"/>
                     </ol>

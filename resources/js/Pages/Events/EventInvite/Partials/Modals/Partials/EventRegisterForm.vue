@@ -76,6 +76,7 @@ const submitAuthenticated = () => {
         route('events.accept-invite', props.event.uniqueIdentifier),
         {
             onSuccess: () => {
+                resetForm();
                 emit('registerSuccess');
             },
         }

@@ -18,7 +18,7 @@ defineProps({
                     <span v-if="event.description">
                         {{ event.description }}
                     </span>
-                    <span class="italic underline text-gray-500 text-sm lg:text-base">
+                    <span v-else class="italic underline text-gray-500 text-sm lg:text-base">
                         No description set
                     </span>
                 </p>

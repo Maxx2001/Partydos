@@ -1,13 +1,17 @@
 <script setup>
 import { ref, computed } from "vue";
 import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage";
-import { MapPinIcon, UserGroupIcon, CalendarDaysIcon } from "@heroicons/vue/20/solid";
+import { MapPinIcon, UserGroupIcon, CalendarDaysIcon, PencilSquareIcon } from "@heroicons/vue/20/solid";
 import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     event: {
         type: Object,
         required: true
+    },
+    canEdit: {
+        type: Boolean,
+        default: false
     }
 });
 
@@ -41,12 +45,16 @@ const gradientForEvent = computed(() => {
     const index = hashToIndex(uniqueIdentifier.value, gradientColors.length);
     return gradientColors[index];
 });
+const eventLink = () => props.canEdit ? route('events.edit', { event: uniqueIdentifier.value }) : route('events.show-invite', { event: uniqueIdentifier.value });
 </script>
 
 <template>
     <li :class="`rounded-lg bg-gradient-to-br ${gradientForEvent[0]} ${gradientForEvent[1]} shadow-md hover:shadow-lg transition-shadow`">
-        <Link :href="route('events.show-invite', { event: uniqueIdentifier })" class="block p-4">
-            <h3 :class="`text-lg font-semibold ${textColor}`">{{ event.title }}</h3>
+        <Link :href="eventLink()" class="block p-4">
+            <div class="flex justify-between">
+                <h3 :class="`text-lg font-semibold ${textColor}`">{{ event.title }}</h3>
+                <PencilSquareIcon v-if="canEdit" :class="`${textColor} h-6`"/>
+            </div>
             <p :class="`${textColor} text-sm mt-2 flex items-center`">
                 <MapPinIcon :class="`h-5 ${textColor} pr-1`"/>
                 <span v-if="event.location">

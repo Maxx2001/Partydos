@@ -14,10 +14,11 @@ import BaseOutlineButton from "../../../Components/Base/BaseOutlineButton.vue";
                 data-aos-duration="1000"
             >
                 <h1 class="text-2xl md:text-5xl font-extrabold leading-tight text-center lg:text-left">
+                    Get
                     <span class="text-yellow-400">
-                        Effortlessly
+                        together
                     </span>
-                    bring people together with
+                    with
                     <span class="text-teal-300">
                         Partydos
                     </span>

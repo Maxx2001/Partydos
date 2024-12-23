@@ -5,7 +5,7 @@ namespace Domain\Events\DataTransferObjects;
 use Spatie\LaravelData\Attributes\Validation\Rule;
 use Spatie\LaravelData\Data;
 
-class AuthenticatedEventStoreData extends Data
+class AuthenticatedEventData extends Data
 {
     public function __construct(
         #[Rule(['required', 'string', 'max:255'])]
