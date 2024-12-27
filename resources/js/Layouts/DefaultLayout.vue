@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import HeaderComponent from "./Partials/HeaderComponent.vue";
 import Footer from "../Layouts/Partials/Footer.vue";
+import ToastList from "@/Components/Layout/Toasts/ToastList.vue";
 
 const menuItems = [
     {
@@ -36,6 +37,7 @@ const menuItems = [
         <HeaderComponent :menu-items="menuItems" />
         <main class="flex-grow">
             <slot />
+            <ToastList/>
         </main>
         <Footer />
     </div>

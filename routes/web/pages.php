@@ -5,6 +5,7 @@ use App\Web\Features\Controllers\FeaturesController;
 use App\Web\Roadmap\Controller\RoadmapController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Support\Notification;
 
 Route::get('/', function () {
     return Inertia::render('LandingsPage/Index');

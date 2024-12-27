@@ -7,7 +7,6 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
         <!-- Meta Tags -->
         <meta name="description" content="{{ $description ?? 'Effortlessly plan events, send personalized invites, manage attendees, and organize your schedule with dynamic polls with Partydos!' }}">
         <meta property="og:title" content="{{ $ogTitle ?? 'Partydos.nl' }}">

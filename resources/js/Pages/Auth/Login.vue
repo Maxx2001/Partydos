@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6 overflow-auto">
-        <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-8 -mt-24">
+        <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-8 ">
             <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
                 Welcome Back! 🎉
             </h2>
@@ -70,6 +70,13 @@
                     class="inline-block w-full mt-4 py-3 bg-gradient-to-br from-purple-500 to-pink-500 text-white font-bold text-center rounded-md shadow-md focus:ring-4 focus:ring-pink-300 focus:outline-none transition-transform transform"
                 >
                     Sign up and Join the Fun! 🚀
+                </a>
+
+                <a
+                    :href="route('forgotPassword')"
+                    class="inline-block w-full mt-4 py-3 text-sm text-blue-500"
+                >
+                    Forgot your password?
                 </a>
             </p>
         </div>
