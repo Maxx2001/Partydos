@@ -25,7 +25,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('password.update', {user: props.userId}), {
+    form.post(route('password.reset', {user: props.userId}), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };

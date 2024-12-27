@@ -11,7 +11,7 @@ Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name
 Route::post('/reset-password/{email}', [AuthController::class, 'resetPasswordEmail'])
     ->name('password.email');
 Route::post('/update-password/{user}', [AuthController::class, 'resetPassword'])
-    ->name('password.update');
-Route::get('/reset-password/{token}', [AuthController::class, 'resetPasswordPage'])
     ->name('password.reset');
+Route::get('/reset-password/{token}', [AuthController::class, 'resetPasswordPage'])
+    ->name('password.reset-page');
 

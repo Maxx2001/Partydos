@@ -16,7 +16,7 @@ class ResetPasswordUserAction
         $user = User::where('email', $resetPasswordEmailData->email)->first();
         $token = Password::createToken($user);
 
-        $route = route('password.reset', ['email' => $resetPasswordEmailData->email, 'token' => $token]);
+        $route = route('password.reset-page', ['email' => $resetPasswordEmailData->email, 'token' => $token]);
 
         Mail::to($user->email)->send(new UserPasswordReset($user, $route, config('auth.passwords.users.expire')));
     }
