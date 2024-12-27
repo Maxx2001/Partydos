@@ -16,7 +16,7 @@ class AuthenticatedEventCreateAction
 
         $event->save();
 
-        AttachMediaToModelAction::execute($authenticatedEventStoreData->image, $event, '-banner');
+        AttachMediaToModelAction::execute([$authenticatedEventStoreData->image], $event, '-banner');
 
         Session::flash('event_created');
 

@@ -27,6 +27,9 @@ class EventStoreData extends Data
         public string $name,
 
         #[Rule(['required', 'email', 'max:255'])]
-        public string $email
+        public string $email,
+
+        #[Rule('nullable|array', 'max:1', 'mimes:jpeg,png,jpg')]
+        public ?array          $image = [],
     ) {}
 }

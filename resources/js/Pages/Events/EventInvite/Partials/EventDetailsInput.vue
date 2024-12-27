@@ -76,6 +76,10 @@ const features = [
         comingSoon: true,
     },
 ];
+
+const setImage = (event) => {
+    props.form.image = event;
+}
 </script>
 
 <template>
@@ -116,7 +120,7 @@ const features = [
             />
 
             <FileUpload
-                @fileUploaded="form.image = [$event]"
+                @fileUploaded="setImage($event)"
             />
 
             <div class="w-full flex justify-between lg:justify-end mt-4">

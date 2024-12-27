@@ -25,6 +25,9 @@
                         @change="handleFileChange"
                     />
                 </div>
+                <p class="text-gray-500 w-full text-center italic underline mt-1">
+                    Images up to 5mb
+                </p>
                 <div v-if="file" class="mt-4 flex justify-center">
                     <img :src="previewUrl" alt="File preview" class="max-w-full h-32 object-contain rounded" />
                 </div>

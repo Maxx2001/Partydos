@@ -19,7 +19,7 @@ const form = reactive({
     end_date_time: null,
     name: null,
     email: null,
-    image: [],
+    image: null,
 });
 
 const stepIndex = ref(1);
