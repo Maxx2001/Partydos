@@ -21,7 +21,7 @@ class UserPasswordReset extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('users.mail.crm.password'),
+            subject:"Partydos | Password reset request",
         );
     }
 
