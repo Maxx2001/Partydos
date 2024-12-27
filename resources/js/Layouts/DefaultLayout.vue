@@ -20,11 +20,6 @@ const menuItems = [
         active: route().current() === 'features'
     },
     {
-        label: 'Roadmap',
-        url: route('roadmap'),
-        active: route().current() === 'roadmap'
-    },
-    {
         label: 'Contact',
         url: route('contact'),
         active: route().current() === 'contact'
