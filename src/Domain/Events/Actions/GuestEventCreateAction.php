@@ -6,6 +6,8 @@ use Domain\Events\DataTransferObjects\EventStoreData;
 use Domain\Events\Models\Event;
 use Domain\GuestUsers\Models\GuestUser;
 use Illuminate\Support\Facades\Session;
+use Support\Actions\AttachMediaToModelAction;
+use Support\Notification;
 
 class GuestEventCreateAction
 {
@@ -15,7 +17,10 @@ class GuestEventCreateAction
         $event->guestUser()->associate($guestUser);
 
         $event->save();
-        Session::flash('event_created');
+
+        AttachMediaToModelAction::execute([$eventStoreData->image], $event, '-banner');
+
+        Notification::create('Event created!')->send();
 
         return $event;
     }
