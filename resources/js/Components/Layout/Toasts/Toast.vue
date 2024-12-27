@@ -7,38 +7,6 @@ import { Toast } from "../../../Stores/ToastMessages";
 
 const props = defineProps<Toast>();
 
-const icon = computed(() => {
-    switch (props.type) {
-        case 'info':
-            return 'info';
-        case 'warning':
-            return 'error';
-        case 'error':
-            return 'cancel';
-        case 'success':
-        default:
-            return 'check_circle';
-    }
-});
-
-const iconClass = computed(() => {
-    return cva(
-        "w-8 h-8 min-w-[30px] rounded-full flex justify-center items-center",
-        {
-            variants: {
-                type: {
-                    default: 'bg-gray-500 text-white',
-                    info: 'bg-blue-500 text-white',
-                    warning: 'bg-orange-500 text-white',
-                    error: 'bg-red-500 text-white',
-                    success: 'bg-green-500 text-white',
-                },
-            }
-        })({
-        type: props.type,
-    });
-});
-
 </script>
 <template>
     <transition

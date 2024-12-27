@@ -11,6 +11,7 @@ import EventRegisterModal from "@/Pages/Events/EventInvite/Partials/Modals/Event
 import EventAddToCalendarModel from "@/Pages/Events/EventInvite/Partials/Modals/EventAddToCalendarModel.vue";
 import EventInviteLinkeModal from "@/Pages/Events/EventInvite/Partials/Modals/EventInviteLinkeModal.vue";
 import EventDescription from "@/Pages/Events/EventInvite/Partials/EventDescription.vue";
+import ToastList from "@/Components/Layout/Toasts/ToastList.vue";
 
 const props = defineProps({
     event: {

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 use Support\Controllers\Controller;
+use Support\Notification;
 
 class GuestEventController extends Controller
 {
@@ -96,15 +97,17 @@ class GuestEventController extends Controller
 
         $event->guestUsers()->attach($guestUser);
 
+        Notification::create('You have been registered to the event!')->send();
+
         return redirect()->back();
     }
 
-    public function acceptInvite(Event $event): RedirectResponse
+    public function acceptInvite(Event $event)
     {
         $user = Auth::user();
         $event->users()->attach($user);
 
-        return redirect()->back();
+        Notification::create('You have been registered to the event!')->send();
     }
 
     public function downloadEventICS(Event $event, EventGenerateIcsAction $eventGenerateIcsAction): Application|\Illuminate\Http\Response|ResponseFactory

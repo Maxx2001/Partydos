@@ -29,7 +29,7 @@ class EventStoreData extends Data
         #[Rule(['required', 'email', 'max:255'])]
         public string $email,
 
-        #[Rule('nullable|array', 'max:1', 'mimes:jpeg,png,jpg')]
-        public ?array          $image = [],
+        #[Rule(['required', 'image', 'mimes:jpg,png,jpeg', 'max:5120'])]
+        public $image,
     ) {}
 }

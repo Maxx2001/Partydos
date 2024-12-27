@@ -6,6 +6,7 @@ use Domain\Events\Actions\AuthenticatedEventCreateAction;
 use Domain\Events\Actions\AuthenticatedEventUpdateAction;
 use Domain\Events\Actions\ViewEventsAction;
 use Domain\Events\DataTransferObjects\AuthenticatedEventData;
+use Domain\Events\DataTransferObjects\AuthenticatedEventUpdateData;
 use Domain\Events\DataTransferObjects\EventEntityData;
 use Domain\Events\Models\Event;
 use Domain\Users\Models\User;
@@ -42,7 +43,7 @@ class AuthenticatedEventController
         if ($event->user_id !== Auth::user()->getKey()) {
             abort(403);
         }
-//        dd(EventEntityData::from($event));
+
         return Inertia::render('Events/EventEdit/EventEdit', [
             'event' => EventEntityData::from($event),
         ]);
@@ -51,14 +52,14 @@ class AuthenticatedEventController
     public function update(
         Event $event,
         AuthenticatedEventUpdateAction $authenticatedEventUpdateAction,
-        AuthenticatedEventData $authenticatedEventData
+        AuthenticatedEventUpdateData $authenticatedEventUpdateData
     ): RedirectResponse
     {
         if ($event->user_id !== Auth::user()->getKey()) {
             abort(403);
         }
 
-        $event = $authenticatedEventUpdateAction->execute($event, $authenticatedEventData);
+        $event = $authenticatedEventUpdateAction->execute($event, $authenticatedEventUpdateData);
 
         return redirect()->route('events.show-invite', $event);
     }

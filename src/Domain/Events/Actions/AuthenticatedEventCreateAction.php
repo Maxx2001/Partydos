@@ -6,6 +6,7 @@ use Domain\Events\DataTransferObjects\AuthenticatedEventData;
 use Domain\Events\Models\Event;
 use Illuminate\Support\Facades\Session;
 use Support\Actions\AttachMediaToModelAction;
+use Support\Notification;
 
 class AuthenticatedEventCreateAction
 {
@@ -18,7 +19,7 @@ class AuthenticatedEventCreateAction
 
         AttachMediaToModelAction::execute([$authenticatedEventStoreData->image], $event, '-banner');
 
-        Session::flash('event_created');
+        Notification::create('Event created!')->send();
 
         return $event;
     }
