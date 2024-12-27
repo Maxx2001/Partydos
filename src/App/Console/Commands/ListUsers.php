@@ -32,14 +32,14 @@ class ListUsers extends Command
         $this->info('Fetching all Users and GuestUsers...');
 
         // Fetch GuestUsers (if a separate model)
-        if (class_exists(GuestUser::class)) {
-            $guestUsers = GuestUser::all(['id', 'name', 'email']);
-            $this->info("\nGuestUsers:");
-            $this->table(['ID', 'Name', 'Email'], $guestUsers->toArray());
-        } else {
-            $this->warn("\nGuestUser model does not exist. Skipping GuestUsers.");
-        }
-        
+//        if (class_exists(GuestUser::class)) {
+//            $guestUsers = GuestUser::all(['id', 'name', 'email']);
+//            $this->info("\nGuestUsers:");
+//            $this->table(['ID', 'Name', 'Email'], $guestUsers->toArray());
+//        } else {
+//            $this->warn("\nGuestUser model does not exist. Skipping GuestUsers.");
+//        }
+
         // Fetch Users
         $users = User::all(['id', 'name', 'email']);
         $this->info("\nUsers:");
