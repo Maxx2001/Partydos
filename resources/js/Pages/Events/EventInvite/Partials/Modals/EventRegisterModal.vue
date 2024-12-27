@@ -12,12 +12,12 @@ const props = defineProps({
 const eventRegisterFormRef = ref(null);
 
 const showModal = ref(false);
-const emits = defineEmits(['handleConfirm', 'handleRegisterSuccess']);
 
 const handleConfirm = () =>  eventRegisterFormRef.value.submitRegisterForm();
 const openModal = () =>  showModal.value = true;
 
 defineExpose({openModal});
+
 </script>
 
 <template>

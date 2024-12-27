@@ -74,6 +74,7 @@ const submitGuestRegister = () => {
 const submitAuthenticated = () => {
     return router.post(
         route('events.accept-invite', props.event.uniqueIdentifier),
+        {},
         {
             onSuccess: () => {
                 resetForm();
