@@ -36,6 +36,21 @@ return [
             'throw' => false,
         ],
 
+        'media' => [
+            'driver' => 'local',
+            'root'   => public_path('media'),
+            'url'    => env('APP_URL').'/media',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'event-banner' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/event/banners'),
+            'url'    => '/img/event/banners',
+            'throw'  => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

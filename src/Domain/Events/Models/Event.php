@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Domain\Events\Models\Event
@@ -26,9 +29,9 @@ use Illuminate\Database\Eloquent\Builder;
  * @property string $start_date_time
  * @property string $end_date_time
  */
-class Event extends Model
+class Event extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $fillable = [
         'unique_identifier',
@@ -121,5 +124,24 @@ class Event extends Model
                     ->where('end_date_time', '>=', now());
             });
 //        $query->where('start_date_time', '>=', now());
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumbnail')
+            ->width(100)
+            ->height(100);
+
+        $this->addMediaConversion('small')
+            ->width(400)
+            ->height(300);
+
+        $this->addMediaConversion('medium')
+            ->width(800)
+            ->height(600);
+
+        $this->addMediaConversion('large')
+            ->width(1600)
+            ->height(1200);
     }
 }

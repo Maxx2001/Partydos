@@ -28,6 +28,7 @@ services:
             NGINX_BACKEND_HOST: php
             NGINX_VHOST_PRESET: php
             NGINX_SERVER_ROOT: /var/www/html/public
+            NGINX_TRY_FILES: $uri /index.php?$query_string
         depends_on:
             - php
             - mariadb

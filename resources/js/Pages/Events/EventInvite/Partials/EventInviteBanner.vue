@@ -43,6 +43,20 @@ onMounted(() => {
         <div class="max-w-6xl flex flex-row w-full">
             <div class="w-1/2 flex items-center justify-center">
                 <div
+                    v-if="event.media.length"
+                    class="h-[380px] w-full bg-gray-200 rounded-l-lg overflow-hidden flex items-center justify-center shadow-lg"
+                    style="aspect-ratio: 4 / 3;"
+                >
+                    <img
+                        :src="event.media[0].url"
+                        alt="Event Planning Illustration"
+                        class="w-full h-full object-cover"
+                        data-aos="fade-in"
+                        data-aos-duration="1000"
+                    />
+                </div>
+                <div
+                    v-else
                     class="h-[380px] w-full bg-gray-200 rounded-l-lg overflow-hidden flex items-center justify-center shadow-lg"
                     style="aspect-ratio: 4 / 3;"
                 >

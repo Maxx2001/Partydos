@@ -3,6 +3,8 @@
 namespace Domain\Events\DataTransferObjects;
 
 use Carbon\Carbon;
+use Domain\Events\Models\Event;
+use Domain\Files\DataTransferObjects\PictureDataEntity;
 use Domain\GuestUsers\DataTransferObjects\GuestUserEntity;
 use Domain\Users\DataTransferObjects\UserEntity;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
@@ -26,6 +28,8 @@ class EventEntityData extends Data
         public ?string         $status,
         public string          $shareLink,
         public ?string         $googleCalendarLink,
+        #[DataCollectionOf(PictureDataEntity::class)]
+        public ?DataCollection $media,
         public UserEntity      $eventOwner,
 //        #[DataCollectionOf(GuestUserEntity::class)]
         public                 $invitedUsers,
@@ -33,5 +37,15 @@ class EventEntityData extends Data
         public Carbon          $updatedAt
     )
     {
+        $this->filterMedia();
+    }
+
+    private function filterMedia(): void
+    {
+        $trademark   = Event::find($this->id);
+        $this->media = new DataCollection(
+            PictureDataEntity::class,
+            $trademark->getMedia('event-banner')
+        );
     }
 }

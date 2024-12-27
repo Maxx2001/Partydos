@@ -13,6 +13,7 @@ import {
     SparklesIcon, StarIcon
 } from "@heroicons/vue/20/solid/index.js";
 import FeatureBox from "@/Components/Base/FeatureBox.vue";
+import FileUpload from "@/Components/Form/FileUpload.vue";
 
 const props = defineProps({
     form: {
@@ -112,6 +113,10 @@ const features = [
                 name="description"
                 placeholder="Describe the event"
                 class="mx-2 w-full"
+            />
+
+            <FileUpload
+                @fileUploaded="form.image = [$event]"
             />
 
             <div class="w-full flex justify-between lg:justify-end mt-4">

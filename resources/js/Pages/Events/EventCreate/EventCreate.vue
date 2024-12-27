@@ -19,6 +19,7 @@ const form = reactive({
     end_date_time: null,
     name: null,
     email: null,
+    image: [],
 });
 
 const stepIndex = ref(1);
@@ -54,6 +55,7 @@ const setDateObject = (dateObject) => {
 const submitEventDetails = (stepIndexNumber) => {
     if (stepIndexNumber === 3 && isLoggedIn) {
         submitAuthenticatedForm();
+        return;
     }
 
     stepIndex.value = stepIndexNumber;

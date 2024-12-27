@@ -16,6 +16,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 use Support\Controllers\Controller;
@@ -81,6 +82,7 @@ class GuestEventController extends Controller
             'ogTitle' => $event->title,
             'ogDescription' => $event->description,
             'ogUrl' => url()->current(),
+            'ogImage' => $event->getFirstMediaUrl('event-banner'),
         ]);
     }
 

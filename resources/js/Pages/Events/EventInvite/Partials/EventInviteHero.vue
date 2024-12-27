@@ -49,7 +49,7 @@ const emits = defineEmits(['acceptEventInvite']);
                     </p>
                 </div>
                 <!-- Event Banner for Mobile -->
-                <EventBanner class="block md:hidden pt-2 md:pt-0"/>
+                <EventBanner class="block md:hidden pt-2 md:pt-0" :event="event"/>
             </div>
         </div>
         <div class="absolute top-0 left-0 w-24 h-24 bg-white/20 rounded-full blur-lg"></div>
