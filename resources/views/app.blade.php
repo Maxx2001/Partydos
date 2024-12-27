@@ -8,9 +8,9 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <!-- Meta Tags -->
-        <meta name="description" content="{{ $description ?? 'Effortlessly plan events, send personalized invites, manage attendees, and organize your schedule with dynamic polls with Partydos!' }}">
+        <meta name="description" content="{{ $description ?? 'Bring people together with Partydos!' }}">
         <meta property="og:title" content="{{ $ogTitle ?? 'Partydos.nl' }}">
-        <meta property="og:description" content="{{ $ogDescription ?? 'Effortlessly plan events, send personalized invites, manage attendees, and organize your schedule with dynamic polls Partydos!' }}">
+        <meta property="og:description" content="{{ $ogDescription ?? 'Bring people together with Partydos!' }}">
 
         <!-- Use the asset() helper to correctly reference the image in the public directory -->
         <meta property="og:image" content="{{ asset('Partydos.png') }}">
