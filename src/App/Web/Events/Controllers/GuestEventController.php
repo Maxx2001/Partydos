@@ -102,7 +102,7 @@ class GuestEventController extends Controller
         return redirect()->back();
     }
 
-    public function acceptInvite(Event $event)
+    public function acceptInvite(Event $event): void
     {
         $user = Auth::user();
         $event->users()->attach($user);
