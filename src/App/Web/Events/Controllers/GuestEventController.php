@@ -107,6 +107,7 @@ class GuestEventController extends Controller
         $user = Auth::user();
         $event->users()->attach($user);
 
+
         Notification::create('You have been registered to the event!')->send();
     }
 

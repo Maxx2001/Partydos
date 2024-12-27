@@ -12,8 +12,10 @@ class Kernel extends ConsoleKernel
         // Schedule commands here
     }
 
-    protected function commands()
+    protected function commands(): void
     {
-        // Load commands here
+        $this->load(__DIR__.'/Commands');
+
+        require base_path('routes/Console/console.php');
     }
 }
