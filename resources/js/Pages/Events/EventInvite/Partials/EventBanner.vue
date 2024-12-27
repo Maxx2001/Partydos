@@ -21,7 +21,7 @@ const props = defineProps({
             data-aos-delay="400"
             v-if="event.media.length"
         >
-            <img :src="event.media[0].url" alt="Event Planning Illustration" class="w-4/6 h-auto rounded-xl"/>
+            <img :src="event.media[0].url" alt="Event Planning Illustration" class="w-10/12 h-auto rounded-xl mt-4"/>
         </div>
         <div
             class="flex h-full items-center justify-center"
