@@ -39,8 +39,21 @@ import BaseOutlineButton from "../../../Components/Base/BaseOutlineButton.vue";
                         dynamic polls.
                     </span>
                 </h2>
-
-                <!-- Call to Action -->
+                <h3 class="text-lg text-center lg:hidden block font-extrabold px-2">
+                    <span class="text-orange-400 font-extrabold">
+                        Plan events,
+                    </span>
+                    <span class="text-green-400 font-extrabold">
+                        send personalized invites,
+                    </span>
+                    <span class="text-pink-400 font-extrabold">
+                        manage attendees,
+                    </span>
+                    and create
+                    <span class="text-orange-400 font-extrabold">
+                        dynamic polls.
+                    </span>
+                </h3>
                 <div
                     class="flex space-x-4 mt-6 justify-center lg:justify-start"
                     data-aos="fade-up"
