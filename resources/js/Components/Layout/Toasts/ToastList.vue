@@ -8,15 +8,6 @@ const page = usePage();
 const useToasts = toastsStore();
 const { toasts } = storeToRefs(useToasts);
 
-// Add session message to the toasts store when the component is mounted
-if (page.props.message) {
-    useToasts.open(
-        page.props.message.content,
-        page.props.message.type || "info"
-    );
-}
-
-console.log("Toasts array:", toasts.value);
 </script>
 
 <template>
