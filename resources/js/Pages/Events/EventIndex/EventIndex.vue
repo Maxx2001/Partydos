@@ -1,6 +1,6 @@
 <script setup>
 import DefaultLayout from '@/Layouts/DefaultLayout.vue';
-import EventList from "@/Pages/Dashboard/Partials/EventList.vue";
+import EventList from "@/Pages/Events/EventIndex/Partials/EventList.vue";
 
 const props = defineProps({
     events: {

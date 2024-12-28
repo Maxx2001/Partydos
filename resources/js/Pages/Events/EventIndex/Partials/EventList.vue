@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps } from 'vue';
-import EventCard from "@/Pages/Dashboard/Partials/EventCard.vue";
+import EventCard from "@/Pages/Events/EventIndex/Partials/EventCard.vue";
 
 const props = defineProps({
     events: {

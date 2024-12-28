@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage";
+import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage.js";
 import { MapPinIcon, UserGroupIcon, CalendarDaysIcon, PencilSquareIcon } from "@heroicons/vue/20/solid";
 import { Link } from '@inertiajs/vue3';
 
@@ -50,13 +50,15 @@ const eventLink = () => props.canEdit ? route('events.edit', { event: uniqueIden
 
 <template>
     <li :class="`rounded-lg bg-gradient-to-br ${gradientForEvent[0]} ${gradientForEvent[1]} shadow-md hover:shadow-lg transition-shadow`">
-        <Link :href="eventLink()" class="block p-4">
+        <Link :href="route('events.show-invite', { event: uniqueIdentifier })" class="block p-4">
             <div class="flex justify-between">
                 <h3 :class="`text-lg font-semibold ${textColor}`">{{ event.title }}</h3>
-                <PencilSquareIcon v-if="canEdit" :class="`${textColor} h-6`"/>
+                <Link :href="route('events.edit', { event: uniqueIdentifier })">
+                    <PencilSquareIcon v-if="canEdit" :class="`${textColor} h-6`"/>
+                </Link>
             </div>
             <p :class="`${textColor} text-sm mt-2 flex items-center`">
-                <MapPinIcon :class="`h-5 ${textColor} pr-1`"/>
+                <MapPinIcon v-if="canEdit" :class="`h-5 ${textColor} pr-1`"/>
                 <span v-if="event.location">
                     {{ event.location }}
                 </span>
