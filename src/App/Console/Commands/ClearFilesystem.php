@@ -54,6 +54,12 @@ class ClearFilesystem extends Command
         }
 
         $this->info("All files and directories in the '{$disk}' disk have been cleared.");
+
+        if (Storage::disk($disk)->exists('.cache')) {
+            Storage::disk($disk)->deleteDirectory('.cache');
+            $this->info("The .cache directory has been deleted.");
+        }
+
         return CommandAlias::SUCCESS;
     }
 }
