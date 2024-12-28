@@ -78,6 +78,13 @@
                 >
                     Forgot your password?
                 </a>
+                <hr class="border-blue-500">
+                <a
+                    :href="route('home')"
+                    class="inline-block w-full text-sm text-blue-500 mt-2"
+                >
+                    Go back
+                </a>
             </p>
         </div>
     </div>
