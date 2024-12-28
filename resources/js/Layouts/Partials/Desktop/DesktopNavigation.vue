@@ -56,7 +56,7 @@ const emits = defineEmits(['toggleMobileMenu']);
                     extra-classes="text-sm"
                 />
                 <BaseOutlineButton
-                    v-if="!$page.props.auth.user"
+                    v-if="page && !$page.props.auth.user"
                     :icon="UserIcon"
                     @click="router.get(route('login'))"
                     extra-classes="text-sm"

@@ -59,7 +59,7 @@ const logout = () => router.post(route('logout'));
                     @click="router.get(route('guest-events.create'))"
                 />
                 <BaseOutlineButton
-                    v-if="!$page.props.auth.user"
+                    v-if="page && !$page.props.auth.user"
                     :icon="UserIcon"
                     @click="router.get(route('login'))"
                     label="Login"
@@ -76,7 +76,7 @@ const logout = () => router.post(route('logout'));
 
             <div class="flex-grow"></div>
            <button
-               v-if="$page.props.auth.user"
+               v-if="page && $page.props.auth.user"
                @click="logout"
                class="mb-1.5"
            >
