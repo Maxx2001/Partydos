@@ -25,7 +25,7 @@ class AuthenticatedEventController
         $events = $viewEventsAction->execute();
         $ownedEvents = $user->ownedEvents()->futureEvents()->orderBy('start_date_time')->get();
 
-        return Inertia::render('Dashboard/Index', [
+        return Inertia::render('Events/EventIndex/EventIndex', [
             'events' => EventEntityData::collect($events),
             'ownedEvents' =>  EventEntityData::collect($ownedEvents),
         ]);
