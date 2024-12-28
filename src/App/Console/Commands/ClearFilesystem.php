@@ -29,6 +29,10 @@ class ClearFilesystem extends Command
      */
     public function handle(): int
     {
+        if (app()->environment(['production', 'testing'])) {
+            return CommandAlias::FAILURE;
+        }
+
         $disk = $this->argument('disk');
 
         if (!Storage::disk($disk)->exists('/')) {
