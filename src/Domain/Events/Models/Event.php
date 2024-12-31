@@ -92,12 +92,15 @@ class Event extends Model implements HasMedia
 
     public function getIsoStartDateTimeAttribute(): string
     {
-        return Carbon::parse($this->start_date_time)->toISOString();
+        return Carbon::parse($this->start_date_time)->format('Y-m-d\TH:i:s');
+
     }
 
     public function getIsoEndDateTimeAttribute(): ?string
     {
-        return $this->end_date_time ? Carbon::parse($this->end_date_time)->toISOString() : null;
+        return $this->end_date_time
+            ? Carbon::parse($this->end_date_time)->format('Y-m-d\TH:i:s')
+            : null;
     }
 
     public function getGoogleCalendarLinkAttribute(): string

@@ -19,6 +19,6 @@ class GoogleCalendarLinkService
 
     protected static function formatDateForGoogleCalendar($isoDateTime): string
     {
-        return str_replace(['-', ':', '.000Z'], '', Carbon::parse($isoDateTime)->toISOString());
+        return Carbon::parse($isoDateTime)->format('Ymd\THis');
     }
 }

@@ -8,11 +8,17 @@ use Domain\GuestUsers\Models\GuestUser;
 use Illuminate\Support\Facades\Session;
 use Support\Actions\AttachMediaToModelAction;
 use Support\Notification;
+use Support\Services\DateAdjustmentService;
 
 class GuestEventCreateAction
 {
     public function execute(EventStoreData $eventStoreData, GuestUser $guestUser): Event
     {
+        $eventStoreData->end_date_time = DateAdjustmentService::adjustEndDate(
+            $eventStoreData->start_date_time,
+            $eventStoreData->end_date_time
+        );
+
         $event = Event::create($eventStoreData->all());
         $event->guestUser()->associate($guestUser);
 

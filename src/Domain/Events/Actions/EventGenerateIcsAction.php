@@ -16,18 +16,19 @@ class EventGenerateIcsAction
         $eventLocation    = addslashes($event->location);
 
         // this format is necessary for the ics file to function
-        return "BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//partydos.nl//NONSGML v1.0//EN
-BEGIN:VEVENT
-UID:" . uniqid() . "@partydos.nl
-DTSTAMP:" . now()->format('Ymd\THis') . "
-DTSTART:{$startDate}
-DTEND:{$endDate}
-SUMMARY:{$eventName}
-DESCRIPTION:{$eventDescription}
-LOCATION:{$eventLocation}
-END:VEVENT
-END:VCALENDAR";
-    }
-}
+        return
+            "BEGIN:VCALENDAR
+            VERSION:2.0
+            PRODID:-//partydos.nl//NONSGML v1.0//EN
+            BEGIN:VEVENT
+            UID:" . uniqid() . "@partydos.nl
+            DTSTAMP:" . now()->format('Ymd\THis') . "
+            DTSTART:{$startDate}
+            DTEND:{$endDate}
+            SUMMARY:{$eventName}
+            DESCRIPTION:{$eventDescription}
+            LOCATION:{$eventLocation}
+            END:VEVENT
+            END:VCALENDAR";
+            }
+        }

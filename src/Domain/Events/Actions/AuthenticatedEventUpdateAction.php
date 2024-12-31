@@ -2,17 +2,21 @@
 
 namespace Domain\Events\Actions;
 
-use Domain\Events\DataTransferObjects\AuthenticatedEventData;
 use Domain\Events\DataTransferObjects\AuthenticatedEventUpdateData;
 use Domain\Events\Models\Event;
-use Illuminate\Support\Facades\Session;
 use Support\Actions\AttachMediaToModelAction;
 use Support\Notification;
+use Support\Services\DateAdjustmentService;
 
 class AuthenticatedEventUpdateAction
 {
-    public function execute(Event $event, AuthenticatedEventUpdateData $authenticatedEventStoreData)
+    public function execute(Event $event, AuthenticatedEventUpdateData $authenticatedEventStoreData): Event
     {
+        $authenticatedEventStoreData->end_date_time = DateAdjustmentService::adjustEndDate(
+            $authenticatedEventStoreData->start_date_time,
+            $authenticatedEventStoreData->end_date_time
+        );
+
         $event->update($authenticatedEventStoreData->all());
 
         if ($authenticatedEventStoreData->remove_image) {
