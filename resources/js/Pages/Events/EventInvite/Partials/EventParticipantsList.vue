@@ -16,6 +16,10 @@ const props = defineProps({
     moveEventRegisterDown: {
         type: Boolean,
         required: false
+    },
+    isEventOwner: {
+        type: Boolean,
+        required: false
     }
 });
 const {getRandomBgColorFromString} = ColorService;
@@ -23,13 +27,12 @@ const {getRandomBgColorFromString} = ColorService;
 const totalGuests = computed(() => props.invitedUsers.length);
 
 const guestMessage = computed(() => {
-    switch (totalGuests.value) {
-        case 0:
-            return 'Be the first to sign-up!';
-        case 1:
-            return '1 Friend already signed up!';
-        default:
-            return `${totalGuests.value} Friends already signed up!`;
+    if (totalGuests.value === 0) {
+        return props.isEventOwner ? 'Start inviting friends!' : 'Be the first to sign-up!';
+    } else if (totalGuests.value === 1) {
+        return '1 Friend already signed up!';
+    } else {
+        return `${totalGuests.value} Friends already signed up!`;
     }
 });
 

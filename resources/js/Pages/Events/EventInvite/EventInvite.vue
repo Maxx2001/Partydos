@@ -69,6 +69,7 @@ onMounted(() => {
                 :invited-users="event.invitedUsers"
                 :eventOwner="event.eventOwner"
                 :moveEventRegisterDown="moveEventRegisterDown"
+                :is-event-owner="event.canEdit"
                 @open-add-to-calendar-modal="eventAddToCalendarModel.openModal()"
             />
 
