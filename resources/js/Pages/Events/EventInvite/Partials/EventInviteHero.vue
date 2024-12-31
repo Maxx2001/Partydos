@@ -2,6 +2,8 @@
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 import EventBanner from "@/Pages/Events/EventInvite/Partials/EventBanner.vue";
 import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage";
+import {PencilSquareIcon} from "@heroicons/vue/20/solid/index.js";
+import {Link} from "@inertiajs/vue3";
 
 const props = defineProps({
     event: {
@@ -19,8 +21,8 @@ const emits = defineEmits(['acceptEventInvite']);
 
 <template>
     <section
-        class="relative bg-gradient-to-br from-blue-600 to-purple-800 text-white py-10 md:py-24 px-6"
-        :class="showInviteButton ? '' : 'pb-8 lg:pb-0'"
+        class="relative bg-gradient-to-br from-blue-600 to-purple-800 text-white py-4 md:py-24 px-6"
+        :class="showInviteButton ? '' : 'pb-8 lg:pb-5'"
     >
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-start h-full pb-8">
             <div
@@ -28,12 +30,26 @@ const emits = defineEmits(['acceptEventInvite']);
                 data-aos="fade-up"
                 data-aos-duration="1000"
             >
-                <h1 class="text-3xl md:text-5xl font-extrabold leading-tight text-center lg:text-left flex flex-col md:flex-row justify-center mb-4">
-                    You are invited to:
+                <div class="flex justify-end lg:hidden mb-2">
+                    <Link :href="route('events.edit', { event: event.uniqueIdentifier })" class="flex justify-end w-1/4 pr-2">
+                        <PencilSquareIcon v-if="event.canEdit" class="h-8"/>
+                    </Link>
+                </div>
+
+                <div class="text-3xl md:text-5xl font-extrabold leading-tight text-center lg:text-left flex flex-col md:flex-row justify-center mb-4">
+                    <span v-if="event.canEdit">
+                        You are organizing:
+                    </span>
+                    <span v-else>
+                        You are invited to:
+                    </span>
                     <span class="pl-2 text-yellow-300">
                         {{ event.title }}
                     </span>
-                </h1>
+                    <Link :href="route('events.edit', { event: event.uniqueIdentifier })" class="hidden lg:block">
+                        <PencilSquareIcon v-if="event.canEdit" class="pl-6 h-12"/>
+                    </Link>
+                </div>
                 <div class="md:hidden flex flex-col text-center md:text-left text-xl space-y-2 md:space-y-4">
                     <p class="font-bold">
                         At:
@@ -42,7 +58,6 @@ const emits = defineEmits(['acceptEventInvite']);
                         </span>
                     </p>
                     <p class="font-semibold pt-1">
-<!--                        Event starts at:-->
                         <span class="text-blue-200">
                             {{ getFormattedEventDateMessage(event) }}
                         </span>
