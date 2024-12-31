@@ -2,6 +2,7 @@
 
 namespace Domain\Events\DataTransferObjects;
 
+use Auth;
 use Carbon\Carbon;
 use Domain\Events\Models\Event;
 use Domain\Files\DataTransferObjects\PictureDataEntity;
@@ -34,10 +35,12 @@ class EventEntityData extends Data
 //        #[DataCollectionOf(GuestUserEntity::class)]
         public                 $invitedUsers,
         public Carbon          $createdAt,
-        public Carbon          $updatedAt
+        public Carbon          $updatedAt,
+        public bool            $canEdit = false,
     )
     {
         $this->filterMedia();
+        $this->canEdit = $this->canEdit();
     }
 
     private function filterMedia(): void
@@ -47,5 +50,14 @@ class EventEntityData extends Data
             PictureDataEntity::class,
             $trademark->getMedia('event-banner')
         );
+    }
+
+    private function canEdit(): bool
+    {
+        if ($user = Auth::user()) {
+            return $user->id === $this->eventOwner->id;
+        }
+
+        return false;
     }
 }

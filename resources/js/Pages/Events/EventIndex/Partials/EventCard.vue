@@ -58,7 +58,7 @@ const eventLink = () => props.canEdit ? route('events.edit', { event: uniqueIden
                 </Link>
             </div>
             <p :class="`${textColor} text-sm mt-2 flex items-center`">
-                <MapPinIcon v-if="canEdit" :class="`h-5 ${textColor} pr-1`"/>
+                <MapPinIcon :class="`h-5 ${textColor} pr-1`"/>
                 <span v-if="event.location">
                     {{ event.location }}
                 </span>

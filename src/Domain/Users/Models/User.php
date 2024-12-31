@@ -60,6 +60,14 @@ class User extends Authenticatable
         ];
     }
 
+    public function upcomingEvents(): Collection
+    {
+        $invitedEvents = $this->events()->futureEvents()->orderBy('start_date_time')->get();
+        $ownedEvents = $this->ownedEvents()->futureEvents()->orderBy('start_date_time')->get();
+
+        return $invitedEvents->merge($ownedEvents);
+    }
+
     public function getHistoryEvents(): Collection
     {
         $invitedEvents = $this->events()->historyEvents()->orderBy('start_date_time')->get();

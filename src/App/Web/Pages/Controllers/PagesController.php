@@ -2,6 +2,7 @@
 
 namespace App\Web\Pages\Controllers;
 
+use Domain\Events\DataTransferObjects\EventEntityData;
 use Inertia\Response;
 use Support\Controllers\Controller;
 
@@ -10,7 +11,14 @@ class PagesController extends Controller
 
     public function index(): Response
     {
-        return inertia('LandingsPage/Index');
+        $user = auth()->user();
+        $upcomingEvents = !!$user ? EventEntityData::collect($user->upcomingEvents()) : [];
+
+        return inertia('LandingsPage/Index',
+        [
+            'showUpcomingEvents' => !!$user,
+            'events' => $upcomingEvents,
+        ]);
     }
 
     public function features(): Response
