@@ -11,7 +11,8 @@ import EventRegisterModal from "@/Pages/Events/EventInvite/Partials/Modals/Event
 import EventAddToCalendarModel from "@/Pages/Events/EventInvite/Partials/Modals/EventAddToCalendarModel.vue";
 import EventInviteLinkeModal from "@/Pages/Events/EventInvite/Partials/Modals/EventInviteLinkeModal.vue";
 import EventDescription from "@/Pages/Events/EventInvite/Partials/EventDescription.vue";
-import ToastList from "@/Components/Layout/Toasts/ToastList.vue";
+import BaseModal from "@/Components/Base/BaseModal.vue";
+import {router} from "@inertiajs/vue3";
 
 const props = defineProps({
     event: {
@@ -25,6 +26,10 @@ const props = defineProps({
     showInviteButton: {
         type: Boolean,
         default: true,
+    },
+    showCancelButton: {
+        type: Boolean,
+        default: false,
     },
 });
 
@@ -46,6 +51,18 @@ onMounted(() => {
     }
 });
 
+const showCancelForm = ref(false);
+
+const handleConfirm = () => {
+    router.delete(
+        route('events.cancel-invite', {'event': props.event.uniqueIdentifier}),
+        {
+            onSuccess: () => {
+                showCancelForm.value = false;
+            }
+        },
+    );
+}
 </script>
 
 <template>
@@ -60,7 +77,9 @@ onMounted(() => {
             <EventInviteBanner
                 :event="event"
                 @accept-event-invite="eventRegisterModal.openModal()"
+                @cancel-event-invite="showCancelForm = true"
                 :show-invite-button="showInviteButton"
+                :show-cancel-button="showCancelButton"
                 class="hidden md:flex"
             />
 
@@ -80,6 +99,16 @@ onMounted(() => {
             :event="event"
             ref="eventRegisterModal"
         />
+
+        <BaseModal
+            :isVisible="showCancelForm"
+            @close="showCancelForm = false"
+            @confirm="handleConfirm"
+            title="Decline this event invite"
+        >
+            Are you sure you want to decline this event invite?
+        </BaseModal>
+
 
         <EventAddToCalendarModel
             :event="event"

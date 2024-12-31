@@ -67,16 +67,19 @@ class GuestEventController extends Controller
     public function showInvite(Event $event): Response
     {
         $showInviteButton = true;
+        $showCancelButton = false;
 
         if ($user = Auth::user()) {
             $eventUsers = $event->users()->get();
             $showInviteButton = !$eventUsers->contains($user) && $event->user_id !== $user->id;
+            $showCancelButton = $eventUsers->contains($user) && $event->user_id !== $user->id;
         }
 
         return Inertia::render('Events/EventInvite/EventInvite', [
             'event' => EventEntityData::from($event),
             'showInviteModal' => Session::get('event_created'),
             'showInviteButton' => $showInviteButton,
+            'showCancelButton' => $showCancelButton,
         ])->withViewData([
             'title' => $event->title,
             'description' => $event->description,
@@ -107,8 +110,15 @@ class GuestEventController extends Controller
         $user = Auth::user();
         $event->users()->attach($user);
 
-
         Notification::create('You have been registered to the event!')->send();
+    }
+
+    public function cancelInvite(Event $event): void
+    {
+        $user = Auth::user();
+
+        $event->users()->detach($user);
+        Notification::create('You have been unregistered from the event.')->send();
     }
 
     public function downloadEventICS(Event $event, EventGenerateIcsAction $eventGenerateIcsAction): Application|\Illuminate\Http\Response|ResponseFactory

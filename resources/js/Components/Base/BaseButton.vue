@@ -1,6 +1,7 @@
 <script setup>
+import { computed } from 'vue';
 
-defineProps({
+const props = defineProps({
     label: {
         type: String,
         default: 'Submit',
@@ -17,14 +18,27 @@ defineProps({
         type: String,
         default: '',
     },
+    variant: {
+        type: String,
+        default: 'submit',
+    },
 })
+
+const buttonClasses = computed(() => {
+    switch (props.variant) {
+        case 'cancel':
+            return 'bg-red-600 hover:bg-white hover:text-red-600 border-red-600';
+        case 'submit':
+        default:
+            return 'bg-blue-600 hover:bg-white hover:text-blue-600 border-blue-600';
+    }
+});
 </script>
 
 <template>
     <button
         :type="type"
-        class="inline-flex items-center justify-center gap-x-1.5 rounded-md bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm hover:bg-white hover:text-blue-600 hover:border border border-blue-600 hover:border-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition duration-300"
-        :class="extraClasses"
+        :class="`inline-flex items-center justify-center gap-x-1.5 rounded-md px-6 py-3 font-semibold text-white border shadow-sm hover:border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition duration-300 ${buttonClasses} ${extraClasses}`"
     >
         <component :is="icon" class="-ml-0.5 h-5 w-5" aria-hidden="true" />
         <span>

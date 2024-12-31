@@ -68,7 +68,7 @@ const confirmAction = () => emit('confirm');
 
                     <div class="flex justify-end mt-4 space-x-4">
                         <BaseCancelButton @click="closeModal" :label="cancelButtonLabel" v-if="showCancelButton"/>
-                        <BaseButton @click="confirmAction" :label="submitButtonLabel" :isLoading="isLoading" v-if="showSubmitButton"/>
+                        <BaseButton @click="confirmAction" :label="submitButtonLabel" v-if="showSubmitButton"/>
                     </div>
                 </div>
             </div>

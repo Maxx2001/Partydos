@@ -39,23 +39,24 @@ class EventEntityData extends Data
         public bool            $canEdit = false,
     )
     {
-        $this->filterMedia();
-        $this->canEdit = $this->canEdit();
+        $event   = Event::find($this->id);
+
+        $this->filterMedia($event);
+        $this->canEdit = $this->canEdit($event);
     }
 
-    private function filterMedia(): void
+    private function filterMedia(Event $event): void
     {
-        $trademark   = Event::find($this->id);
         $this->media = new DataCollection(
             PictureDataEntity::class,
-            $trademark->getMedia('event-banner')
+            $event->getMedia('event-banner')
         );
     }
 
-    private function canEdit(): bool
+    private function canEdit($event): bool
     {
         if ($user = Auth::user()) {
-            return $user->id === $this->eventOwner->id;
+            return $user->getKey() === $event->user_id;
         }
 
         return false;

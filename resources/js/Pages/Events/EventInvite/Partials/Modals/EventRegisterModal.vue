@@ -13,8 +13,8 @@ const eventRegisterFormRef = ref(null);
 
 const showModal = ref(false);
 
-const handleConfirm = () =>  eventRegisterFormRef.value.submitRegisterForm();
-const openModal = () =>  showModal.value = true;
+const handleConfirm = () => eventRegisterFormRef.value.submitRegisterForm();
+const openModal = () => showModal.value = true;
 
 defineExpose({openModal});
 

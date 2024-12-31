@@ -57,7 +57,7 @@ const emits = defineEmits(['acceptEventInvite']);
                         </span>
                     </p>
                 </div>
-                <!-- Event Banner for Mobile -->
+
                 <EventBanner class="block md:hidden" :event="event"/>
                 <div class="flex justify-end lg:hidden pt-2">
                     <Link :href="route('events.edit', { event: event.uniqueIdentifier })" class="flex justify-end w-1/4 pr-2">

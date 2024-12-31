@@ -5,6 +5,7 @@ import { computed, onMounted } from "vue";
 import AOS from "aos";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage";
+// import BaseCancelButton from "@/Components/Base/BaseCancelButton.vue";
 
 const props = defineProps({
     event: {
@@ -15,24 +16,13 @@ const props = defineProps({
         type: Boolean,
         default: true,
     },
+    showCancelButton: {
+        type: Boolean,
+        default: false,
+    },
 });
 
-const formattedStartDate = computed(() => {
-    return props.event.startDateTime ? formatDate(props.event.startDateTime) : 'No start date set.';
-});
-
-const formatDate = (dateString) => {
-    const options = {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-    };
-    return new Intl.DateTimeFormat('en-GB', options).format(new Date(dateString));
-};
-
-const emits = defineEmits(['acceptEventInvite']);
+const emits = defineEmits(['acceptEventInvite', 'cancelEventInvite']);
 onMounted(() => {
     AOS.refresh();
 });
@@ -91,6 +81,13 @@ onMounted(() => {
                         label="Join event!"
                         @click="emits('acceptEventInvite')"
                         class="h-12"
+                    />
+                    <BaseButton
+                        v-if="showCancelButton"
+                        label="Cancel Invite"
+                        @click="emits('cancelEventInvite')"
+                        class="h-12"
+                        variant="cancel"
                     />
                 </div>
             </div>
