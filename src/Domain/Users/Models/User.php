@@ -59,4 +59,12 @@ class User extends Authenticatable
             'password'          => 'hashed',
         ];
     }
+
+    public function getHistoryEvents(): Collection
+    {
+        $invitedEvents = $this->events()->historyEvents()->orderBy('start_date_time')->get();
+        $ownedEvents = $this->ownedEvents()->historyEvents()->orderBy('start_date_time')->get();
+
+        return $invitedEvents->merge($ownedEvents);
+    }
 }

@@ -14,7 +14,7 @@ class ViewEventsAction
         $user = Auth::user();
 
         return EventEntityData::collect(
-            $events = $user->events()->get()
+            $events = $user->events()->futureEvents()->get()
         );
     }
 }

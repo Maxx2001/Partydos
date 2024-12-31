@@ -116,6 +116,7 @@ class Event extends Model implements HasMedia
         $this->load('guestUsers', 'users');
         return $this->guestUsers->merge($this->users);
     }
+
     public function scopeFutureEvents(Builder $query): void
     {
         $query->where('start_date_time', '>=', now())
@@ -123,7 +124,15 @@ class Event extends Model implements HasMedia
                 $query->whereNotNull('end_date_time')
                     ->where('end_date_time', '>=', now());
             });
-//        $query->where('start_date_time', '>=', now());
+    }
+
+    public function scopeHistoryEvents(Builder $query): void
+    {
+        $query->where('start_date_time', '<', now())
+            ->orWhere(function (Builder $query) {
+                $query->whereNotNull('end_date_time')
+                    ->where('end_date_time', '<', now());
+            });
     }
 
     public function registerMediaConversions(Media $media = null): void
