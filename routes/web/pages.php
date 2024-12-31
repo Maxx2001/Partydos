@@ -1,13 +1,9 @@
 <?php
 
-use App\Web\Contact\ContactController;
-use App\Web\Features\Controllers\FeaturesController;
+use App\Web\Pages\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('LandingsPage/Index');
-})->name('home');
+Route::get('/', [PagesController::class, 'index'])->name('home');
+Route::get('/features', [PagesController::class, 'features'])->name('features');
+Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
 
-Route::get('features', [FeaturesController::class, 'index'])->name('features');
-Route::get('contact', [ContactController::class, 'index'])->name('contact');
