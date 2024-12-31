@@ -31,7 +31,7 @@ const emits = defineEmits(['acceptEventInvite']);
                 data-aos-duration="1000"
             >
                 <div class="text-3xl md:text-5xl font-extrabold leading-tight text-center lg:text-left flex flex-col md:flex-row justify-center mb-4">
-                    <span v-if="event.canEdit">
+                    <span v-if="event.canEdit" class="lg:mb-24">
                         You are organizing:
                     </span>
                     <span v-else>
@@ -69,7 +69,7 @@ const emits = defineEmits(['acceptEventInvite']);
         <div class="absolute top-0 left-0 w-24 h-24 bg-white/20 rounded-full blur-lg"></div>
 
         <!-- Button Section -->
-        <div class="flex md:hidden justify-center pt-4" v-if="showInviteButton">
+        <div class="flex md:hidden justify-center pt-4 pb-8" v-if="showInviteButton">
             <BaseOutlineButton
                 label="Join event!"
                 @click="emits('acceptEventInvite')"
