@@ -90,7 +90,8 @@ const handleSubmit = () => {
                     <img
                         :src="previewUrl || initialImage"
                         alt="File preview"
-                        class="max-w-full h-32 object-contain rounded"
+                        class="max-w-full h-32 object-contain rounded cursor-pointer"
+                        @click="triggerFileInput"
                     />
                     <button
                         type="button"
