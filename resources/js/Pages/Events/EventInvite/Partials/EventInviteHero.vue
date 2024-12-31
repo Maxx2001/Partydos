@@ -21,21 +21,15 @@ const emits = defineEmits(['acceptEventInvite']);
 
 <template>
     <section
-        class="relative bg-gradient-to-br from-blue-600 to-purple-800 text-white py-4 md:py-24 px-6"
-        :class="showInviteButton ? '' : 'pb-8 lg:pb-5'"
+        class="relative bg-gradient-to-br from-blue-600 to-purple-800 text-white pt-10 md:py-24 px-6"
+        :class="showInviteButton ? '' : 'pb-4 lg:pb-0'"
     >
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-start h-full pb-8">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
             <div
                 class="w-full lg:px-0 h-full flex flex-col justify-center space-y-1 md:space-y-4"
                 data-aos="fade-up"
                 data-aos-duration="1000"
             >
-                <div class="flex justify-end lg:hidden mb-2">
-                    <Link :href="route('events.edit', { event: event.uniqueIdentifier })" class="flex justify-end w-1/4 pr-2">
-                        <PencilSquareIcon v-if="event.canEdit" class="h-8"/>
-                    </Link>
-                </div>
-
                 <div class="text-3xl md:text-5xl font-extrabold leading-tight text-center lg:text-left flex flex-col md:flex-row justify-center mb-4">
                     <span v-if="event.canEdit">
                         You are organizing:
@@ -64,7 +58,12 @@ const emits = defineEmits(['acceptEventInvite']);
                     </p>
                 </div>
                 <!-- Event Banner for Mobile -->
-                <EventBanner class="block md:hidden pt-2 md:pt-0" :event="event"/>
+                <EventBanner class="block md:hidden" :event="event"/>
+                <div class="flex justify-end lg:hidden pt-2">
+                    <Link :href="route('events.edit', { event: event.uniqueIdentifier })" class="flex justify-end w-1/4 pr-2">
+                        <PencilSquareIcon v-if="event.canEdit" class="h-7"/>
+                    </Link>
+                </div>
             </div>
         </div>
         <div class="absolute top-0 left-0 w-24 h-24 bg-white/20 rounded-full blur-lg"></div>
