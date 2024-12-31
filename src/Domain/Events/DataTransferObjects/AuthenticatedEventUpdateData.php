@@ -8,7 +8,7 @@ use Spatie\LaravelData\Data;
 class AuthenticatedEventUpdateData extends Data
 {
     public function __construct(
-        #[Rule(['sometimes', 'string', 'max:255'])]
+        #[Rule(['required', 'string', 'max:255'])]
         public ?string $title,
 
         #[Rule(['sometimes', 'nullable', 'string'])]
@@ -22,5 +22,12 @@ class AuthenticatedEventUpdateData extends Data
 
         #[Rule(['sometimes', 'nullable', 'date'])]
         public ?string $end_date_time,
+
+        #[Rule(['nullable', 'image', 'mimes:jpg,png,jpeg', 'max:5120'])]
+        public $image,
+
+        #[Rule(['sometimes', 'boolean'])]
+        public ?bool $remove_image = false,
+
     ) {}
 }

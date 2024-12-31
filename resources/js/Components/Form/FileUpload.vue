@@ -1,49 +1,26 @@
-<template>
-    <div class="w-full bg-gray-50 flex items-center justify-center pb-4 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
-            <div>
-                <h2 class="pt-5 text-center text-xl font-extrabold text-gray-900">
-                    Upload Your File
-                </h2>
-            </div>
-            <form @submit.prevent="handleSubmit">
-                <div class="rounded-md shadow-sm -space-y-px">
-                    <div
-                        class="flex items-center justify-center w-full border-2 border-dashed border-gray-300 rounded-lg p-3 bg-white hover:border-blue-500 cursor-pointer"
-                        @click="triggerFileInput"
-                        @dragover.prevent
-                        @drop.prevent="handleDrop"
-                    >
-                        <p v-if="!file" class="text-gray-400">Drop your file here or click to upload</p>
-                        <p v-else class="text-gray-600">{{ file.name }}</p>
-                    </div>
-                    <input
-                        ref="fileInput"
-                        type="file"
-                        class="hidden"
-                        accept="image/*"
-                        @change="handleFileChange"
-                    />
-                </div>
-                <p class="text-gray-500 w-full text-center italic underline mt-1">
-                    Images up to 5mb
-                </p>
-                <div v-if="file" class="mt-4 flex justify-center">
-                    <img :src="previewUrl" alt="File preview" class="max-w-full h-32 object-contain rounded" />
-                </div>
-            </form>
-        </div>
-    </div>
-</template>
-
 <script setup>
-import { ref } from 'vue';
+import {ref, watch} from 'vue';
+
+const props = defineProps({
+    initialImage: {
+        type: String,
+        default: null,
+    },
+});
+
+const initialImage = ref(props.initialImage);
 
 const file = ref(null);
 const fileInput = ref(null);
 const previewUrl = ref(null);
 
-const emit = defineEmits(['fileUploaded']);
+const emit = defineEmits(['fileUploaded', 'clearImage']);
+
+watch(() => props.initialImage, (newImage) => {
+    if (newImage && !file.value) {
+        previewUrl.value = newImage;
+    }
+});
 
 const triggerFileInput = () => {
     fileInput.value.click();
@@ -66,9 +43,64 @@ const handleDrop = (event) => {
     }
 };
 
+const clearImage = () => {
+    file.value = null;
+    previewUrl.value = null;
+    emit('clearImage');
+};
 const handleSubmit = () => {
     if (file.value) {
         emit('fileUploaded', file.value);
     }
 };
 </script>
+
+<template>
+    <div class="w-full bg-gray-50 flex items-center justify-center pb-4 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <div>
+                <h2 class="pt-5 text-center text-xl font-extrabold text-gray-900">
+                    {{ file ? 'Update Your File' : 'Upload Your File' }}
+                </h2>
+            </div>
+            <form @submit.prevent="handleSubmit">
+                <div class="rounded-md shadow-sm -space-y-px">
+                    <div
+                        class="flex items-center justify-center w-full border-2 border-dashed border-gray-300 rounded-lg p-3 bg-white hover:border-blue-500 cursor-pointer"
+                        @click="triggerFileInput"
+                        @dragover.prevent
+                        @drop.prevent="handleDrop"
+                    >
+                        <p v-if="!file && !initialImage" class="text-gray-400">Drop your file here or click to upload</p>
+                        <p v-else-if="file" class="text-gray-600">{{ file.name }}</p>
+                        <p v-else class="text-gray-400">Click to upload or drop a new image</p>
+                    </div>
+                    <input
+                        ref="fileInput"
+                        type="file"
+                        class="hidden"
+                        accept="image/*"
+                        @change="handleFileChange"
+                    />
+                </div>
+                <p class="text-gray-500 w-full text-center italic underline mt-1">
+                    Images up to 5mb
+                </p>
+                <div v-if="previewUrl || initialImage" class="mt-4 flex flex-col items-center">
+                    <img
+                        :src="previewUrl || initialImage"
+                        alt="File preview"
+                        class="max-w-full h-32 object-contain rounded"
+                    />
+                    <button
+                        type="button"
+                        class="mt-2 text-sm text-red-500 underline"
+                        @click="clearImage"
+                    >
+                        Remove Image
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</template>

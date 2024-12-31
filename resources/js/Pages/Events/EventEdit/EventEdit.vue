@@ -8,6 +8,7 @@ import TextAreaInput from "@/Components/Inputs/TextAreaInput.vue";
 import TextInput from "@/Components/Inputs/TextInput.vue";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 import DatePicker from "@/Pages/Events/EventCreate/Partials/DatePicker.vue";
+import FileUpload from "@/Components/Form/FileUpload.vue";
 
 const props = defineProps({
     event: {
@@ -22,6 +23,8 @@ const form = useForm({
     location: props.event.location,
     start_date_time: null,
     end_date_time: null,
+    image: null,
+    remove_image: false,
 });
 
 const setDateObject = (dateObject) => {
@@ -97,7 +100,11 @@ const submitEventDetails = () => {
         return;
     }
 
-    form.put(route("users-events.update", {event: props.event.id} ));
+    router.post(route('users-events.update', {event: props.event.id}),
+        {
+            ...form.data(),
+            _method: 'put',
+        });
 };
 
 const scrollToTop = () => {
@@ -106,14 +113,17 @@ const scrollToTop = () => {
         behavior: "smooth",
     });
 };
+
+const setImage = (event) => {
+    console.log(event instanceof File);
+    form.image = event;
+    form.remove_image = false;
+};
 </script>
 
 <template>
     <DefaultLayout>
         <div class="py-8 md:py-24 px-6 flex flex-col items-center justify-center bg-slate-100 rounded">
-<!--            <pre>-->
-<!--                {{ event }}-->
-<!--            </pre>-->
             <form @submit.prevent class="w-full flex flex-col items-center">
                 <div class="w-full flex justify-center text-2xl font-semibold">
                     <h1 class="text-2xl md:text-4xl">
@@ -147,7 +157,13 @@ const scrollToTop = () => {
                             placeholder="Describe the event"
                             class="mx-2 w-full"
                         />
-<!--                        <DatePicker-->
+                        <FileUpload
+                            @fileUploaded="setImage($event)"
+                            @clearImage="form.remove_image = true"
+                            :initial-image="event.media[0]?.url"
+                        />
+
+                        <!--                        <DatePicker-->
 <!--                            @update="setDateObject($event)"-->
 <!--                            :initial-end-time="form.end_date_time"-->
 <!--                            class="mt-6"-->
