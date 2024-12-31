@@ -163,11 +163,12 @@ const setImage = (event) => {
                             :initial-image="event.media[0]?.url"
                         />
 
-                        <!--                        <DatePicker-->
-<!--                            @update="setDateObject($event)"-->
-<!--                            :initial-end-time="form.end_date_time"-->
-<!--                            class="mt-6"-->
-<!--                        />-->
+                        <DatePicker
+                            @update="setDateObject($event)"
+                            :initial-start-time="form.start_date_time"
+                            :initial-end-time="form.end_date_time"
+                            class="mt-6"
+                        />
                         <div class="w-full flex justify-between lg:justify-end mt-4">
                             <BaseOutlineButton
                                 label="Cancel"
