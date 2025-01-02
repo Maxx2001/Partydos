@@ -15,7 +15,7 @@ const showModal = ref(false);
 const openModal = () => showModal.value = true;
 
 defineExpose({openModal});
-const handleConfirm = () => router.delete(route('events.destroy', {event: props.event.id}),
+const handleConfirm = () => router.delete(route('events.delete', {event: props.event.id}),
     {},
     {
         onSuccess: () => {
