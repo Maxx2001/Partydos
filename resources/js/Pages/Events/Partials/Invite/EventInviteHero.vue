@@ -20,14 +20,13 @@ const emits = defineEmits(['acceptEventInvite']);
 </script>
 
 <template>
-    <div v-if="event.canceledAt" class="fixed inset-0 flex items-center justify-center z-5 pointer-events-none bg-black/50">
-        <p class="text-2xl lg:text-5xl font-bold text-red-500">This event has been canceled.</p>
-    </div>
     <section
-        class="relative bg-gradient-to-br from-blue-600 to-purple-800 text-white pt-10 md:py-24 px-6 pb-4"
-        :class="{ 'opacity-30': event.canceledAt }"
+        class="relative text-white"
     >
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
+        <div
+            :class="{ 'opacity-30': event.canceledAt }"
+            class="pt-10 md:py-24 px-6 pb-4max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-start h-full bg-gradient-to-br from-blue-600 to-purple-800"
+        >
             <div
                 class="w-full lg:px-0 h-full flex flex-col justify-center space-y-1 md:space-y-4"
                 data-aos="fade-up"
@@ -61,7 +60,7 @@ const emits = defineEmits(['acceptEventInvite']);
                     </p>
                 </div>
 
-                <EventBanner v-if="!event.canceledAt" class="block md:hidden" :event="event"/>
+                <EventBanner class="block md:hidden" :event="event"/>
                 <div class="flex justify-end lg:hidden pt-2">
                     <Link v-if="!event.canceledAt" :href="route('events.edit', { event: event.uniqueIdentifier })" class="flex justify-end w-1/4 pr-2">
                         <PencilSquareIcon v-if="event.canEdit" class="h-7"/>
@@ -78,5 +77,11 @@ const emits = defineEmits(['acceptEventInvite']);
                 class="bg-blue-700 font-bold py-3 px-6 rounded-md hover:bg-blue-800 transition duration-300 ease-in-out"
             />
         </div>
+        <p
+            v-if="event.canceledAt"
+            class="text-2xl lg:text-5xl font-bold text-red-500 text-center pb-6 pt-16 hidden lg:block"
+        >
+            This event has been canceled.
+        </p>
     </section>
 </template>

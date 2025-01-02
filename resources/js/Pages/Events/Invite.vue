@@ -74,7 +74,6 @@ const handleConfirm = () => {
                 @accept-event-invite="eventRegisterModal.openModal()"
                 :show-invite-button="showInviteButton"
             />
-
             <EventInviteBanner
                 :event="event"
                 @accept-event-invite="eventRegisterModal.openModal()"
@@ -85,6 +84,7 @@ const handleConfirm = () => {
             />
 
             <EventParticipantsList
+                :event="event"
                 class="pb-6 lg:pb-24"
                 :invited-users="event.invitedUsers"
                 :eventOwner="event.eventOwner"

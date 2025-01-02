@@ -24,7 +24,11 @@ const props = defineProps({
     showAlreadySignedUpMessage:{
         type: Boolean,
         default: false
-    }
+    },
+    event: {
+        type: Object,
+        required: true
+    },
 });
 const {getRandomBgColorFromString} = ColorService;
 
@@ -54,6 +58,12 @@ const emit = defineEmits(['openAddToCalendarModal']);
 <template>
     <div class="flex flex-col items-center lg:mt-3 mt-6">
         <div class="w-full lg:max-w-6xl mx-4 pt-4 lg:pt-0">
+            <p
+                v-if="event.canceledAt"
+                class="text-2xl lg:text-5xl font-bold text-red-500 text-center pb-6 lg:hidden"
+            >
+                This event has been canceled.
+            </p>
             <p class="lg:text-3xl text-2xl text-indigo-700 font-semibold text-center lg:hidden">
                 Organised by
             </p>
