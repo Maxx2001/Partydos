@@ -1,3 +1,15 @@
+<script setup>
+import {router} from "@inertiajs/vue3";
+import DeleteAccountModal from "@/Layouts/Partials/Modals/DeleteAccountModal.vue";
+import {ref} from "vue";
+
+const logout = () => router.post(route('logout'));
+
+const deleteAccountModal = ref('deleteAccountModal');
+
+</script>
+
+
 <template>
     <footer class="bg-gradient-to-br from-blue-500 to-purple-600 text-white py-12 md:py-16 px-6">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start space-y-8 md:space-y-0">
@@ -21,24 +33,32 @@
                 </ul>
             </div>
 
-            <!-- Contact Information -->
             <div class="flex flex-col items-center md:items-start space-y-4">
                 <h3 class="text-xl font-semibold">Contact Us</h3>
                 <p class="text-sm text-gray-100">Yet to come!</p>
 <!--                <p class="text-sm text-gray-100">Email: info@partydos.com</p>-->
             </div>
 
-            <!-- Social Media Links -->
             <div class="flex flex-col items-center md:items-start space-y-4">
-                <h3 class="text-xl font-semibold">Follow Us</h3>
+                <h3 class="text-xl font-semibold">Profile</h3>
                 <div class="flex space-x-4 flex-col items-center">
-                    <span class="hover:text-blue-200 transition duration-300 text-center ">
-                        Yet to come!
-                    </span>
-                    <a href="#" class="hover:text-blue-200 transition duration-300"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="hover:text-blue-200 transition duration-300"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="hover:text-blue-200 transition duration-300"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-blue-200 transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <ul class="space-y-2 text-center md:text-left">
+                        <li v-if="$page.props.auth && $page.props.auth.user">
+                            <button @click="logout" class="hover:underline hover:text-blue-200 transition duration-300">
+                                Logout
+                            </button>
+                        </li>
+                        <li v-else>
+                            <a :href="route('login')" class="hover:underline hover:text-blue-200 transition duration-300">
+                                Login
+                            </a>
+                        </li>
+                        <li v-if="$page.props.auth && $page.props.auth.user">
+                            <button @click="deleteAccountModal.openModal()" class="hover:underline hover:text-blue-200 transition duration-300">
+                                Delete account
+                            </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -47,4 +67,9 @@
             <p class="text-center text-sm text-gray-200">&copy; 2024 Partydos. All rights reserved.</p>
         </div>
     </footer>
+
+    <DeleteAccountModal
+        v-if="$page.props.auth && $page.props.auth.user"
+        ref="deleteAccountModal"
+    />
 </template>

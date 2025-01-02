@@ -9,7 +9,8 @@ class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule)
     {
-        // Schedule commands here
+        $schedule->command('users:notify-before-deletion')->dailyAt('21:00');
+        $schedule->command('users:delete-old')->daily();
     }
 
     protected function commands(): void

@@ -15,3 +15,9 @@ Route::post('/update-password/{user}', [AuthController::class, 'resetPassword'])
 Route::get('/reset-password/{token}', [AuthController::class, 'resetPasswordPage'])
     ->name('password.reset-page');
 
+Route::get('user/recovery/{recovery_token}', [AuthController::class, 'recovery'])->name('user-recovery');
+
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+   Route::delete('/destroy-user', [AuthController::class, 'deleteUser'])->name('user-destroy');
+});
+
