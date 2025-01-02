@@ -89,6 +89,7 @@ const handleConfirm = () => {
                 :eventOwner="event.eventOwner"
                 :moveEventRegisterDown="moveEventRegisterDown"
                 :is-event-owner="event.canEdit"
+                :show-already-signed-up-message="showCancelButton"
                 @open-add-to-calendar-modal="eventAddToCalendarModel.openModal()"
             />
 

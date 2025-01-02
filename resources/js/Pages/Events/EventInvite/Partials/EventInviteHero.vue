@@ -21,8 +21,7 @@ const emits = defineEmits(['acceptEventInvite']);
 
 <template>
     <section
-        class="relative bg-gradient-to-br from-blue-600 to-purple-800 text-white pt-10 md:py-24 px-6"
-        :class="showInviteButton ? '' : 'pb-4 lg:pb-0'"
+        class="relative bg-gradient-to-br from-blue-600 to-purple-800 text-white pt-10 md:py-24 px-6 pb-4"
     >
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
             <div

@@ -20,6 +20,10 @@ const props = defineProps({
     isEventOwner: {
         type: Boolean,
         required: false
+    },
+    showAlreadySignedUpMessage:{
+        type: Boolean,
+        default: false
     }
 });
 const {getRandomBgColorFromString} = ColorService;
@@ -27,7 +31,15 @@ const {getRandomBgColorFromString} = ColorService;
 const totalGuests = computed(() => props.invitedUsers.length);
 
 const guestMessage = computed(() => {
-    if (totalGuests.value === 0) {
+    if (props.showAlreadySignedUpMessage) {
+        if (totalGuests.value === 1) {
+            return 'Cool! You are the first that signed up!';
+        } else if (totalGuests.value === 2) {
+            return `Cool! You already signed up together with ${totalGuests.value - 1} friend.`;
+        } else {
+            return `Cool! You already signed up together with ${totalGuests.value - 1} friends.`;
+        }
+    } else if (totalGuests.value === 0) {
         return props.isEventOwner ? 'Start inviting friends!' : 'Be the first to sign-up!';
     } else if (totalGuests.value === 1) {
         return '1 Friend already signed up!';
@@ -50,7 +62,7 @@ const emit = defineEmits(['openAddToCalendarModal']);
                 :name="eventOwner.name"
                 :bgColor="getRandomBgColorFromString(eventOwner.name)"
             />
-            <p class="lg:text-3xl text-2xl text-indigo-700 font-semibold text-center mt-2 lg:mt-0">
+            <p class="lg:text-3xl text-2xl text-indigo-700 px-10 font-semibold text-center mt-2 lg:mt-0">
                 {{ guestMessage }}
             </p>
             <div class="lg:grid grid-cols-8">

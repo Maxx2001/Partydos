@@ -1,11 +1,10 @@
 <script setup>
 import heroImage from "@/Assets/heroImage.webp";
 import "aos/dist/aos.css";
-import { computed, onMounted } from "vue";
+import { onMounted } from "vue";
 import AOS from "aos";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage";
-// import BaseCancelButton from "@/Components/Base/BaseCancelButton.vue";
 
 const props = defineProps({
     event: {
