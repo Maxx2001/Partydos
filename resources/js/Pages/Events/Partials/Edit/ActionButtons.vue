@@ -4,6 +4,7 @@ import BaseButton from '@/Components/Base/BaseButton.vue';
 import CancelEventModal from "@/Pages/Events/Partials/Edit/CancelEventModal.vue";
 import {ref} from "vue";
 import RestoreEventModal from "@/Pages/Events/Partials/Edit/RestoreEventModal.vue";
+import DeleteEventModal from "@/Pages/Events/Partials/Edit/DeleteEventModal.vue";
 
 const props = defineProps({
     onCancelEvent: {
@@ -26,10 +27,11 @@ const props = defineProps({
 
 const cancelEventModal = ref('cancelEventModal');
 const restoreEventModal = ref('restoreEventModal');
+const deleteEventModal = ref('deleteEventModal');
 </script>
 
 <template>
-    <div class="w-full grid grid-cols-2 gap-y-2 lg:flex lg:justify-end mt-4 px-4 lg:px-0">
+    <div class="w-full grid grid-cols-2 lg:grid-cols-3 gap-y-2 mt-4 px-4 lg:px-0">
         <BaseOutlineButton
             v-if="!event.canceledAt"
             label="Cancel Event"
@@ -58,6 +60,13 @@ const restoreEventModal = ref('restoreEventModal');
             label="Update event"
             @click="onUpdate"
         />
+        <BaseOutlineButton
+            v-if="event.canceledAt"
+            label="Delete Event"
+            variant="cancel"
+            class="mr-auto"
+            @click="deleteEventModal.openModal()"
+        />
     </div>
 
     <CancelEventModal
@@ -67,6 +76,11 @@ const restoreEventModal = ref('restoreEventModal');
 
     <RestoreEventModal
         ref="restoreEventModal"
+        :event="event"
+    />
+
+    <DeleteEventModal
+        ref="deleteEventModal"
         :event="event"
     />
 </template>

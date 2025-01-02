@@ -6,6 +6,7 @@ use Auth;
 use Domain\Events\Actions\AuthenticatedEventCreateAction;
 use Domain\Events\Actions\AuthenticatedEventUpdateAction;
 use Domain\Events\Actions\CancelEventAction;
+use Domain\Events\Actions\DestroyEventAction;
 use Domain\Events\Actions\EventGenerateIcsAction;
 use Domain\Events\Actions\GuestEventCreateAction;
 use Domain\Events\Actions\RestoreEventAction;
@@ -115,6 +116,12 @@ class EventController extends Controller
         $event = $authenticatedEventUpdateAction->execute($event, $authenticatedEventUpdateData);
 
         return redirect()->route('events.show-invite', $event);
+    }
+
+    public function destroy(Event $event, DestroyEventAction $destroyEventAction): RedirectResponse
+    {
+        $destroyEventAction->execute($event);
+        return redirect()->route('events.index');
     }
 
     public function authenticateStore(AuthenticatedEventCreateAction $authenticatedEventCreateAction, AuthenticatedEventData $authenticatedEventStoreData): RedirectResponse

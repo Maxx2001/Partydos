@@ -28,4 +28,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::post('event-cancel/{event}', [EventController::class, 'cancelEvent'])->name('events.cancel');
     Route::post('event-restore/{event}', [EventController::class, 'restoreEvent'])->name('events.restore');
+
+    Route::delete('event/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 });

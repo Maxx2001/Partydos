@@ -28,6 +28,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string $location
  * @property string $start_date_time
  * @property string $end_date_time
+ * @property string $canceled_at
  */
 class Event extends Model implements HasMedia
 {
