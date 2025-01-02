@@ -20,6 +20,16 @@ defineProps({
         required: false
     }
 });
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+// Initialize AOS with settings
+AOS.init({
+    duration: 1000, // Default duration for all animations
+    once: true,     // Animations should happen only once when scrolled into view
+    offset: 40,    // Offset from the original trigger point
+});
 </script>
 
 <template>
