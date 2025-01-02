@@ -20,6 +20,7 @@ class EventData extends Data
         public ?string $isoStartDateTime,
         public ?string $endDateTime,
         public ?string $isoEndDateTime,
+        public ?string $canceledAt,
         public ?string $status,
         public string $shareLink,
         public $eventOwner,

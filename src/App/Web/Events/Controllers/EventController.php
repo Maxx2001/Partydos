@@ -5,8 +5,10 @@ namespace App\Web\Events\Controllers;
 use Auth;
 use Domain\Events\Actions\AuthenticatedEventCreateAction;
 use Domain\Events\Actions\AuthenticatedEventUpdateAction;
+use Domain\Events\Actions\CancelEventAction;
 use Domain\Events\Actions\EventGenerateIcsAction;
 use Domain\Events\Actions\GuestEventCreateAction;
+use Domain\Events\Actions\RestoreEventAction;
 use Domain\Events\Actions\ViewEventsAction;
 use Domain\Events\DataTransferObjects\AuthenticatedEventData;
 use Domain\Events\DataTransferObjects\AuthenticatedEventUpdateData;
@@ -160,5 +162,19 @@ class EventController extends Controller
         return response($ics)
             ->header('Content-Type', 'text/calendar')
             ->header('Content-Disposition', 'attachment; filename="event.ics"');
+    }
+
+    public function cancelEvent(CancelEventAction $cancelEventAction, Event $event): RedirectResponse
+    {
+        $cancelEventAction->execute($event);
+
+        return redirect()->back();
+    }
+
+    public function restoreEvent(RestoreEventAction $restoreEventAction, Event $event): RedirectResponse
+    {
+        $restoreEventAction->execute($event);
+
+        return redirect()->back();
     }
 }

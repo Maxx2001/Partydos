@@ -26,6 +26,7 @@ class EventEntityData extends Data
         public ?string         $isoEndDateTime,
         public ?string         $formattedDate,
         public ?string         $formattedTime,
+        public ?string         $canceledAt,
         public ?string         $status,
         public string          $shareLink,
         public ?string         $googleCalendarLink,

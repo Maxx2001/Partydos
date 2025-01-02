@@ -42,6 +42,7 @@ class Event extends Model implements HasMedia
         'location',
         'start_date_time',
         'end_date_time',
+        'canceled_at',
     ];
 
     public function user(): BelongsTo

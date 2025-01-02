@@ -120,7 +120,6 @@ const handleConfirm = () => {
             Are you sure you want to decline this event invite?
         </BaseModal>
 
-
         <EventAddToCalendarModel
             :event="event"
             ref="eventAddToCalendarModel"

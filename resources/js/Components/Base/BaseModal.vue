@@ -51,7 +51,7 @@ const confirmAction = () => emit('confirm');
             @click="closeModal"
         >
             <div
-                class="p-1 bg-gradient-to-br from-blue-600 to-purple-800 rounded-xl w-full max-w-3xl m-3"
+                class="p-1 rounded-xl w-full max-w-3xl m-3"
                 @click.stop
             >
                 <div class="bg-white rounded-xl shadow-lg w-full h-full py-8 px-4 lg:px-12">

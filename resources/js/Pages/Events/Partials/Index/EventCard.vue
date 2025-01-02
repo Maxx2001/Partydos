@@ -45,15 +45,19 @@ const gradientForEvent = computed(() => {
     const index = hashToIndex(uniqueIdentifier.value, gradientColors.length);
     return gradientColors[index];
 });
-const eventLink = () => props.canEdit ? route('events.edit', { event: uniqueIdentifier.value }) : route('events.show-invite', { event: uniqueIdentifier.value });
 </script>
 
 <template>
-    <li :class="`rounded-lg bg-gradient-to-br ${gradientForEvent[0]} ${gradientForEvent[1]} shadow-md hover:shadow-lg transition-shadow`">
+    <li :class="`relative rounded-lg bg-gradient-to-br ${gradientForEvent[0]} ${gradientForEvent[1]} shadow-md hover:shadow-lg transition-shadow`">
+        <!-- Canceled overlay -->
+        <div v-if="event.canceledAt" class="absolute inset-0 bg-black/60 flex items-center justify-center rounded-lg pointer-events-none">
+            <p class="text-xl font-bold text-red-500">Canceled</p>
+        </div>
+
         <Link :href="route('events.show-invite', { event: uniqueIdentifier })" class="block p-4">
             <div class="flex justify-between">
                 <h3 :class="`text-lg font-semibold ${textColor}`">{{ event.title }}</h3>
-                <Link :href="route('events.edit', { event: uniqueIdentifier })">
+                <Link :href="route('events.edit', { event: uniqueIdentifier })" class="relative z-10">
                     <PencilSquareIcon v-if="canEdit" :class="`${textColor} h-6`"/>
                 </Link>
             </div>

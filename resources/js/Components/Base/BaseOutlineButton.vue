@@ -20,7 +20,7 @@ const props = defineProps({
     },
     variant: {
         type: String,
-        default: 'submit', // "submit", "cancel", or other future options
+        default: 'submit',
     },
 })
 
@@ -41,7 +41,7 @@ const buttonClasses = computed(() => {
         :class="`inline-flex items-center justify-center gap-x-1.5 rounded-md px-4 py-2 font-semibold transition duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${buttonClasses} ${extraClasses}`"
     >
         <component v-if="icon" :is="icon" class="-ml-0.5 h-5 w-5" aria-hidden="true" />
-        <span class="text-xl">
+        <span class="text-lg">
             {{ label }}
         </span>
     </button>

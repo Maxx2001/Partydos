@@ -2,8 +2,8 @@
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 import EventBanner from "@/Pages/Events/Partials/Invite/EventBanner.vue";
 import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage.js";
-import {PencilSquareIcon} from "@heroicons/vue/20/solid/index.js";
-import {Link} from "@inertiajs/vue3";
+import { PencilSquareIcon } from "@heroicons/vue/20/solid/index.js";
+import { Link } from "@inertiajs/vue3";
 
 const props = defineProps({
     event: {
@@ -20,8 +20,12 @@ const emits = defineEmits(['acceptEventInvite']);
 </script>
 
 <template>
+    <div v-if="event.canceledAt" class="fixed inset-0 flex items-center justify-center z-50 pointer-events-none bg-black/50">
+        <p class="text-2xl lg:text-5xl font-bold text-red-500">This event has been canceled.</p>
+    </div>
     <section
         class="relative bg-gradient-to-br from-blue-600 to-purple-800 text-white pt-10 md:py-24 px-6 pb-4"
+        :class="{ 'opacity-30': event.canceledAt }"
     >
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-start h-full">
             <div
@@ -30,7 +34,7 @@ const emits = defineEmits(['acceptEventInvite']);
                 data-aos-duration="1000"
             >
                 <div class="text-3xl md:text-5xl font-extrabold leading-tight text-center lg:text-left flex flex-col md:flex-row justify-center mb-4">
-                    <span v-if="event.canEdit" class="lg:mb-24">
+                    <span v-if="event.canEdit">
                         You are organizing:
                     </span>
                     <span v-else>
@@ -39,11 +43,11 @@ const emits = defineEmits(['acceptEventInvite']);
                     <span class="pl-2 text-yellow-300">
                         {{ event.title }}
                     </span>
-                    <Link :href="route('events.edit', { event: event.uniqueIdentifier })" class="hidden lg:block">
+                    <Link v-if="event.canEdit" :href="route('events.edit', { event: event.uniqueIdentifier })" class="hidden lg:block">
                         <PencilSquareIcon v-if="event.canEdit" class="pl-6 h-12"/>
                     </Link>
                 </div>
-                <div class="md:hidden flex flex-col text-center md:text-left text-xl space-y-2 md:space-y-4">
+                <div v-if="!event.canceledAt" class="md:hidden flex flex-col text-center md:text-left text-xl space-y-2 md:space-y-4">
                     <p class="font-bold">
                         At:
                         <span class="text-pink-300">
@@ -57,9 +61,9 @@ const emits = defineEmits(['acceptEventInvite']);
                     </p>
                 </div>
 
-                <EventBanner class="block md:hidden" :event="event"/>
+                <EventBanner v-if="!event.canceledAt" class="block md:hidden" :event="event"/>
                 <div class="flex justify-end lg:hidden pt-2">
-                    <Link :href="route('events.edit', { event: event.uniqueIdentifier })" class="flex justify-end w-1/4 pr-2">
+                    <Link v-if="!event.canceledAt" :href="route('events.edit', { event: event.uniqueIdentifier })" class="flex justify-end w-1/4 pr-2">
                         <PencilSquareIcon v-if="event.canEdit" class="h-7"/>
                     </Link>
                 </div>
@@ -67,8 +71,7 @@ const emits = defineEmits(['acceptEventInvite']);
         </div>
         <div class="absolute top-0 left-0 w-24 h-24 bg-white/20 rounded-full blur-lg"></div>
 
-        <!-- Button Section -->
-        <div class="flex md:hidden justify-center pt-4 pb-8" v-if="showInviteButton">
+        <div v-if="!event.canceledAt && showInviteButton" class="flex md:hidden justify-center pt-4 pb-8">
             <BaseOutlineButton
                 label="Join event!"
                 @click="emits('acceptEventInvite')"

@@ -14,7 +14,6 @@ Route::post('event-register-guest/{event:unique_identifier}', [EventController::
 Route::post('event-accept-invite/{event:unique_identifier}', [EventController::class, 'acceptInvite'])
     ->name('events.accept-invite');
 
-
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::post('users-events', [EventController::class, 'authenticateStore'])->name('users-events.store');
 
@@ -26,4 +25,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::delete('event-cancel-invite/{event:unique_identifier}', [EventController::class, 'cancelInvite'])
         ->name('events.cancel-invite');
+
+    Route::post('event-cancel/{event}', [EventController::class, 'cancelEvent'])->name('events.cancel');
+    Route::post('event-restore/{event}', [EventController::class, 'restoreEvent'])->name('events.restore');
 });
