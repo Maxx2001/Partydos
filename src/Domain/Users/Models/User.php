@@ -4,6 +4,7 @@ namespace Domain\Users\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -76,5 +77,10 @@ class User extends Authenticatable
         $ownedEvents = $this->ownedEvents()->historyEvents()->orderBy('start_date_time')->get();
 
         return $invitedEvents->merge($ownedEvents);
+    }
+
+    public function userNotSellData(): HasOne
+    {
+        return $this->hasOne(UserNotSellData::class);
     }
 }

@@ -2,16 +2,15 @@
 
 namespace App\Web\Auth\Controllers;
 
-use Domain\Auth\Actions\DestroyUserAction;
 use Domain\Auth\Actions\LoginAction;
 use Domain\Auth\Actions\ResetPasswordAction;
 use Domain\Auth\Actions\ResetPasswordUserAction;
+use Domain\Auth\Actions\UserNotSellDataAction;
 use Domain\Auth\DataTransferObjects\LoginData;
 use Domain\Auth\DataTransferObjects\ResetPasswordUserData;
 use Domain\Auth\DataTransferObjects\UpdatePasswordUserData;
 use Domain\Auth\DataTransferObjects\UserResetPasswordEmailData;
 use Domain\Auth\Mail\UserDeleteRequest;
-use Domain\Auth\Mail\UserPasswordReset;
 use Domain\Users\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -94,6 +93,21 @@ class AuthController
         }
 
         Notification::create('Account is not found')->send();
+
+        return redirect()->route('home');
+    }
+
+    public function registerNotSellDataUser(UserNotSellDataAction $userNotSellDataAction): RedirectResponse
+    {
+        $user = Auth::user();
+
+        if ($user->userNotSellData()->exists()) {
+            Notification::create('You are already added to the do not sell my data list.')->send();
+            return redirect()->route('home');
+        }
+
+        Notification::create('You are successfully added to the do not sell my data list.')->send();
+        $userNotSellDataAction->execute($user);
 
         return redirect()->route('home');
     }

@@ -7,6 +7,7 @@ import Dropdown from '@/Components/Jetsream/Dropdown.vue';
 import DropdownLink from '@/Components/Jetsream/DropdownLink.vue';
 import NavLink from '@/Components/Jetsream/NavLink.vue';
 import ResponsiveNavLink from '@/Components/Jetsream/ResponsiveNavLink.vue';
+import ToastList from "@/Components/Layout/Toasts/ToastList.vue";
 
 defineProps({
     title: String,

@@ -30,4 +30,9 @@ class PagesController extends Controller
     {
         return inertia('Contact/Index');
     }
+
+    public function privacyPolicy(): Response
+    {
+        return inertia('PrivacyPolicy/Index');
+    }
 }

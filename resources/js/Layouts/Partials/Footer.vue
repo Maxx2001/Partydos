@@ -4,6 +4,7 @@ import DeleteAccountModal from "@/Layouts/Partials/Modals/DeleteAccountModal.vue
 import {ref} from "vue";
 
 const logout = () => router.post(route('logout'));
+const registerDoNotSellMyData = () => router.post(route('user-do-not-sell-my-data'));
 
 const deleteAccountModal = ref('deleteAccountModal');
 
@@ -56,6 +57,16 @@ const deleteAccountModal = ref('deleteAccountModal');
                         <li v-if="$page.props.auth && $page.props.auth.user">
                             <button @click="deleteAccountModal.openModal()" class="hover:underline hover:text-blue-200 transition duration-300">
                                 Delete account
+                            </button>
+                        </li>
+                        <li>
+                            <a :href="route('privacy-policy')" class="hover:underline hover:text-blue-200 transition duration-300">
+                                Privacy Policy
+                            </a>
+                        </li>
+                        <li v-if="$page.props.auth && $page.props.auth.user">
+                            <button @click="registerDoNotSellMyData" class="hover:underline hover:text-blue-200 transition duration-300">
+                                Do not sell my data
                             </button>
                         </li>
                     </ul>

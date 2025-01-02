@@ -90,7 +90,7 @@ const submit = () => {
                     </p>
                 </div>
 
-                <div v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature" class="flex items-start mt-4">
+                <div class="flex items-start mt-4">
                     <input
                         id="terms"
                         v-model="form.terms"
@@ -100,20 +100,12 @@ const submit = () => {
                     <label for="terms" class="ml-3 text-sm text-gray-700">
                         I agree to the
                         <a
-                            :href="route('terms.show')"
+                            :href="route('privacy-policy')"
                             target="_blank"
                             class="text-blue-600 underline hover:text-blue-800"
                         >
-                            Terms of Service
+                            Terms of Service and Privacy Policy
                         </a>
-                        and
-                        <a
-                            :href="route('policy.show')"
-                            target="_blank"
-                            class="text-blue-600 underline hover:text-blue-800"
-                        >
-                            Privacy Policy
-                        </a>.
                     </label>
                     <p v-if="form.errors.terms" class="text-sm text-red-500 mt-1 ml-8">
                         {{ form.errors.terms }}

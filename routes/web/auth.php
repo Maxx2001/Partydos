@@ -19,5 +19,7 @@ Route::get('user/recovery/{recovery_token}', [AuthController::class, 'recovery']
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
    Route::delete('/destroy-user', [AuthController::class, 'deleteUser'])->name('user-destroy');
+
+   Route::post('/user/do-not-sell-my-data', [AuthController::class, 'registerNotSellDataUser'])->name('user-do-not-sell-my-data');
 });
 
