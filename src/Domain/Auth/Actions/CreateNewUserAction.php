@@ -6,6 +6,7 @@ use Domain\Auth\Traits\PasswordValidationRules;
 use Domain\GuestUsers\Models\GuestUser;
 use Domain\Users\Actions\TransferEventsToUserAction;
 use Domain\Users\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -42,6 +43,8 @@ class CreateNewUserAction implements CreatesNewUsers
         }
 
         TransferEventsToUserAction::execute($guestUser, $user);
+        
+        Auth::login($user);
 
         $guestUser->delete();
 
