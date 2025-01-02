@@ -1,5 +1,9 @@
 <script setup>
 import {Head, Link, useForm} from '@inertiajs/vue3';
+import TextInput from "@/Components/Form/TextInput.vue";
+import EmailInput from "@/Components/Form/EmailInput.vue";
+import PasswordInput from "@/Components/Form/PasswordInput.vue";
+import SubmitButton from "@/Components/Form/SubmitButton.vue";
 
 const form = useForm({
     name: '',
@@ -26,69 +30,39 @@ const submit = () => {
                 Join the Party! 🎉
             </h2>
             <form @submit.prevent="submit" class="space-y-6">
-                <div>
-                    <label for="name" class="block text-sm font-bold text-gray-700 mb-1">
-                        Name
-                    </label>
-                    <input
-                        id="name"
-                        v-model="form.name"
-                        type="text"
-                        placeholder="John Doe"
-                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
-                    />
-                    <p v-if="form.errors.name" class="text-sm text-red-500 mt-1">
-                        {{ form.errors.name }}
-                    </p>
-                </div>
+                <TextInput
+                    id="name"
+                    label="Name"
+                    :model-value="form.name"
+                    placeholder="John Doe"
+                    v-model=form.name
+                    :error-message="form.errors.name"
+                />
 
-                <div>
-                    <label for="email" class="block text-sm font-bold text-gray-700 mb-1">
-                        Email
-                    </label>
-                    <input
-                        id="email"
-                        v-model="form.email"
-                        type="email"
-                        placeholder="party@dos.com"
-                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
-                    />
-                    <p v-if="form.errors.email" class="text-sm text-red-500 mt-1">
-                        {{ form.errors.email }}
-                    </p>
-                </div>
+                <EmailInput
+                    id="email"
+                    label="Email"
+                    :model-value="form.email"
+                    placeholder="party@dos.com"
+                    v-model=form.email
+                    :error-message="form.errors.email"
+                />
 
-                <div>
-                    <label for="password" class="block text-sm font-bold text-gray-700 mb-1">
-                        Password
-                    </label>
-                    <input
-                        id="password"
-                        v-model="form.password"
-                        type="password"
-                        placeholder="********"
-                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
-                    />
-                    <p v-if="form.errors.password" class="text-sm text-red-500 mt-1">
-                        {{ form.errors.password }}
-                    </p>
-                </div>
+                <PasswordInput
+                    id="password"
+                    label="Password"
+                    :model-value="form.password"
+                    v-model=form.password
+                    :error-message="form.errors.password"
+                />
 
-                <div>
-                    <label for="password_confirmation" class="block text-sm font-bold text-gray-700 mb-1">
-                        Confirm Password
-                    </label>
-                    <input
-                        id="password_confirmation"
-                        v-model="form.password_confirmation"
-                        type="password"
-                        placeholder="********"
-                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
-                    />
-                    <p v-if="form.errors.password_confirmation" class="text-sm text-red-500 mt-1">
-                        {{ form.errors.password_confirmation }}
-                    </p>
-                </div>
+                <PasswordInput
+                    id="password_confirmation"
+                    label="Password Password"
+                    :model-value="form.password_confirmation"
+                    v-model=form.password_confirmation
+                    :error-message="form.errors.password_confirmation"
+                />
 
                 <div class="flex items-start mt-4">
                     <input
@@ -112,12 +86,7 @@ const submit = () => {
                     </p>
                 </div>
 
-                <button
-                    type="submit"
-                    class="w-full flex justify-center items-center py-3 bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold rounded-md shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-300 transition-transform transform"
-                >
-                    Register
-                </button>
+                <SubmitButton label="Register"/>
 
                 <p class="text-sm text-center text-gray-700 mt-6">
                     Already have an account?

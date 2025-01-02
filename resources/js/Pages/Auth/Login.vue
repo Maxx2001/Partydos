@@ -1,98 +1,11 @@
-<template>
-    <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6 overflow-auto">
-        <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-8 ">
-            <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
-                Welcome Back! 🎉
-            </h2>
-            <form @submit.prevent="handleSubmit" class="space-y-6">
-                <div>
-                    <label for="email" class="block text-sm font-bold text-gray-700 mb-1">
-                        Your Email
-                    </label>
-                    <input
-                        id="email"
-                        type="email"
-                        v-model="form.email"
-                        placeholder="party@dos.com"
-                        required
-                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
-                        :class="{ 'border-red-500': form.errors.email || formErrors }"
-                    />
-                    <p v-if="form.errors.email || formErrors" class="text-sm text-red-500 mt-1">
-                        {{ form.errors.email }}
-                        {{ formErrors }}
-                    </p>
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-bold text-gray-700 mb-1">
-                        Your Password
-                    </label>
-                    <input
-                        id="password"
-                        type="password"
-                        v-model="form.password"
-                        placeholder="********"
-                        required
-                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
-                        :class="{ 'border-red-500': form.errors.password || formErrors }"
-                    />
-                    <p v-if="formErrors" class="text-sm text-red-500 mt-1">
-                        {{ form.errors.password }}
-                    </p>
-                    <div class="mt-4">
-                        <label for="remember" >
-                            <input
-                                type="checkbox"
-                                name="remember"
-                                id="remember"
-                                v-model="form.remember"
-                                class=" rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
-
-                            >
-                            Remember
-                            <span class="text-blue-500 font-bold">
-                                Me!
-                            </span>
-                        </label>
-                    </div>
-                </div>
-                <button
-                    type="submit"
-                    class="w-full flex justify-center items-center py-3 bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold rounded-md shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-300 transition-transform transform"
-                >
-                    Let’s Party!
-                </button>
-            </form>
-            <p class="mt-6 text-sm text-center text-gray-700">
-                New here?
-                <a
-                    :href="route('register')"
-                    class="inline-block w-full mt-4 py-3 bg-gradient-to-br from-purple-500 to-pink-500 text-white font-bold text-center rounded-md shadow-md focus:ring-4 focus:ring-pink-300 focus:outline-none transition-transform transform"
-                >
-                    Sign up and Join the Fun! 🚀
-                </a>
-
-                <a
-                    :href="route('forgotPassword')"
-                    class="inline-block w-full mt-4 py-3 text-sm text-blue-500"
-                >
-                    Forgot your password?
-                </a>
-                <hr class="border-blue-500">
-                <a
-                    :href="route('home')"
-                    class="inline-block w-full text-sm text-blue-500 mt-2"
-                >
-                    Go back
-                </a>
-            </p>
-        </div>
-    </div>
-</template>
-
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 import {ref} from "vue";
+import TextInput from "@/Components/Form/TextInput.vue";
+import PasswordInput from "@/Components/Form/PasswordInput.vue";
+import SubmitButton from "@/Components/Form/SubmitButton.vue";
+import ButtonLink from "@/Components/Form/ButtonLink.vue";
+import EmailInput from "@/Components/Form/EmailInput.vue";
 
 const form = useForm({
     email: '',
@@ -118,6 +31,74 @@ const handleSubmit = () => {
     });
 };
 </script>
+
+<template>
+    <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6 overflow-auto">
+        <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-8 ">
+            <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
+                Welcome Back! 🎉
+            </h2>
+            <form @submit.prevent="handleSubmit" class="space-y-6">
+                <div>
+                    <EmailInput
+                        id="email"
+                        label="Your Email"
+                        v-model=form.email
+                        placeholder="party@dos.com"
+                        :error-message="form.errors.email"
+                    />
+                </div>
+                <div>
+                    <PasswordInput
+                        id="password"
+                        label="Your Password"
+                        :model-value="form.password"
+                        v-model=form.password
+                        placeholder="********"
+                        :error-message="form.errors.password"
+                    />
+                    <div class="mt-4">
+                        <label for="remember" >
+                            <input
+                                type="checkbox"
+                                name="remember"
+                                id="remember"
+                                v-model="form.remember"
+                                class=" rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
+
+                            >
+                            Remember
+                            <span class="text-blue-500 font-bold">
+                                Me!
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <SubmitButton label="Let’s Party!"/>
+            </form>
+            <p class="mt-6 text-sm text-center text-gray-700">
+                New here?
+                <ButtonLink
+                    :route="route('register')"
+                    label="Sign up and Join the Fun! 🚀"
+                />
+                <a
+                    :href="route('forgotPassword')"
+                    class="inline-block w-full mt-4 py-3 text-sm text-blue-500"
+                >
+                    Forgot your password?
+                </a>
+                <hr class="border-blue-500">
+                <a
+                    :href="route('home')"
+                    class="inline-block w-full text-sm text-blue-500 mt-2"
+                >
+                    Go back
+                </a>
+            </p>
+        </div>
+    </div>
+</template>
 
 <style>
 @keyframes gradientBackground {

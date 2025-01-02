@@ -1,6 +1,8 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import ToastList from "@/Components/Layout/Toasts/ToastList.vue";
+import EmailInput from "@/Components/Form/EmailInput.vue";
+import PasswordInput from "@/Components/Form/PasswordInput.vue";
 
 const props = defineProps({
     email: {
@@ -42,61 +44,30 @@ const submit = () => {
             </p>
             <form @submit.prevent="submit" class="space-y-6">
                 <div>
-                    <label for="email" class="block text-sm font-bold text-gray-700 mb-1">
-                        Your Email
-                    </label>
-                    <input
+                    <EmailInput
                         id="email"
-                        type="email"
-                        v-model="form.email"
-                        placeholder="you@example.com"
-                        required
-                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-pink-400 focus:border-pink-400 placeholder-gray-400 text-gray-700"
-                        :class="{ 'border-red-500': form.errors.email }"
+                        label="Your Email"
+                        v-model=form.email
+                        placeholder="party@dos.com"
+                        :error-message="form.errors.email"
                     />
-                    <p v-if="form.errors.email" class="text-sm text-red-500 mt-1">
-                        {{ form.errors.email }}
-                    </p>
                 </div>
 
-                <div>
-                    <label for="password" class="block text-sm font-bold text-gray-700 mb-1">
-                        New Password
-                    </label>
-                    <input
-                        id="password"
-                        type="password"
-                        v-model="form.password"
-                        placeholder="********"
-                        required
-                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-purple-400 focus:border-purple-400 placeholder-gray-400 text-gray-700"
-                        :class="{ 'border-red-500': form.errors.password }"
-                    />
-                    <p v-if="form.errors.password" class="text-sm text-red-500 mt-1">
-                        {{ form.errors.password }}
-                    </p>
-                </div>
+                <PasswordInput
+                    id="password"
+                    label="Password"
+                    :model-value="form.password"
+                    v-model=form.password
+                    :error-message="form.errors.password"
+                />
 
-                <div>
-                    <label for="password_confirmation" class="block text-sm font-bold text-gray-700 mb-1">
-                        Confirm Password
-                    </label>
-                    <input
-                        id="password_confirmation"
-                        type="password"
-                        v-model="form.password_confirmation"
-                        placeholder="********"
-                        required
-                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
-                        :class="{ 'border-red-500': form.errors.password_confirmation }"
-                    />
-                    <p
-                        v-if="form.errors.password_confirmation"
-                        class="text-sm text-red-500 mt-1"
-                    >
-                        {{ form.errors.password_confirmation }}
-                    </p>
-                </div>
+                <PasswordInput
+                    id="password_confirmation"
+                    label="Password Password"
+                    :model-value="form.password_confirmation"
+                    v-model=form.password_confirmation
+                    :error-message="form.errors.password_confirmation"
+                />
 
                 <button
                     type="submit"

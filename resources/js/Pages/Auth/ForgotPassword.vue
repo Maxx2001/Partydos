@@ -2,6 +2,7 @@
 import { Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import ToastList from "@/Components/Layout/Toasts/ToastList.vue";
+import EmailInput from "@/Components/Form/EmailInput.vue";
 
 const form = useForm({
     email: '',
@@ -23,21 +24,13 @@ const submit = () => form.post(route('password.email', form.email), {
             </p>
             <form @submit.prevent="submit" class="space-y-6">
                 <div>
-                    <label for="email" class="block text-sm font-bold text-gray-700 mb-1">
-                        Your Email
-                    </label>
-                    <input
+                    <EmailInput
                         id="email"
-                        type="email"
-                        v-model="form.email"
-                        placeholder="you@example.com"
-                        required
-                        class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400 text-gray-700"
-                        :class="{ 'border-red-500': form.errors.email }"
+                        label="Your Email"
+                        v-model=form.email
+                        placeholder="party@dos.com"
+                        :error-message="form.errors.email"
                     />
-                    <p v-if="form.errors.email" class="text-sm text-red-500 mt-1">
-                        {{ form.errors.email }}
-                    </p>
                 </div>
                 <button
                     type="submit"
