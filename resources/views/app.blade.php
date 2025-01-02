@@ -25,3 +25,11 @@
     @inertia
     </body>
 </html>
+
+<style>
+    html, body {
+        height: auto;
+        min-height: 100%;
+        overflow: auto;
+    }
+</style>
