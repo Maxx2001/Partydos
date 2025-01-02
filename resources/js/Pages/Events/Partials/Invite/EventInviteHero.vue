@@ -1,7 +1,7 @@
 <script setup>
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
-import EventBanner from "@/Pages/Events/EventInvite/Partials/EventBanner.vue";
-import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage";
+import EventBanner from "@/Pages/Events/Partials/Invite/EventBanner.vue";
+import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage.js";
 import {PencilSquareIcon} from "@heroicons/vue/20/solid/index.js";
 import {Link} from "@inertiajs/vue3";
 

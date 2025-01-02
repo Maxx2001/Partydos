@@ -1,12 +1,12 @@
 <script setup>
 import { defineProps } from "vue";
 import GoogleCalendarButton
-    from "@/Pages/Events/EventInvite/Partials/Modals/Partials/CalendarButtons/GoogleCalendarButton.vue";
+    from "@/Pages/Events/Partials/Invite/Modals/Partials/CalendarButtons/GoogleCalendarButton.vue";
 import AppleCalendarButton
-    from "@/Pages/Events/EventInvite/Partials/Modals/Partials/CalendarButtons/AppleCalendarButton.vue";
+    from "@/Pages/Events/Partials/Invite/Modals/Partials/CalendarButtons/AppleCalendarButton.vue";
 import OutlookCalendarButton
-    from "@/Pages/Events/EventInvite/Partials/Modals/Partials/CalendarButtons/OutlookCalendarButton.vue";
-import CalendarButton from "@/Pages/Events/EventInvite/Partials/Modals/Partials/CalendarButtons/CalendarButton.vue";
+    from "@/Pages/Events/Partials/Invite/Modals/Partials/CalendarButtons/OutlookCalendarButton.vue";
+import CalendarButton from "@/Pages/Events/Partials/Invite/Modals/Partials/CalendarButtons/CalendarButton.vue";
 
 const props = defineProps({
     event: {

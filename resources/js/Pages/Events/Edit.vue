@@ -7,7 +7,7 @@ import BaseButton from "@/Components/Base/BaseButton.vue";
 import TextAreaInput from "@/Components/Inputs/TextAreaInput.vue";
 import TextInput from "@/Components/Inputs/TextInput.vue";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
-import DatePicker from "@/Pages/Events/EventCreate/Partials/DatePicker.vue";
+import DatePicker from "@/Pages/Events/Partials/Create/DatePicker.vue";
 import FileUpload from "@/Components/Form/FileUpload.vue";
 
 const props = defineProps({

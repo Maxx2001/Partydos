@@ -93,7 +93,6 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 import {ref} from "vue";
-import Checkbox from "@/Components/Jetsream/Checkbox.vue";
 
 const form = useForm({
     email: '',
@@ -114,9 +113,7 @@ const handleSubmit = () => {
             formErrors.value = 'Invalid email or password.';
         },
         onFinish: () => {
-            console.log('error');
             form.reset('password');
-            formErrors.value = 'Invalid email or password.';
         },
     });
 };

@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps } from "vue";
-import EventTypeButton from "@/Pages/Events/EventIndex/Partials/EventTypeButton.vue";
+import EventTypeButton from "@/Pages/Events/Partials/Index/EventTypeButton.vue";
 
 const props = defineProps({
     activeTab: {

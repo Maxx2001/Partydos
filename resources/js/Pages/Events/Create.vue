@@ -1,9 +1,9 @@
 <script setup>
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import { computed, reactive, ref } from "vue";
-import EventDetailsInput from "@/Pages/Events/EventInvite/Partials/EventDetailsInput.vue";
-import EventDatePicker from "@/Pages/Events/EventCreate/Partials/EventDatePicker.vue";
-import EventGuestSubmit from "@/Pages/Events/EventInvite/Partials/EventGuestSubmit.vue";
+import EventDetailsInput from "@/Pages/Events/Partials/Invite/EventDetailsInput.vue";
+import EventDatePicker from "@/Pages/Events/Partials/Create/EventDatePicker.vue";
+import EventGuestSubmit from "@/Pages/Events/Partials/Invite/EventGuestSubmit.vue";
 import {router, usePage} from "@inertiajs/vue3";
 import { setHours, setMinutes } from 'date-fns';
 import { format } from 'date-fns';

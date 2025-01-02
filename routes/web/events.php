@@ -1,27 +1,29 @@
 <?php
 
-use App\Web\Events\Controllers\AuthenticatedEventController;
-use App\Web\Events\Controllers\GuestEventController;
+use App\Web\Events\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
-Route::resource('guest-events', GuestEventController::class)->only('create', 'store', 'show');
+Route::resource('guest-events', EventController::class)->only('create', 'store');
 
-Route::get('event-invite/{event:unique_identifier}', [GuestEventController::class, 'showInvite'])->name('events.show-invite');
-Route::get('/event/{event}/download-ics', [GuestEventController::class, 'downloadEventICS'])->name('event.download.ics');
+Route::get('event-invite/{event:unique_identifier}', [EventController::class, 'show'])->name('events.show-invite');
+Route::get('/event/{event}/download-ics', [EventController::class, 'downloadEventICS'])->name('event.download.ics');
 
-Route::post('event-register-guest/{event:unique_identifier}', [GuestEventController::class, 'registerGuestUser'])
+Route::post('event-register-guest/{event:unique_identifier}', [EventController::class, 'registerGuestUser'])
     ->name('events.register-guest');
 
-Route::post('event-accept-invite/{event:unique_identifier}', [GuestEventController::class, 'acceptInvite'])
+Route::post('event-accept-invite/{event:unique_identifier}', [EventController::class, 'acceptInvite'])
     ->name('events.accept-invite');
 
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::resource('users-events', AuthenticatedEventController::class)
-        ->parameters(['users-events' => 'event'])
-        ->only('index', 'store', 'edit', 'update');
-    Route::get('event-invite/edit/{event:unique_identifier}', [AuthenticatedEventController::class, 'edit'])->name('events.edit');
+    Route::post('users-events', [EventController::class, 'authenticateStore'])->name('users-events.store');
 
-    Route::delete('event-cancel-invite/{event:unique_identifier}', [GuestEventController::class, 'cancelInvite'])
+    Route::resource('users-events', EventController::class)
+        ->parameters(['users-events' => 'event'])
+        ->only('index', 'update');
+
+    Route::get('event-invite/edit/{event:unique_identifier}', [EventController::class, 'edit'])->name('events.edit');
+
+    Route::delete('event-cancel-invite/{event:unique_identifier}', [EventController::class, 'cancelInvite'])
         ->name('events.cancel-invite');
 });

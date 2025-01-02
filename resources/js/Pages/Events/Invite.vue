@@ -1,16 +1,16 @@
 <script setup>
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
-import EventInviteBanner from "@/Pages/Events/EventInvite/Partials/EventInviteBanner.vue";
-import EventParticipantsList from "@/Pages/Events/EventInvite/Partials/EventParticipantsList.vue";
+import EventInviteBanner from "@/Pages/Events/Partials/Invite/EventInviteBanner.vue";
+import EventParticipantsList from "@/Pages/Events/Partials/Invite/EventParticipantsList.vue";
 import {defineProps, onMounted, ref, toRefs} from "vue";
 import {useTitle} from "@/Composables/useTitle.js";
-import EventInviteHero from "@/Pages/Events/EventInvite/Partials/EventInviteHero.vue";
+import EventInviteHero from "@/Pages/Events/Partials/Invite/EventInviteHero.vue";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import EventRegisterModal from "@/Pages/Events/EventInvite/Partials/Modals/EventRegisterModal.vue";
-import EventAddToCalendarModel from "@/Pages/Events/EventInvite/Partials/Modals/EventAddToCalendarModel.vue";
-import EventInviteLinkeModal from "@/Pages/Events/EventInvite/Partials/Modals/EventInviteLinkeModal.vue";
-import EventDescription from "@/Pages/Events/EventInvite/Partials/EventDescription.vue";
+import EventRegisterModal from "@/Pages/Events/Partials/Invite/Modals/EventRegisterModal.vue";
+import EventAddToCalendarModel from "@/Pages/Events/Partials/Invite/Modals/EventAddToCalendarModel.vue";
+import EventInviteLinkeModal from "@/Pages/Events/Partials/Invite/Modals/EventInviteLinkeModal.vue";
+import EventDescription from "@/Pages/Events/Partials/Invite/EventDescription.vue";
 import BaseModal from "@/Components/Base/BaseModal.vue";
 import {router} from "@inertiajs/vue3";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";

@@ -4,7 +4,7 @@ import "aos/dist/aos.css";
 import { onMounted } from "vue";
 import AOS from "aos";
 import BaseButton from "@/Components/Base/BaseButton.vue";
-import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage";
+import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage.js";
 
 const props = defineProps({
     event: {

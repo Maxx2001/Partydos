@@ -1,8 +1,8 @@
 <script setup>
 import DefaultLayout from '@/Layouts/DefaultLayout.vue';
-import EventList from "@/Pages/Events/EventIndex/Partials/EventList.vue";
+import EventList from "@/Pages/Events/Partials/Index/EventList.vue";
 import { ref } from "vue";
-import EventTypeToggle from "@/Pages/Events/EventIndex/Partials/EventTypeToggle.vue";
+import EventTypeToggle from "@/Pages/Events/Partials/Index/EventTypeToggle.vue";
 
 const props = defineProps({
     events: {

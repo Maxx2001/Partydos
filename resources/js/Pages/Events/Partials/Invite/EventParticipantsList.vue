@@ -1,6 +1,6 @@
 <script setup>
 import {computed} from "vue";
-import GuestItem from "@/Pages/Events/EventInvite/Partials/GuestItem.vue";
+import GuestItem from "@/Pages/Events/Partials/Invite/GuestItem.vue";
 import ColorService from "@/Services/colorService.js";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 

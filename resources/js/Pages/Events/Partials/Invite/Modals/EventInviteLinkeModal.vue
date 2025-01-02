@@ -1,5 +1,5 @@
 <script setup>
-import EventAddToCalendar from "@/Pages/Events/EventInvite/Partials/Modals/Partials/EventAddToCalendar.vue";
+import InviteLink from "@/Pages/Events/Partials/Invite/Modals/Partials/InviteLink.vue";
 import BaseModal from "@/Components/Base/BaseModal.vue";
 import {defineExpose, ref} from "vue";
 
@@ -11,7 +11,6 @@ defineProps({
 });
 const showModal = ref(false);
 const openModal = () =>  showModal.value = true;
-
 defineExpose({openModal});
 </script>
 
@@ -20,9 +19,10 @@ defineExpose({openModal});
         :isVisible="showModal"
         @close="showModal = false"
         :show-submit-button="false"
-        title="Add event to calendar"
+        @confirm="showModal = false"
         cancel-button-label="Close"
+        title="Invite your friends"
     >
-        <EventAddToCalendar :event="event"/>
+        <InviteLink :event="event"/>
     </BaseModal>
 </template>

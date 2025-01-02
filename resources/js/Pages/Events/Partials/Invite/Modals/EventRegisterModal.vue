@@ -1,5 +1,5 @@
 <script setup>
-import EventRegisterForm from "@/Pages/Events/EventInvite/Partials/Modals/Partials/EventRegisterForm.vue";
+import EventRegisterForm from "@/Pages/Events/Partials/Invite/Modals/Partials/EventRegisterForm.vue";
 import BaseModal from "@/Components/Base/BaseModal.vue";
 import { ref, defineExpose } from "vue";
 

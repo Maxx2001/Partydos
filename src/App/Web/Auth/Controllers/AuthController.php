@@ -2,20 +2,19 @@
 
 namespace App\Web\Auth\Controllers;
 
+use Domain\Auth\Actions\DeleteUserAction;
 use Domain\Auth\Actions\LoginAction;
+use Domain\Auth\Actions\RecoverUserAction;
+use Domain\Auth\Actions\RegisterNotSellDataUserAction;
 use Domain\Auth\Actions\ResetPasswordAction;
 use Domain\Auth\Actions\ResetPasswordUserAction;
-use Domain\Auth\Actions\UserNotSellDataAction;
 use Domain\Auth\DataTransferObjects\LoginData;
 use Domain\Auth\DataTransferObjects\ResetPasswordUserData;
 use Domain\Auth\DataTransferObjects\UpdatePasswordUserData;
 use Domain\Auth\DataTransferObjects\UserResetPasswordEmailData;
-use Domain\Auth\Mail\UserDeleteRequest;
 use Domain\Users\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 use Support\Notification;
@@ -37,10 +36,13 @@ class AuthController
     {
         Auth::logout();
 
-        return redirect('login');
+        return redirect()->route('home');
     }
 
-    public function resetPasswordEmail(UserResetPasswordEmailData $resetPasswordEmailData, ResetPasswordUserAction $resetPasswordUserAction): void
+    public function resetPasswordEmail(
+        UserResetPasswordEmailData $resetPasswordEmailData,
+        ResetPasswordUserAction $resetPasswordUserAction
+    ): void
     {
         $resetPasswordUserAction->execute($resetPasswordEmailData);
 
@@ -58,56 +60,36 @@ class AuthController
         ]);
     }
 
-    public function resetPassword(User $user, ResetPasswordAction $resetPasswordAction, UpdatePasswordUserData $updatePasswordUserData): RedirectResponse
+    public function resetPassword(
+        User $user,
+        ResetPasswordAction $resetPasswordAction,
+        UpdatePasswordUserData $updatePasswordUserData
+    ): RedirectResponse
     {
         $resetPasswordAction->reset($user, $updatePasswordUserData->toArray());
 
         return redirect()->route('login');
     }
 
-    public function deleteUser(): RedirectResponse
+    public function deleteUser(DeleteUserAction $deleteUserAction): RedirectResponse
     {
         $user = Auth::user();
-        $user->recovery_token = Str::random(64);
-        $user->save();
-
-        $user->delete();
-        $user->tokens()->delete();
-
-        Mail::to($user->email)->queue(new UserDeleteRequest($user));
+        $deleteUserAction->execute($user);
 
         return redirect()->route('home');
     }
 
-    public function recovery(string $token): RedirectResponse
+    public function recovery(string $token, RecoverUserAction $recoverUserAction): RedirectResponse
     {
-        if (
-            $user = User::where('recovery_token', $token)->withTrashed()->first()
-        ) {
-            $user->restore();
-            $user->recovery_token = null;
-            $user->save();
-
-            Notification::create('Your account is successfully restored')->send();
-            return redirect()->route('home');
-        }
-
-        Notification::create('Account is not found')->send();
+        $recoverUserAction->execute($token);
 
         return redirect()->route('home');
     }
 
-    public function registerNotSellDataUser(UserNotSellDataAction $userNotSellDataAction): RedirectResponse
+    public function registerNotSellDataUser(RegisterNotSellDataUserAction $registerNotSellDataUserAction): RedirectResponse
     {
         $user = Auth::user();
-
-        if ($user->userNotSellData()->exists()) {
-            Notification::create('You are already added to the do not sell my data list.')->send();
-            return redirect()->route('home');
-        }
-
-        Notification::create('You are successfully added to the do not sell my data list.')->send();
-        $userNotSellDataAction->execute($user);
+        $registerNotSellDataUserAction->execute($user);
 
         return redirect()->route('home');
     }

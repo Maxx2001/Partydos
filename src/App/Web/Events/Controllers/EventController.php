@@ -3,9 +3,13 @@
 namespace App\Web\Events\Controllers;
 
 use Auth;
+use Domain\Events\Actions\AuthenticatedEventCreateAction;
+use Domain\Events\Actions\AuthenticatedEventUpdateAction;
 use Domain\Events\Actions\EventGenerateIcsAction;
 use Domain\Events\Actions\GuestEventCreateAction;
 use Domain\Events\Actions\ViewEventsAction;
+use Domain\Events\DataTransferObjects\AuthenticatedEventData;
+use Domain\Events\DataTransferObjects\AuthenticatedEventUpdateData;
 use Domain\Events\DataTransferObjects\EventEntityData;
 use Domain\Events\DataTransferObjects\EventRegisterGuestData;
 use Domain\Events\DataTransferObjects\EventStoreData;
@@ -22,25 +26,53 @@ use Inertia\Response;
 use Support\Controllers\Controller;
 use Support\Notification;
 
-class GuestEventController extends Controller
+class EventController extends Controller
 {
     public function index(ViewEventsAction $viewEventsAction): Response
     {
         /* @var User $user */
         $user = auth()->user();
 
-        $events = $viewEventsAction->execute();
-        $ownedEvents = $user->ownedEvents()->get();
+        $invitedEvents = $user->events()->futureEvents()->get();
+        $ownedEvents = $user->ownedEvents()->futureEvents()->orderBy('start_date_time')->get();
+        $historyEvents = $user->getHistoryEvents();
 
-        return Inertia::render('Dashboard/Index', [
-            'events' => EventEntityData::collect($events),
+        return Inertia::render('Events/Index', [
+            'events' => EventEntityData::collect($invitedEvents),
             'ownedEvents' =>  EventEntityData::collect($ownedEvents),
+            'historyEvents' =>  EventEntityData::collect($historyEvents),
         ]);
     }
 
-    public function create(): Response
+    public function show(Event $event): Response
     {
-        return Inertia::render('Events/EventCreate/EventCreate');
+        $showInviteButton = true;
+        $showCancelButton = false;
+
+        if ($user = Auth::user()) {
+            $eventUsers = $event->users()->get();
+            $showInviteButton = !$eventUsers->contains($user) && $event->user_id !== $user->id;
+            $showCancelButton = $eventUsers->contains($user) && $event->user_id !== $user->id;
+        }
+
+        return Inertia::render('Events/Invite', [
+            'event' => EventEntityData::from($event),
+            'showInviteModal' => Session::get('event_created'),
+            'showInviteButton' => $showInviteButton,
+            'showCancelButton' => $showCancelButton,
+        ])->withViewData([
+            'title' => $event->title,
+            'description' => $event->description,
+            'ogTitle' => $event->title,
+            'ogDescription' => $event->description,
+            'ogUrl' => url()->current(),
+            'ogImage' => $event->getFirstMediaUrl('event-banner'),
+        ]);
+    }
+
+     public function create(): Response
+    {
+        return Inertia::render('Events/Create');
     }
 
     public function store(
@@ -57,37 +89,37 @@ class GuestEventController extends Controller
         return redirect()->route('events.show-invite', $event);
     }
 
-    public function show(Event $event): Response
+    public function edit(Event $event): Response
     {
-        return Inertia::render('Events/EventShow', [
+        if ($event->user_id !== Auth::user()->getKey()) {
+            abort(403);
+        }
+
+        return Inertia::render('Events/Edit', [
             'event' => EventEntityData::from($event),
         ]);
     }
 
-    public function showInvite(Event $event): Response
+    public function update(
+        Event $event,
+        AuthenticatedEventUpdateAction $authenticatedEventUpdateAction,
+        AuthenticatedEventUpdateData $authenticatedEventUpdateData
+    ): RedirectResponse
     {
-        $showInviteButton = true;
-        $showCancelButton = false;
-
-        if ($user = Auth::user()) {
-            $eventUsers = $event->users()->get();
-            $showInviteButton = !$eventUsers->contains($user) && $event->user_id !== $user->id;
-            $showCancelButton = $eventUsers->contains($user) && $event->user_id !== $user->id;
+        if ($event->user_id !== \Illuminate\Support\Facades\Auth::user()->getKey()) {
+            abort(403);
         }
 
-        return Inertia::render('Events/EventInvite/EventInvite', [
-            'event' => EventEntityData::from($event),
-            'showInviteModal' => Session::get('event_created'),
-            'showInviteButton' => $showInviteButton,
-            'showCancelButton' => $showCancelButton,
-        ])->withViewData([
-            'title' => $event->title,
-            'description' => $event->description,
-            'ogTitle' => $event->title,
-            'ogDescription' => $event->description,
-            'ogUrl' => url()->current(),
-            'ogImage' => $event->getFirstMediaUrl('event-banner'),
-        ]);
+        $event = $authenticatedEventUpdateAction->execute($event, $authenticatedEventUpdateData);
+
+        return redirect()->route('events.show-invite', $event);
+    }
+
+    public function authenticateStore(AuthenticatedEventCreateAction $authenticatedEventCreateAction, AuthenticatedEventData $authenticatedEventStoreData): RedirectResponse
+    {
+        $event = $authenticatedEventCreateAction->execute($authenticatedEventStoreData);
+
+        return redirect()->route('events.show-invite', $event);
     }
 
     public function registerGuestUser(

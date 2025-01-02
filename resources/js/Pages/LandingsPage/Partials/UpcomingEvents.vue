@@ -1,5 +1,5 @@
 <script setup>
-import EventCard from "@/Pages/Events/EventIndex/Partials/EventCard.vue";
+import EventCard from "@/Pages/Events/Partials/Index/EventCard.vue";
 
 defineProps({
     events: {
