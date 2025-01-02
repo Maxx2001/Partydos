@@ -24,7 +24,7 @@ const emits = defineEmits(['acceptEventInvite']);
         class="relative text-white"
     >
         <div
-            :class="{ 'opacity-30': event.canceledAt }"
+            :class="{ 'opacity-20': event.canceledAt }"
             class="pt-10 md:py-24 px-6 pb-4max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-start h-full bg-gradient-to-br from-blue-600 to-purple-800"
         >
             <div
