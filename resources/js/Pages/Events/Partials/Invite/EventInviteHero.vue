@@ -20,7 +20,7 @@ const emits = defineEmits(['acceptEventInvite']);
 </script>
 
 <template>
-    <div v-if="event.canceledAt" class="fixed inset-0 flex items-center justify-center z-50 pointer-events-none bg-black/50">
+    <div v-if="event.canceledAt" class="fixed inset-0 flex items-center justify-center z-5 pointer-events-none bg-black/50">
         <p class="text-2xl lg:text-5xl font-bold text-red-500">This event has been canceled.</p>
     </div>
     <section

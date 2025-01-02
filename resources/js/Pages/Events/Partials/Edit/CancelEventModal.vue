@@ -16,6 +16,7 @@ const openModal = () => showModal.value = true;
 
 defineExpose({openModal});
 const handleConfirm = () => router.post(route('events.cancel', {event: props.event.id}),
+    {},
     {
         onSuccess: () => {
             showModal.value = false;
