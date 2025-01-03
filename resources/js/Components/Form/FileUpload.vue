@@ -29,7 +29,7 @@ const triggerFileInput = () => {
 const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile && selectedFile.size > 5 * 1024 * 1024) {
-        alert('File size exceeds 1MB. Please choose a smaller file.');
+        alert('File size exceeds 5MB. Please choose a smaller file.');
         return;
     }
     file.value = selectedFile;
@@ -42,7 +42,7 @@ const handleFileChange = (event) => {
 const handleDrop = (event) => {
     const droppedFile = event.dataTransfer.files[0];
     if (droppedFile && droppedFile.size > 5* 1024 * 1024) {
-        alert('File size exceeds 1MB. Please choose a smaller file.');
+        alert('File size exceeds 5MB. Please choose a smaller file.');
         return;
     }
     if (droppedFile) {
@@ -51,6 +51,8 @@ const handleDrop = (event) => {
         emit('fileUploaded', file.value);
     }
 };
+
+
 
 const clearImage = () => {
     file.value = null;
