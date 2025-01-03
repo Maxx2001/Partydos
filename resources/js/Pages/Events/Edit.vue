@@ -23,7 +23,7 @@ const props = defineProps({
 const form = useForm({
     title: props.event.title,
     description: props.event.description,
-    location: props.event.location,
+    location: props.event.address,
     start_date_time: null,
     end_date_time: null,
     image: null,
@@ -84,7 +84,6 @@ const setImage = (event) => {
                             :form="form"
                             :titleErrorBag="titleErrorBag"
                         />
-
                         <FileUpload
                             @fileUploaded="setImage($event)"
                             @clearImage="form.remove_image = true"

@@ -4,6 +4,8 @@ namespace Domain\Events\DataTransferObjects;
 
 use Auth;
 use Carbon\Carbon;
+use Domain\Addresses\DataTransferObjects\AddressEntity;
+use Domain\Addresses\Models\Address;
 use Domain\Events\Models\Event;
 use Domain\Files\DataTransferObjects\PictureDataEntity;
 use Domain\GuestUsers\DataTransferObjects\GuestUserEntity;
@@ -12,14 +14,13 @@ use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\DataCollection;
 
-class EventEntityData extends Data
+class EventEntity extends Data
 {
     public function __construct(
         public int             $id,
         public string          $uniqueIdentifier,
         public string          $title,
         public ?string         $description,
-        public ?string         $location,
         public string          $startDateTime,
         public ?string         $isoStartDateTime,
         public ?string         $endDateTime,
@@ -32,8 +33,8 @@ class EventEntityData extends Data
         public ?string         $googleCalendarLink,
         #[DataCollectionOf(PictureDataEntity::class)]
         public ?DataCollection $media,
+        public ?AddressEntity  $address,
         public UserEntity      $eventOwner,
-//        #[DataCollectionOf(GuestUserEntity::class)]
         public                 $invitedUsers,
         public Carbon          $createdAt,
         public Carbon          $updatedAt,

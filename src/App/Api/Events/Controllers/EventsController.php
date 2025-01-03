@@ -7,7 +7,7 @@ use Domain\Events\Actions\AuthenticatedEventUpdateAction;
 use Domain\Events\Actions\ViewEventsAction;
 use Domain\Events\DataTransferObjects\AuthenticatedEventData;
 use Domain\Events\DataTransferObjects\AuthenticatedEventUpdateData;
-use Domain\Events\DataTransferObjects\EventEntityData;
+use Domain\Events\DataTransferObjects\EventEntity;
 use Domain\Events\Models\Event;
 use Domain\Users\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -23,14 +23,14 @@ class EventsController
         $ownedEvents = $user->ownedEvents()->get();
 
         return response()->json([
-            'events' => EventEntityData::collect($events),
-            'ownedEvents' =>  EventEntityData::collect($ownedEvents),
+            'events' => EventEntity::collect($events),
+            'ownedEvents' =>  EventEntity::collect($ownedEvents),
         ]);
     }
 
     public function show(Event $event): JsonResponse
     {
-        return response()->json(EventEntityData::from($event));
+        return response()->json(EventEntity::from($event));
     }
 
     public function store(AuthenticatedEventCreateAction $authenticatedEventCreateAction, AuthenticatedEventData $authenticatedEventStoreData): JsonResponse

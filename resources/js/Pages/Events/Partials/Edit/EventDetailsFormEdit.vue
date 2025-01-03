@@ -8,13 +8,11 @@
         class="mx-2 w-full"
         :error="titleErrorBag"
     />
-
-    <TextInput
+    <AutoCompleteAddressInput
         :model-value="form.location"
-        @update:modelValue="val => form.location = val"
+        @update:modelValue="val => updateLocation(val)"
         name="location"
         placeholder="Where is it?"
-        class="mx-2 w-full"
     />
 
     <TextAreaInput
@@ -29,6 +27,7 @@
 <script setup>
 import TextInput from '@/Components/Inputs/TextInput.vue';
 import TextAreaInput from '@/Components/Inputs/TextAreaInput.vue';
+import AutoCompleteAddressInput from "@/Components/Inputs/AutoCompleteAddressInput.vue";
 
 const props = defineProps({
     form: {
@@ -40,4 +39,24 @@ const props = defineProps({
         default: ''
     }
 });
+
+const updateLocation = (event) => {
+    if (typeof event === 'string') {
+        props.form.location = {
+            id: props.form.location.id,
+            address: event,
+            place_id: null,
+            place: null,
+        };
+
+        return;
+    }
+
+    props.form.location = {
+        id: props.form.location.id,
+        address: event.address,
+        place_id: event.place_id,
+        place: event.place,
+    };
+}
 </script>

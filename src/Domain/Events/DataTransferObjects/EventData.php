@@ -15,7 +15,6 @@ class EventData extends Data
         public string $uniqueIdentifier,
         public string $title,
         public ?string $description,
-        public ?string $location,
         public string $startDateTime,
         public ?string $isoStartDateTime,
         public ?string $endDateTime,

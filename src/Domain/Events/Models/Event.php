@@ -3,6 +3,7 @@
 namespace Domain\Events\Models;
 
 use Carbon\Carbon;
+use Domain\Addresses\Models\Address;
 use Domain\Events\Services\EventShareLinkService;
 use Domain\Events\Services\GoogleCalendarLinkService;
 use Domain\GuestUsers\Models\GuestUser;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -25,7 +27,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property int $guest_user_id
  * @property string $title
  * @property string $description
- * @property string $location
  * @property string $start_date_time
  * @property string $end_date_time
  * @property string $canceled_at
@@ -40,7 +41,6 @@ class Event extends Model implements HasMedia
         'guest_user_id',
         'title',
         'description',
-        'location',
         'start_date_time',
         'end_date_time',
         'canceled_at',
@@ -65,6 +65,11 @@ class Event extends Model implements HasMedia
     {
         return $this->belongsToMany(GuestUser::class)
             ->withTimestamps();
+    }
+
+    public function address(): MorphOne
+    {
+        return $this->morphOne(Address::class, 'addressable');
     }
 
     public function getShareLinkAttribute(): string

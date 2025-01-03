@@ -19,6 +19,16 @@ class AuthenticatedEventUpdateAction
 
         $event->update($authenticatedEventStoreData->all());
 
+        if ($location = $authenticatedEventStoreData->location) {
+            if ($location->id) {
+                $event->address()->update($authenticatedEventStoreData->location->all());
+            } else {
+                $address = $event->address()->create($authenticatedEventStoreData->location->all());
+                $event->address()->save($address);
+            }
+
+        }
+
         if ($authenticatedEventStoreData->remove_image) {
             $event->clearMediaCollection('event-banner');
         }

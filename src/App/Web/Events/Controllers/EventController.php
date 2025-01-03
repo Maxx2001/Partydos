@@ -13,7 +13,7 @@ use Domain\Events\Actions\RestoreEventAction;
 use Domain\Events\Actions\ViewEventsAction;
 use Domain\Events\DataTransferObjects\AuthenticatedEventData;
 use Domain\Events\DataTransferObjects\AuthenticatedEventUpdateData;
-use Domain\Events\DataTransferObjects\EventEntityData;
+use Domain\Events\DataTransferObjects\EventEntity;
 use Domain\Events\DataTransferObjects\EventRegisterGuestData;
 use Domain\Events\DataTransferObjects\EventStoreData;
 use Domain\Events\Models\Event;
@@ -23,7 +23,6 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 use Support\Controllers\Controller;
@@ -41,9 +40,9 @@ class EventController extends Controller
         $historyEvents = $user->getHistoryEvents();
 
         return Inertia::render('Events/Index', [
-            'events' => EventEntityData::collect($invitedEvents),
-            'ownedEvents' =>  EventEntityData::collect($ownedEvents),
-            'historyEvents' =>  EventEntityData::collect($historyEvents),
+            'events' => EventEntity::collect($invitedEvents),
+            'ownedEvents' =>  EventEntity::collect($ownedEvents),
+            'historyEvents' =>  EventEntity::collect($historyEvents),
         ]);
     }
 
@@ -59,7 +58,7 @@ class EventController extends Controller
         }
 
         return Inertia::render('Events/Invite', [
-            'event' => EventEntityData::from($event),
+            'event' => EventEntity::from($event->load('address')),
             'showInviteModal' => Session::get('event_created'),
             'showInviteButton' => $showInviteButton,
             'showCancelButton' => $showCancelButton,
@@ -99,7 +98,7 @@ class EventController extends Controller
         }
 
         return Inertia::render('Events/Edit', [
-            'event' => EventEntityData::from($event),
+            'event' => EventEntity::from($event->load('address'))
         ]);
     }
 

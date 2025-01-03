@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    'googleMapsPlatform' => [
+        'key' => env('GOOGLE_MAPS_PLATFORM_API_KEY'),
+        'placesApi' => [
+            'url' => env('GOOGLE_MAPS_PLATFORM_PLACES_API_URL'),
+        ],
+    ],
+
 ];

@@ -2,6 +2,7 @@
 
 namespace Domain\Events\DataTransferObjects;
 
+use Domain\Addresses\DataTransferObjects\AddressUpdateData;
 use Spatie\LaravelData\Attributes\Validation\Rule;
 use Spatie\LaravelData\Data;
 
@@ -14,8 +15,7 @@ class AuthenticatedEventUpdateData extends Data
         #[Rule(['sometimes', 'nullable', 'string'])]
         public ?string $description,
 
-        #[Rule(['sometimes', 'nullable', 'string'])]
-        public ?string $location,
+        public AddressUpdateData $location,
 
         #[Rule(['sometimes', 'date'])]
         public ?string $start_date_time,

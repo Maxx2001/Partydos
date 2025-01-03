@@ -4,6 +4,7 @@ import EventBanner from "@/Pages/Events/Partials/Invite/EventBanner.vue";
 import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage.js";
 import { PencilSquareIcon } from "@heroicons/vue/20/solid/index.js";
 import { Link } from "@inertiajs/vue3";
+import GoogleMapsIcon from "@/Components/Icons/GoogleMapsIcon.vue";
 
 const props = defineProps({
     event: {
@@ -47,12 +48,21 @@ const emits = defineEmits(['acceptEventInvite']);
                     </Link>
                 </div>
                 <div v-if="!event.canceledAt" class="md:hidden flex flex-col text-center md:text-left text-xl space-y-2 md:space-y-4">
-                    <p class="font-bold">
+                    <div class="font-bold">
                         At:
-                        <span class="text-pink-300">
-                            {{ event.location || 'No event location set.' }}
-                        </span>
-                    </p>
+                        <p class="text-pink-300 inline-flex items-center">
+                            {{ event.address?.address || 'No event location set.' }}
+                            <a :href="event.address?.google_maps_url">
+                                <GoogleMapsIcon v-if="event.address?.place_id && event.address?.address.length <= 28" class="h-10 w-10"/>
+                            </a>
+                        </p>
+                        <div class="flex justify-center" v-if="event.address?.place_id &&  event.address?.address.length > 28" >
+                            <a :href="event.address?.google_maps_url">
+                                <GoogleMapsIcon class="h-10 w-10"/>
+                            </a>
+                        </div>
+
+                    </div>
                     <p class="font-semibold pt-1">
                         <span class="text-blue-200">
                             {{ getFormattedEventDateMessage(event) }}

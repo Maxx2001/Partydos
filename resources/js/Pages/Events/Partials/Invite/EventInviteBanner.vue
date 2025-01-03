@@ -5,6 +5,8 @@ import { onMounted } from "vue";
 import AOS from "aos";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage.js";
+import GoogleMapsIcon from "@/Components/Icons/GoogleMapsIcon.vue";
+import GoogleMapsBlockIcon from "@/Components/Icons/GoogleMapsBlockIcon.vue";
 
 const props = defineProps({
     event: {
@@ -62,12 +64,16 @@ onMounted(() => {
                 class="w-1/2 h-[380px] bg-gradient-to-br from-blue-500  rounded-r-lg to-purple-600 text-white font-extrabold leading-tight text-2xl flex flex-col items-center justify-center"
             >
                 <div class="flex flex-col pb-10 px-8">
-                    <p>
+                    <p class="flex">
                         Location:
                         <span class="ml-4 text-yellow-400">
-                            {{ event.location || 'No event location set.' }}
+                            {{ event.address?.address || 'No event location set.' }}
                         </span>
+                        <a :href="event.address?.google_maps_url">
+                            <GoogleMapsBlockIcon class="h-10 w-10"/>
+                        </a>
                     </p>
+
                     <p class="pt-3">
                         <span class="ml-4 text-pink-300">
                            {{ getFormattedEventDateMessage(event) }}

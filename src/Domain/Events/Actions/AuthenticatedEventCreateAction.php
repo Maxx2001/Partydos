@@ -2,9 +2,9 @@
 
 namespace Domain\Events\Actions;
 
+use Domain\Addresses\Models\Address;
 use Domain\Events\DataTransferObjects\AuthenticatedEventData;
 use Domain\Events\Models\Event;
-use Illuminate\Support\Facades\Session;
 use Support\Actions\AttachMediaToModelAction;
 use Support\Notification;
 use Support\Services\DateAdjustmentService;
@@ -20,6 +20,9 @@ class AuthenticatedEventCreateAction
 
         $event = Event::create($authenticatedEventStoreData->all());
         $event->user()->associate(auth()->user());
+
+        $address = Address::create($authenticatedEventStoreData->location->all());
+        $event->address()->save($address);
 
         $event->save();
 

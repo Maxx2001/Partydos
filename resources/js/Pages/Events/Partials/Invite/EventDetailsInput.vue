@@ -14,6 +14,7 @@ import {
 } from "@heroicons/vue/20/solid/index.js";
 import FeatureBox from "@/Components/Base/FeatureBox.vue";
 import FileUpload from "@/Components/Form/FileUpload.vue";
+import AutoCompleteAddressInput from "@/Components/Inputs/AutoCompleteAddressInput.vue";
 
 const props = defineProps({
     form: {
@@ -77,8 +78,20 @@ const features = [
     },
 ];
 
-const setImage = (event) => {
-    props.form.image = event;
+const setImage = (event) => props.form.image = event;
+
+const updateLocation = (event) => {
+    if (typeof event === 'string') {
+        props.form.location = {
+            address: event,
+            place_id: null,
+            place: null,
+        };
+
+        return;
+    }
+
+    props.form.location = event;
 }
 </script>
 
@@ -102,13 +115,11 @@ const setImage = (event) => {
                 class="mx-2 w-full"
                 :error="titleErrorBag"
             />
-
-            <TextInput
+            <AutoCompleteAddressInput
                 :model-value="form.location"
-                @update:modelValue="val => form.location = val"
+                @update:modelValue="val => updateLocation(val)"
                 name="location"
                 placeholder="Where is it?"
-                class="mx-2 w-full"
             />
 
             <TextAreaInput
