@@ -1,17 +1,18 @@
 <template>
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-label="Google Maps" viewBox="0 0 512 512">
-        <rect id="a" width="512" height="512" x="0" y="0" rx="15%" fill="#fff"/>
-        <clipPath id="b">
-            <use xlink:href="#a"/>
+    <svg xmlns="http://www.w3.org/2000/svg" aria-label="Google Maps" viewBox="0 0 512 512">
+        <clipPath id="a">
+            <path d="M375 136a133 133 0 0 0-79-66 136 136 0 0 0-40-6 133 133 0 0 0-103 48 133 133 0 0 0-31 86c0 38 13 64 13 64 15 32 42 61 61 86a399 399 0 0 1 30 45 222 222 0 0 1 17 42c3 10 6 13 13 13s11-5 13-13a228 228 0 0 1 16-41 472 472 0 0 1 45-63c5-6 32-39 45-64 0 0 15-29 15-68 0-37-15-63-15-63z"/>
         </clipPath>
-        <g clip-path="url(#b)">
-            <path fill="#35a85b" d="M0 512V0h512z"/>
-            <path fill="#5881ca" d="M256 288 32 512h448z"/>
-            <path fill="#c1c0be" d="M288 256 512 32v448z"/>
-            <path stroke="#fadb2a" stroke-width="71" d="M0 512 512 0"/>
-            <path fill="none" stroke="#f2f2f2" stroke-width="22" d="M175 173h50a50 54 0 1 1-15-41"/>
-            <path fill="#de3738" d="M353 85a70 70 0 0 1 140 0c0 70-70 70-70 157 0-87-70-87-70-157"/>
-            <circle cx="423" cy="89" r="25" fill="#7d2426"/>
+        <g stroke-width="130" clip-path="url(#a)">
+            <path stroke="#fbbc04" d="m104 379 152-181"/>
+            <path stroke="#4285f4" d="M256 198 378 53"/>
+            <path stroke="#34a853" d="m189 459 243-290"/>
+            <path stroke="#1a73e8" d="m255 120-79-67"/>
+            <path stroke="#ea4335" d="m76 232 91-109"/>
         </g>
+        <circle cx="256" cy="198" r="51" fill="#fff"/>
     </svg>
+
 </template>
+<script setup lang="ts">
+</script>
