@@ -121,7 +121,7 @@ class EventController extends Controller
     public function destroy(Event $event, DestroyEventAction $destroyEventAction): RedirectResponse
     {
         $destroyEventAction->execute($event);
-        return redirect()->route('events.index');
+        return redirect()->route('users-events.index');
     }
 
     public function authenticateStore(AuthenticatedEventCreateAction $authenticatedEventCreateAction, AuthenticatedEventData $authenticatedEventStoreData): RedirectResponse

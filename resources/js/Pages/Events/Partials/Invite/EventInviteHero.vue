@@ -43,7 +43,7 @@ const emits = defineEmits(['acceptEventInvite']);
                         {{ event.title }}
                     </span>
                     <Link v-if="event.canEdit" :href="route('events.edit', { event: event.uniqueIdentifier })" class="hidden lg:block">
-                        <PencilSquareIcon v-if="event.canEdit" class="pl-6 h-12"/>
+                        <PencilSquareIcon class="pl-6 h-12"/>
                     </Link>
                 </div>
                 <div v-if="!event.canceledAt" class="md:hidden flex flex-col text-center md:text-left text-xl space-y-2 md:space-y-4">
@@ -61,9 +61,9 @@ const emits = defineEmits(['acceptEventInvite']);
                 </div>
 
                 <EventBanner class="block md:hidden" :event="event"/>
-                <div class="flex justify-end lg:hidden pt-2">
-                    <Link v-if="!event.canceledAt" :href="route('events.edit', { event: event.uniqueIdentifier })" class="flex justify-end w-1/4 pr-2">
-                        <PencilSquareIcon v-if="event.canEdit" class="h-7"/>
+                <div class="flex justify-end lg:hidden pt-2 pb-8">
+                    <Link v-if="event.canEdit" :href="route('events.edit', { event: event.uniqueIdentifier })" class="flex justify-end w-1/4 pr-2">
+                        <PencilSquareIcon class="h-7"/>
                     </Link>
                 </div>
             </div>
