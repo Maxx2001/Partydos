@@ -27,7 +27,12 @@ const triggerFileInput = () => {
 };
 
 const handleFileChange = (event) => {
-    file.value = event.target.files[0];
+    const selectedFile = event.target.files[0];
+    if (selectedFile && selectedFile.size > 5 * 1024 * 1024) {
+        alert('File size exceeds 1MB. Please choose a smaller file.');
+        return;
+    }
+    file.value = selectedFile;
     if (file.value) {
         previewUrl.value = URL.createObjectURL(file.value);
         emit('fileUploaded', file.value);
@@ -36,6 +41,10 @@ const handleFileChange = (event) => {
 
 const handleDrop = (event) => {
     const droppedFile = event.dataTransfer.files[0];
+    if (droppedFile && droppedFile.size > 5* 1024 * 1024) {
+        alert('File size exceeds 1MB. Please choose a smaller file.');
+        return;
+    }
     if (droppedFile) {
         file.value = droppedFile;
         previewUrl.value = URL.createObjectURL(droppedFile);
@@ -71,7 +80,8 @@ const handleSubmit = () => {
                         @dragover.prevent
                         @drop.prevent="handleDrop"
                     >
-                        <p v-if="!file && !initialImage" class="text-gray-400">Drop your file here or click to upload</p>
+                        <p v-if="!file && !initialImage" class="text-gray-400">Drop your file here or click to
+                            upload</p>
                         <p v-else-if="file" class="text-gray-600">{{ file.name }}</p>
                         <p v-else class="text-gray-400">Click to upload or drop a new image</p>
                     </div>
@@ -84,7 +94,7 @@ const handleSubmit = () => {
                     />
                 </div>
                 <p class="text-gray-500 w-full text-center italic underline mt-1">
-                    Images up to 5mb
+                    Images up to 5MB
                 </p>
                 <div v-if="previewUrl || initialImage" class="mt-4 flex flex-col items-center">
                     <img
