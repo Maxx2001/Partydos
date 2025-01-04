@@ -15,7 +15,7 @@ class EventStoreData extends Data
         #[Rule(['nullable', 'string'])]
         public ?string           $description,
 
-        public AddressCreateData $location,
+        public ?AddressCreateData $location,
 
         #[Rule(['required', 'date'])]
         public string            $start_date_time,

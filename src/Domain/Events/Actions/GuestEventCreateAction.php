@@ -22,8 +22,10 @@ class GuestEventCreateAction
         $event = Event::create($eventStoreData->all());
         $event->guestUser()->associate($guestUser);
 
-        $address = (new CreateAddressAction())->execute($eventStoreData->location);
-        $event->address()->save($address);
+        if ($eventStoreData->location) {
+            $address = (new CreateAddressAction())->execute($eventStoreData->location);
+            $event->address()->save($address);
+        }
 
         $event->save();
 

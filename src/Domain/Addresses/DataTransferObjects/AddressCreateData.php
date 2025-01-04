@@ -10,6 +10,6 @@ class AddressCreateData extends Data
         #[Rule(['string', 'max:255'])]
         public ?string $place_id,
         #[Rule(['required', 'string', 'max:255'])]
-        public string $address,
+        public ?string $address,
     ) {}
 }

@@ -3,7 +3,6 @@
 namespace Domain\Events\Actions;
 
 use Domain\Addresses\Actions\CreateAddressAction;
-use Domain\Addresses\Models\Address;
 use Domain\Events\DataTransferObjects\AuthenticatedEventData;
 use Domain\Events\Models\Event;
 use Support\Actions\AttachMediaToModelAction;
@@ -22,8 +21,10 @@ class AuthenticatedEventCreateAction
         $event = Event::create($authenticatedEventStoreData->all());
         $event->user()->associate(auth()->user());
 
-        $address = (new CreateAddressAction())->execute($authenticatedEventStoreData->location);
-        $event->address()->save($address);
+        if ($authenticatedEventStoreData->location) {
+            $address = (new CreateAddressAction())->execute($authenticatedEventStoreData->location);
+            $event->address()->save($address);
+        }
 
         $event->save();
 
