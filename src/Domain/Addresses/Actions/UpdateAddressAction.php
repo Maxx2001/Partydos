@@ -6,11 +6,12 @@ use Domain\Addresses\DataTransferObjects\AddressCreateData;
 use Domain\Addresses\DataTransferObjects\AddressUpdateData;
 use Domain\Addresses\Models\Address;
 
-class CreateAddressAction
+class UpdateAddressAction
 {
-    public function execute(AddressCreateData|AddressUpdateData $addressCreateData): Address
+    public function execute(AddressUpdateData $addressCreateData): Address
     {
-        $address = Address::create($addressCreateData->all());
+        $address = Address::find($addressCreateData->id);
+        $address->fill($addressCreateData->all());
         $address->location = $this->removeCountryFromAddress($address->address);
         $address->save();
 

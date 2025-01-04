@@ -2,6 +2,8 @@
 
 namespace Domain\Events\Actions;
 
+use Domain\Addresses\Actions\CreateAddressAction;
+use Domain\Addresses\Actions\UpdateAddressAction;
 use Domain\Events\DataTransferObjects\AuthenticatedEventUpdateData;
 use Domain\Events\Models\Event;
 use Support\Actions\AttachMediaToModelAction;
@@ -21,9 +23,9 @@ class AuthenticatedEventUpdateAction
 
         if ($location = $authenticatedEventStoreData->location) {
             if ($location->id) {
-                $event->address()->update($authenticatedEventStoreData->location->all());
+                (New UpdateAddressAction())->execute($authenticatedEventStoreData->location);
             } else {
-                $address = $event->address()->create($authenticatedEventStoreData->location->all());
+                $address = (New CreateAddressAction())->execute($authenticatedEventStoreData->location);
                 $event->address()->save($address);
             }
 
