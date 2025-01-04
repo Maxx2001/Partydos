@@ -79,22 +79,24 @@ const locationMessage = () => {
                 </div>
 
                 <EventBanner class="block md:hidden" :event="event"/>
-                <div class="flex justify-end lg:hidden pt-2 pb-8">
+                <div
+                    class="flex justify-end lg:hidden pt-2 pb-8"
+                    :class="{ 'pb-2': !event.canceledAt && showInviteButton }"
+                >
                     <Link v-if="event.canEdit" :href="route('events.edit', { event: event.uniqueIdentifier })" class="flex justify-end w-1/4 pr-2">
                         <PencilSquareIcon class="h-7"/>
                     </Link>
                 </div>
+                <div v-if="!event.canceledAt && showInviteButton" class="flex md:hidden justify-center pb-8">
+                    <BaseOutlineButton
+                        label="Join event!"
+                        @click="emits('acceptEventInvite')"
+                        class="bg-blue-700 font-bold py-3 px-6 rounded-md hover:bg-blue-800 transition duration-300 ease-in-out"
+                    />
+                </div>
             </div>
         </div>
         <div class="absolute top-0 left-0 w-24 h-24 bg-white/20 rounded-full blur-lg"></div>
-
-        <div v-if="!event.canceledAt && showInviteButton" class="flex md:hidden justify-center pt-4 pb-8">
-            <BaseOutlineButton
-                label="Join event!"
-                @click="emits('acceptEventInvite')"
-                class="bg-blue-700 font-bold py-3 px-6 rounded-md hover:bg-blue-800 transition duration-300 ease-in-out"
-            />
-        </div>
         <p
             v-if="event.canceledAt"
             class="text-2xl lg:text-5xl font-bold text-red-500 text-center pb-6 pt-16 hidden lg:block"
