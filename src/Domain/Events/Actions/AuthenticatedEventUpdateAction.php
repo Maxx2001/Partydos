@@ -22,11 +22,14 @@ class AuthenticatedEventUpdateAction
         $event->update($authenticatedEventStoreData->all());
 
         if ($location = $authenticatedEventStoreData->location) {
-            if ($location->id) {
+            if ($location->id && $location->address) {
                 (New UpdateAddressAction())->execute($authenticatedEventStoreData->location);
-            } else {
+            }
+            else if($location->address) {
                 $address = (New CreateAddressAction())->execute($authenticatedEventStoreData->location);
                 $event->address()->save($address);
+            } else{
+                $event->address()->delete();
             }
 
         }

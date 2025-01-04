@@ -26,6 +26,14 @@ const emits = defineEmits(['acceptEventInvite', 'cancelEventInvite']);
 onMounted(() => {
     AOS.refresh();
 });
+
+const locationMessage = () => {
+    if ( props.event.address) {
+        return props.event.address.location || props.event.address.address;
+    }
+
+    return 'No event location set.';
+}
 </script>
 
 <template>
@@ -66,9 +74,9 @@ onMounted(() => {
                     <p class="flex">
                         Location:
                         <span class="ml-4 text-yellow-400">
-                            {{ event.address?.location || 'No event location set.' }}
+                            {{ locationMessage() }}
                         </span>
-                        <a :href="event.address?.google_maps_url">
+                        <a v-if="event.address?.google_maps_ur" :href="event.address?.google_maps_url">
                             <GoogleMapsBlockIcon class="h-10 w-10"/>
                         </a>
                     </p>

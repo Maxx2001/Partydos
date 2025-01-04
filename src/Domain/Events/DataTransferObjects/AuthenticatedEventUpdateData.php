@@ -15,7 +15,7 @@ class AuthenticatedEventUpdateData extends Data
         #[Rule(['sometimes', 'nullable', 'string'])]
         public ?string $description,
 
-        public AddressUpdateData $location,
+        public ?AddressUpdateData $location,
 
         #[Rule(['sometimes', 'date'])]
         public ?string $start_date_time,

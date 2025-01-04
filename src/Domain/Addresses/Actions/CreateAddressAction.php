@@ -13,7 +13,6 @@ class CreateAddressAction
         $address = Address::create($addressCreateData->all());
         $address->location = $this->removeCountryFromAddress($address->address);
         $address->save();
-
         return $address;
     }
 

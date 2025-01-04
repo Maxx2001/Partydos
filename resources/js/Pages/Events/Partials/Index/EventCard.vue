@@ -45,6 +45,14 @@ const gradientForEvent = computed(() => {
     const index = hashToIndex(uniqueIdentifier.value, gradientColors.length);
     return gradientColors[index];
 });
+
+const locationMessage = () => {
+    if ( props.event.address) {
+        return props.event.address.location || props.event.address.address;
+    }
+
+    return 'No location set.';
+}
 </script>
 
 <template>
@@ -63,11 +71,8 @@ const gradientForEvent = computed(() => {
             </div>
             <p :class="`${textColor} text-sm mt-2 flex items-center`">
                 <MapPinIcon :class="`h-5 ${textColor} pr-1`"/>
-                <span v-if=" event.address?.location">
-                    {{  event.address.location }}
-                </span>
-                <span v-else>
-                    No location set
+                <span>
+                    {{ locationMessage() }}
                 </span>
             </p>
             <p :class="`${textColor} text-sm mt-2 flex items-center`">

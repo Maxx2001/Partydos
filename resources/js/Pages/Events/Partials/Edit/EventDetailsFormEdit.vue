@@ -43,7 +43,7 @@ const props = defineProps({
 const updateLocation = (event) => {
     if (typeof event === 'string') {
         props.form.location = {
-            id: props.form.location.id,
+            id: props.form.location?.id,
             address: event,
             place_id: null,
         };

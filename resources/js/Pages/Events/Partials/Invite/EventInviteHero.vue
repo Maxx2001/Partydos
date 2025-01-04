@@ -18,6 +18,14 @@ const props = defineProps({
 });
 
 const emits = defineEmits(['acceptEventInvite']);
+
+const locationMessage = () => {
+    if ( props.event.address) {
+        return props.event.address.location || props.event.address.address;
+    }
+
+    return 'No event location set.';
+}
 </script>
 
 <template>
@@ -51,7 +59,7 @@ const emits = defineEmits(['acceptEventInvite']);
                     <div class="font-bold">
                         At:
                         <p class="text-pink-300 inline-flex items-center">
-                            {{ event.address?.location || 'No event location set.' }}
+                            {{ locationMessage() }}
                             <a :href="event.address?.google_maps_url">
                                 <GoogleMapsIcon v-if="event.address?.place_id && event.address?.location?.length <= 28" class="h-10 w-10"/>
                             </a>

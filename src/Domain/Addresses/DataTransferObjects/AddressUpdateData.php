@@ -11,7 +11,7 @@ class AddressUpdateData extends Data
         public ?int $id,
         #[Rule(['string', 'max:255'])]
         public ?string $place_id,
-        #[Rule(['required', 'string', 'max:255'])]
-        public string $address,
+        #[Rule(['string', 'max:255'])]
+        public ?string $address,
     ) {}
 }

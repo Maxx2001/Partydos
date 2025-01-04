@@ -117,7 +117,7 @@ class Event extends Model implements HasMedia
             $this->iso_end_date_time,
             $this->title,
             $this->description,
-            $this->location
+            $this->address?->address
         );
     }
 
