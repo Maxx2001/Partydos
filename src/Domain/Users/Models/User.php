@@ -65,8 +65,8 @@ class User extends Authenticatable
 
     public function upcomingEvents(): Collection
     {
-        $invitedEvents = $this->events()->futureEvents()->orderBy('start_date_time')->get();
-        $ownedEvents = $this->ownedEvents()->futureEvents()->orderBy('start_date_time')->get();
+        $invitedEvents = $this->events()->with('address')->futureEvents()->orderBy('start_date_time')->get();
+        $ownedEvents = $this->ownedEvents()->with('address')->futureEvents()->orderBy('start_date_time')->get();
 
         return $invitedEvents->merge($ownedEvents);
     }
