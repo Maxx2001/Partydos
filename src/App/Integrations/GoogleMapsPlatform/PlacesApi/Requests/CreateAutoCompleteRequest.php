@@ -42,7 +42,6 @@ class CreateAutoCompleteRequest extends Request implements HasBody
 
             $formattedData[] = [
                 'place_id' => $prediction['placeId'],
-                'place' => $prediction['place'],
                 'address' => $prediction['text']['text'],
             ];
         }

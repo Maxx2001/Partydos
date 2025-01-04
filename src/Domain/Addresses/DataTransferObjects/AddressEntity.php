@@ -9,8 +9,8 @@ class AddressEntity extends Data
     public function __construct(
         public int $id,
         public ?string $place_id,
-        public ?string $place,
         public string $address,
+        public ?string $location,
         public ?string $google_maps_url = null, // Default null
     ) {
         $this->google_maps_url = $this->generateGoogleMapsUrl($place_id, $address);

@@ -12,8 +12,8 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property string $address
- * @property string|null $place
  * @property string|null $place_id
+ * @property string|null location
  * @property string $addressable_type
  * @property int $addressable_id
  * @property Carbon|null $created_at
@@ -26,8 +26,8 @@ class Address extends Model
 {
     protected $fillable = [
         'address',
-        'place',
         'place_id',
+        'location'
     ];
 
     public function addressable(): MorphTo

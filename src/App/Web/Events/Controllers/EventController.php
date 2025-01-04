@@ -35,8 +35,8 @@ class EventController extends Controller
         /* @var User $user */
         $user = auth()->user();
 
-        $invitedEvents = $user->events()->futureEvents()->get();
-        $ownedEvents = $user->ownedEvents()->futureEvents()->orderBy('start_date_time')->get();
+        $invitedEvents = $user->events()->with('address')->futureEvents()->get();
+        $ownedEvents = $user->ownedEvents()->with('address')->futureEvents()->orderBy('start_date_time')->get();
         $historyEvents = $user->getHistoryEvents();
 
         return Inertia::render('Events/Index', [

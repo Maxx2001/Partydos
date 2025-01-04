@@ -2,6 +2,7 @@
 
 namespace Domain\Events\Actions;
 
+use Domain\Addresses\Actions\CreateAddressAction;
 use Domain\Addresses\Models\Address;
 use Domain\Events\DataTransferObjects\AuthenticatedEventData;
 use Domain\Events\Models\Event;
@@ -21,7 +22,7 @@ class AuthenticatedEventCreateAction
         $event = Event::create($authenticatedEventStoreData->all());
         $event->user()->associate(auth()->user());
 
-        $address = Address::create($authenticatedEventStoreData->location->all());
+        $address = (new CreateAddressAction())->execute($authenticatedEventStoreData->location);
         $event->address()->save($address);
 
         $event->save();

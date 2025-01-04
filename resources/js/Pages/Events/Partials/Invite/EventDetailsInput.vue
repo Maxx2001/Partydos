@@ -85,7 +85,6 @@ const updateLocation = (event) => {
         props.form.location = {
             address: event,
             place_id: null,
-            place: null,
         };
 
         return;

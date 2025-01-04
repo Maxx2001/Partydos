@@ -51,12 +51,12 @@ const emits = defineEmits(['acceptEventInvite']);
                     <div class="font-bold">
                         At:
                         <p class="text-pink-300 inline-flex items-center">
-                            {{ event.address?.address || 'No event location set.' }}
+                            {{ event.address?.location || 'No event location set.' }}
                             <a :href="event.address?.google_maps_url">
-                                <GoogleMapsIcon v-if="event.address?.place_id && event.address?.address.length <= 28" class="h-10 w-10"/>
+                                <GoogleMapsIcon v-if="event.address?.place_id && event.address?.location.length <= 28" class="h-10 w-10"/>
                             </a>
                         </p>
-                        <div class="flex justify-center" v-if="event.address?.place_id &&  event.address?.address.length > 28" >
+                        <div class="flex justify-center" v-if="event.address?.place_id &&  event.address?.location.length > 28" >
                             <a :href="event.address?.google_maps_url">
                                 <GoogleMapsIcon class="h-10 w-10"/>
                             </a>

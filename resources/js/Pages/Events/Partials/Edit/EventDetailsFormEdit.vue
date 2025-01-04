@@ -46,7 +46,6 @@ const updateLocation = (event) => {
             id: props.form.location.id,
             address: event,
             place_id: null,
-            place: null,
         };
 
         return;
@@ -56,7 +55,6 @@ const updateLocation = (event) => {
         id: props.form.location.id,
         address: event.address,
         place_id: event.place_id,
-        place: event.place,
     };
 }
 </script>

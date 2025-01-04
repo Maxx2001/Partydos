@@ -7,7 +7,6 @@ class SuggestionEntity extends Data
 {
     public function __construct(
         public string $place_id,
-        public string $place,
         public string $address,
     ) {}
 }

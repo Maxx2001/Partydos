@@ -2,7 +2,7 @@
 
 namespace Domain\Events\Actions;
 
-use Domain\Addresses\Models\Address;
+use Domain\Addresses\Actions\CreateAddressAction;
 use Domain\Events\DataTransferObjects\EventStoreData;
 use Domain\Events\Models\Event;
 use Domain\GuestUsers\Models\GuestUser;
@@ -22,7 +22,7 @@ class GuestEventCreateAction
         $event = Event::create($eventStoreData->all());
         $event->guestUser()->associate($guestUser);
 
-        $address = Address::create($eventStoreData->location->all());
+        $address = (new CreateAddressAction())->execute($eventStoreData->location);
         $event->address()->save($address);
 
         $event->save();

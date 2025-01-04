@@ -63,8 +63,8 @@ const gradientForEvent = computed(() => {
             </div>
             <p :class="`${textColor} text-sm mt-2 flex items-center`">
                 <MapPinIcon :class="`h-5 ${textColor} pr-1`"/>
-                <span v-if="event.location">
-                    {{ event.location }}
+                <span v-if=" event.address?.address">
+                    {{  event.address.address }}
                 </span>
                 <span v-else>
                     No location set

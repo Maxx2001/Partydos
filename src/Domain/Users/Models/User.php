@@ -73,8 +73,8 @@ class User extends Authenticatable
 
     public function getHistoryEvents(): Collection
     {
-        $invitedEvents = $this->events()->historyEvents()->orderBy('start_date_time')->get();
-        $ownedEvents = $this->ownedEvents()->historyEvents()->orderBy('start_date_time')->get();
+        $invitedEvents = $this->events()->with('address')->historyEvents()->orderBy('start_date_time')->get();
+        $ownedEvents = $this->ownedEvents()->with('address')->historyEvents()->orderBy('start_date_time')->get();
 
         return $invitedEvents->merge($ownedEvents);
     }
