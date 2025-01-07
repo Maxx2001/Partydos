@@ -65,27 +65,7 @@ const features = [
             Features
         </h1>
 
-        <div class="w-full md:hidden">
-            <Swiper
-                :modules="[Autoplay]"
-                :slides-per-view="1"
-                :space-between="16"
-                :loop="true"
-                :autoplay="{ delay: 5000, disableOnInteraction: false }"
-                class="w-full"
-            >
-                <SwiperSlide v-for="(feature, index) in features" :key="index">
-                    <FeatureBox
-                        :icon="feature.icon"
-                        :title="feature.title"
-                        :description="feature.description"
-                        :coming-soon="feature.comingSoon"
-                    />
-                </SwiperSlide>
-            </Swiper>
-        </div>
-
-        <div class="hidden md:grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 auto-cols-max gap-8 w-full max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 auto-cols-max gap-8 w-full max-w-6xl mx-auto">
             <FeatureBox
                 v-for="(feature, index) in features"
                 :key="index"
