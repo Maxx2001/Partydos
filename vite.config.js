@@ -23,4 +23,13 @@ export default defineConfig({
             },
         }),
     ],
+    server: {
+        host: true,
+        strictPort: true,
+        port: 5173,
+        hmr: {
+            protocol: 'wss',
+            host: `${process.env.DDEV_PROJECT}.${process.env.DDEV_TLD}`
+        },
+    }
 });

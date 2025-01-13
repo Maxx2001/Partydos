@@ -1,93 +1,39 @@
-version: "3.8"
-
+version: '3'
 services:
-    php:
-        container_name: pa-php
-        build:
-            context: ./
-            dockerfile: "./docker/php/Dockerfile"
-            args:
-                - BUILD_UID=${DOCKER_UID}
-                - BUILD_GID=${DOCKER_GID}
-        environment:
-            PHP_IDE_CONFIG: "serverName=host.docker.internal"
-        working_dir: /var/www/html
-        networks:
-            - default
-        volumes:
-            - ./:/var/www/html:cached
-            - ./node_modules:/var/www/html/node_modules:delegated
-            - ./public:/var/www/html/public:delegated
-
-    nginx:
-        container_name: pa-nginx
-        image: wodby/nginx
-        environment:
-            NGINX_STATIC_OPEN_FILE_CACHE: "off"
-            NGINX_ERROR_LOG_LEVEL: debug
-            NGINX_BACKEND_HOST: php
-            NGINX_VHOST_PRESET: php
-            NGINX_SERVER_ROOT: /var/www/html/public
-            NGINX_TRY_FILES: $uri /index.php?$query_string
-        depends_on:
-            - php
-            - mariadb
-        volumes:
-            - ./public:/var/www/html/public:delegated
-            - ./storage/App/public:/var/www/html/public/storage:delegated
-        networks:
-            - default
-            - traefik-gateway
-        labels:
-            - "traefik.enable=true"
-            - "traefik.docker.network=traefik-gateway"
-            - "traefik.http.routers.pa-nginx.rule=Host(`partydos.localhost`)"
-            - "traefik.http.routers.pa-nginx.entrypoints=http"
-            - "traefik.http.routers.pa-nginx.tls=false"
-
-    mariadb:
-        container_name: pa-mariadb
-        image: mariadb:10.4
-        command: --init-file /data/application/init.sql
-        volumes:
-            - ./docker/mariadb/init.sql:/data/application/init.sql
-            - mariadb:/var/lib/mysql
-        environment:
-            MYSQL_DATABASE: pa
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_USER: pa
-            MYSQL_PASSWORD: pa
+    apache:
+        image: fuzzy-palm-tree:latest
+        build: ./
         ports:
-            - "127.0.0.1:34001:3306"
-    redis:
-        image: redis:4-alpine
-        container_name: pa-redis
+            - "8080:80"
         volumes:
-            - redis:/data
+            - storage:/var/www/html/storage
+        depends_on:
+            - mysql
+        environment:
+            - DB_DATABASE=db
+            - DB_USERNAME=user
+            - DB_PASSWORD=pass
+            - DB_CONNECTION=mysql
+            - DB_HOST=mysql
+            - APP_DEBUG=true
+            - APP_KEY=base64:EOIbS8wLQldiGK0hXHlpntpFf+YJPBIiZv+BiFkFGts=
+            - GOOGLE_CLIENT_ID=948023160451-shr6u6v41t8br28088q8iksditfp6bc6.apps.googleusercontent.com
+            - GOOGLE_CLIENT_SECRET=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
+            - GOOGLE_CLIENT_HD=nextly.nl
+            - API_GATEWAY_TOKEN=4|Zv8eQbdJxQ7bK6mMpacbuRG5Dj3rpfWDm3XaXELM
 
-#  mailhog:
-#    image: mailhog/mailhog
-#    container_name: vrc-mailhog
-#    networks:
-#      - default
-#      - traefik-gateway
-#    labels:
-#      - "traefik.enable=true"
-#      - "traefik.docker.network=traefik-gateway"
-#      - "traefik.http.services.vrc-mailhog.loadbalancer.server.port=8025"
-#      - "traefik.http.routers.vrc-mailhog.rule=Host(`mailhog.vanrijncoating-portal.localhost`)"
-#      - "traefik.http.routers.vrc-mailhog.entrypoints=https"
-#      - "traefik.http.routers.vrc-mailhog.tls=true"
+    mysql:
+        image: mysql:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: rootpass
+            MYSQL_DATABASE: db
+            MYSQL_USER: user
+            MYSQL_PASSWORD: pass
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysql-data:/var/lib/mysql
 
 volumes:
-    mariadb:
-        driver: local
-    redis:
-        driver: local
-
-# Make the externally created network "traefik-gateway" available as network "default"
-# docker network create traefik-gateway
-networks:
-    traefik-gateway:
-        name: traefik-gateway
-        external: true
+    mysql-data:
+    storage:
