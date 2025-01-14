@@ -97,7 +97,7 @@ const updateLocation = (event) => {
 <template>
     <div class="flex flex-col items-center w-full">
         <div class="w-full md:w-2/3 xl:w-1/3 flex flex-col items-center gap-4">
-            <div class="w-full flex flex-col items-center gap-4 py-32">
+            <div class="w-full flex flex-col items-center gap-4 py-32 md:py-0">
                 <div class="w-full flex justify-center text-2xl font-semibold items-center mb-4">
                     <h1 v-if="isEdit" class="text-2xl md:text-4xl">
                         Update event
@@ -134,6 +134,7 @@ const updateLocation = (event) => {
                 />
             </div>
             <FileUpload
+                class="md:mt-12"
                 @fileUploaded="setImage($event)"
             />
 
