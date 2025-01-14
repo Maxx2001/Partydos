@@ -71,13 +71,13 @@ const handleSubmit = () => {
         <div class="max-w-md w-full space-y-8">
             <div>
                 <h2 class="pt-5 text-center text-xl font-extrabold text-gray-900">
-                    {{ file ? 'Update Your File' : 'Upload Your File' }}
+                    {{ file ? 'Update Your Banner image' : 'Upload Your Banner image' }}
                 </h2>
             </div>
             <form @submit.prevent="handleSubmit">
                 <div class="rounded-md shadow-sm -space-y-px">
                     <div
-                        class="flex items-center justify-center w-full border-2 border-dashed border-gray-300 rounded-lg p-3 bg-white hover:border-blue-500 cursor-pointer"
+                        class="flex items-center justify-center w-full border-2 border-dashed border-blue-400 rounded-lg p-3 bg-white hover:border-blue-500 cursor-pointer"
                         @click="triggerFileInput"
                         @dragover.prevent
                         @drop.prevent="handleDrop"
