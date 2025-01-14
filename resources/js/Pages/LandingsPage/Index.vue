@@ -37,6 +37,6 @@ AOS.init({
         <Hero />
         <UpcomingEvents :events="events" v-if="showUpcomingEvents"/>
         <FeatureList/>
-        <AgendaTabs/>
+<!--        <AgendaTabs/>-->
     </DefaultLayout>
 </template>
