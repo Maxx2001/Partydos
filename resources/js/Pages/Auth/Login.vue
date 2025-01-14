@@ -35,8 +35,11 @@ const handleSubmit = () => {
 <template>
     <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 animate-gradient px-6 overflow-auto">
         <div class="w-full max-w-md bg-white shadow-lg rounded-xl p-8 ">
-            <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
-                Welcome Back! 🎉
+            <h2 class="text-3xl font-extrabold text-center mb-4">
+                <a :href="route('home')">
+                    <span>Party</span>
+                    <span class="text-blue-700">dos</span>
+                </a>
             </h2>
             <form @submit.prevent="handleSubmit" class="space-y-6">
                 <div>
