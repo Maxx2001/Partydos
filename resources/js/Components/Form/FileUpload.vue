@@ -87,7 +87,7 @@ const handleSubmit = () => {
                         <p v-else-if="file" class="text-gray-600">{{ file.name }}</p>
                         <p v-else class="text-gray-400">Click to upload or drop a new image</p>
                     </div>
-                    <p class="text-bold pt-2 text-gray-700">
+                    <p class="text-bold pt-2 text-gray-700 text-sm">
                         This image will be used as the
                         <span class="text-blue-600 text-bold">
                             banner image
