@@ -9,7 +9,9 @@ const form = useForm({
 });
 
 const submit = () => form.post(route('password.email', form.email), {
-    onFinish: () => form.reset('email'),
+    onSuccess: () => {
+        form.email = '';
+    },
 });
 </script>
 
