@@ -35,7 +35,10 @@ const deleteAccountModal = ref('deleteAccountModal');
             </div>
 
             <div class="flex flex-col items-center md:items-start space-y-4 col-span-1">
-                <h3 class="text-xl font-semibold">Contact Us</h3>
+                <h3 class="text-xl font-semibold flex">
+                    <span>Contact </span>
+                    <span class="hidden md:block pl-1"> Us</span>
+                </h3>
                 <p class="text-sm text-gray-100">Yet to come!</p>
 <!--                <p class="text-sm text-gray-100">Email: info@partydos.com</p>-->
             </div>
