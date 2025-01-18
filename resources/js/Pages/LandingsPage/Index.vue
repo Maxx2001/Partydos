@@ -5,7 +5,7 @@ import 'swiper/swiper-bundle.css';
 import FeatureList from "@/Pages/LandingsPage/Partials/FeatureList.vue";
 import AgendaTabs from "@/Pages/LandingsPage/Partials/AgendaTabs.vue";
 import {useTitle} from "@/Composables/useTitle.js";
-import UpcomingEvents from "@/Pages/LandingsPage/Partials/UpcomingEvents.vue";
+import HighlightEvents from "@/Pages/LandingsPage/Partials/HighlightEvents.vue";
 
 useTitle('Partydos | Home');
 
@@ -23,6 +23,7 @@ defineProps({
 
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Inspiration from "@/Pages/LandingsPage/Partials/Inspiration.vue";
 
 // Initialize AOS with settings
 AOS.init({
@@ -35,7 +36,7 @@ AOS.init({
 <template>
     <DefaultLayout>
         <Hero />
-        <UpcomingEvents :events="events" v-if="showUpcomingEvents"/>
+        <HighlightEvents :events="events" :showUpcomingEvents="showUpcomingEvents"/>
         <FeatureList/>
         <AgendaTabs/>
     </DefaultLayout>

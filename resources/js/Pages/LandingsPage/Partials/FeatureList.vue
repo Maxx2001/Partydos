@@ -62,7 +62,7 @@ const features = [
 <template>
     <div class="py-16 px-6 lg:px-24 flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-purple-50">
         <h1 class="text-2xl md:text-4xl font-bold pb-8 text-gray-900">
-            Features
+            Our plan tools!
         </h1>
 
         <div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 auto-cols-max gap-8 w-full max-w-6xl mx-auto">
