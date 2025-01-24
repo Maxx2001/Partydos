@@ -10,8 +10,8 @@ services:
         depends_on:
             - mysql
         environment:
-            - DB_CONNECTION=mysql
-            - DB_HOST="mysql"
+            - DB_CONNECTION=test1
+            - DB_HOST="test2"
             - DB_PORT="3306"
             - DB_DATABASE="db"
             - DB_USERNAME="root"
