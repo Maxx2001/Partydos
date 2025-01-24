@@ -13,14 +13,14 @@ services:
             - DB_CONNECTION=mysql
             - DB_HOST="mysql"
             - DB_PORT="3306"
-            - DB_DATABASE="partydos"
-            - DB_USERNAME="user"
+            - DB_DATABASE="db"
+            - DB_USERNAME="root"
             - DB_PASSWORD="password
     mysql:
         image: mysql:latest
         environment:
             MYSQL_ROOT_PASSWORD: rootpass
-            MYSQL_DATABASE: partydos
+            MYSQL_DATABASE: db
             MYSQL_USER: root
             MYSQL_PASSWORD: password
         ports:
