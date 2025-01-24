@@ -4,7 +4,7 @@ services:
         image: fuzzy-palm-tree:latest
         build: ./
         ports:
-            - "8080:80"
+            - "8090:80"
         volumes:
             - storage:/var/www/html/storage
         depends_on:
