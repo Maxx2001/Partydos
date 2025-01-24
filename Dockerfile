@@ -45,7 +45,7 @@ RUN mkdir -p /var/www/html/resources/translations \
 
 
 COPY ./cronjobs /var/spool/cron/crontabs/root
-RUN chmod 0600 /var/spool/cron/crontabs/root && chown root:crontab /var/spool/cron/crontabs/root
+RUN chmod 0600 /var/spool/cron/crontabs/root && chown root:root /var/spool/cron/crontabs/root
 
 
 # Copy Frontend build
