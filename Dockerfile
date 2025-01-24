@@ -30,6 +30,7 @@ RUN npm install
 RUN npm run build
 #RUN npm run build-mail
 
+
 #
 # Application build
 #
@@ -38,17 +39,23 @@ FROM php:8.4-apache
 # Set the working directory to /var/www/html
 WORKDIR /var/www/html
 
+# Enable Apache rewrite module
 RUN a2enmod rewrite
+
+# Set the ServerName directive globally
+RUN echo "ServerName partydos.app" >> /etc/apache2/apache2.conf
+
+# Install cron
+RUN apt-get update && apt-get install -y cron
 
 # Create the translations directory, make it editable, and assign ownership to www-data
 RUN mkdir -p /var/www/html/resources/translations \
     && chown -R www-data:www-data /var/www/html/resources/translations \
     && chmod -R 775 /var/www/html/resources/translations
 
-
+# Configure cron
 COPY ./cronjobs /var/spool/cron/crontabs/root
 RUN chmod 0600 /var/spool/cron/crontabs/root && chown root:root /var/spool/cron/crontabs/root
-
 
 # Copy Frontend build
 COPY --from=frontend /app/node_modules/ ./node_modules/
@@ -65,14 +72,14 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage \
     && chmod -R 775 /var/www/html/bootstrap/cache
 
-# Enable Apache rewrite module
+# Enable Apache rewrite module (repeat if necessary)
 RUN a2enmod rewrite
 
 # Copy the startup script into the image
 COPY startup.sh /usr/local/bin/startup.sh
 
+# Copy PHP configuration
 COPY uploads.ini /usr/local/etc/php/conf.d/uploads.ini
-
 RUN chown -R www-data:www-data /usr/local/etc/php/conf.d/uploads.ini
 
 # Give execution rights on the startup script
@@ -84,5 +91,5 @@ RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-avail
 # Expose port 80 (HTTP)
 EXPOSE 80
 
-# Start the Apache web server
-CMD ["/usr/local/bin/startup.sh"]
+# Start cron and Apache in the foreground
+CMD service cron start && apache2-foreground
