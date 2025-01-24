@@ -33,7 +33,7 @@ RUN npm run build-mail
 #
 # Application build
 #
-FROM ghcr.io/nextlynl/apache-php:8.2
+FROM php:8.2-cli
 
 # Set the working directory to /var/www/html
 WORKDIR /var/www/html
