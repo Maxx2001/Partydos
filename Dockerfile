@@ -28,7 +28,7 @@ COPY --from=vendor /app/vendor/ ./vendor/
 
 RUN npm install
 RUN npm run build
-RUN npm run build-mail
+#RUN npm run build-mail
 
 #
 # Application build
