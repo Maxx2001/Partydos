@@ -45,6 +45,12 @@ RUN a2enmod rewrite
 # Set the ServerName directive globally
 RUN echo "ServerName partydos.app" >> /etc/apache2/apache2.conf
 
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    libzip-dev \
+    unzip \
+    && docker-php-ext-install pdo pdo_mysql zip
+
 # Install cron
 RUN apt-get update && apt-get install -y cron
 
