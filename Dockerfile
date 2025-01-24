@@ -33,10 +33,12 @@ RUN npm run build
 #
 # Application build
 #
-FROM php:8.4-cli
+FROM php:8.4-apache
 
 # Set the working directory to /var/www/html
 WORKDIR /var/www/html
+
+RUN a2enmod rewrite
 
 # Create the translations directory, make it editable, and assign ownership to www-data
 RUN mkdir -p /var/www/html/resources/translations \
