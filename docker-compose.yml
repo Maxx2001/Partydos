@@ -17,6 +17,7 @@ services:
             - DB_DATABASE=db
             - DB_USERNAME=root
             - DB_PASSWORD=rootpass
+            - DOKPLOY_TRAEFIK_ENABLE=false
         labels:
             - traefik.enable=${DOKPLOY_TRAEFIK_ENABLE:-true}
             - traefik.http.routers.partydos.rule=${DOKPLOY_ROUTER_RULE:-Host(`partydos.app`)}
