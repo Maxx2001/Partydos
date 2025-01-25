@@ -99,3 +99,4 @@ EXPOSE 80
 
 # Start cron and Apache in the foreground
 CMD service cron start && apache2-foreground
+CMD ["/usr/local/bin/startup.sh"]

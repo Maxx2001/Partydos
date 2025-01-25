@@ -25,10 +25,7 @@ services:
             - "3306:3306"
         volumes:
             - mysql-data:/var/lib/mysql
-        networks:
-            - dokploy-network
 
 volumes:
     mysql-data:
-        driver: local
     storage:
