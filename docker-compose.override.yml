@@ -1,44 +1,11 @@
 version: '3.9'
 services:
-    apache:
-        image: fuzzy-palm-tree:latest
-        build: ./
-        ports:
-            - 8090
-            - 80
-        volumes:
-            - storage:/var/www/html/storage
-        depends_on:
-            - mysql
-        environment:
-            - DB_CONNECTION=mysql
-            - DB_HOST=mysql
-            - DB_PORT=3306
-            - DB_DATABASE=db
-            - DB_USERNAME=root
-            - DB_PASSWORD=rootpass
-        networks:
-            - dokploy-network
-
-    mysql:
-        container_name: mysql
-        image: mysql:latest
-        environment:
-            MYSQL_ROOT_PASSWORD: rootpass
-            MYSQL_DATABASE: db
-            MYSQL_USER: user
-            MYSQL_PASSWORD: pass
-        ports:
-            - "3306:3306"
-        volumes:
-            - mysql-data:/var/lib/mysql
-        networks:
-            - dokploy-network
-
-networks:
-    dokploy-network:
-        external: true
-
-volumes:
-    mysql-data:
-    storage:
+  apache:
+    labels:
+      # Override or remove problematic labels
+      - traefik.enable=true
+      - traefik.http.routers.partydos.rule=Host(`partydos.app`)
+      - traefik.http.routers.partydos.entrypoints=websecure
+      - traefik.http.routers.partydos.tls=true
+      - traefik.http.routers.partydos.tls.certresolver=letsencrypt
+      - traefik.http.services.partydos.loadbalancer.server.port=80
