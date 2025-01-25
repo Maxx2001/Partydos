@@ -17,6 +17,13 @@ services:
             - DB_DATABASE=db
             - DB_USERNAME=root
             - DB_PASSWORD=rootpass
+        labels:
+            - traefik.enable=${DOKPLOY_TRAEFIK_ENABLE:-true}
+            - traefik.http.routers.partydos.rule=${DOKPLOY_ROUTER_RULE:-Host(`partydos.app`)}
+            - traefik.http.routers.partydos.entrypoints=websecure
+            - traefik.http.routers.partydos.tls=true
+            - traefik.http.routers.partydos.tls.certresolver=letsencrypt
+            - traefik.http.services.partydos.loadbalancer.server.port=80
         networks:
             - dokploy-network
 
