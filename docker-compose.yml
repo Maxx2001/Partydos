@@ -17,6 +17,7 @@ services:
             - DB_USERNAME="root"
             - DB_PASSWORD="rootpass"
     mysql:
+        container_name: mysql
         image: mysql:latest
         environment:
             MYSQL_ROOT_PASSWORD: rootpass
