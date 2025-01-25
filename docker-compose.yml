@@ -9,22 +9,6 @@ services:
             - storage:/var/www/html/storage
         depends_on:
             - mysql
-        labels:
-            - traefik.enable=true
-            # Main Router for HTTPS
-            - traefik.http.routers.partydos.rule=Host(`partydos.app`)
-            - traefik.http.routers.partydos.entrypoints=websecure
-            - traefik.http.routers.partydos.tls=true
-            - traefik.http.routers.partydos.tls.certresolver=letsencrypt
-            # Middleware to Redirect HTTP to HTTPS
-            - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-            # HTTP Router to Redirect to HTTPS
-            - traefik.http.routers.partydos-http.rule=Host(`partydos.app`)
-            - traefik.http.routers.partydos-http.entrypoints=web
-            - traefik.http.routers.partydos-http.middlewares=redirect-to-https
-            # Service Configuration
-            - traefik.http.services.partydos.loadbalancer.server.port=8090
-            - traefik.http.services.partydos.loadbalancer.server.scheme=http
         environment:
             - DB_CONNECTION=mysql
             - DB_HOST="mysql"
