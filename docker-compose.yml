@@ -19,6 +19,8 @@ services:
         labels:
             - traefik.enable=true
             - traefik.http.routers.partydos.rule=Host(`partydos.app`)
+            - traefik.http.routers.partydos.entrypoints=websecure
+            - traefik.http.routers.partydos.tls.certresolver=letsencrypt
             - traefik.http.services.partydos.loadbalancer.server.port=80
     mysql:
         image: mysql:latest
