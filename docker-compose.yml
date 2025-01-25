@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 services:
     apache:
         image: fuzzy-palm-tree:latest
@@ -11,11 +11,21 @@ services:
             - mysql
         environment:
             - DB_CONNECTION=mysql
-            - DB_HOST="mysql"
-            - DB_PORT="3306"
-            - DB_DATABASE="db"
-            - DB_USERNAME="root"
-            - DB_PASSWORD="rootpass"
+            - DB_HOST=mysql
+            - DB_PORT=3306
+            - DB_DATABASE=db
+            - DB_USERNAME=root
+            - DB_PASSWORD=rootpass
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.apache.rule=Host(`partydos.app`)
+            - traefik.http.routers.apache.entrypoints=websecure
+            - traefik.http.routers.apache.tls=true
+            - traefik.http.routers.apache.tls.certresolver=letsencrypt
+            - traefik.http.services.apache.loadbalancer.server.port=80
+        networks:
+            - dokploy-network
+
     mysql:
         container_name: mysql
         image: mysql:latest
@@ -28,6 +38,12 @@ services:
             - "3306:3306"
         volumes:
             - mysql-data:/var/lib/mysql
+        networks:
+            - dokploy-network
+
+networks:
+    dokploy-network:
+        external: true
 
 volumes:
     mysql-data:
