@@ -16,12 +16,6 @@ services:
             - DB_DATABASE="db"
             - DB_USERNAME="root"
             - DB_PASSWORD="rootpass"
-        labels:
-            - traefik.enable=true
-            - traefik.http.routers.partydos.rule=Host(`partydos.app`)
-            - traefik.http.routers.partydos.entrypoints=websecure
-            - traefik.http.routers.partydos.tls.certresolver=letsencrypt
-            - traefik.http.services.partydos.loadbalancer.server.port=80
     mysql:
         image: mysql:latest
         environment:
@@ -32,7 +26,9 @@ services:
         ports:
             - "3306:3306"
         volumes:
-            - mysql-data:/var/lib/mysql
+            - mysql-data:/var/lib/
+        networks:
+            - dokploy-network
 
 volumes:
     mysql-data:
