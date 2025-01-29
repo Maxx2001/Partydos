@@ -3,9 +3,8 @@ services:
     apache:
         image: fuzzy-palm-tree:latest
         build: ./
-        ports:
-            - 8090
-            - 80
+        container_name: laravel_app
+        restart: always
         volumes:
             - storage:/var/www/html/storage
         depends_on:
@@ -19,17 +18,22 @@ services:
             - DB_PASSWORD=rootpass
         networks:
             - dokploy-network
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.laravel.rule=Host(`partydos.app`)"
+            - "traefik.http.routers.laravel.entrypoints=websecure"
+            - "traefik.http.routers.laravel.tls.certresolver=letsencrypt"
+            - "traefik.docker.network=dokploy-network"
 
     mysql:
         container_name: mysql
         image: mysql:latest
+        restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: rootpass
-            MYSQL_DATABASE: db
-            MYSQL_USER: user
-            MYSQL_PASSWORD: pass
-        ports:
-            - "3306:3306"
+            - MYSQL_ROOT_PASSWORD=rootpass
+            - MYSQL_DATABASE=db
+            - MYSQL_USER=user
+            - MYSQL_PASSWORD=pass
         volumes:
             - mysql-data:/var/lib/mysql
         networks:
