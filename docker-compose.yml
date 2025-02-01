@@ -3,9 +3,8 @@ services:
     apache:
         image: fuzzy-palm-tree:latest
         build: ./
-        ports:
-            - 8090
-            - 80
+        expose:
+            - "80"
         volumes:
             - storage:/var/www/html/storage
         depends_on:
