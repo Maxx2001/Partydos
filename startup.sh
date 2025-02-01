@@ -19,12 +19,6 @@ fi
 # Recreate the storage symlink so that public/storage points to storage/app/public
 php artisan storage:link
 
-if [ -L /var/www/html/img/event/banners ]; then
-    rm /var/www/html/img/event/banners
-fi
-
-ln -s /var/www/html/storage/app/event/banners /var/www/html/img/event/banners
-
 # Set the proper ownership and permissions
 chown -R www-data:www-data /var/www/html/storage
 chmod -R 775 /var/www/html/storage
