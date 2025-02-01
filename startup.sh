@@ -1,27 +1,25 @@
 #!/bin/bash
-# Switch to www-data user to run the Laravel artisan command
-#su www-data -s /bin/bash -c "php /var/www/html/artisan translation:generate-json"
-
 printenv > /etc/environment
-
 set -e
 
-# Ensure the needed storage directories exist in the mounted volume.
-if [ ! -d /var/www/html/storage/app/public ]; then
-    mkdir -p /var/www/html/storage/app/public
-fi
-
-# Remove the existing symlink if it exists (it may be broken now)
-if [ -L /var/www/html/public/storage ]; then
-    rm /var/www/html/public/storage
-fi
-
-# Recreate the storage symlink so that public/storage points to storage/app/public
-php artisan storage:link
-
-# Set the proper ownership and permissions
 chown -R www-data:www-data /var/www/html/storage
 chmod -R 775 /var/www/html/storage
+
+mkdir -p /var/www/html/storage/app/event/banners
+
+
+# Remove any existing (possibly broken) symlink in public/img/event/banners
+if [ -L /var/www/html/public/img/event/banners ]; then
+    rm /var/www/html/public/img/event/banners
+fi
+
+mkdir -p /var/www/html/public/img/event
+
+ln -s /var/www/html/storage/app/event/banners /var/www/html/public/img/event/banners
+
+if [ ! -L /var/www/html/public/storage ]; then
+    php artisan storage:link
+fi
 
 # Optionally, ensure the log file exists:
 mkdir -p /var/www/html/storage/logs
