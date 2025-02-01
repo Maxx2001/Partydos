@@ -97,7 +97,7 @@ const updateLocation = (event) => {
 <template>
     <div class="flex flex-col items-center w-full">
         <div class="w-full md:w-2/3 xl:w-1/3 flex flex-col items-center gap-4">
-            <div class="w-full flex flex-col items-center gap-4 py-32 md:py-0">
+            <div class="w-full flex flex-col items-center gap-4 py-20 md:py-0">
                 <div class="w-full flex justify-center text-2xl font-semibold items-center mb-4">
                     <h1 v-if="isEdit" class="text-2xl md:text-4xl">
                         Update event
@@ -132,22 +132,23 @@ const updateLocation = (event) => {
                     placeholder="Describe the event"
                     class="mx-2 w-full"
                 />
+
+                <div class="w-full flex justify-between lg:justify-end mt-4">
+                    <BaseOutlineButton
+                        label="Cancel"
+                        class="mr-4"
+                        @click="router.get(route('home'))"
+                    />
+                    <BaseButton
+                        label="Pick a date"
+                        @click="submitEventDetails"
+                    />
+                </div>
             </div>
 
-            <div class="w-full flex justify-between lg:justify-end mt-4">
-                <BaseOutlineButton
-                    label="Cancel"
-                    class="mr-4"
-                    @click="router.get(route('home'))"
-                />
-                <BaseButton
-                    label="Pick a date"
-                    @click="submitEventDetails"
-                />
-            </div>
         </div>
 
-        <div class="pt-12" v-if="!isEdit">
+        <div class="pt-4" v-if="!isEdit">
             <h1 class="text-2xl font-bold pb-8 text-gray-900 text-center">
                 What widgets do you want to use in your invite?
             </h1>
