@@ -3,8 +3,9 @@ import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import Hero from "@/Pages/LandingsPage/Partials/Hero.vue";
 import 'swiper/swiper-bundle.css';
 import FeatureList from "@/Pages/LandingsPage/Partials/FeatureList.vue";
-import AgendaTabs from "@/Pages/LandingsPage/Partials/AgendaTabs.vue";
 import {useTitle} from "@/Composables/useTitle.js";
+import UpcomingEvents from "@/Pages/LandingsPage/Partials/UpcomingEvents.vue";
+import { defineAsyncComponent } from 'vue';
 import HighlightEvents from "@/Pages/LandingsPage/Partials/HighlightEvents.vue";
 
 useTitle('Partydos | Home');
@@ -24,6 +25,7 @@ defineProps({
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Inspiration from "@/Pages/LandingsPage/Partials/Inspiration.vue";
+import AgendaTabs from "@/Pages/LandingsPage/Partials/AgendaTabs.vue";
 
 // Initialize AOS with settings
 AOS.init({

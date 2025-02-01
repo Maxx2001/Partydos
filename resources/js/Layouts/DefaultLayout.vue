@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import HeaderComponent from "./Partials/HeaderComponent.vue";
 import Footer from "../Layouts/Partials/Footer.vue";
 import ToastList from "@/Components/Layout/Toasts/ToastList.vue";
