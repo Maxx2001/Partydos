@@ -4,6 +4,12 @@
 
 printenv > /etc/environment
 
+# Create storage symlink if it does not exist
+if [ ! -L /var/www/html/public/storage ]; then
+    php artisan storage:link
+fi
+
+
 # Fix permissions for storage if needed
 chown -R www-data:www-data /var/www/html/storage
 chmod -R 775 /var/www/html/storage
