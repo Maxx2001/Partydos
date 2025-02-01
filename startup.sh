@@ -4,10 +4,22 @@
 
 printenv > /etc/environment
 
-mkdir -p /var/www/html/storage/app/public
+set -e
+
+# Ensure the needed storage directories exist in the mounted volume.
+if [ ! -d /var/www/html/storage/app/public ]; then
+    mkdir -p /var/www/html/storage/app/public
+fi
+
+# Remove the existing symlink if it exists (it may be broken now)
+if [ -L /var/www/html/public/storage ]; then
+    rm /var/www/html/public/storage
+fi
+
+# Recreate the storage symlink so that public/storage points to storage/app/public
 php artisan storage:link
 
-# Fix permissions for storage if needed
+# Set the proper ownership and permissions
 chown -R www-data:www-data /var/www/html/storage
 chmod -R 775 /var/www/html/storage
 
