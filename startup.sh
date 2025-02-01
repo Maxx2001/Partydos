@@ -2,20 +2,10 @@
 printenv > /etc/environment
 set -e
 
-chown -R www-data:www-data /var/www/html/storage
-chmod -R 775 /var/www/html/storage
-
 mkdir -p /var/www/html/storage/app/event/banners
 
-
-# Remove any existing (possibly broken) symlink in public/img/event/banners
-if [ -L /var/www/html/public/img/event/banners ]; then
-    rm /var/www/html/public/img/event/banners
-fi
-
-mkdir -p /var/www/html/public/img/event
-
-ln -s /var/www/html/storage/app/event/banners /var/www/html/public/img/event/banners
+chown -R www-data:www-data /var/www/html/storage
+chmod -R 775 /var/www/html/storage
 
 if [ ! -L /var/www/html/public/storage ]; then
     php artisan storage:link
