@@ -46,11 +46,15 @@ RUN a2enmod rewrite
 RUN echo "ServerName partydos.app" >> /etc/apache2/apache2.conf
 
 RUN apt-get update && apt-get install -y \
-    libpq-dev \
+ libpq-dev \
     libzip-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
     unzip \
     iputils-ping \
-    && docker-php-ext-install pdo pdo_mysql zip
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo pdo_mysql zip gd exif
 
 # Install cron
 RUN apt-get update && apt-get install -y cron
