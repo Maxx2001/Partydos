@@ -4,6 +4,15 @@
 
 printenv > /etc/environment
 
+# Fix permissions for storage if needed
+chown -R www-data:www-data /var/www/html/storage
+chmod -R 775 /var/www/html/storage
+
+# Optionally, ensure the log file exists:
+mkdir -p /var/www/html/storage/logs
+touch /var/www/html/storage/logs/laravel.log
+chown www-data:www-data /var/www/html/storage/logs/laravel.log
+
 # Start cron in the background
 service cron start
 
