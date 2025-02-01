@@ -133,10 +133,6 @@ const updateLocation = (event) => {
                     class="mx-2 w-full"
                 />
             </div>
-            <FileUpload
-                class="md:mt-12"
-                @fileUploaded="setImage($event)"
-            />
 
             <div class="w-full flex justify-between lg:justify-end mt-4">
                 <BaseOutlineButton
