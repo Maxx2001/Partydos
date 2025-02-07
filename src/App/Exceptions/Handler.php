@@ -37,6 +37,7 @@ class Handler extends ExceptionHandler
     {
         $response = parent::render($request, $e);
 
+        return $response;
         if (app()->environment(['local', 'testing'])) {
             return $response;
         }

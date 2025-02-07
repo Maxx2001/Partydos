@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { CalendarDaysIcon, PlusCircleIcon, UserIcon, XMarkIcon } from "@heroicons/vue/20/solid";
 import { router } from "@inertiajs/vue3";
 import BaseOutlineButton from "../../../Components/Base/BaseOutlineButton.vue";

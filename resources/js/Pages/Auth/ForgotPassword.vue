@@ -9,7 +9,9 @@ const form = useForm({
 });
 
 const submit = () => form.post(route('password.email', form.email), {
-    onFinish: () => form.reset('email'),
+    onSuccess: () => {
+        form.email = '';
+    },
 });
 </script>
 
@@ -40,6 +42,15 @@ const submit = () => form.post(route('password.email', form.email), {
                 >
                     Email Password Reset Link
                 </button>
+                <p class="text-sm text-center text-gray-700">
+                    <hr class="border-blue-500">
+                    <a
+                        :href="route('login')"
+                        class="inline-block w-full text-sm text-blue-500 mt-2"
+                    >
+                        Go back
+                    </a>
+                </p>
             </form>
             <ToastList/>
         </div>

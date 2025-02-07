@@ -58,6 +58,7 @@ const togglePasswordVisibility = () => {
             />
             <button
                 type="button"
+                tabindex="-1"
                 class="absolute inset-y-0 right-3 flex items-center text-gray-500 focus:outline-none"
                 @click="togglePasswordVisibility"
                 aria-label="Toggle password visibility"

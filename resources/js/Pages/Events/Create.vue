@@ -8,6 +8,7 @@ import {router, usePage} from "@inertiajs/vue3";
 import { setHours, setMinutes } from 'date-fns';
 import { format } from 'date-fns';
 import { useTitle } from '@/Composables/useTitle.js';
+import EventCustomization from "@/Pages/Events/Partials/Invite/EventCustomization.vue";
 
 useTitle('Partydos | Create Event');
 
@@ -26,7 +27,8 @@ const stepIndex = ref(1);
 
 const showEventDetailsInput = computed(() => stepIndex.value === 1);
 const showEventDatePicker = computed(() => stepIndex.value === 2);
-const showEventGuestSubmit = computed(() => stepIndex.value === 3);
+const showEventCustomization = computed(() => stepIndex.value === 3);
+const showEventGuestSubmit = computed(() => stepIndex.value === 4);
 
 const submitForm = () => router.post(route('guest-events.store'), form);
 
@@ -53,7 +55,7 @@ const setDateObject = (dateObject) => {
 };
 
 const submitEventDetails = (stepIndexNumber) => {
-    if (stepIndexNumber === 3 && isLoggedIn) {
+    if (stepIndexNumber === 4 && isLoggedIn) {
         submitAuthenticatedForm();
         return;
     }
@@ -62,18 +64,17 @@ const submitEventDetails = (stepIndexNumber) => {
     scrollToTop();
 }
 
-const scrollToTop = () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-};
+const scrollToTop = () => topElement.value?.scrollIntoView({ behavior: 'smooth' })
+
+const setImage = (event) => form.image = event;
+
+const topElement = ref(null);
 </script>
 
 
 <template>
     <DefaultLayout>
-        <div class="py-8 md:py-24 px-6 flex flex-col items-center justify-center bg-slate-100 rounded">
+        <div class="py-8 md:py-24 px-6 flex flex-col items-center justify-center bg-slate-100 rounded" ref="topElement">
             <form @submit.prevent="submitForm" class="w-full flex flex-col items-center">
                 <EventDetailsInput
                     v-if=showEventDetailsInput
@@ -86,10 +87,16 @@ const scrollToTop = () => {
                     @returnToPreviousStep="() => submitEventDetails(1)"
                     @submitEventDetails="() => submitEventDetails(3)"
                 />
+                <EventCustomization
+                    v-if="showEventCustomization"
+                    @update="setImage($event)"
+                    @returnToPreviousStep="() => submitEventDetails(2)"
+                    @submitEventDetails="() => submitEventDetails(4)"
+                    />
                 <EventGuestSubmit
                     v-if="showEventGuestSubmit"
                     :form="form"
-                    @returnToPreviousStep="() => submitEventDetails(2)"
+                    @returnToPreviousStep="() => submitEventDetails(3)"
                     @submitEventGuestDetails="submitForm"
                 />
             </form>

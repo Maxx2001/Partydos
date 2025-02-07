@@ -71,13 +71,13 @@ const handleSubmit = () => {
         <div class="max-w-md w-full space-y-8">
             <div>
                 <h2 class="pt-5 text-center text-xl font-extrabold text-gray-900">
-                    {{ file ? 'Update Your File' : 'Upload Your File' }}
+                    {{ file ? 'Update Your Banner image' : 'Upload Your Banner image' }}
                 </h2>
             </div>
             <form @submit.prevent="handleSubmit">
-                <div class="rounded-md shadow-sm -space-y-px">
+                <div class="rounded-md -space-y-px">
                     <div
-                        class="flex items-center justify-center w-full border-2 border-dashed border-gray-300 rounded-lg p-3 bg-white hover:border-blue-500 cursor-pointer"
+                        class="flex items-center justify-center w-full border-2 border-dashed border-blue-400 rounded-lg p-3 bg-white hover:border-blue-500 cursor-pointer"
                         @click="triggerFileInput"
                         @dragover.prevent
                         @drop.prevent="handleDrop"
@@ -87,6 +87,12 @@ const handleSubmit = () => {
                         <p v-else-if="file" class="text-gray-600">{{ file.name }}</p>
                         <p v-else class="text-gray-400">Click to upload or drop a new image</p>
                     </div>
+                    <p class="text-bold pt-2 text-gray-700 text-sm">
+                        This image will be used as the
+                        <span class="text-blue-600 text-bold">
+                            banner image
+                        </span> for your event.
+                    </p>
                     <input
                         ref="fileInput"
                         type="file"

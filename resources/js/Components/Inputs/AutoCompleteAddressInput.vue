@@ -136,6 +136,7 @@ const clearAutoCompletions = () => {
                 :class="[error ? 'border-red-500 ring-red-300 focus:ring-red-500 focus:border-red-500' : '']"
             >
         </div>
+        <p class="text-sm text-gray-600 ">Use the <span class="text-blue-600 font-bold underline">autocomplete</span> for a Google Maps link.</p>
         <ul class="bg-white border border-gray-300 rounded-md shadow-lg" v-if="autoCompletions.length > 0">
             <li
                 v-for="(autoCompletion, index) in autoCompletions"

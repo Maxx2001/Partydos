@@ -95,58 +95,60 @@ const updateLocation = (event) => {
 </script>
 
 <template>
-    <div class="w-full flex justify-center text-2xl font-semibold">
-        <h1 v-if="isEdit" class="text-2xl md:text-4xl">
-            Update event
-        </h1>
-        <h1 v-else class="text-2xl md:text-4xl">
-            What type of event is it?
-        </h1>
-    </div>
-    <div class="flex flex-col items-center w-full pt-6">
+    <div class="flex flex-col items-center w-full">
         <div class="w-full md:w-2/3 xl:w-1/3 flex flex-col items-center gap-4">
-            <TextInput
-                :model-value="form.title"
-                :required="true"
-                @update:modelValue="val => form.title = val"
-                name="title"
-                placeholder="Fill in the title of the event"
-                class="mx-2 w-full"
-                :error="titleErrorBag"
-            />
-            <AutoCompleteAddressInput
-                :model-value="form.location"
-                @update:modelValue="val => updateLocation(val)"
-                name="location"
-                placeholder="Where is it?"
-            />
-
-            <TextAreaInput
-                :model-value="form.description"
-                @update:modelValue="val => form.description = val"
-                name="description"
-                placeholder="Describe the event"
-                class="mx-2 w-full"
-            />
-
-            <FileUpload
-                @fileUploaded="setImage($event)"
-            />
-
-            <div class="w-full flex justify-between lg:justify-end mt-4">
-                <BaseOutlineButton
-                    label="Cancel"
-                    class="mr-4"
-                    @click="router.get(route('home'))"
+            <div class="w-full flex flex-col items-center gap-4 py-20 md:py-0">
+                <div class="w-full flex justify-center text-2xl font-semibold items-center mb-4">
+                    <h1 v-if="isEdit" class="text-2xl md:text-4xl">
+                        Update event
+                    </h1>
+                    <h1 v-else class="text-2xl md:text-4xl">
+                        What type of
+                        <span class="text-blue-600">
+                            event
+                        </span> is it?
+                    </h1>
+                </div>
+                <TextInput
+                    :model-value="form.title"
+                    :required="true"
+                    @update:modelValue="val => form.title = val"
+                    name="title"
+                    placeholder="Fill in the title of the event"
+                    class="mx-2 w-full"
+                    :error="titleErrorBag"
                 />
-                <BaseButton
-                    label="Pick a date"
-                    @click="submitEventDetails"
+                <AutoCompleteAddressInput
+                    :model-value="form.location"
+                    @update:modelValue="val => updateLocation(val)"
+                    name="location"
+                    placeholder="Where is it?"
                 />
+
+                <TextAreaInput
+                    :model-value="form.description"
+                    @update:modelValue="val => form.description = val"
+                    name="description"
+                    placeholder="Describe the event"
+                    class="mx-2 w-full"
+                />
+
+                <div class="w-full flex justify-between lg:justify-end mt-4">
+                    <BaseOutlineButton
+                        label="Cancel"
+                        class="mr-4"
+                        @click="router.get(route('home'))"
+                    />
+                    <BaseButton
+                        label="Pick a date"
+                        @click="submitEventDetails"
+                    />
+                </div>
             </div>
+
         </div>
 
-        <div class="pt-12" v-if="!isEdit">
+        <div class="pt-4" v-if="!isEdit">
             <h1 class="text-2xl font-bold pb-8 text-gray-900 text-center">
                 What widgets do you want to use in your invite?
             </h1>

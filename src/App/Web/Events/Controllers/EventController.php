@@ -68,7 +68,6 @@ class EventController extends Controller
             'ogTitle' => $event->title,
             'ogDescription' => $event->description,
             'ogUrl' => url()->current(),
-            'ogImage' => $event->getFirstMediaUrl('event-banner'),
         ]);
     }
 
