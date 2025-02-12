@@ -36,11 +36,6 @@ services:
             - mysql_data:/var/lib/mysql
         networks:
             - dokploy-network
-        healthcheck:
-            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-            interval: 10s
-            retries: 5
-            timeout: 5s
 
 networks:
     dokploy-network:
