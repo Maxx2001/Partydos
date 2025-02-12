@@ -39,5 +39,5 @@ networks:
         external: true
 
 volumes:
-    mysql-data:
+    mysql:
     storage:
