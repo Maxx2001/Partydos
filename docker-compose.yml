@@ -8,7 +8,8 @@ services:
         volumes:
             - storage:/var/www/html/storage
         depends_on:
-            - mysql
+            mysql:
+                condition: service_healthy  # Wait for MySQL to be ready
         environment:
             - DB_CONNECTION=mysql
             - DB_HOST=mysql
@@ -22,22 +23,29 @@ services:
     mysql:
         container_name: mysql
         image: mysql:latest
+        restart: always
         environment:
             MYSQL_ROOT_PASSWORD: rootpass
             MYSQL_DATABASE: db
             MYSQL_USER: user
             MYSQL_PASSWORD: pass
+        command: --default-authentication-plugin=mysql_native_password
         ports:
             - "3306:3306"
         volumes:
-            - mysql:/var/lib/mysql
+            - mysql_data:/var/lib/mysql
         networks:
             - dokploy-network
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            interval: 10s
+            retries: 5
+            timeout: 5s
 
 networks:
     dokploy-network:
         external: true
 
 volumes:
-    mysql:
+    mysql_data:
     storage:
