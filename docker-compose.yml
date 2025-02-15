@@ -11,7 +11,7 @@ services:
             - mysql-production
         environment:
             - DB_CONNECTION=mysql
-            - DB_HOST=mysql
+            - DB_HOST=mysql_production
             - DB_PORT=3306
             - DB_DATABASE=db
             - DB_USERNAME=root
