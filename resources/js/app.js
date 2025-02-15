@@ -10,7 +10,7 @@ import {createPinia} from 'pinia'; // Import Pinia
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
-if (import.meta.env.APP_ENV === 'production') {
+if (import.meta.env.PROD) {
     (function(c, l, a, r, i, t, y) {
         c[a] = c[a] || function() { (c[a].q = c[a].q || []).push(arguments) };
         t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
