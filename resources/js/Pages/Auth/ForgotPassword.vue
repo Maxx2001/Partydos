@@ -21,8 +21,8 @@ const submit = () => form.post(route('password.email', form.email), {
             <h2 class="text-3xl font-extrabold text-blue-600 text-center mb-6">
                 Forgot Password? 🔒
             </h2>
-            <p class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-                Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
+            <p class="mb-4 text-sm text-gray-600 dark:text-gray-400 text-left">
+                Enter your email address to receive a link to reset your password.
             </p>
             <form @submit.prevent="submit" class="space-y-6">
                 <div>
