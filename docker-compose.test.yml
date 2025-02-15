@@ -19,20 +19,20 @@ services:
     networks:
       - dokploy-network
 
-  mysql-test:
-    container_name: mysql_test
-    image: mysql:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pass
-    ports:
-      - "3307:3306"
-    volumes:
-      - mysql_data_test:/var/lib/mysql
-    networks:
-      - dokploy-network
+#  mysql-test:
+#    container_name: mysql_test
+#    image: mysql:latest
+#    environment:
+#      MYSQL_ROOT_PASSWORD: rootpass
+#      MYSQL_DATABASE: db
+#      MYSQL_USER: user
+#      MYSQL_PASSWORD: pass
+#    ports:
+#      - "3307:3306"
+#    volumes:
+#      - mysql_data_test:/var/lib/mysql
+#    networks:
+#      - dokploy-network
 
 networks:
   dokploy-network:
@@ -40,4 +40,4 @@ networks:
 
 volumes:
   storage_test:
-  mysql_data_test:
+#  mysql_data_test:
