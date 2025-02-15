@@ -6,9 +6,9 @@ services:
         expose:
             - "80"
         volumes:
-            - storage:/var/www/html/storage
+            - storage_production:/var/www/html/storage
         depends_on:
-            - mysql
+            - mysql-production
         environment:
             - DB_CONNECTION=mysql
             - DB_HOST=mysql
@@ -19,8 +19,8 @@ services:
         networks:
             - dokploy-network
 
-    mysql:
-        container_name: mysql
+    mysql-production:
+        container_name: mysql_production
         image: mysql:latest
         environment:
             MYSQL_ROOT_PASSWORD: rootpass
@@ -28,7 +28,7 @@ services:
             MYSQL_USER: user
             MYSQL_PASSWORD: pass
         volumes:
-            - mysql_data:/var/lib/mysql
+            - mysql_production_data:/var/lib/mysql
         networks:
             - dokploy-network
 
@@ -37,5 +37,5 @@ networks:
         external: true
 
 volumes:
-    storage:
-    mysql_data:
+    storage_production:
+    mysql_production_data:
