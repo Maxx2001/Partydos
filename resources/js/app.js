@@ -1,14 +1,20 @@
 import './bootstrap';
 import '../css/app.css';
 
-import { createApp, h } from 'vue';
+import {createApp, h} from 'vue';
 import {createInertiaApp, router, usePage} from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
+import {ZiggyVue} from '../../vendor/tightenco/ziggy';
 import toastsStore from "@/Stores/ToastMessages.ts";
-import { createPinia } from 'pinia'; // Import Pinia
+import {createPinia} from 'pinia'; // Import Pinia
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "qa5ud3327i");
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -17,8 +23,8 @@ createInertiaApp({
             `./Pages/${name}.vue`,
             import.meta.glob('./Pages/**/*.vue')
         ),
-    setup({ el, App, props, plugin }) {
-        const app = createApp({ render: () => h(App, props) });
+    setup({el, App, props, plugin}) {
+        const app = createApp({render: () => h(App, props)});
 
         const pinia = createPinia(); // Create a Pinia instance
 
