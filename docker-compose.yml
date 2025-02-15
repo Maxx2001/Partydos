@@ -8,8 +8,7 @@ services:
         volumes:
             - storage:/var/www/html/storage
         depends_on:
-            mysql:
-                condition: service_healthy  # Wait for MySQL to be ready
+            - mysql
         environment:
             - DB_CONNECTION=mysql
             - DB_HOST=mysql
