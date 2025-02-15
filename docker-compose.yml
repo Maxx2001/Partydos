@@ -22,14 +22,13 @@ services:
     mysql:
         container_name: mysql
         image: mysql:latest
-        restart: always
         environment:
             MYSQL_ROOT_PASSWORD: rootpass
             MYSQL_DATABASE: db
             MYSQL_USER: user
             MYSQL_PASSWORD: pass
         ports:
-            - "3308:3306"
+            - "3306:3306"
         volumes:
             - mysql_data:/var/lib/mysql
         networks:
@@ -40,5 +39,5 @@ networks:
         external: true
 
 volumes:
-    mysql_data:
     storage:
+    mysql_data:
