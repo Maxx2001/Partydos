@@ -12,6 +12,7 @@ import FileUpload from "@/Components/Form/FileUpload.vue";
 import EventDetailsFormEdit from "@/Pages/Events/Partials/Edit/EventDetailsFormEdit.vue";
 import DatePickerFormEdit from "@/Pages/Events/Partials/Edit/DatePickerFormEdit.vue";
 import ActionButtons from "@/Pages/Events/Partials/Edit/ActionButtons.vue";
+import {useTitle} from "@/Composables/useTitle.js";
 
 const props = defineProps({
     event: {
@@ -19,7 +20,7 @@ const props = defineProps({
         required: true,
     },
 });
-
+useTitle(props.event.title + ' | Partydos');
 const form = useForm({
     title: props.event.title,
     description: props.event.description,

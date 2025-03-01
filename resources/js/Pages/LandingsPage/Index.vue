@@ -8,7 +8,7 @@ import UpcomingEvents from "@/Pages/LandingsPage/Partials/UpcomingEvents.vue";
 import { defineAsyncComponent } from 'vue';
 import HighlightEvents from "@/Pages/LandingsPage/Partials/HighlightEvents.vue";
 
-useTitle('Partydos | Home');
+useTitle('Partydos');
 
 defineProps({
     showUpcomingEvents: {

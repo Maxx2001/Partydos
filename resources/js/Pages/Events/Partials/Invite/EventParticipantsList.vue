@@ -1,6 +1,6 @@
 <script setup>
 import {computed} from "vue";
-import GuestItem from "@/Pages/Events/Partials/Invite/GuestItem.vue";
+import ProfileItem from "@/Pages/Events/Partials/Invite/ProfileItem.vue";
 import ColorService from "@/Services/colorService.js";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 
@@ -67,9 +67,9 @@ const emit = defineEmits(['openAddToCalendarModal']);
             <p class="lg:text-3xl text-2xl text-indigo-700 font-semibold text-center lg:hidden">
                 Organised by
             </p>
-            <GuestItem
+            <ProfileItem
                 class="lg:hidden"
-                :name="eventOwner.name"
+                :participant="eventOwner"
                 :bgColor="getRandomBgColorFromString(eventOwner.name)"
             />
             <p class="lg:text-3xl text-2xl text-indigo-700 px-10 font-semibold text-center mt-2 lg:mt-0">
@@ -81,16 +81,19 @@ const emit = defineEmits(['openAddToCalendarModal']);
                         <span class="text-lg text-indigo-600 mb-3">
                             Organised by
                         </span>
-                        <GuestItem :name="eventOwner.name" :bgColor="getRandomBgColorFromString(eventOwner.name)"/>
+                        <ProfileItem
+                            :participant="eventOwner"
+                            :bgColor="getRandomBgColorFromString(eventOwner.name)"
+                        />
                     </div>
                     <div class="border-2 border-gray-300 h-32 ml-4"></div>
                 </div>
                 <div class="flex w-full items-center mt-2 col-span-6 px-10">
                     <ul class="grid lg:grid-cols-7 grid-cols-4 w-full gap-4 justify-items-center mt-4 lg:mx-0">
-                        <GuestItem
+                        <ProfileItem
                             v-for="(participant, index) in invitedUsers"
                             :key="index"
-                            :name="participant.name"
+                            :participant="participant"
                             :bgColor="getRandomBgColorFromString(participant.name)"
                         />
                     </ul>

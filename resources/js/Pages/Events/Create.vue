@@ -10,7 +10,7 @@ import { format } from 'date-fns';
 import { useTitle } from '@/Composables/useTitle.js';
 import EventCustomization from "@/Pages/Events/Partials/Invite/EventCustomization.vue";
 
-useTitle('Partydos | Create Event');
+useTitle('Create Event | Partydos');
 
 const form = reactive({
     title: null,

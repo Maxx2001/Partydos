@@ -5,7 +5,6 @@ import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import MenuItem from "../Desktop/MenuItem.vue";
 
-
 defineProps({
     isMobileMenuOpen: {
         type: Boolean,
@@ -38,6 +37,7 @@ const emits = defineEmits(['toggleMobileMenu']);
                         :url="menuItem.url"
                         :label="menuItem.label"
                         :active="menuItem.active"
+                        :show="menuItem.show"
                     />
                 </div>
 
