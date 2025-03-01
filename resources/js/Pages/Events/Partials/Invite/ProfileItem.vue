@@ -10,7 +10,7 @@ const props = defineProps({
 <template>
     <li class="flex items-center flex-col" v-if="participant.profile_photo_url">
         <ProfilePicture
-            class="h-16 w-16"
+            image-size="w-16 h-16"
             :image-url="participant.profile_photo_url"
         />
         <span class="w-full text-center pt-1 line-clamp-2">{{ participant.name }}</span>

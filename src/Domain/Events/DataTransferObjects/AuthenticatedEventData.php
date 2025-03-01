@@ -23,7 +23,7 @@ class AuthenticatedEventData extends Data
         #[Rule(['nullable', 'date'])]
         public ?string            $end_date_time,
 
-        #[Rule(['image', 'mimes:jpg,png,jpeg', 'max:5120'])]
+        #[Rule(['image', 'mimes:jpg,png,jpeg,gif', 'max:5120'])]
         public                    $image,
     ) {}
 }

@@ -10,7 +10,7 @@ class ProfileUpdateData extends Data
     public function __construct(
         public string $name,
         public string $email,
-        #[Rule(['image', 'mimes:jpg,png,jpeg', 'max:5120'])]
+        #[Rule(['image', 'mimes:jpg,png,jpeg,gif', 'max:5120'])]
         public        $profile_photo,
     )
     {

@@ -10,6 +10,10 @@ const props = defineProps({
     canEdit: {
         type: Boolean,
         default: false
+    },
+    imageSize:{
+        type: String,
+        default: 'h-32 w-32'
     }
 });
 
@@ -46,6 +50,7 @@ const handleFileChange = (event) => {
             :src="previewUrl"
             alt="Profile Picture"
             class="rounded-full mx-auto cursor-pointer object-cover shadow-md"
+            :class="imageSize"
         />
         <input
             ref="fileInput"
@@ -56,7 +61,7 @@ const handleFileChange = (event) => {
         />
         <PencilSquareIcon
             v-if="canEdit"
-            class="h-8 w-8 absolute bottom-2 right-2 bg-white p-1 rounded-full shadow cursor-pointer"
+            class="h-8 w-8 absolute bottom-1 right-1 bg-white p-1 rounded-full shadow cursor-pointer"
             @click.stop="triggerFileInput"
         />
     </div>
