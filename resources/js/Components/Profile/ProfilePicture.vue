@@ -45,7 +45,7 @@ const handleFileChange = (event) => {
         <img
             :src="previewUrl"
             alt="Profile Picture"
-            class="rounded-full mx-auto border cursor-pointer object-cover"
+            class="rounded-full mx-auto cursor-pointer object-cover shadow-md"
         />
         <input
             ref="fileInput"
