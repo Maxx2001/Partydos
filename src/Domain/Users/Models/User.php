@@ -41,7 +41,6 @@ class User extends Authenticatable
     use HasEvents;
     use SoftDeletes;
 
-
     protected $guarded = [];
 
     protected $hidden = [

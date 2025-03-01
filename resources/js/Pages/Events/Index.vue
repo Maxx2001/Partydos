@@ -4,7 +4,8 @@ import EventList from "@/Pages/Events/Partials/Index/EventList.vue";
 import { ref } from "vue";
 import EventTypeToggle from "@/Pages/Events/Partials/Index/EventTypeToggle.vue";
 import PageHeader from "@/Components/Layout/PageHeader.vue";
-
+import {useTitle} from "@/Composables/useTitle.js";
+useTitle('Events | Partydos');
 const props = defineProps({
     events: {
         type: Array,

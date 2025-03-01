@@ -10,7 +10,7 @@ class UserProfileEntity extends Data
         public int    $id,
         public string $name,
         public string $email,
-        public ?string $profile_photo_path,
+        public ?string $profile_photo_url,
     )
     {
     }

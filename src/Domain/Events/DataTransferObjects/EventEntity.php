@@ -9,6 +9,7 @@ use Domain\Addresses\Models\Address;
 use Domain\Events\Models\Event;
 use Domain\Files\DataTransferObjects\PictureDataEntity;
 use Domain\GuestUsers\DataTransferObjects\GuestUserEntity;
+use Domain\Profile\DataTransferObjects\UserProfileEntity;
 use Domain\Users\DataTransferObjects\UserEntity;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
@@ -34,8 +35,9 @@ class EventEntity extends Data
         #[DataCollectionOf(PictureDataEntity::class)]
         public ?DataCollection $media,
         public ?AddressEntity  $address,
-        public UserEntity      $eventOwner,
-        public                 $invitedUsers,
+        public UserProfileEntity $eventOwner,
+        #[DataCollectionOf(UserProfileEntity::class)]
+        public ?DataCollection $invitedUsers,
         public Carbon          $createdAt,
         public Carbon          $updatedAt,
         public bool            $canEdit = false,
