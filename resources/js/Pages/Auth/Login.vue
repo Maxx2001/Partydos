@@ -1,7 +1,6 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 import {ref} from "vue";
-import TextInput from "@/Components/Form/TextInput.vue";
 import PasswordInput from "@/Components/Form/PasswordInput.vue";
 import SubmitButton from "@/Components/Form/SubmitButton.vue";
 import ButtonLink from "@/Components/Form/ButtonLink.vue";
@@ -79,7 +78,7 @@ const handleSubmit = () => {
                 </div>
                 <SubmitButton label="Let’s Party!"/>
             </form>
-            <p class="mt-6 text-sm text-center text-gray-700">
+            <div class="mt-6 text-sm text-center text-gray-700">
                 New here?
                 <ButtonLink
                     :route="route('register')"
@@ -98,7 +97,7 @@ const handleSubmit = () => {
                 >
                     Go back
                 </a>
-            </p>
+            </div>
         </div>
     </div>
 </template>

@@ -56,7 +56,7 @@ const confirmAction = () => emit('confirm');
             >
                 <div class="bg-white rounded-xl shadow-lg w-full h-full py-8 px-4 lg:px-12">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-2xl font-bold text-indigo-700">{{ title }}</h3>
+                        <h3 class="text-2xl font-bold">{{ title }}</h3>
                         <button @click="closeModal" class="hover:text-gray-900 text-4xl text-cancel-red">
                             &times;
                         </button>

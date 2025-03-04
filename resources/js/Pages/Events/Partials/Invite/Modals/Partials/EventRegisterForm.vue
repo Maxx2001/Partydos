@@ -1,8 +1,10 @@
 <script setup>
 import {reactive, ref, defineExpose, defineEmits, onMounted} from 'vue';
 import {router, usePage} from '@inertiajs/vue3';
-import TextInput from "@/Components/Inputs/TextInput.vue";
-import { EnvelopeIcon } from '@heroicons/vue/20/solid';
+import TextInput from "@/Components/Form/TextInput.vue";
+import EmailInput from "@/Components/Form/EmailInput.vue";
+import LoginForm from "@/Pages/Events/Partials/Invite/LoginForm.vue";
+import BaseButton from "@/Components/Base/BaseButton.vue";
 
 const form = reactive({
     name: '',
@@ -103,7 +105,7 @@ defineExpose({submitRegisterForm});
 </script>
 
 <template>
-    <div class="w-full bg-white">
+    <div class="w-full bg-white -mt-14 -mb-6">
         <form
             @submit.prevent="submitRegisterForm"
         >
@@ -111,27 +113,46 @@ defineExpose({submitRegisterForm});
                 <p class="text-center text-lg text-gray-600" v-if="userIsLoggedIn">
                     You are already logged in. You can join this event by clicking the button below.
                 </p>
-                <div v-else class="flex flex-col justify-center w-full items-center bg-white gap-5">
-                    <TextInput
-                        placeholder="Enter your name"
-                        name="name"
-                        :model-value="form.name"
-                        :required="true"
-                        :error="errors.name"
-                        @update:modelValue="val => form.name = val"
-                        class="w-full"
-                    />
-                    <TextInput
-                        placeholder="Enter your Email"
-                        name="email"
-                        input-type="email"
-                        :icon="EnvelopeIcon"
-                        :model-value="form.email"
-                        :required="true"
-                        :error="errors.email"
-                        @update:modelValue="val => form.email = val"
-                        class="w-full"
-                    />
+                <div v-else class="flex flex-col justify-center w-full items-center bg-white gap-3 px-2 md:px-8">
+                    <LoginForm :event="event"/>
+                    <div class="w-full border-t border-gray-200 my-2"></div>
+                    <div class="space-y-2 w-full">
+                        <p class="text-center text-lg">
+                            Or join as a guest user!
+                        </p>
+                        <TextInput
+                            id="name"
+                            placeholder="Enter your name"
+                            label="Enter your name"
+                            :model-value="form.name"
+                            :error-message="errors.name"
+                        />
+                        <EmailInput
+                            id="email"
+                            label="Your Email"
+                            v-model=form.email
+                            placeholder="party@dos.com"
+                            :error-message="errors.email"
+                        />
+                    </div>
+                    <BaseButton
+                        type="submit"
+                        label="Join the event!"
+                        class="w-full mt-1"
+                        @click="submitRegisterForm"
+                        />
+
+<!--                    <TextInput-->
+<!--                        placeholder="Enter your Email"-->
+<!--                        name="email"-->
+<!--                        input-type="email"-->
+<!--                        :icon="EnvelopeIcon"-->
+<!--                        :model-value="form.email"-->
+<!--                        :required="true"-->
+<!--                        :error="errors.email"-->
+<!--                        @update:modelValue="val => form.email = val"-->
+<!--                        class="w-full"-->
+<!--                    />-->
                 </div>
             </div>
         </form>

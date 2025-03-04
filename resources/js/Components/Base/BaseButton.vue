@@ -40,7 +40,6 @@ const buttonClasses = computed(() => {
         :type="type"
         :class="`inline-flex items-center justify-center gap-x-1.5 rounded-md px-6 py-3 font-semibold text-white border shadow-sm hover:border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition duration-300 ${buttonClasses} ${extraClasses}`"
     >
-        <component :is="icon" class="-ml-0.5 h-5 w-5" aria-hidden="true" />
         <span class="text-lg">
             {{ label }}
         </span>
