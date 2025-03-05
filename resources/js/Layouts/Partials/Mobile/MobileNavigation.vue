@@ -65,7 +65,7 @@ const user = usePage().props.auth.user;
                         </span>
                     </div>
                 </div>
-                <div class="mt-2 w-full">
+                <div class="mt-2 w-full space-y-1">
                     <button
                         class="block text-xl font-semibold transition duration-300 p-2 text-left w-full"
                         :class="route().current() === 'profile.edit' ? 'bg-white text-blue-600 rounded-md' : 'text-white'"
