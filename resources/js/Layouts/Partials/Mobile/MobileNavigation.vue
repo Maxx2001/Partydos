@@ -53,7 +53,7 @@ const user = usePage().props.auth.user;
                 />
             </div>
 
-            <div class="flex flex-col space-y-3 mt-4 pb-3">
+            <div class="flex flex-col mt-4 pb-3" v-if="user">
                 <div class="flex items-center pb-1">
                     <ProfilePicture
                         :image-url="user.profile_photo_url"
@@ -65,25 +65,28 @@ const user = usePage().props.auth.user;
                         </span>
                     </div>
                 </div>
-                <button
-                    class="block text-xl font-semibold transition duration-300 p-2 text-left"
-                    :class="route().current() === 'profile.edit' ? 'bg-white text-blue-600 rounded-md' : 'text-white'"
-                    @click="router.get(route('profile.edit'))"
-                >
-                    Profile
-                </button>
-                <button
-                    class="block text-xl font-semibold transition duration-300 p-2 text-left"
-                >
-                    Settings (incoming page)
-                </button>
-                <button
-                    class="block text-xl font-semibold transition duration-300 p-2 text-left"
-                    :class="active ? 'bg-white text-blue-600 rounded-md' : 'text-white'"
-                    @click="logout"
-                >
-                    Logout
-                </button>
+                <div class="mt-2 w-full">
+                    <button
+                        class="block text-xl font-semibold transition duration-300 p-2 text-left w-full"
+                        :class="route().current() === 'profile.edit' ? 'bg-white text-blue-600 rounded-md' : 'text-white'"
+                        @click="router.get(route('profile.edit'))"
+                    >
+                        Profile
+                    </button>
+                    <button
+                        class="block text-xl font-semibold transition duration-300 p-2 text-left w-full"
+                    >
+                        Settings (incoming page)
+                    </button>
+                    <button
+                        class="block text-xl font-semibold transition duration-300 p-2 text-left w-full"
+                        :class="active ? 'bg-white text-blue-600 rounded-md' : 'text-white'"
+                        @click="logout"
+                    >
+                        Logout
+                    </button>
+                </div>
+
             </div>
 
             <div class="flex-grow"></div>
