@@ -64,7 +64,10 @@ const emits = defineEmits(['toggleMobileMenu']);
                     label="Login"
                 />
 
-                <div class="flex flex-col items-center pl-2">
+                <div
+                    class="flex flex-col items-center pl-2"
+                    v-if="$page.props.auth && $page.props.auth.user"
+                >
                     <ProfileDropdown/>
                 </div>
 
