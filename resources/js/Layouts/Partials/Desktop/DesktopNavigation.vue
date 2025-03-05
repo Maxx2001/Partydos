@@ -1,9 +1,10 @@
 <script setup>
-import {Bars3Icon, CalendarDaysIcon, PlusCircleIcon, UserIcon, XMarkIcon} from "@heroicons/vue/20/solid";
+import {Bars3Icon, PlusCircleIcon, UserIcon, XMarkIcon} from "@heroicons/vue/20/solid";
 import {router} from "@inertiajs/vue3";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import MenuItem from "../Desktop/MenuItem.vue";
+import ProfileDropdown from "@/Layouts/Partials/Desktop/Partials/ProfileDropdown.vue";
 
 defineProps({
     isMobileMenuOpen: {
@@ -62,13 +63,11 @@ const emits = defineEmits(['toggleMobileMenu']);
                     extra-classes="text-sm"
                     label="Login"
                 />
-                <BaseOutlineButton
-                    v-else
-                    :icon="CalendarDaysIcon"
-                    @click="router.get(route('users-events.index'))"
-                    extra-classes="text-sm"
-                    label="Events"
-                />
+
+                <div class="flex flex-col items-center pl-2">
+                    <ProfileDropdown/>
+                </div>
+
             </div>
         </nav>
     </div>

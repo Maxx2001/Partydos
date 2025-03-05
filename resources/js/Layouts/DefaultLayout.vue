@@ -31,13 +31,6 @@ const menuItems = [
         active: route().current() === 'contact',
         show: true,
     },
-    {
-        label: 'Profile',
-        url: route('profile.edit'),
-        active: route().current() === 'profile.edit',
-        show: userIsLoggedIn,
-    },
-
 ]
 </script>
 
