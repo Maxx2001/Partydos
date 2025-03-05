@@ -1,9 +1,10 @@
 <script setup>
 import { CalendarDaysIcon, PlusCircleIcon, UserIcon, XMarkIcon } from "@heroicons/vue/20/solid";
-import { router } from "@inertiajs/vue3";
+import {router, usePage} from "@inertiajs/vue3";
 import BaseOutlineButton from "../../../Components/Base/BaseOutlineButton.vue";
 import BaseButton from "../../../Components/Base/BaseButton.vue";
 import MenuItem from "../../../Layouts/Partials/Mobile/MenuItem.vue";
+import ProfilePicture from "@/Components/Profile/ProfilePicture.vue";
 
 const props = defineProps({
     isMobileMenuOpen: {
@@ -19,11 +20,12 @@ const props = defineProps({
 const emits = defineEmits(["closeMobileMenu"]);
 
 const logout = () => router.post(route('logout'));
+
+const user = usePage().props.auth.user;
 </script>
 
 <template>
     <div>
-        <!-- Overlay -->
         <div
             class="fixed inset-0 bg-black transition-opacity duration-300 z-40"
             :class="props.isMobileMenuOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'"
@@ -31,7 +33,7 @@ const logout = () => router.post(route('logout'));
         ></div>
 
         <div
-            class="fixed top-0 right-0 h-full w-11/12 max-w-full bg-gradient-to-br from-blue-300 to-purple-600 text-white shadow-lg p-8 transform transition-transform duration-300 z-50 flex flex-col"
+            class="fixed top-0 right-0 h-full w-11/12 max-w-full bg-gradient-to-br from-blue-300 to-purple-600 text-white shadow-lg p-6 transform transition-transform duration-300 z-50 flex flex-col"
             :class="props.isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'"
         >
             <div class="flex items-center justify-between text-white text-2xl font-bold border-b-2 pb-3">
@@ -41,7 +43,7 @@ const logout = () => router.post(route('logout'));
                 </button>
             </div>
 
-            <div class="flex flex-col space-y-3 mt-6">
+            <div class="flex flex-col space-y-2 mt-6 border-b-2 pb-3">
                 <MenuItem
                     v-for="menuItem in menuItems"
                     :key="menuItem.label"
@@ -51,7 +53,42 @@ const logout = () => router.post(route('logout'));
                 />
             </div>
 
-            <div class="mt-6 flex flex-col space-y-4">
+            <div class="flex flex-col space-y-3 mt-4 pb-3">
+                <div class="flex items-center pb-1">
+                    <ProfilePicture
+                        :image-url="user.profile_photo_url"
+                        image-size="h-16 w-16"
+                    />
+                    <div class="flex flex-col text-2xl pl-4 font-bold">
+                        <span>
+                            {{ user.name }}
+                        </span>
+                    </div>
+                </div>
+                <button
+                    class="block text-xl font-semibold transition duration-300 p-2 text-left"
+                    :class="route().current() === 'profile.edit' ? 'bg-white text-blue-600 rounded-md' : 'text-white'"
+                    @click="router.get(route('profile.edit'))"
+                >
+                    Profile
+                </button>
+                <button
+                    class="block text-xl font-semibold transition duration-300 p-2 text-left"
+                >
+                    Settings (incoming page)
+                </button>
+                <button
+                    class="block text-xl font-semibold transition duration-300 p-2 text-left"
+                    :class="active ? 'bg-white text-blue-600 rounded-md' : 'text-white'"
+                    @click="logout"
+                >
+                    Logout
+                </button>
+            </div>
+
+            <div class="flex-grow"></div>
+
+            <div class="mb-4 flex flex-col space-y-2">
                 <BaseButton
                     :icon="PlusCircleIcon"
                     label="Create event"
@@ -65,24 +102,8 @@ const logout = () => router.post(route('logout'));
                     label="Login"
                     class="w-full"
                 />
-                <BaseOutlineButton
-                    v-else
-                    :icon="CalendarDaysIcon"
-                    @click="router.get(route('users-events.index'))"
-                    label="Events"
-                    class="w-full"
-                />
             </div>
-
-            <div class="flex-grow"></div>
-           <button
-               v-if="$page.props.auth && $page.props.auth.user"
-               @click="logout"
-               class="mb-1.5"
-           >
-               Logout
-           </button>
-            <div class="border-t border-blue-300 pt-6">
+            <div class="border-t-2 pt-3">
                 <p class="text-center text-sm text-gray-200">&copy; 2024 Partydos. All rights reserved.</p>
             </div>
         </div>

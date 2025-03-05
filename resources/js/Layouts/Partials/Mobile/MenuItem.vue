@@ -17,7 +17,7 @@ defineProps({
 
 <template>
     <a
-        class="block text-2xl font-semibold transition duration-300 p-2"
+        class="block text-xl font-semibold transition duration-300 py-1 px-2"
         :class="active ? 'bg-white text-blue-600 rounded-md' : 'text-white'"
         :href="url"
     >
