@@ -3,6 +3,9 @@
 namespace App\Web\Events\Controllers;
 
 use Auth;
+use Domain\Auth\Actions\LoginAction;
+use Domain\Auth\DataTransferObjects\LoginData;
+use Domain\Events\Actions\AcceptEventInvite;
 use Domain\Events\Actions\AuthenticatedEventCreateAction;
 use Domain\Events\Actions\AuthenticatedEventUpdateAction;
 use Domain\Events\Actions\CancelEventAction;
@@ -181,5 +184,17 @@ class EventController extends Controller
         $restoreEventAction->execute($event);
 
         return redirect()->back();
+    }
+
+    public function authenticateAndAcceptInvite(Event $event, LoginData $loginData, LoginAction $loginAction, AcceptEventInvite $acceptInvite): RedirectResponse
+    {
+        if ($loginAction->execute($loginData)) {
+            $acceptInvite->execute($event, Auth::user());
+            return redirect()->back();
+        } else {
+            return redirect()
+                ->back()
+                ->with('status', __('auth.failed'));
+        }
     }
 }

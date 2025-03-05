@@ -1,8 +1,7 @@
 <script setup>
 import EventRegisterForm from "@/Pages/Events/Partials/Invite/Modals/Partials/EventRegisterForm.vue";
 import BaseModal from "@/Components/Base/BaseModal.vue";
-import {ref, defineExpose, onMounted} from "vue";
-import {usePage} from "@inertiajs/vue3";
+import {ref, defineExpose} from "vue";
 
 const props = defineProps({
     event: {
@@ -27,7 +26,7 @@ defineExpose({openModal});
         :show-submit-button="false"
         :show-cancel-button="false"
     >
-        <!--        title="Login or join this event as a guest user!"-->
+<!--                title="Login or join this event as a guest user!"-->
         <EventRegisterForm
             ref="eventRegisterFormRef"
             :event="event"
