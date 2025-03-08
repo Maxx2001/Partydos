@@ -14,6 +14,7 @@ import EventDescription from "@/Pages/Events/Partials/Invite/EventDescription.vu
 import BaseModal from "@/Components/Base/BaseModal.vue";
 import {router} from "@inertiajs/vue3";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
+import EventShareButton from "@/Pages/Events/Partials/Invite/EventShareButton.vue";
 
 const props = defineProps({
     event: {
@@ -93,7 +94,7 @@ const handleConfirm = () => {
                 @open-add-to-calendar-modal="eventAddToCalendarModel.openModal()"
             />
 
-            <EventDescription :event="event" class="lg:pb-12 pb-4"/>
+
 
             <div class="flex md:hidden justify-center pb-8" v-if="showCancelButton">
                 <BaseOutlineButton

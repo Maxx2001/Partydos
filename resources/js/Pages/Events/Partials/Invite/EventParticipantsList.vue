@@ -3,8 +3,8 @@ import {computed} from "vue";
 import ProfileItem from "@/Pages/Events/Partials/Invite/ProfileItem.vue";
 import ColorService from "@/Services/colorService.js";
 import BaseButton from "@/Components/Base/BaseButton.vue";
-import BaseShareButton from "@/Components/Base/BaseShareButton.vue";
 import EventShareButton from "@/Pages/Events/Partials/Invite/EventShareButton.vue";
+import EventDescription from "@/Pages/Events/Partials/Invite/EventDescription.vue";
 
 const props = defineProps({
     invitedUsers: {
@@ -74,7 +74,24 @@ const emit = defineEmits(['openAddToCalendarModal']);
                 :participant="eventOwner"
                 :bgColor="getRandomBgColorFromString(eventOwner.name)"
             />
-            <p class="lg:text-3xl text-2xl text-indigo-700 px-10 font-semibold text-center mt-2 lg:mt-0">
+
+            <EventDescription :event="event" class="lg:pb-12 pb-4 pt-2"/>
+
+            <div class=" flex justify-center lg:mt-0 gap-x-2 pb-2">
+                <BaseButton
+                    label="Add to Calendar"
+                    @click="emit('openAddToCalendarModal')"
+                    extraClasses="text-base"
+                    class="mt-3 h-12 w-42 lg:h-24"
+                />
+                <EventShareButton
+                    v-if="!isEventOwner"
+                    :event="event"
+                    variant="indigo"
+                    class="mt-3 h-12 w-42 lg:h-24"
+                />
+            </div>
+            <p class="lg:text-3xl text-2xl text-indigo-700 px-10 font-semibold text-center mt-4 lg:mt-0">
                 {{ guestMessage }}
             </p>
             <div class="lg:grid grid-cols-8">
@@ -99,14 +116,6 @@ const emit = defineEmits(['openAddToCalendarModal']);
                             :bgColor="getRandomBgColorFromString(participant.name)"
                         />
                     </ul>
-                </div>
-                <div class=" flex justify-center mt-4 lg:mt-0">
-                    <BaseButton
-                        label="Add to Calendar"
-                        @click="emit('openAddToCalendarModal')"
-                        extraClasses="text-xl"
-                        class="mt-3 lg:h-24"
-                    />
                 </div>
             </div>
         </div>

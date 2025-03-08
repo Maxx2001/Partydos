@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
 const copied = ref(false);
 
@@ -11,6 +11,10 @@ const props = defineProps({
     shareText : {
         type: String,
         default: "Join this event on Partydos!"
+    },
+    variant: {
+        type: String,
+        default: "blue"
     }
 });
 
@@ -31,12 +35,19 @@ const copyToClipboard = () => {
         setTimeout(() => copied.value = false, 2000);
     });
 };
+
+const classes = computed(() => {
+    return {
+        'bg-indigo-600 text-white px-10 py-3 rounded-lg hover:bg-blue-700 transition': props.variant === 'indigo',
+        'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition': props.variant === 'blue',
+    };
+});
 </script>
 <template>
     <div class="flex items-center gap-2">
         <button
             @click="shareEvent"
-            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+            :class="classes"
         >
             <slot/>
         </button>
