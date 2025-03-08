@@ -9,19 +9,15 @@ const props = defineProps({
     },
 });
 
-const eventTitle = computed(() => {
-    return `Je bent uitgenodigd voor ${props.event.title}!`;
-});
-
 const eventDescription = computed(() => {
-    let description = '';
+    let description = `Je bent uitgenodigd voor ${props.event.title}`;
 
     if (props.event.description) {
-        description = props.event.description;
+        description = `${description} | ${ props.event.description }`;
     }
 
     if (props.event?.address?.address) {
-        return `${description} - ${props.event.address.address}`;
+        description = `${description} | ${props.event.address.address}`;
     }
 
     return description;
@@ -31,7 +27,6 @@ const eventDescription = computed(() => {
 <template>
     <BaseShareButton
         class="md:hidden"
-        :share-title="eventTitle"
         :share-text="eventDescription"
     >
         Share Event

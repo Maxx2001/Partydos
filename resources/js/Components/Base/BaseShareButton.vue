@@ -8,10 +8,6 @@ const props = defineProps({
         type: String,
         default: window.location.href
     },
-    shareTitle : {
-        type: String,
-        default: "You're Invited!"
-    },
     shareText : {
         type: String,
         default: "Join this event on Partydos!"
@@ -21,7 +17,6 @@ const props = defineProps({
 const shareEvent = () => {
     if (navigator.share) {
         navigator.share({
-            title: props.shareTitle,
             text: props.shareText,
             url: props.shareUrl,
         }).catch(console.error);
