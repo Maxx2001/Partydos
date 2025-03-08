@@ -86,7 +86,7 @@ const locationMessage = () => {
                 >
                     <div class="w-1/6"></div>
 
-                    <div class="w-1/2 flex justify-center">
+                    <div class="w-1/2 flex justify-center" v-if="event.canEdit">
                         <EventShareButton :event="event"/>
                     </div>
 
