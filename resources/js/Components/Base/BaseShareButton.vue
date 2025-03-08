@@ -51,7 +51,6 @@ const classes = computed(() => {
         >
             <slot/>
         </button>
-
         <span v-if="copied" class="text-green-600">Link copied!</span>
     </div>
 </template>

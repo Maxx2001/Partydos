@@ -21,8 +21,8 @@ const eventDescription = computed(() => {
     }
 
     if (props.event?.address?.address) {
-        const dashes = '-'.repeat(20);
-        description = `${description}\n${dashes}\n${props.event.address.address}`;
+        const dashes = '-'.repeat(40);
+        description = `${description}\n${dashes}\n${props.event.address.address}\n`;
     }
 
     return description;
@@ -32,6 +32,7 @@ const eventDescription = computed(() => {
 <template>
     <BaseShareButton
         :share-text="eventDescription"
+        :share-url="event.shareLink"
     >
         <span :class="buttonClasses">
             Share Event
