@@ -1,6 +1,6 @@
 <script setup>
 import BaseShareButton from "@/Components/Base/BaseShareButton.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 const props = defineProps({
     event: {
@@ -13,11 +13,11 @@ const eventDescription = computed(() => {
     let description = `Je bent uitgenodigd voor ${props.event.title}`;
 
     if (props.event.description) {
-        description = `${description} | ${ props.event.description }`;
+        description = `${description}\n${props.event.description}`;
     }
 
     if (props.event?.address?.address) {
-        description = `${description} | ${props.event.address.address}`;
+        description = `${description}\n${props.event.address.address}`;
     }
 
     return description;
