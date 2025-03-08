@@ -6,6 +6,7 @@ import AOS from "aos";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage.js";
 import GoogleMapsBlockIcon from "@/Components/Icons/GoogleMapsBlockIcon.vue";
+import BaseShareButton from "@/Components/Base/BaseShareButton.vue";
 
 const props = defineProps({
     event: {

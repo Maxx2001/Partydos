@@ -36,10 +36,6 @@ const logout = () => router.post(route('logout'));
                 <ArrowDownIcon
                     class="h-4 w-4 absolute bottom-1 right-1 bg-white p-1 rounded-full shadow cursor-pointer"
                 />
-
-<!--                <PencilSquareIcon-->
-<!--                    class="h-8 w-8 absolute bottom-1 right-1 bg-white p-1 rounded-full shadow cursor-pointer"-->
-<!--                />-->
             </button>
         </div>
 

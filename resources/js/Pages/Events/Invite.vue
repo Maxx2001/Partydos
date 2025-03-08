@@ -82,7 +82,6 @@ const handleConfirm = () => {
                 :show-cancel-button="showCancelButton"
                 class="hidden md:flex"
             />
-
             <EventParticipantsList
                 :event="event"
                 class="pb-6 lg:pb-24"
