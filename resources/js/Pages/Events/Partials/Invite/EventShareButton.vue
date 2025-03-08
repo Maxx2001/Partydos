@@ -14,7 +14,17 @@ const eventTitle = computed(() => {
 });
 
 const eventDescription = computed(() => {
-    return `${props.event.description} - ${props.event.address.address}`;
+    let description = '';
+
+    if (props.event.description) {
+        description = props.event.description;
+    }
+
+    if (props.event?.address?.address) {
+        return `${description} - ${props.event.address.address}`;
+    }
+
+    return description;
 });
 </script>
 
