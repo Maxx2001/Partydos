@@ -86,8 +86,11 @@ const locationMessage = () => {
                 >
                     <div class="w-1/6"></div>
 
-                    <div class="w-1/2 flex justify-center" v-if="event.canEdit">
-                        <EventShareButton :event="event"/>
+                    <div class="flex justify-center" v-if="event.canEdit">
+                        <EventShareButton
+                            :event="event"
+                            button-classes="text-xl font-bold"
+                        />
                     </div>
 
                     <Link v-if="event.canEdit" :href="route('events.edit', { event: event.uniqueIdentifier })" class="flex justify-end w-1/6 pr-2">

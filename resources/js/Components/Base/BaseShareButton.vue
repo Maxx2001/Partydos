@@ -39,7 +39,7 @@ const copyToClipboard = () => {
 const classes = computed(() => {
     return {
         'bg-indigo-600 text-white px-10 py-3 rounded-lg hover:bg-white hover:text-indigo-600 transition border border-indigo-600 w-full': props.variant === 'indigo',
-        'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition': props.variant === 'blue',
+        'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-white transition hover:text-blue-600 transition border border-blue-600 w-full': props.variant === 'blue',
     };
 });
 </script>

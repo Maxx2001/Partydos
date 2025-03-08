@@ -7,6 +7,10 @@ const props = defineProps({
         type: Object,
         required: true
     },
+    buttonClasses: {
+        type: String,
+        default: ''
+    }
 });
 
 const eventDescription = computed(() => {
@@ -29,7 +33,7 @@ const eventDescription = computed(() => {
     <BaseShareButton
         :share-text="eventDescription"
     >
-        <span>
+        <span :class="buttonClasses">
             Share Event
         </span>
 
