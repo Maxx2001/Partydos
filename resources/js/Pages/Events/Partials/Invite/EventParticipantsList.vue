@@ -4,6 +4,7 @@ import ProfileItem from "@/Pages/Events/Partials/Invite/ProfileItem.vue";
 import ColorService from "@/Services/colorService.js";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import BaseShareButton from "@/Components/Base/BaseShareButton.vue";
+import EventShareButton from "@/Pages/Events/Partials/Invite/EventShareButton.vue";
 
 const props = defineProps({
     invitedUsers: {
@@ -73,9 +74,6 @@ const emit = defineEmits(['openAddToCalendarModal']);
                 :participant="eventOwner"
                 :bgColor="getRandomBgColorFromString(eventOwner.name)"
             />
-            <div class="flex justify-center py-2">
-                <BaseShareButton class="md:hidden"/>
-            </div>
             <p class="lg:text-3xl text-2xl text-indigo-700 px-10 font-semibold text-center mt-2 lg:mt-0">
                 {{ guestMessage }}
             </p>

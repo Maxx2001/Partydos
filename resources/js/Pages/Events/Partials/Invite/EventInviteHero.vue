@@ -5,6 +5,7 @@ import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMes
 import { PencilSquareIcon } from "@heroicons/vue/20/solid/index.js";
 import { Link } from "@inertiajs/vue3";
 import GoogleMapsIcon from "@/Components/Icons/GoogleMapsIcon.vue";
+import EventShareButton from "@/Pages/Events/Partials/Invite/EventShareButton.vue";
 
 const props = defineProps({
     event: {
@@ -80,11 +81,17 @@ const locationMessage = () => {
 
                 <EventBanner class="block md:hidden" :event="event"/>
                 <div
-                    class="flex justify-end lg:hidden pt-2 pb-8"
+                    class="flex justify-between lg:hidden pt-2 pb-8"
                     :class="{ 'pb-2': !event.canceledAt && showInviteButton }"
                 >
-                    <Link v-if="event.canEdit" :href="route('events.edit', { event: event.uniqueIdentifier })" class="flex justify-end w-1/4 pr-2">
-                        <PencilSquareIcon class="h-7"/>
+                    <div class="w-1/6"></div>
+
+                    <div class="w-1/2 flex justify-center">
+                        <EventShareButton :event="event"/>
+                    </div>
+
+                    <Link v-if="event.canEdit" :href="route('events.edit', { event: event.uniqueIdentifier })" class="flex justify-end w-1/6 pr-2">
+                        <PencilSquareIcon class="h-8"/>
                     </Link>
                 </div>
                 <div v-if="!event.canceledAt && showInviteButton" class="flex md:hidden justify-center pb-8">
