@@ -79,6 +79,7 @@ const handleConfirm = () => {
                 :event="event"
                 @accept-event-invite="eventRegisterModal.openModal()"
                 @cancel-event-invite="showCancelForm = true"
+                @open-add-to-calendar-modal="eventAddToCalendarModel.openModal()"
                 :show-invite-button="showInviteButton"
                 :show-cancel-button="showCancelButton"
                 class="hidden md:flex"
@@ -93,7 +94,6 @@ const handleConfirm = () => {
                 :show-already-signed-up-message="showCancelButton"
                 @open-add-to-calendar-modal="eventAddToCalendarModel.openModal()"
             />
-
 
 
             <div class="flex md:hidden justify-center pb-8" v-if="showCancelButton">

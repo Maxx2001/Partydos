@@ -27,9 +27,11 @@ const eventDescription = computed(() => {
 
 <template>
     <BaseShareButton
-        class="md:hidden"
         :share-text="eventDescription"
     >
-        Share Event
+        <span>
+            Share Event
+        </span>
+
     </BaseShareButton>
 </template>

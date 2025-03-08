@@ -6,6 +6,7 @@ import AOS from "aos";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import { getFormattedEventDateMessage } from "@/Helpers/getFormattedEventDateMessage.js";
 import GoogleMapsBlockIcon from "@/Components/Icons/GoogleMapsBlockIcon.vue";
+import EventShareButton from "@/Pages/Events/Partials/Invite/EventShareButton.vue";
 
 const props = defineProps({
     event: {
@@ -22,7 +23,7 @@ const props = defineProps({
     },
 });
 
-const emits = defineEmits(['acceptEventInvite', 'cancelEventInvite']);
+const emits = defineEmits(['acceptEventInvite', 'cancelEventInvite', 'openAddToCalendarModal']);
 onMounted(() => {
     AOS.refresh();
 });
@@ -87,20 +88,35 @@ const locationMessage = () => {
                         </span>
                     </p>
                 </div>
-                <div class="flex justify-center">
+                <div class="flex justify-center flex-col">
                     <BaseButton
                         v-if="showInviteButton"
                         label="Join event!"
                         @click="emits('acceptEventInvite')"
                         class="h-12"
                     />
-                    <BaseButton
-                        v-if="showCancelButton"
-                        label="Cancel Invite"
-                        @click="emits('cancelEventInvite')"
-                        class="h-12"
-                        variant="cancel"
+                    <EventShareButton
+                        v-if="!isEventOwner"
+                        :event="event"
+                        variant="indigo"
+                        class="mt-3"
                     />
+                    <div class="hidden justify-center md:flex gap-x-2 pb-2">
+                        <BaseButton
+                            v-if="!showInviteButton"
+                            label="Add to Calendar"
+                            @click="emits('openAddToCalendarModal')"
+                            extraClasses="text-2xl"
+                            class="mt-3 h-14 w-42 rounded"
+                        />
+                        <BaseButton
+                            v-if="showCancelButton"
+                            label="Cancel Invite"
+                            @click="emits('cancelEventInvite')"
+                            class="h-14 mt-3"
+                            variant="cancel"
+                        />
+                    </div>
                 </div>
             </div>
         </div>

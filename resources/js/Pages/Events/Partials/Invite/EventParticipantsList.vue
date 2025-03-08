@@ -77,18 +77,18 @@ const emit = defineEmits(['openAddToCalendarModal']);
 
             <EventDescription :event="event" class="lg:pb-12 pb-4 pt-2"/>
 
-            <div class=" flex justify-center lg:mt-0 gap-x-2 pb-2">
+            <div class="flex justify-center md:hidden gap-x-2 pb-2">
                 <BaseButton
                     label="Add to Calendar"
                     @click="emit('openAddToCalendarModal')"
                     extraClasses="text-base"
-                    class="mt-3 h-12 w-42 lg:h-24"
+                    class="mt-3 h-12 w-42"
                 />
                 <EventShareButton
                     v-if="!isEventOwner"
                     :event="event"
                     variant="indigo"
-                    class="mt-3 h-12 w-42 lg:h-24"
+                    class="mt-3 h-12 w-42"
                 />
             </div>
             <p class="lg:text-3xl text-2xl text-indigo-700 px-10 font-semibold text-center mt-4 lg:mt-0">
