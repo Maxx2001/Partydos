@@ -4,6 +4,7 @@ namespace App\Web\Events\Controllers;
 
 use Auth;
 use Domain\Auth\Actions\LoginAction;
+use Domain\Auth\Actions\RegisterUserAction;
 use Domain\Auth\DataTransferObjects\LoginData;
 use Domain\Events\Actions\AcceptEventInvite;
 use Domain\Events\Actions\AuthenticatedEventCreateAction;
@@ -21,6 +22,7 @@ use Domain\Events\DataTransferObjects\EventRegisterGuestData;
 use Domain\Events\DataTransferObjects\EventStoreData;
 use Domain\Events\Models\Event;
 use Domain\GuestUsers\Actions\CreateOrFindGuestUserAction;
+use Domain\Users\DataTransferObjects\RegisterUserData;
 use Domain\Users\Models\User;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
@@ -189,6 +191,19 @@ class EventController extends Controller
     public function authenticateAndAcceptInvite(Event $event, LoginData $loginData, LoginAction $loginAction, AcceptEventInvite $acceptInvite): RedirectResponse
     {
         if ($loginAction->execute($loginData)) {
+            $acceptInvite->execute($event, Auth::user());
+            return redirect()->back();
+        } else {
+            return redirect()
+                ->back()
+                ->with('status', __('auth.failed'));
+        }
+    }
+
+    public function registerAndAcceptInvite(Event $event, RegisterUserData $registerUserData, RegisterUserAction $registerUserAction, AcceptEventInvite $acceptInvite): RedirectResponse
+    {
+
+        if ($registerUserAction->execute($registerUserData)) {
             $acceptInvite->execute($event, Auth::user());
             return redirect()->back();
         } else {

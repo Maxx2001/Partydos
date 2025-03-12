@@ -38,7 +38,7 @@ const handleSubmit = () => {
     });
 };
 
-const emit = defineEmits(['showLoginForm', 'registerSuccess']);
+const emit = defineEmits(['showLoginForm', 'registerSuccess', 'showRegisterForm']);
 </script>
 
 <template>
@@ -81,6 +81,7 @@ const emit = defineEmits(['showLoginForm', 'registerSuccess']);
                     Me!
                 </span>
             </label>
+
             <div class="space-y-4">
                 <BaseButton
                     type="submit"
@@ -91,10 +92,16 @@ const emit = defineEmits(['showLoginForm', 'registerSuccess']);
                 <BaseButton
                     type="button"
                     variant="submit"
-                    label="Join event without account"
+                    label="Register account"
                     class="w-full"
-                    @click="emit('showLoginForm')"
+
+                    @click="emit('showRegisterForm')"
                 />
+                <div class="w-full flex justify-center items-center">
+                    <span class="text-indigo-600 hover:text-indigo-800 cursor-pointer" @click="emit('showLoginForm')">
+                        Join event without account
+                    </span>
+                </div>
             </div>
     </form>
 </template>

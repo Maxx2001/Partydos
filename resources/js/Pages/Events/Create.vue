@@ -64,7 +64,11 @@ const submitEventDetails = (stepIndexNumber) => {
     scrollToTop();
 }
 
-const scrollToTop = () => topElement.value?.scrollIntoView({ behavior: 'smooth' })
+const scrollToTop = () => {
+    if (window.innerWidth < 768) { // Only for screens smaller than 768px (mobile)
+        topElement.value?.scrollIntoView({behavior: 'smooth'})
+    }
+}
 
 const setImage = (event) => form.image = event;
 

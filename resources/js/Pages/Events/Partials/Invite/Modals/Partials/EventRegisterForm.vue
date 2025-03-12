@@ -4,6 +4,7 @@ import {usePage} from '@inertiajs/vue3';
 import LoginForm from "@/Pages/Events/Partials/Invite/LoginForm.vue";
 import RegisterAsGuestForm from "@/Pages/Events/Partials/Invite/RegisterAsGuestForm.vue";
 import RegisterAsUser from "@/Pages/Events/Partials/Invite/RegisterAsUser.vue";
+import RegisterForm from "@/Pages/Events/Partials/Invite/RegisterForm.vue";
 const props = defineProps({
     event: {
         type: Object,
@@ -20,6 +21,18 @@ onMounted(() => {
 });
 
 const showLoginForm = ref(true);
+
+const showRegisterForm = ref(false);
+
+const setRegisterForm = () => {
+    showRegisterForm.value = true;
+    showLoginForm.value = false;
+};
+
+const setLoginForm = () => {
+    showRegisterForm.value = false;
+    showLoginForm.value = true;
+};
 </script>
 
 <template>
@@ -36,13 +49,21 @@ const showLoginForm = ref(true);
                     v-if="showLoginForm"
                     @show-login-form="showLoginForm = false"
                     @register-success="emit('registerSuccess')"
+                    @show-register-form="setRegisterForm()"
                 />
 
                 <RegisterAsGuestForm
+                    v-if="!showLoginForm && !showRegisterForm"
                     @show-login-form="showLoginForm = true"
                     :event="event"
                     @register-success="emit('registerSuccess')"
-                    v-else
+                />
+
+                <RegisterForm
+                    v-if="showRegisterForm"
+                    :event="event"
+                    @show-login-form="setLoginForm()"
+                    @register-success="emit('registerSuccess')"
                 />
             </div>
         </form>

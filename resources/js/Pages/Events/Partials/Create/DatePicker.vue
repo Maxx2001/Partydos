@@ -107,6 +107,8 @@ const onEndTimeChange = () => {
         }
         selectedEndHour.value = format(endDateTime, 'HH');
         selectedEndMinute.value = format(endDateTime, 'mm');
+    } {
+        selectedEndHour.value = null
     }
     emitUpdate();
 };

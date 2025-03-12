@@ -20,6 +20,8 @@ class AcceptEventInvite
             return;
         }
 
+        Notification::create('You have been registered to the event!')->send();
+
         $event->users()->attach($user);
     }
 }

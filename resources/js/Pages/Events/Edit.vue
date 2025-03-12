@@ -1,13 +1,8 @@
 <script setup>
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import {  ref } from "vue";
-import { format, setHours, setMinutes, parseISO, isValid } from "date-fns";
+import { format, parseISO, isValid } from "date-fns";
 import { router, useForm } from "@inertiajs/vue3";
-import BaseButton from "@/Components/Base/BaseButton.vue";
-import TextAreaInput from "@/Components/Inputs/TextAreaInput.vue";
-import TextInput from "@/Components/Inputs/TextInput.vue";
-import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
-import DatePicker from "@/Pages/Events/Partials/Create/DatePicker.vue";
 import FileUpload from "@/Components/Form/FileUpload.vue";
 import EventDetailsFormEdit from "@/Pages/Events/Partials/Edit/EventDetailsFormEdit.vue";
 import DatePickerFormEdit from "@/Pages/Events/Partials/Edit/DatePickerFormEdit.vue";

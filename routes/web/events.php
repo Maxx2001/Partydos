@@ -17,6 +17,9 @@ Route::post('event-accept-invite/{event:unique_identifier}', [EventController::c
 Route::post('/event/{event:unique_identifier}/authenticate', [EventController::class, 'authenticateAndAcceptInvite'])
     ->name('event.authenticate');
 
+Route::post('/event/{event:unique_identifier}/register', [EventController::class, 'registerAndAcceptInvite'])
+    ->name('event.register');
+
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::post('users-events', [EventController::class, 'authenticateStore'])->name('users-events.store');
 

@@ -17,7 +17,6 @@ class AuthenticatedEventCreateAction
             $authenticatedEventStoreData->start_date_time,
             $authenticatedEventStoreData->end_date_time
         );
-
         $event = Event::create($authenticatedEventStoreData->all());
         $event->user()->associate(auth()->user());
 
