@@ -31,6 +31,11 @@ const props = defineProps({
         required: false,
         default: null,
     },
+    selectedDates: {
+        type: Array,
+        required: false,
+        default: () => [],
+    },
 });
 
 const currentMonth = ref(new Date());
@@ -77,26 +82,36 @@ const minutes = Array.from({length: 60}, (_, i) => i.toString().padStart(2, '0')
 const emit = defineEmits(['update']);
 
 const emitUpdate = () => {
-    emit('update', {
+    const updateData = {
         selectedDate: selectedDate.value,
-        selectedHour: selectedHour.value,
-        selectedMinute: selectedMinute.value,
-        selectedEndHour: selectedEndHour.value,
-        selectedEndMinute: selectedEndMinute.value,
-    });
-};
+    };
 
-emitUpdate();
+    if (enableTime.value) {
+        updateData.selectedHour = selectedHour.value;
+        updateData.selectedMinute = selectedMinute.value;
+    }
+
+    if (enableEndTime.value) {
+        updateData.selectedEndHour = selectedEndHour.value;
+        updateData.selectedEndMinute = selectedEndMinute.value;
+    }
+
+    emit('update', updateData);
+};
 
 const onDateSelect = (day) => {
-    selectedDate.value = setHours(setMinutes(day, parseInt(selectedMinute.value)), parseInt(selectedHour.value));
+    selectedDate.value = day;
     emitUpdate();
 };
 
+const enableTime = ref(false);
+
 const onTimeChange = () => {
-    selectedDate.value = setHours(setMinutes(selectedDate.value, parseInt(selectedMinute.value)), parseInt(selectedHour.value));
-    onEndTimeChange();
-    emitUpdate();
+    if (enableTime.value) {
+        selectedDate.value = setHours(setMinutes(selectedDate.value, parseInt(selectedMinute.value)), parseInt(selectedHour.value));
+        onEndTimeChange();
+        emitUpdate();
+    }
 };
 
 const onEndTimeChange = () => {
@@ -107,8 +122,8 @@ const onEndTimeChange = () => {
         }
         selectedEndHour.value = format(endDateTime, 'HH');
         selectedEndMinute.value = format(endDateTime, 'mm');
-    } {
-        selectedEndHour.value = null
+    } else {
+        selectedEndHour.value = null;
     }
     emitUpdate();
 };
@@ -128,8 +143,8 @@ const dayClass = (day) => {
     return [
         'h-8 w-8 text-center text-sm leading-8 rounded-full cursor-pointer',
         !isSameMonth(day, currentMonth.value) && 'text-gray-400',
-        isSameDay(day, selectedDate.value) && 'bg-blue-500 text-white',
-        isToday(day) && !isSameDay(day, selectedDate.value) && 'border border-blue-500',
+        isSelected(day) && 'bg-blue-500 text-white',
+        isToday(day) && !isSelected(day) && 'border border-blue-500',
     ];
 };
 
@@ -149,6 +164,20 @@ const calendarRows = computed(() => {
     }
     return rows;
 });
+
+const toggleDate = (day) => {
+    const index = props.selectedDates.value.findIndex(d => d.getTime() === day.getTime());
+    if (index === -1) {
+        props.selectedDates.value.push(day);
+    } else {
+        props.selectedDates.value.splice(index, 1);
+    }
+    emit('update', props.selectedDates.value);
+};
+
+const isSelected = (day) => {
+    return props.selectedDates.some(option => isSameDay(option.selectedDate, day));
+};
 </script>
 
 <template>
@@ -181,19 +210,25 @@ const calendarRows = computed(() => {
         </div>
         <div
             class="w-full md:w-[180px] flex flex-col justify-between bg-white rounded-lg h-auto md:h-[calc(100%-32px)]">
-            <div class="flex flex-col justify-center items-center space-y-2 mb-4">
-                <label class="text-sm font-medium text-gray-700 mb-1">Begin Time</label>
-                <div class="flex items-center space-x-4">
-                    <select v-model="selectedHour" @change="onTimeChange"
-                            class="block w-[4rem] text-center p-2 pr-8 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 appearance-none">
-                        <option v-for="hour in hours" :key="hour" :value="hour">{{ hour }}</option>
-                    </select>
-                    <select v-model="selectedMinute" @change="onTimeChange"
-                            class="block w-[4rem] text-center p-2 pr-8 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 appearance-none">
-                        <option v-for="minute in minutes" :key="minute" :value="minute">{{ minute }}</option>
-                    </select>
-                </div>
+            <div class="flex items-center space-x-2 mt-4">
+                <input id="enableTime" type="checkbox" v-model="enableTime" class="rounded h-4 w-4 text-blue-600 border-gray-300 focus:outline-none focus:ring-0 focus:ring-offset-0 cursor-pointer"/>
+                <label for="enableTime" class="text-sm text-gray-700 cursor-pointer">Set Time?</label>
             </div>
+            <transition>
+                <div v-show="enableTime" class="flex flex-col items-center space-x-4 mt-4 pt-4">
+                    <label class="text-sm font-medium text-gray-700 mb-1">Begin Time</label>
+                    <div class="flex items-center space-x-4">
+                        <select v-model="selectedHour" @change="onTimeChange"
+                                class="block w-[4rem] text-center p-2 pr-8 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 appearance-none">
+                            <option v-for="hour in hours" :key="hour" :value="hour">{{ hour }}</option>
+                        </select>
+                        <select v-model="selectedMinute" @change="onTimeChange"
+                                class="block w-[4rem] text-center p-2 pr-8 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 appearance-none">
+                            <option v-for="minute in minutes" :key="minute" :value="minute">{{ minute }}</option>
+                        </select>
+                    </div>
+                </div>
+            </transition>
             <div class="flex flex-col justify-center items-center space-y-2">
                 <div class="flex items-center space-x-2 mt-4">
                     <input id="enableEndTime" type="checkbox" v-model="enableEndTime" @change="onEndTimeChange"

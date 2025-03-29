@@ -8,7 +8,7 @@ import { router, usePage } from "@inertiajs/vue3";
 import { setHours, setMinutes, format } from 'date-fns';
 import { useTitle } from '@/Composables/useTitle.js';
 import EventCustomization from "@/Pages/Events/Partials/Invite/EventCustomization.vue";
-
+import CreateDatePoll from "@/Pages/Events/Partials/Create/CreateDatePoll.vue";
 useTitle('Create Event | Partydos');
 
 const form = reactive({
@@ -28,7 +28,7 @@ const showEventDetailsInput = computed(() => stepIndex.value === 1);
 const showEventDatePicker = computed(() => stepIndex.value === 2);
 const showEventCustomization = computed(() => stepIndex.value === 3);
 const showEventGuestSubmit = computed(() => stepIndex.value === 4);
-
+const showEventDatePoll = computed(() => stepIndex.value === 5);
 const isLoggedIn = usePage().props.auth.user;
 
 const submitForm = () => router.post(route('guest-events.store'), form);
@@ -90,11 +90,18 @@ const handleDatePoll = () => {
     <DefaultLayout>
         <div class="py-8 md:py-24 px-6 flex flex-col items-center justify-center bg-slate-100 rounded" ref="topElement">
             <form @submit.prevent="submitForm" class="w-full flex flex-col items-center">
+    
                 <EventDetailsInput
                     v-if="showEventDetailsInput"
                     :form="form"
                     @submitEventDetails="() => submitEventDetails(2)"
-                    @createDatePoll="handleDatePoll"
+                    @createDatePoll="() => submitEventDetails(5)"
+                />
+
+                <CreateDatePoll
+                    v-if="showEventDatePoll"
+                    @returnToPreviousStep="() => submitEventDetails(1)"
+                    @addDateOption="handleDatePoll"
                 />
 
                 <EventDatePicker

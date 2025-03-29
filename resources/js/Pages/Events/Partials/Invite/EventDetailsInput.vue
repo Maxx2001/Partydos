@@ -5,14 +5,6 @@ import BaseButton from "@/Components/Base/BaseButton.vue";
 import { ref } from "vue";
 import { router } from "@inertiajs/vue3";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
-import {
-    CalendarIcon, EnvelopeIcon,
-    GlobeAltIcon,
-    LightBulbIcon,
-    ShoppingCartIcon,
-    SparklesIcon, StarIcon
-} from "@heroicons/vue/20/solid/index.js";
-import FeatureBox from "@/Components/Base/FeatureBox.vue";
 import AutoCompleteAddressInput from "@/Components/Inputs/AutoCompleteAddressInput.vue";
 
 const props = defineProps({
@@ -114,16 +106,17 @@ const updateLocation = (event) => {
                     />
                     <div class="flex flex-col space-y-4 w-full lg:w-auto lg:flex-row lg:space-y-0 lg:space-x-4">
                         <BaseButton
-                            label="Pick a date"
-                            @click="submitEventDetails"
-                            class="w-full lg:w-auto"
-                        />
-                        <BaseButton
                             label="Create Date Poll"
                             @click="openDatePoll"
                             variant="secondary"
                             class="w-full lg:w-auto"
                         />
+                        <BaseButton
+                            label="Pick a date"
+                            @click="submitEventDetails"
+                            class="w-full lg:w-auto"
+                        />
+                
                     </div>
                 </div>
             </div>
