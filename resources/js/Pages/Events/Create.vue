@@ -4,9 +4,8 @@ import { computed, reactive, ref } from "vue";
 import EventDetailsInput from "@/Pages/Events/Partials/Invite/EventDetailsInput.vue";
 import EventDatePicker from "@/Pages/Events/Partials/Create/EventDatePicker.vue";
 import EventGuestSubmit from "@/Pages/Events/Partials/Invite/EventGuestSubmit.vue";
-import {router, usePage} from "@inertiajs/vue3";
-import { setHours, setMinutes } from 'date-fns';
-import { format } from 'date-fns';
+import { router, usePage } from "@inertiajs/vue3";
+import { setHours, setMinutes, format } from 'date-fns';
 import { useTitle } from '@/Composables/useTitle.js';
 import EventCustomization from "@/Pages/Events/Partials/Invite/EventCustomization.vue";
 
@@ -30,11 +29,10 @@ const showEventDatePicker = computed(() => stepIndex.value === 2);
 const showEventCustomization = computed(() => stepIndex.value === 3);
 const showEventGuestSubmit = computed(() => stepIndex.value === 4);
 
-const submitForm = () => router.post(route('guest-events.store'), form);
-
-const submitAuthenticatedForm = () => router.post(route('users-events.store'), form)
-
 const isLoggedIn = usePage().props.auth.user;
+
+const submitForm = () => router.post(route('guest-events.store'), form);
+const submitAuthenticatedForm = () => router.post(route('users-events.store'), form);
 
 const setDateObject = (dateObject) => {
     const startDateTime = setMinutes(
@@ -62,41 +60,57 @@ const submitEventDetails = (stepIndexNumber) => {
 
     stepIndex.value = stepIndexNumber;
     scrollToTop();
-}
+};
 
 const scrollToTop = () => {
-    if (window.innerWidth < 768) { // Only for screens smaller than 768px (mobile)
-        topElement.value?.scrollIntoView({behavior: 'smooth'})
+    if (window.innerWidth < 768) {
+        topElement.value?.scrollIntoView({ behavior: 'smooth' });
     }
-}
+};
 
 const setImage = (event) => form.image = event;
 
 const topElement = ref(null);
-</script>
 
+const handleDatePoll = () => {
+    if (!form.title) {
+        alert('Please fill in the event title first!');
+        return;
+    }
+
+    router.get(route('date-polls.create'), {
+        title: form.title,
+        description: form.description,
+        location: form.location?.address || '',
+    });
+};
+</script>
 
 <template>
     <DefaultLayout>
         <div class="py-8 md:py-24 px-6 flex flex-col items-center justify-center bg-slate-100 rounded" ref="topElement">
             <form @submit.prevent="submitForm" class="w-full flex flex-col items-center">
                 <EventDetailsInput
-                    v-if=showEventDetailsInput
+                    v-if="showEventDetailsInput"
                     :form="form"
                     @submitEventDetails="() => submitEventDetails(2)"
+                    @createDatePoll="handleDatePoll"
                 />
+
                 <EventDatePicker
                     v-if="showEventDatePicker"
                     @update="setDateObject($event)"
                     @returnToPreviousStep="() => submitEventDetails(1)"
                     @submitEventDetails="() => submitEventDetails(3)"
                 />
+
                 <EventCustomization
                     v-if="showEventCustomization"
                     @update="setImage($event)"
                     @returnToPreviousStep="() => submitEventDetails(2)"
                     @submitEventDetails="() => submitEventDetails(4)"
-                    />
+                />
+
                 <EventGuestSubmit
                     v-if="showEventGuestSubmit"
                     :form="form"

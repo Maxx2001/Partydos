@@ -3,7 +3,7 @@ import TextInput from "@/Components/Inputs/TextInput.vue";
 import TextAreaInput from "@/Components/Inputs/TextAreaInput.vue";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import { ref } from "vue";
-import {router} from "@inertiajs/vue3";
+import { router } from "@inertiajs/vue3";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 import {
     CalendarIcon, EnvelopeIcon,
@@ -13,7 +13,6 @@ import {
     SparklesIcon, StarIcon
 } from "@heroicons/vue/20/solid/index.js";
 import FeatureBox from "@/Components/Base/FeatureBox.vue";
-import FileUpload from "@/Components/Form/FileUpload.vue";
 import AutoCompleteAddressInput from "@/Components/Inputs/AutoCompleteAddressInput.vue";
 
 const props = defineProps({
@@ -27,58 +26,27 @@ const props = defineProps({
     }
 });
 
-const emit = defineEmits(['submitEventDetails']);
+const emit = defineEmits(['submitEventDetails', 'createDatePoll']);
+
 const titleErrorBag = ref('');
 
 const submitEventDetails = () => {
-    if ( !props.form.title ) {
+    if (!props.form.title) {
         titleErrorBag.value = 'Title is required.';
         return;
     }
 
     emit('submitEventDetails');
-}
+};
 
-const features = [
-    {
-        title: 'Shopping List',
-        description: 'Create a list of items that people need to bring to the event.',
-        icon: ShoppingCartIcon,
-        comingSoon: true,
-    },
-    {
-        title: 'Date Picker',
-        description: 'Easily choose a date and time for your event when it is not fixed.',
-        icon: CalendarIcon,
-        comingSoon: true,
-    },
-    {
-        title: 'Activity Randomizer',
-        description: 'Use AI integration to create a fun and engaging schedule for the event.',
-        icon: SparklesIcon,
-        comingSoon: true,
-    },
-    {
-        title: 'Custom Event Invite Template',
-        description: 'Design and send personalized event invitations with ease.',
-        icon: StarIcon,
-        comingSoon: true,
-    },
-    {
-        title: 'Widget for Your Website',
-        description: 'Integrate an event widget into your website for better engagement.',
-        icon: GlobeAltIcon,
-        comingSoon: true,
-    },
-    {
-        title: 'Interactive Polls',
-        description: 'Create interactive polls for attendees to vote on event activities or options.',
-        icon: LightBulbIcon,
-        comingSoon: true,
-    },
-];
+const openDatePoll = () => {
+    if (!props.form.title) {
+        titleErrorBag.value = 'Title is required before creating a date poll.';
+        return;
+    }
 
-const setImage = (event) => props.form.image = event;
+    emit('createDatePoll');
+};
 
 const updateLocation = (event) => {
     if (typeof event === 'string') {
@@ -86,12 +54,11 @@ const updateLocation = (event) => {
             address: event,
             place_id: null,
         };
-
         return;
     }
 
     props.form.location = event;
-}
+};
 </script>
 
 <template>
@@ -109,6 +76,8 @@ const updateLocation = (event) => {
                         </span> is it?
                     </h1>
                 </div>
+
+                <!-- Event Title -->
                 <TextInput
                     :model-value="form.title"
                     :required="true"
@@ -118,6 +87,8 @@ const updateLocation = (event) => {
                     class="mx-2 w-full"
                     :error="titleErrorBag"
                 />
+
+                <!-- Location Input -->
                 <AutoCompleteAddressInput
                     :model-value="form.location"
                     @update:modelValue="val => updateLocation(val)"
@@ -125,6 +96,7 @@ const updateLocation = (event) => {
                     placeholder="Where is it?"
                 />
 
+                <!-- Description Input -->
                 <TextAreaInput
                     :model-value="form.description"
                     @update:modelValue="val => form.description = val"
@@ -133,34 +105,27 @@ const updateLocation = (event) => {
                     class="mx-2 w-full"
                 />
 
-                <div class="w-full flex justify-between lg:justify-end mt-4">
+                <!-- Buttons -->
+                <div class="w-full flex flex-col space-y-4 mt-6 lg:flex-row lg:justify-between lg:space-y-0">
                     <BaseOutlineButton
                         label="Cancel"
-                        class="mr-4"
+                        class="w-full lg:w-auto"
                         @click="router.get(route('home'))"
                     />
-                    <BaseButton
-                        label="Pick a date"
-                        @click="submitEventDetails"
-                    />
+                    <div class="flex flex-col space-y-4 w-full lg:w-auto lg:flex-row lg:space-y-0 lg:space-x-4">
+                        <BaseButton
+                            label="Pick a date"
+                            @click="submitEventDetails"
+                            class="w-full lg:w-auto"
+                        />
+                        <BaseButton
+                            label="Create Date Poll"
+                            @click="openDatePoll"
+                            variant="secondary"
+                            class="w-full lg:w-auto"
+                        />
+                    </div>
                 </div>
-            </div>
-
-        </div>
-
-        <div class="pt-4" v-if="!isEdit">
-            <h1 class="text-2xl font-bold pb-8 text-gray-900 text-center">
-                What widgets do you want to use in your invite?
-            </h1>
-            <div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 auto-cols-max gap-3 md:gap-8 md:px-16 xl:px-20 2xl:px-32 w-full">
-                <FeatureBox
-                    v-for="(feature, index) in features"
-                    :key="index"
-                    :icon="feature.icon"
-                    :title="feature.title"
-                    :description="feature.description"
-                    :coming-soon="feature.comingSoon"
-                />
             </div>
         </div>
     </div>
