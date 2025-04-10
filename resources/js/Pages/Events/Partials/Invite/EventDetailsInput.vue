@@ -56,7 +56,7 @@ const updateLocation = (event) => {
 <template>
     <div class="flex flex-col items-center w-full">
         <div class="w-full md:w-2/3 xl:w-1/3 flex flex-col items-center gap-4">
-            <div class="w-full flex flex-col items-center gap-4 py-20 md:py-0">
+            <div class="w-full flex flex-col items-center gap-4 py-8 lg:py-20 md:py-0">
                 <div class="w-full flex justify-center text-2xl font-semibold items-center mb-4">
                     <h1 v-if="isEdit" class="text-2xl md:text-4xl">
                         Update event
@@ -98,10 +98,10 @@ const updateLocation = (event) => {
                 />
 
                 <!-- Buttons -->
-                <div class="w-full flex flex-col space-y-4 mt-6 lg:flex-row lg:justify-between lg:space-y-0">
+                <div class="w-full flex flex-col space-y-4 lg:mt-6 lg:flex-row lg:justify-between lg:space-y-0">
                     <BaseOutlineButton
                         label="Cancel"
-                        class="w-full lg:w-auto"
+                        class="w-full lg:w-auto hidden lg:block"
                         @click="router.get(route('home'))"
                     />
                     <div class="flex flex-col space-y-4 w-full lg:w-auto lg:flex-row lg:space-y-0 lg:space-x-4">
@@ -116,8 +116,12 @@ const updateLocation = (event) => {
                             @click="submitEventDetails"
                             class="w-full lg:w-auto"
                         />
-                
                     </div>
+                    <BaseOutlineButton
+                        label="Cancel"
+                        class="w-full lg:w-auto  lg:hidden block"
+                        @click="router.get(route('home'))"
+                    />
                 </div>
             </div>
         </div>

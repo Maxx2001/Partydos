@@ -9,6 +9,7 @@ import { router } from '@inertiajs/vue3';
 import { useTitle } from '@/Composables/useTitle.js';
 import BaseOutlineButton from '@/Components/Base/BaseOutlineButton.vue';
 import DatePicker from './DatePicker.vue';
+import TimePickerModal from './TimePickerModal.vue';
 
 useTitle('Create Date Poll | Partydos');
 
@@ -38,13 +39,14 @@ const addDateOption = (selectedDate) => {
     if (index !== -1) {
         // Update the existing entry with the new time
         console.log('Updating existing entry at index:', index);
-        form.options[index] = {
-            ...form.options[index],
-            selectedHour: selectedDate.selectedHour,
-            selectedMinute: selectedDate.selectedMinute,
-            selectedEndHour: selectedDate.selectedEndHour,
-            selectedEndMinute: selectedDate.selectedEndMinute,
-        };
+        form.options.splice(index, 1);
+        // form.options[index] = {
+        //     ...form.options[index],
+        //     selectedHour: selectedDate.selectedHour,
+        //     selectedMinute: selectedDate.selectedMinute,
+        //     selectedEndHour: selectedDate.selectedEndHour,
+        //     selectedEndMinute: selectedDate.selectedEndMinute,
+        // };
     } else {
         // If the date is not found, add it
         console.log('Adding new entry');    
@@ -97,6 +99,34 @@ const emitUpdate = customDebounce(() => {
 
   emit('update', updateData);
 }, 300);
+
+// Add this method to handle time selection
+const openTimeSelection = ({ option, index }) => {
+    // Logic to open the time selection modal
+    console.log('Setting time for option:', option);
+    // You can set the selected option in a ref and show the modal
+    selectedOption.value = option;
+    selectedIndex.value = index;
+    showTimePicker.value = true;
+};
+
+const showTimePicker = ref(false);
+const selectedOption = ref(null);
+const selectedIndex = ref(null);
+
+// const setTime = (option, index) => {
+//     selectedOption.value = option;
+//     selectedIndex.value = index;
+//     showTimePicker.value = true;
+// };
+
+const updateTime = (hour, minute) => {
+    if (selectedOption.value) {
+        selectedOption.value.selectedHour = hour;
+        selectedOption.value.selectedMinute = minute;
+        emitUpdate();
+    }
+};
 </script>
 
 <template>
@@ -108,9 +138,8 @@ const emitUpdate = customDebounce(() => {
                 <button @click="toggleDatePicker" class="bg-blue-500 text-white p-2 rounded">
                     Add Date Option
                 </button>
-                
-                <div v-if="showDatePicker" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
-                    <div class="bg-white p-6 rounded shadow-lg">
+                <div v-if="showDatePicker" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center" @click="toggleDatePicker">
+                    <div class="bg-white p-6 rounded shadow-lg" @click.stop>
                         <DatePicker :selectedDates="form.options" @update="addDateOption" />
                         <div class="flex justify-end mt-4">
                             <BaseButton label="Close" @click="toggleDatePicker" variant="cancel" />
@@ -118,7 +147,7 @@ const emitUpdate = customDebounce(() => {
                         </div>
                     </div>
                 </div>
-                <PollDateList :options="form.options" @removeOption="removeDateOption" />
+                <PollDateList :options="form.options" @removeOption="removeDateOption" @setTime="openTimeSelection" />
 
                 <!-- Submit knop -->
                 <div class="flex justify-end">
@@ -127,5 +156,12 @@ const emitUpdate = customDebounce(() => {
                 </div>
             </div>
         </div>
+        <TimePickerModal 
+            v-if="showTimePicker" 
+            :option="selectedOption" 
+            :index="selectedIndex" 
+            @close="showTimePicker = false" 
+            @confirm="updateTime" 
+        />
     <!-- </DefaultLayout> -->
 </template>
