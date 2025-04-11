@@ -48,20 +48,28 @@ const setTime = (option, index) => {
         <ul class="space-y-2">
             <li v-for="(option, index) in options" :key="index" class="flex justify-between items-center border p-2 rounded">
                 <div @click="setTime(option, index)" class="cursor-pointer">
-                    <div class="font-medium">{{ displayDate(option) }}</div>    
+                    <div class="font-medium">{{ displayDate(option) }}</div>
                     <div v-if="option.selectedHour && option.selectedMinute" class="text-sm text-gray-600">
-                        From: {{ option.selectedHour }}:{{ option.selectedMinute }} 
+                        From: {{ option.selectedHour }}:{{ option.selectedMinute }}
                         <span v-if="option.selectedEndHour && option.selectedEndMinute">
                             to {{ option.selectedEndHour }}:{{ option.selectedEndMinute }}
                         </span>
                     </div>
-                    <div v-else class="text-sm text-gray-400 italic" >No time selected, click to set time</div>
+                    <div v-else class="text-sm text-gray-400 italic">No time selected, click to set time</div>
                 </div>
                 <BaseOutlineButton label="Remove" @click="emits('removeOption', index)" />
             </li>
         </ul>
     </div>
     <div v-else class="p-4 bg-white rounded-lg shadow text-center">
-        <p class="text-gray-500">No dates selected yet. <br class="hidden lg:hidden"> Please add a date option.</p>
+        <p class="text-gray-500">
+            <span>
+                No dates selected yet.
+            </span>
+            <br/>
+            <span>
+                Please add a date option.
+            </span>
+        </p>
     </div>
 </template>
