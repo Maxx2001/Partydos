@@ -66,7 +66,7 @@ const setTime = (option, index) => {
             <span>
                 No dates selected yet.
             </span>
-            <br/>
+            <br class="lg:hidden"/>
             <span>
                 Please add a date option.
             </span>

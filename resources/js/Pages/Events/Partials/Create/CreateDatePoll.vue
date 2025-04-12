@@ -8,6 +8,7 @@ import BaseOutlineButton from '@/Components/Base/BaseOutlineButton.vue';
 import PollDateList from './PollDateList.vue';
 import DatePicker from './DatePicker.vue';
 import TimePickerModal from './TimePickerModal.vue';
+import CrossIcon from "@/Components/Icons/CrossIcon.vue";
 
 useTitle('Create Date Poll | Partydos');
 
@@ -90,17 +91,22 @@ const updateTime = ({ hour, minute, endHour, endMinute }) => {
         <h1 class="text-2xl md:text-4xl font-bold mb-6">Create Your Date Poll</h1>
 
         <div class="w-full max-w-2xl space-y-6">
-            <button @click="toggleDatePicker" class="bg-blue-500 text-white p-2 rounded">
-                Add Date Option
-            </button>
-
             <!-- Date Picker Modal -->
+            <div class="flex justify-center">
+                <BaseButton @click="toggleDatePicker" label="Add Date Option"/>
+            </div>
             <div v-if="showDatePicker" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center" @click="toggleDatePicker">
                 <div class="bg-white p-6 rounded shadow-lg" @click.stop>
+                    <div
+                        class="w-full flex justify-end -mt-2"
+                        @click="toggleDatePicker"
+                    >
+                        <CrossIcon class="text-red-500 text-xl cursor-pointer" />
+                    </div>
                     <DatePicker :selectedDates="form.options" @update="addDateOption" />
                     <div class="flex justify-end mt-4">
-                        <BaseButton label="Close" @click="toggleDatePicker" variant="cancel" />
-                        <BaseButton label="Pick Date" @click="toggleDatePicker" class="ml-4" />
+<!--                        <BaseButton label="Close" @click="toggleDatePicker" variant="cancel" />-->
+                        <BaseButton label="Confirm" @click="toggleDatePicker" class="ml-4" />
                     </div>
                 </div>
             </div>
@@ -111,7 +117,6 @@ const updateTime = ({ hour, minute, endHour, endMinute }) => {
                 @removeOption="removeDateOption"
                 @setTime="openTimeSelection"
             />
-
             <!-- Actions -->
             <div class="flex justify-end">
                 <BaseOutlineButton label="Back to date picker" class="mr-4" @click="emit('returnToPreviousStep')" />

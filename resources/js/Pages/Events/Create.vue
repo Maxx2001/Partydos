@@ -62,15 +62,20 @@ const submitEventDetails = (stepIndexNumber) => {
     scrollToTop();
 };
 
-const scrollToTop = () => {
+const layoutRef = ref(null);
+
+
+const scrollToTop = async () => {
     if (window.innerWidth < 768) {
-        topElement.value?.scrollIntoView({ behavior: 'smooth' });
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
     }
 };
 
 const setImage = (event) => form.image = event;
 
-const topElement = ref(null);
 
 const handleDatePoll = () => {
     if (!form.title) {
@@ -87,10 +92,9 @@ const handleDatePoll = () => {
 </script>
 
 <template>
-    <DefaultLayout>
+    <DefaultLayout ref="layoutRef">
         <div class="py-8 md:py-24 px-6 flex flex-col items-center justify-center bg-slate-100 rounded" ref="topElement">
             <form @submit.prevent="submitForm" class="w-full flex flex-col items-center">
-    
                 <EventDetailsInput
                     v-if="showEventDetailsInput"
                     :form="form"

@@ -3,6 +3,7 @@ import HeaderComponent from "./Partials/HeaderComponent.vue";
 import Footer from "../Layouts/Partials/Footer.vue";
 import ToastList from "@/Components/Layout/Toasts/ToastList.vue";
 import {usePage} from "@inertiajs/vue3";
+import {ref} from "vue";
 
 const userIsLoggedIn = usePage().props.auth.user;
 
@@ -35,7 +36,7 @@ const menuItems = [
 </script>
 
 <template>
-    <div class="h-screen flex flex-col">
+    + <div class="min-h-screen flex flex-col">
         <HeaderComponent :menu-items="menuItems" />
         <main class="flex-grow">
             <slot />
