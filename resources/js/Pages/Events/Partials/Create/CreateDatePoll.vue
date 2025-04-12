@@ -53,7 +53,7 @@ const removeDateOption = (index) => {
 
 // Submit form
 const submitPoll = () => {
-    router.post(route('date-polls.store'), form);
+    router.post(route('date-picker.store'), form);
 };
 
 // Open time selection modal
