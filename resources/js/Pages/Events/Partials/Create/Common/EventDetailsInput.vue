@@ -2,15 +2,15 @@
 import TextInput from "@/Components/Inputs/TextInput.vue";
 import TextAreaInput from "@/Components/Inputs/TextAreaInput.vue";
 import BaseButton from "@/Components/Base/BaseButton.vue";
-import { ref } from "vue";
+import { ref, reactive, watch } from "vue";
 import { router } from "@inertiajs/vue3";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 import AutoCompleteAddressInput from "@/Components/Inputs/AutoCompleteAddressInput.vue";
 
 const props = defineProps({
-    form: {
+    initialFormData: {
         type: Object,
-        required: true
+        default: () => ({ title: null, description: null, location: null })
     },
     isEdit: {
         type: Boolean,
@@ -18,38 +18,49 @@ const props = defineProps({
     }
 });
 
+const localForm = reactive({
+    title: props.initialFormData.title,
+    description: props.initialFormData.description,
+    location: props.initialFormData.location
+});
+
+watch(() => props.initialFormData, (newVal) => {
+    localForm.title = newVal.title;
+    localForm.description = newVal.description;
+    localForm.location = newVal.location;
+}, { deep: true });
+
 const emit = defineEmits(['submitEventDetails', 'createDatePoll']);
 
 const titleErrorBag = ref('');
 
 const submitEventDetails = () => {
-    if (!props.form.title) {
+    if (!localForm.title) {
         titleErrorBag.value = 'Title is required.';
         return;
     }
-
-    emit('submitEventDetails');
+    titleErrorBag.value = '';
+    emit('submitEventDetails', { ...localForm });
 };
 
 const openDatePoll = () => {
-    if (!props.form.title) {
+    if (!localForm.title) {
         titleErrorBag.value = 'Title is required before creating a date poll.';
         return;
     }
-
-    emit('createDatePoll');
+    titleErrorBag.value = '';
+    emit('createDatePoll', { ...localForm });
 };
 
 const updateLocation = (event) => {
     if (typeof event === 'string') {
-        props.form.location = {
+        localForm.location = {
             address: event,
             place_id: null,
         };
         return;
     }
-
-    props.form.location = event;
+    localForm.location = event;
 };
 </script>
 
@@ -69,35 +80,31 @@ const updateLocation = (event) => {
                     </h1>
                 </div>
 
-                <!-- Event Title -->
                 <TextInput
-                    :model-value="form.title"
+                    :model-value="localForm.title"
                     :required="true"
-                    @update:modelValue="val => form.title = val"
+                    @update:modelValue="val => localForm.title = val"
                     name="title"
                     placeholder="Fill in the title of the event"
                     class="mx-2 w-full"
                     :error="titleErrorBag"
                 />
 
-                <!-- Location Input -->
                 <AutoCompleteAddressInput
-                    :model-value="form.location"
-                    @update:modelValue="val => updateLocation(val)"
+                    :model-value="localForm.location"
+                    @update:modelValue="updateLocation"
                     name="location"
                     placeholder="Where is it?"
                 />
 
-                <!-- Description Input -->
                 <TextAreaInput
-                    :model-value="form.description"
-                    @update:modelValue="val => form.description = val"
+                    :model-value="localForm.description"
+                    @update:modelValue="val => localForm.description = val"
                     name="description"
                     placeholder="Describe the event"
                     class="mx-2 w-full"
                 />
 
-                <!-- Buttons -->
                 <div class="w-full flex flex-col space-y-4 lg:mt-6 lg:flex-row lg:justify-between lg:space-y-0">
                     <BaseOutlineButton
                         label="Cancel"

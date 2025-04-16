@@ -2,7 +2,7 @@
 import DatePicker from "./DatePicker.vue";
 import BaseButton from "@/Components/Base/BaseButton.vue";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
-import SingleDatePicker from "@/Pages/Events/Partials/Create/SingleDatePicker.vue";
+import SingleDatePicker from "./SingleDatePicker.vue";
 
 const emits = defineEmits(['update', 'submitEventDetails', 'returnToPreviousStep']);
 

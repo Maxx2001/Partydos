@@ -164,20 +164,12 @@ const calendarRows = computed(() => {
     }
     return rows;
 });
-
-const toggleDate = (day) => {
-    const index = props.selectedDates.value.findIndex(d => d.getTime() === day.getTime());
-    if (index === -1) {
-        props.selectedDates.value.push(day);
-    } else {
-        props.selectedDates.value.splice(index, 1);
-    }
-    emit('update', props.selectedDates.value);
-};
-
 const isSelected = (day) => {
-    return props.selectedDates.some(option => isSameDay(option.selectedDate, day));
+    return props.selectedDates.some(selected =>
+        isSameDay(selected, day)
+    );
 };
+
 </script>
 
 <template>
@@ -208,50 +200,5 @@ const isSelected = (day) => {
                 </div>
             </div>
         </div>
-        <!--        <div-->
-        <!--            class="w-full md:w-[180px] flex flex-col justify-between bg-white rounded-lg h-auto md:h-[calc(100%-32px)]">-->
-        <!--            <div class="flex items-center space-x-2 mt-4">-->
-        <!--                <input id="enableTime" type="checkbox" v-model="enableTime" class="rounded h-4 w-4 text-blue-600 border-gray-300 focus:outline-none focus:ring-0 focus:ring-offset-0 cursor-pointer"/>-->
-        <!--                <label for="enableTime" class="text-sm text-gray-700 cursor-pointer">Set Time?</label>-->
-        <!--            </div>-->
-        <!--            <transition>-->
-        <!--                <div v-show="enableTime" class="flex flex-col items-center space-x-4 mt-4 pt-4">-->
-        <!--                    <label class="text-sm font-medium text-gray-700 mb-1">Begin Time</label>-->
-        <!--                    <div class="flex items-center space-x-4">-->
-        <!--                        <select v-model="selectedHour" @change="onTimeChange"-->
-        <!--                                class="block w-[4rem] text-center p-2 pr-8 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 appearance-none">-->
-        <!--                            <option v-for="hour in hours" :key="hour" :value="hour">{{ hour }}</option>-->
-        <!--                        </select>-->
-        <!--                        <select v-model="selectedMinute" @change="onTimeChange"-->
-        <!--                                class="block w-[4rem] text-center p-2 pr-8 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 appearance-none">-->
-        <!--                            <option v-for="minute in minutes" :key="minute" :value="minute">{{ minute }}</option>-->
-        <!--                        </select>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </transition>-->
-        <!--            <div class="flex flex-col justify-center items-center space-y-2">-->
-        <!--                <div class="flex items-center space-x-2 mt-4">-->
-        <!--                    <input id="enableEndTime" type="checkbox" v-model="enableEndTime" @change="onEndTimeChange"-->
-        <!--                           class="rounded h-4 w-4 text-blue-600 border-gray-300 focus:outline-none focus:ring-0 focus:ring-offset-0 cursor-pointer"/>-->
-        <!--                    <label for="enableEndTime" class="text-sm text-gray-700 cursor-pointer">Want to set an End-->
-        <!--                        Time?</label>-->
-        <!--                </div>-->
-        <!--                <transition>-->
-        <!--                    <div v-show="enableEndTime" class="flex flex-col items-center space-x-4 mt-4 pt-4">-->
-        <!--                        <label class="text-sm font-medium text-gray-700 mb-1">End Time</label>-->
-        <!--                        <div class="flex items-center space-x-4">-->
-        <!--                            <select v-model="selectedEndHour" @change="onEndTimeChange"-->
-        <!--                                    class="block w-[4rem] text-center p-2 pr-8 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 appearance-none">-->
-        <!--                                <option v-for="hour in hours" :key="hour" :value="hour">{{ hour }}</option>-->
-        <!--                            </select>-->
-        <!--                            <select v-model="selectedEndMinute" @change="onEndTimeChange"-->
-        <!--                                    class="block w-[4rem] text-center p-2 pr-8 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 appearance-none">-->
-        <!--                                <option v-for="minute in minutes" :key="minute" :value="minute">{{ minute }}</option>-->
-        <!--                            </select>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </transition>-->
-        <!--            </div>-->
-        <!--        </div>-->
     </div>
 </template>

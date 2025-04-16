@@ -36,7 +36,7 @@ const menuItems = [
 </script>
 
 <template>
-    + <div class="min-h-screen flex flex-col">
+    <div class="min-h-screen flex flex-col">
         <HeaderComponent :menu-items="menuItems" />
         <main class="flex-grow">
             <slot />
