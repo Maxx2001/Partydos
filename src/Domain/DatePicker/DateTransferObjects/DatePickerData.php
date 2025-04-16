@@ -13,10 +13,10 @@ class DatePickerData extends Data
         public string $title,
         public ?string $description,
         public ?string $location,
-        #[Rule(['int', 'exists:events,id'])]
-        public int $event_id,
+//        #[Rule(['int', 'exists:events,id'])]
+//        public int $event_id,
         #[DataCollectionOf(DateOptionData::class)]
-        public ?DataCollection $date_options,
+        public ?DataCollection $options,
 
     ) {}
 }

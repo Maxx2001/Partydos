@@ -86,16 +86,6 @@ const emitUpdate = () => {
         selectedDate: selectedDate.value,
     };
 
-    if (enableTime.value) {
-        updateData.selectedHour = selectedHour.value;
-        updateData.selectedMinute = selectedMinute.value;
-    }
-
-    if (enableEndTime.value) {
-        updateData.selectedEndHour = selectedEndHour.value;
-        updateData.selectedEndMinute = selectedEndMinute.value;
-    }
-
     emit('update', updateData);
 };
 

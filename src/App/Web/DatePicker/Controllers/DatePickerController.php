@@ -10,7 +10,6 @@ class DatePickerController extends Controller
 {
     public function store(CreateDatePickerAction $createDatePickerAction, DatePickerData $pickerData): void
     {
-        dd($pickerData);
         $createDatePickerAction->execute($pickerData);
     }
 }

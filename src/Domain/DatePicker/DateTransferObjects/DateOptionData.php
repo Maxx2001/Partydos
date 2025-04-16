@@ -9,8 +9,8 @@ class DateOptionData extends Data
 {
     public function __construct(
         public string $date,
-        public ?string $start_time,
-        public ?string $end_time,
+        public ?string $start_datetime,
+        public ?string $end_datetime,
         public ?string $comment,
     ) {}
 }

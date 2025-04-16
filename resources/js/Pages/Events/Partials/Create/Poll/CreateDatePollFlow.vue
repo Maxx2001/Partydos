@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import { router } from '@inertiajs/vue3';
+import { setHours, setMinutes, formatISO, format } from 'date-fns';
 import CreateDatePoll from './CreateDatePoll.vue';
 import DatePicker from '../Standard/DatePicker.vue';
 import TimePickerModal from '../Standard/TimePickerModal.vue';
@@ -58,11 +59,29 @@ const handleCreatePoll = () => {
         return;
     }
 
-    const preparedOptions = pollForm.options.map(opt => ({
-        date: opt.selectedDate.toISOString().split('T')[0],
-        start_time: `${opt.selectedHour}:${opt.selectedMinute}`,
-        end_time: opt.selectedEndHour ? `${opt.selectedEndHour}:${opt.selectedEndMinute}` : null,
-    }));
+    const preparedOptions = pollForm.options.map(opt => {
+        let startDateTime = null;
+        let endDateTime = null;
+
+        if (opt.selectedHour !== undefined && opt.selectedMinute !== undefined) {
+            let dateWithStartTime = setMinutes(setHours(opt.selectedDate, opt.selectedHour), opt.selectedMinute);
+            startDateTime = formatISO(dateWithStartTime);
+        }
+
+        if (opt.selectedEndHour !== undefined && opt.selectedEndMinute !== undefined) {
+            let dateWithEndTime = setMinutes(setHours(opt.selectedDate, opt.selectedEndHour), opt.selectedEndMinute);
+            endDateTime = formatISO(dateWithEndTime);
+        } else if (startDateTime && !opt.selectedEndHour) {
+            endDateTime = null; 
+        }
+
+        return {
+            date: format(opt.selectedDate, 'yyyy-MM-dd'),
+
+            start_datetime: startDateTime,
+            end_datetime: endDateTime,
+        };
+    });
 
     const payload = {
         title: pollForm.title,
