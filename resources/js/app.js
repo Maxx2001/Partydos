@@ -1,5 +1,6 @@
 import './bootstrap';
 import '../css/app.css';
+import 'v-calendar/style.css';
 
 import {createApp, h} from 'vue';
 import {createInertiaApp, router, usePage} from '@inertiajs/vue3';

@@ -5,8 +5,6 @@ import EventDetailsInput from "@/Pages/Events/Partials/Invite/EventDetailsInput.
 import EventDatePicker from "@/Pages/Events/Partials/Create/EventDatePicker.vue";
 import EventGuestSubmit from "@/Pages/Events/Partials/Invite/EventGuestSubmit.vue";
 import {router, usePage} from "@inertiajs/vue3";
-import { setHours, setMinutes } from 'date-fns';
-import { format } from 'date-fns';
 import { useTitle } from '@/Composables/useTitle.js';
 import EventCustomization from "@/Pages/Events/Partials/Invite/EventCustomization.vue";
 
@@ -16,8 +14,8 @@ const form = reactive({
     title: null,
     description: null,
     location: null,
-    start_date_time: null,
-    end_date_time: null,
+    dateOptions: [{ date: null, time: null }],
+    allowMultipleSelections: false,
     name: null,
     email: null,
     image: null,
@@ -35,24 +33,6 @@ const submitForm = () => router.post(route('guest-events.store'), form);
 const submitAuthenticatedForm = () => router.post(route('users-events.store'), form)
 
 const isLoggedIn = usePage().props.auth.user;
-
-const setDateObject = (dateObject) => {
-    const startDateTime = setMinutes(
-        setHours(dateObject.selectedDate, parseInt(dateObject.selectedHour)),
-        parseInt(dateObject.selectedMinute)
-    );
-
-    let endDateTime = null;
-    if (dateObject.selectedEndHour && dateObject.selectedEndMinute) {
-        endDateTime = setMinutes(
-            setHours(dateObject.selectedDate, parseInt(dateObject.selectedEndHour)),
-            parseInt(dateObject.selectedEndMinute)
-        );
-    }
-
-    form.start_date_time = format(startDateTime, 'yyyy-MM-dd HH:mm:ss');
-    form.end_date_time = endDateTime ? format(endDateTime, 'yyyy-MM-dd HH:mm:ss') : null;
-};
 
 const submitEventDetails = (stepIndexNumber) => {
     if (stepIndexNumber === 4 && isLoggedIn) {
@@ -87,7 +67,10 @@ const topElement = ref(null);
                 />
                 <EventDatePicker
                     v-if="showEventDatePicker"
-                    @update="setDateObject($event)"
+                    :allow-multiple-selections="form.allowMultipleSelections"
+                    :date-options="form.dateOptions"
+                    :errors="page.props.errors"
+                    @update-allow-multiple="newValue => form.allowMultipleSelections = newValue"
                     @returnToPreviousStep="() => submitEventDetails(1)"
                     @submitEventDetails="() => submitEventDetails(3)"
                 />
