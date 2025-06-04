@@ -18,6 +18,8 @@ const form = reactive({
     location: null,
     start_date_time: null,
     end_date_time: null,
+    is_datepicker: false,
+    date_options: null,
     name: null,
     email: null,
     image: null,
@@ -36,22 +38,36 @@ const submitAuthenticatedForm = () => router.post(route('users-events.store'), f
 
 const isLoggedIn = usePage().props.auth.user;
 
-const setDateObject = (dateObject) => {
-    const startDateTime = setMinutes(
-        setHours(dateObject.selectedDate, parseInt(dateObject.selectedHour)),
-        parseInt(dateObject.selectedMinute)
-    );
-
-    let endDateTime = null;
-    if (dateObject.selectedEndHour && dateObject.selectedEndMinute) {
-        endDateTime = setMinutes(
-            setHours(dateObject.selectedDate, parseInt(dateObject.selectedEndHour)),
-            parseInt(dateObject.selectedEndMinute)
+const setDateObject = (dateObjects) => {
+    if (Array.isArray(dateObjects)) {
+        form.is_datepicker = true;
+        form.date_options = dateObjects.map(obj => {
+            const start = setMinutes(setHours(obj.selectedDate, parseInt(obj.selectedHour)), parseInt(obj.selectedMinute));
+            let end = null;
+            if (obj.selectedEndHour && obj.selectedEndMinute) {
+                end = setMinutes(setHours(obj.selectedDate, parseInt(obj.selectedEndHour)), parseInt(obj.selectedEndMinute));
+            }
+            return {
+                start_date_time: format(start, 'yyyy-MM-dd HH:mm:ss'),
+                end_date_time: end ? format(end, 'yyyy-MM-dd HH:mm:ss') : null,
+            };
+        });
+    } else {
+        const startDateTime = setMinutes(
+            setHours(dateObjects.selectedDate, parseInt(dateObjects.selectedHour)),
+            parseInt(dateObjects.selectedMinute)
         );
+        let endDateTime = null;
+        if (dateObjects.selectedEndHour && dateObjects.selectedEndMinute) {
+            endDateTime = setMinutes(
+                setHours(dateObjects.selectedDate, parseInt(dateObjects.selectedEndHour)),
+                parseInt(dateObjects.selectedEndMinute)
+            );
+        }
+        form.start_date_time = format(startDateTime, 'yyyy-MM-dd HH:mm:ss');
+        form.end_date_time = endDateTime ? format(endDateTime, 'yyyy-MM-dd HH:mm:ss') : null;
+        form.is_datepicker = false;
     }
-
-    form.start_date_time = format(startDateTime, 'yyyy-MM-dd HH:mm:ss');
-    form.end_date_time = endDateTime ? format(endDateTime, 'yyyy-MM-dd HH:mm:ss') : null;
 };
 
 const submitEventDetails = (stepIndexNumber) => {
