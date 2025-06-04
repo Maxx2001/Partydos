@@ -51,8 +51,10 @@ class EventEntity extends Data
 
         $this->filterMedia($event);
         $this->canEdit = $this->canEdit($event);
-        $this->isDatepicker = (bool)$event->is_datepicker;
-        $this->dateOptions = $event->is_datepicker ? EventDateOptionEntity::collect($event->dateOptions) : null;
+        $this->isDatepicker = (bool) $event->is_datepicker;
+        $this->dateOptions = $event->is_datepicker
+            ? new DataCollection(EventDateOptionEntity::class, $event->dateOptions)
+            : null;
     }
 
     private function filterMedia(Event $event): void
