@@ -39,7 +39,7 @@ const submitAuthenticatedForm = () => router.post(route('users-events.store'), f
 const isLoggedIn = usePage().props.auth.user;
 
 const setDateObject = (dateObjects) => {
-    if (Array.isArray(dateObjects)) {
+    if (Array.isArray(dateObjects) && dateObjects.length > 1) {
         form.is_datepicker = true;
         form.date_options = dateObjects.map(obj => {
             const start = setMinutes(setHours(obj.selectedDate, parseInt(obj.selectedHour)), parseInt(obj.selectedMinute));
@@ -52,21 +52,25 @@ const setDateObject = (dateObjects) => {
                 end_date_time: end ? format(end, 'yyyy-MM-dd HH:mm:ss') : null,
             };
         });
+        form.start_date_time = null;
+        form.end_date_time = null;
     } else {
+        const obj = Array.isArray(dateObjects) ? dateObjects[0] : dateObjects;
         const startDateTime = setMinutes(
-            setHours(dateObjects.selectedDate, parseInt(dateObjects.selectedHour)),
-            parseInt(dateObjects.selectedMinute)
+            setHours(obj.selectedDate, parseInt(obj.selectedHour)),
+            parseInt(obj.selectedMinute)
         );
         let endDateTime = null;
-        if (dateObjects.selectedEndHour && dateObjects.selectedEndMinute) {
+        if (obj.selectedEndHour && obj.selectedEndMinute) {
             endDateTime = setMinutes(
-                setHours(dateObjects.selectedDate, parseInt(dateObjects.selectedEndHour)),
-                parseInt(dateObjects.selectedEndMinute)
+                setHours(obj.selectedDate, parseInt(obj.selectedEndHour)),
+                parseInt(obj.selectedEndMinute)
             );
         }
         form.start_date_time = format(startDateTime, 'yyyy-MM-dd HH:mm:ss');
         form.end_date_time = endDateTime ? format(endDateTime, 'yyyy-MM-dd HH:mm:ss') : null;
         form.is_datepicker = false;
+        form.date_options = null;
     }
 };
 
