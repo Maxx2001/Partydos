@@ -23,7 +23,7 @@ class EventEntity extends Data
         public string          $uniqueIdentifier,
         public string          $title,
         public ?string         $description,
-        public string          $startDateTime,
+        public ?string         $startDateTime = null,
         public ?string         $isoStartDateTime,
         public ?string         $endDateTime,
         public ?string         $isoEndDateTime,
