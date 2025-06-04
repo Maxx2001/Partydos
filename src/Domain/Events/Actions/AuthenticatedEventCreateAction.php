@@ -13,11 +13,18 @@ class AuthenticatedEventCreateAction
 {
     public function execute(AuthenticatedEventData $authenticatedEventStoreData)
     {
-        $authenticatedEventStoreData->end_date_time = DateAdjustmentService::adjustEndDate(
-            $authenticatedEventStoreData->start_date_time,
-            $authenticatedEventStoreData->end_date_time
-        );
-        $event = Event::create($authenticatedEventStoreData->all());
+        if (! $authenticatedEventStoreData->is_datepicker) {
+            $authenticatedEventStoreData->end_date_time = DateAdjustmentService::adjustEndDate(
+                $authenticatedEventStoreData->start_date_time,
+                $authenticatedEventStoreData->end_date_time
+            );
+        }
+
+        $eventArray = $authenticatedEventStoreData->toArray();
+        $dateOptions = $eventArray['date_options'] ?? null;
+        unset($eventArray['date_options']);
+
+        $event = Event::create($eventArray);
         $event->user()->associate(auth()->user());
 
         if ($authenticatedEventStoreData->location) {
@@ -26,6 +33,12 @@ class AuthenticatedEventCreateAction
         }
 
         $event->save();
+
+        if ($authenticatedEventStoreData->is_datepicker && $dateOptions) {
+            foreach ($dateOptions as $option) {
+                $event->dateOptions()->create($option);
+            }
+        }
 
         AttachMediaToModelAction::execute([$authenticatedEventStoreData->image], $event, '-banner');
 

@@ -20,6 +20,9 @@ Route::post('/event/{event:unique_identifier}/authenticate', [EventController::c
 Route::post('/event/{event:unique_identifier}/register', [EventController::class, 'registerAndAcceptInvite'])
     ->name('event.register');
 
+Route::post('event/{event:unique_identifier}/date-option/{option}/vote', [EventController::class, 'voteDateOption'])
+    ->name('event.date-option.vote');
+
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::post('users-events', [EventController::class, 'authenticateStore'])->name('users-events.store');
 

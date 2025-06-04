@@ -14,12 +14,17 @@ class GuestEventCreateAction
 {
     public function execute(EventStoreData $eventStoreData, GuestUser $guestUser): Event
     {
-        $eventStoreData->end_date_time = DateAdjustmentService::adjustEndDate(
-            $eventStoreData->start_date_time,
-            $eventStoreData->end_date_time
-        );
+        if (! $eventStoreData->is_datepicker) {
+            $eventStoreData->end_date_time = DateAdjustmentService::adjustEndDate(
+                $eventStoreData->start_date_time,
+                $eventStoreData->end_date_time
+            );
+        }
 
-        $event = Event::create($eventStoreData->all());
+        $eventArray = $eventStoreData->toArray();
+        $dateOptions = $eventArray['date_options'] ?? null;
+        unset($eventArray['date_options']);
+        $event = Event::create($eventArray);
         $event->guestUser()->associate($guestUser);
 
         if ($eventStoreData->location) {
@@ -28,6 +33,12 @@ class GuestEventCreateAction
         }
 
         $event->save();
+
+        if ($eventStoreData->is_datepicker && $dateOptions) {
+            foreach ($dateOptions as $option) {
+                $event->dateOptions()->create($option);
+            }
+        }
 
         AttachMediaToModelAction::execute([$eventStoreData->image], $event, '-banner');
 

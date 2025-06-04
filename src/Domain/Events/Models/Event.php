@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Domain\Addresses\Models\Address;
 use Domain\Events\Services\EventShareLinkService;
 use Domain\Events\Services\GoogleCalendarLinkService;
+use Domain\Events\Models\EventDateOption;
 use Domain\GuestUsers\Models\GuestUser;
 use Domain\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,9 +42,16 @@ class Event extends Model implements HasMedia
         'guest_user_id',
         'title',
         'description',
+        'is_datepicker',
         'start_date_time',
         'end_date_time',
         'canceled_at',
+    ];
+
+    protected $casts = [
+        'is_datepicker' => 'boolean',
+        'start_date_time' => 'datetime',
+        'end_date_time' => 'datetime',
     ];
 
     public function user(): BelongsTo
@@ -65,6 +73,11 @@ class Event extends Model implements HasMedia
     {
         return $this->belongsToMany(GuestUser::class)
             ->withTimestamps();
+    }
+
+    public function dateOptions()
+    {
+        return $this->hasMany(EventDateOption::class);
     }
 
     public function address(): MorphOne

@@ -11,6 +11,7 @@ import EventRegisterModal from "@/Pages/Events/Partials/Invite/Modals/EventRegis
 import EventAddToCalendarModel from "@/Pages/Events/Partials/Invite/Modals/EventAddToCalendarModel.vue";
 import EventInviteLinkeModal from "@/Pages/Events/Partials/Invite/Modals/EventInviteLinkeModal.vue";
 import EventDescription from "@/Pages/Events/Partials/Invite/EventDescription.vue";
+import DateOptionsList from "@/Pages/Events/Partials/Invite/DateOptions/DateOptionsList.vue";
 import BaseModal from "@/Components/Base/BaseModal.vue";
 import {router} from "@inertiajs/vue3";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
@@ -84,6 +85,7 @@ const handleConfirm = () => {
                 :show-cancel-button="showCancelButton"
                 class="hidden md:flex"
             />
+            <DateOptionsList v-if="event.isDatepicker" :event="event" :options="event.dateOptions" class="px-4"/>
             <EventParticipantsList
                 :event="event"
                 class="pb-6 lg:pb-24"

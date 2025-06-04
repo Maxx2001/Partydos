@@ -15,12 +15,14 @@ use Domain\Events\Actions\EventGenerateIcsAction;
 use Domain\Events\Actions\GuestEventCreateAction;
 use Domain\Events\Actions\RestoreEventAction;
 use Domain\Events\Actions\ViewEventsAction;
+use Domain\Events\Actions\VoteForDateOptionAction;
 use Domain\Events\DataTransferObjects\AuthenticatedEventData;
 use Domain\Events\DataTransferObjects\AuthenticatedEventUpdateData;
 use Domain\Events\DataTransferObjects\EventEntity;
 use Domain\Events\DataTransferObjects\EventRegisterGuestData;
 use Domain\Events\DataTransferObjects\EventStoreData;
 use Domain\Events\Models\Event;
+use Domain\Events\Models\EventDateOption;
 use Domain\GuestUsers\Actions\CreateOrFindGuestUserAction;
 use Domain\Users\DataTransferObjects\RegisterUserData;
 use Domain\Users\Models\User;
@@ -62,8 +64,10 @@ class EventController extends Controller
             $showCancelButton = $eventUsers->contains($user) && $event->user_id !== $user->id;
         }
 
+        $event->load('address', 'dateOptions.users', 'dateOptions.guestUsers');
+
         return Inertia::render('Events/Invite', [
-            'event' => EventEntity::from($event->load('address')),
+            'event' => EventEntity::from($event),
             'showInviteModal' => Session::get('event_created'),
             'showInviteButton' => $showInviteButton,
             'showCancelButton' => $showCancelButton,
@@ -211,5 +215,25 @@ class EventController extends Controller
                 ->back()
                 ->with('status', __('auth.failed'));
         }
+    }
+
+    public function voteDateOption(Event $event, \Illuminate\Http\Request $request, EventDateOption $option, VoteForDateOptionAction $voteAction, CreateOrFindGuestUserAction $createOrFindGuestUserAction): RedirectResponse
+    {
+        if ($option->event_id !== $event->id) {
+            abort(404);
+        }
+
+        $voter = auth()->user();
+        if (! $voter) {
+            $data = $request->validate([
+                'name' => ['required','string','max:255'],
+                'email' => ['required','email','max:255'],
+            ]);
+            $voter = $createOrFindGuestUserAction->execute(EventRegisterGuestData::from($data));
+        }
+
+        $voteAction->execute($option, $voter);
+
+        return redirect()->back();
     }
 }
