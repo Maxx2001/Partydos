@@ -48,6 +48,9 @@ class User extends Authenticatable
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+        'google_photos_access_token',
+        'google_photos_refresh_token',
+        'google_photos_token_expires_at',
     ];
 
     protected $appends = [
@@ -59,6 +62,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password'          => 'hashed',
+            'google_photos_token_expires_at' => 'datetime',
         ];
     }
 

@@ -23,3 +23,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
    Route::post('/user/do-not-sell-my-data', [AuthController::class, 'registerNotSellDataUser'])->name('user-do-not-sell-my-data');
 });
 
+// Google Photos OAuth Routes
+use App\Web\Auth\GoogleAuthController;
+
+Route::middleware('auth')->group(function () {
+    Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google.redirect');
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+});
