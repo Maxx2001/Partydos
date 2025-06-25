@@ -3,16 +3,23 @@
 namespace Domain\Events\Actions;
 
 use Domain\Events\Models\Event;
+use Domain\Users\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Support\Notification;
 
 class DestroyEventAction
 {
+    public function __construct(
+        protected CheckUserIsEventOwnerAction $checkUserIsEventOwnerAction,
+    ) {
+    }
+
     public function execute(Event $event): void
     {
-        if ($event->user_id !== Auth::user()->getKey()) {
-            abort(403);
-        }
+        /** @var User $user */
+        $user = Auth::user();
+
+        $this->checkUserIsEventOwnerAction->execute($event, $user);
 
         if (!$event->canceled_at) {
             Notification::create('Event must first be canceled!')->send();

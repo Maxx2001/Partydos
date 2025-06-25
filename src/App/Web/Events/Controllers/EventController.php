@@ -10,20 +10,19 @@ use Domain\Events\Actions\AcceptEventInvite;
 use Domain\Events\Actions\AuthenticatedEventCreateAction;
 use Domain\Events\Actions\AuthenticatedEventUpdateAction;
 use Domain\Events\Actions\CancelEventAction;
+use Domain\Events\Actions\CheckUserIsEventOwnerAction;
 use Domain\Events\Actions\DestroyEventAction;
 use Domain\Events\Actions\EventGenerateIcsAction;
+use Domain\Events\Actions\GetEventListsForUserAction;
 use Domain\Events\Actions\GuestEventCreateAction;
 use Domain\Events\Actions\RestoreEventAction;
-use Domain\Events\Actions\ViewEventsAction;
 use Domain\Events\DataTransferObjects\AuthenticatedEventData;
 use Domain\Events\DataTransferObjects\AuthenticatedEventUpdateData;
 use Domain\Events\DataTransferObjects\EventEntity;
-use Domain\Events\DataTransferObjects\EventRegisterGuestData;
-use Domain\Events\DataTransferObjects\EventStoreData;
+use Domain\Events\DataTransferObjects\EventInviteViewData;
 use Domain\Events\Models\Event;
 use Domain\GuestUsers\Actions\CreateOrFindGuestUserAction;
 use Domain\Users\DataTransferObjects\RegisterUserData;
-use Domain\Users\Models\User;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -32,41 +31,34 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Support\Controllers\Controller;
 use Support\Notification;
+use \Illuminate\Http\Response as HttpResponse;
+use Domain\Events\DataTransferObjects\GuestEventCreateData;
+use Domain\GuestUsers\DataTransferObjects\GuestJoinData;
 
 class EventController extends Controller
 {
-    public function index(ViewEventsAction $viewEventsAction): Response
+    public function index(GetEventListsForUserAction $getEventListsForUserAction): Response
     {
-        /* @var User $user */
         $user = auth()->user();
 
-        $invitedEvents = $user->events()->with('address')->futureEvents()->get();
-        $ownedEvents = $user->ownedEvents()->with('address')->futureEvents()->orderBy('start_date_time')->get();
-        $historyEvents = $user->getHistoryEvents();
+        $eventLists = $getEventListsForUserAction->execute($user);
 
         return Inertia::render('Events/Index', [
-            'events' => EventEntity::collect($invitedEvents),
-            'ownedEvents' =>  EventEntity::collect($ownedEvents),
-            'historyEvents' =>  EventEntity::collect($historyEvents),
+            'events' => EventEntity::collect($eventLists->get('invitedEvents')),
+            'ownedEvents' =>  EventEntity::collect($eventLists->get('ownedEvents')),
+            'historyEvents' =>  EventEntity::collect($eventLists->get('historyEvents')),
         ]);
     }
 
     public function show(Event $event): Response
     {
-        $showInviteButton = true;
-        $showCancelButton = false;
-
-        if ($user = Auth::user()) {
-            $eventUsers = $event->users()->get();
-            $showInviteButton = !$eventUsers->contains($user) && $event->user_id !== $user->id;
-            $showCancelButton = $eventUsers->contains($user) && $event->user_id !== $user->id;
-        }
+        $viewData = EventInviteViewData::fromEvent($event);
 
         return Inertia::render('Events/Invite', [
             'event' => EventEntity::from($event->load('address')),
             'showInviteModal' => Session::get('event_created'),
-            'showInviteButton' => $showInviteButton,
-            'showCancelButton' => $showCancelButton,
+            'showInviteButton' => $viewData->showInviteButton,
+            'showCancelButton' => $viewData->showCancelButton,
         ])->withViewData([
             'title' => $event->title,
             'description' => $event->description,
@@ -82,24 +74,17 @@ class EventController extends Controller
     }
 
     public function store(
-        EventStoreData $eventStoreData,
-        CreateOrFindGuestUserAction $createOrFindGuestUserAction,
+        GuestEventCreateData $guestEventCreateData,
         GuestEventCreateAction $guestEventCreateAction
-    ): RedirectResponse
-    {
-        $eventRegisterGuestData = EventRegisterGuestData::from($eventStoreData);
-        $guestUser = $createOrFindGuestUserAction->execute($eventRegisterGuestData);
-
-        $event = $guestEventCreateAction->execute($eventStoreData, $guestUser);
+    ): RedirectResponse {
+        $event = $guestEventCreateAction->execute($guestEventCreateData);
 
         return redirect()->route('events.show-invite', $event);
     }
 
-    public function edit(Event $event): Response
+    public function edit(Event $event, CheckUserIsEventOwnerAction $checkOwnerAction): Response
     {
-        if ($event->user_id !== Auth::user()->getKey()) {
-            abort(403);
-        }
+        $checkOwnerAction->execute($event, Auth::user());
 
         return Inertia::render('Events/Edit', [
             'event' => EventEntity::from($event->load('address'))
@@ -109,25 +94,28 @@ class EventController extends Controller
     public function update(
         Event $event,
         AuthenticatedEventUpdateAction $authenticatedEventUpdateAction,
-        AuthenticatedEventUpdateData $authenticatedEventUpdateData
+        AuthenticatedEventUpdateData $authenticatedEventUpdateData,
+        CheckUserIsEventOwnerAction $checkOwnerAction
     ): RedirectResponse
     {
-        if ($event->user_id !== \Illuminate\Support\Facades\Auth::user()->getKey()) {
-            abort(403);
-        }
+        $checkOwnerAction->execute($event, \Illuminate\Support\Facades\Auth::user());
 
         $event = $authenticatedEventUpdateAction->execute($event, $authenticatedEventUpdateData);
 
         return redirect()->route('events.show-invite', $event);
     }
 
-    public function destroy(Event $event, DestroyEventAction $destroyEventAction): RedirectResponse
+    public function destroy(Event $event, DestroyEventAction $destroyEventAction, CheckUserIsEventOwnerAction $checkOwnerAction): RedirectResponse
     {
+        $checkOwnerAction->execute($event, Auth::user());
         $destroyEventAction->execute($event);
         return redirect()->route('users-events.index');
     }
 
-    public function authenticateStore(AuthenticatedEventCreateAction $authenticatedEventCreateAction, AuthenticatedEventData $authenticatedEventStoreData): RedirectResponse
+    public function authenticateStore(
+        AuthenticatedEventCreateAction $authenticatedEventCreateAction,
+        AuthenticatedEventData $authenticatedEventStoreData
+    ): RedirectResponse
     {
         $event = $authenticatedEventCreateAction->execute($authenticatedEventStoreData);
 
@@ -137,10 +125,10 @@ class EventController extends Controller
     public function registerGuestUser(
         Event $event,
         CreateOrFindGuestUserAction $createOrFindGuestUserAction,
-        EventRegisterGuestData $eventRegisterGuestData
+        GuestJoinData $guestJoinData
     ): RedirectResponse
     {
-        $guestUser = $createOrFindGuestUserAction->execute($eventRegisterGuestData);
+        $guestUser = $createOrFindGuestUserAction->execute($guestJoinData->email, $guestJoinData->name);
 
         $event->guestUsers()->attach($guestUser);
 
@@ -165,7 +153,10 @@ class EventController extends Controller
         Notification::create('You have been unregistered from the event.')->send();
     }
 
-    public function downloadEventICS(Event $event, EventGenerateIcsAction $eventGenerateIcsAction): Application|\Illuminate\Http\Response|ResponseFactory
+    public function downloadEventICS(
+        Event $event,
+        EventGenerateIcsAction $eventGenerateIcsAction
+    ): Application|HttpResponse|ResponseFactory
     {
         $ics = $eventGenerateIcsAction->execute($event);
 
@@ -188,7 +179,12 @@ class EventController extends Controller
         return redirect()->back();
     }
 
-    public function authenticateAndAcceptInvite(Event $event, LoginData $loginData, LoginAction $loginAction, AcceptEventInvite $acceptInvite): RedirectResponse
+    public function authenticateAndAcceptInvite(
+        Event $event,
+        LoginData $loginData,
+        LoginAction $loginAction,
+        AcceptEventInvite $acceptInvite
+    ): RedirectResponse
     {
         if ($loginAction->execute($loginData)) {
             $acceptInvite->execute($event, Auth::user());
@@ -200,7 +196,11 @@ class EventController extends Controller
         }
     }
 
-    public function registerAndAcceptInvite(Event $event, RegisterUserData $registerUserData, RegisterUserAction $registerUserAction, AcceptEventInvite $acceptInvite): RedirectResponse
+    public function registerAndAcceptInvite(
+        Event $event,
+        RegisterUserData $registerUserData,
+        RegisterUserAction $registerUserAction,
+        AcceptEventInvite $acceptInvite): RedirectResponse
     {
 
         if ($registerUserAction->execute($registerUserData)) {
