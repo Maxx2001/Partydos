@@ -14,9 +14,12 @@ use Domain\Auth\DataTransferObjects\UpdatePasswordUserData;
 use Domain\Auth\DataTransferObjects\UserResetPasswordEmailData;
 use Domain\Users\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Inertia\Response;
+use Laravel\Jetstream\Contracts\DeletesUsers;
 use Support\Notification;
 
 class AuthController
@@ -37,6 +40,16 @@ class AuthController
         Auth::logout();
 
         return redirect()->route('home');
+    }
+
+    public function forgotPassword(
+        UserResetPasswordEmailData $resetPasswordEmailData,
+        ResetPasswordUserAction $resetPasswordUserAction
+    ): RedirectResponse
+    {
+        $resetPasswordUserAction->execute($resetPasswordEmailData);
+
+        return redirect()->back()->with('status', 'Password reset link sent to your email address.');
     }
 
     public function resetPasswordEmail(
@@ -71,10 +84,19 @@ class AuthController
         return redirect()->route('login');
     }
 
-    public function deleteUser(DeleteUserAction $deleteUserAction): RedirectResponse
+    public function deleteUser(Request $request, DeletesUsers $deleter): RedirectResponse
     {
         $user = Auth::user();
-        $deleteUserAction->execute($user);
+
+        if (! Hash::check($request->password, $user->password)) {
+            return back()->withErrors([
+                'password' => [__('The provided password does not match your current password.')]
+            ]);
+        }
+
+        $deleter->delete($user);
+
+        Auth::logout();
 
         return redirect()->route('home');
     }

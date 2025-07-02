@@ -6,7 +6,7 @@ use Domain\Events\Models\Event;
 use Domain\Users\Models\User;
 use Support\Notification;
 
-class AcceptEventInvite
+class AcceptEventInviteAction
 {
     public function execute(Event $event, User $user): void
     {

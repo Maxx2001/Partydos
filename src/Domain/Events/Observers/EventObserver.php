@@ -9,6 +9,6 @@ class EventObserver
 {
     public function creating(Event $event): void
     {
-        $event->unique_identifier = Str::random();
+        $event->unique_identifier = Str::random(20);
     }
 }

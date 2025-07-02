@@ -6,7 +6,7 @@ use Auth;
 use Domain\Auth\Actions\LoginAction;
 use Domain\Auth\Actions\RegisterUserAction;
 use Domain\Auth\DataTransferObjects\LoginData;
-use Domain\Events\Actions\AcceptEventInvite;
+use Domain\Events\Actions\AcceptEventInviteAction;
 use Domain\Events\Actions\AuthenticatedEventCreateAction;
 use Domain\Events\Actions\AuthenticatedEventUpdateAction;
 use Domain\Events\Actions\CancelEventAction;
@@ -183,7 +183,7 @@ class EventController extends Controller
         Event $event,
         LoginData $loginData,
         LoginAction $loginAction,
-        AcceptEventInvite $acceptInvite
+        AcceptEventInviteAction $acceptInvite
     ): RedirectResponse
     {
         if ($loginAction->execute($loginData)) {
@@ -200,7 +200,7 @@ class EventController extends Controller
         Event $event,
         RegisterUserData $registerUserData,
         RegisterUserAction $registerUserAction,
-        AcceptEventInvite $acceptInvite): RedirectResponse
+        AcceptEventInviteAction $acceptInvite): RedirectResponse
     {
 
         if ($registerUserAction->execute($registerUserData)) {

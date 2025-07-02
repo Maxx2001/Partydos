@@ -15,8 +15,10 @@ class AddressController extends Controller
      * @throws FatalRequestException
      * @throws RequestException
      */
-    public function autocomplete(AddressAutocompleteData $addressAutocompleteData, GetAddressAutocompleteAction $getAddressAutocompleteAction): JsonResponse
-    {
+    public function autocomplete(
+        AddressAutocompleteData $addressAutocompleteData,
+        GetAddressAutocompleteAction $getAddressAutocompleteAction
+    ): JsonResponse {
         return response()->json([
             'addresses' => $getAddressAutocompleteAction->execute($addressAutocompleteData),
         ]);

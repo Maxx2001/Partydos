@@ -137,6 +137,7 @@ return [
              * Application Service Providers...
              */
             AppServiceProvider::class,
+            \Support\Providers\JetstreamServiceProvider::class,
             \Support\Providers\RouteServiceProvider::class,
             \Support\Providers\FortifyServiceProvider::class,
             /*

@@ -7,7 +7,7 @@ const eventCancelFormRef = ref(null);
 const showModal = ref(false);
 
 const handleConfirm = () => {
-    console.log('handleConfirm');
+    // Event confirmation handled
 };
 const openModal = () => showModal.value = true;
 

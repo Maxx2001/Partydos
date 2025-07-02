@@ -20,7 +20,7 @@ const handleSubmit = () => {
         remember: form.remember,
     })).post(route('login.authenticate'), {
         onError: () => {
-            console.log('error');
+            // Handle login error
             form.reset('password');
             formErrors.value = 'Invalid email or password.';
         },

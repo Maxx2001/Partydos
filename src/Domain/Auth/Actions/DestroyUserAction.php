@@ -3,7 +3,6 @@
 namespace Domain\Auth\Actions;
 
 use Domain\Users\Models\User;
-use Support\Notification;
 
 class DestroyUserAction
 {

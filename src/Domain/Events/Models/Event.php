@@ -35,6 +35,11 @@ class Event extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
+    protected static function newFactory()
+    {
+        return \Database\Factories\EventFactory::new();
+    }
+
     protected $fillable = [
         'unique_identifier',
         'user_id',
@@ -145,7 +150,7 @@ class Event extends Model implements HasMedia
             });
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumbnail')
             ->width(100)

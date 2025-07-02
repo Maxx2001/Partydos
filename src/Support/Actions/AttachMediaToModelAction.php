@@ -8,7 +8,7 @@ use Support\Helpers\MediaFilter;
 
 class AttachMediaToModelAction
 {
-    public static function execute(array $media, Model $model, string $fileSystemExtension = null): void
+    public static function execute(array $media, Model $model, ?string $fileSystemExtension = null): void
     {
         if (empty($media)) {
             return;

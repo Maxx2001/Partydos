@@ -2,6 +2,7 @@
 
 namespace Domain\Users\Models;
 
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -40,6 +41,11 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use HasEvents;
     use SoftDeletes;
+
+    protected static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
+    }
 
     protected $guarded = [];
 
