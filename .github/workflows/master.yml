@@ -68,13 +68,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
+          cache: 'yarn'
 
       - name: 📦 Install NPM dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: 🏗️ Build assets
-        run: npm run build
+        run: yarn build
 
       - name: 📋 Copy environment file
         run: cp .env.example .env
@@ -131,13 +131,13 @@ jobs:
   #       uses: actions/setup-node@v4
   #       with:
   #         node-version: '18'
-  #         cache: 'npm'
+  #         cache: 'yarn'
 
   #     - name: 📦 Install NPM dependencies
-  #       run: npm ci --production
+  #       run: yarn install --frozen-lockfile --production
 
   #     - name: 🏗️ Build production assets
-  #       run: npm run build
+  #       run: yarn build
 
   #     - name: 📦 Create deployment package
   #       run: |
@@ -183,11 +183,11 @@ jobs:
       #       echo "📥 Pulling latest code..."
       #       git pull origin master
             
-      #       # Installeer dependencies
-      #       echo "📦 Installing dependencies..."
-      #       composer install --optimize-autoloader --no-dev --no-interaction
-      #       npm ci --production
-      #       npm run build
+        #       # Installeer dependencies
+  #       echo "📦 Installing dependencies..."
+  #       composer install --optimize-autoloader --no-dev --no-interaction
+  #       yarn install --frozen-lockfile --production
+  #       yarn build
             
       #       # Laravel optimalisaties
       #       echo "⚡ Optimizing Laravel..."

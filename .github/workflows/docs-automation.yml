@@ -44,12 +44,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'yarn'
 
       - name: 📦 Install dependencies
         run: |
           composer install --no-interaction --prefer-dist
-          npm ci
+          yarn install --frozen-lockfile
 
       - name: 🔍 Generate API Documentation
         run: |
@@ -71,7 +71,7 @@ jobs:
           PHPSTAN_RESULT=$(vendor/bin/phpstan analyse --no-progress --no-interaction 2>&1 | tail -n 1 || echo "PHPStan analysis completed")
           
           # Get ESLint results
-          ESLINT_RESULT=$(npm run lint 2>&1 | grep -E "(problems|error|warning)" | tail -n 1 || echo "No linting errors")
+          ESLINT_RESULT=$(yarn lint 2>&1 | grep -E "(problems|error|warning)" | tail -n 1 || echo "No linting errors")
           
           # Get test results
           TEST_RESULT=$(php artisan test --stop-on-failure 2>&1 | grep -E "(Tests:|OK)" | tail -n 1 || echo "Tests completed")
@@ -316,7 +316,7 @@ jobs:
           
           echo "## NPM Scripts" >> docs/generated/commands.md
           echo '```bash' >> docs/generated/commands.md
-          npm run | grep -E "^\s*(build|dev|lint|format|test)" >> docs/generated/commands.md || echo "# Available scripts in package.json" >> docs/generated/commands.md
+          yarn run | grep -E "^\s*(build|dev|lint|format|test)" >> docs/generated/commands.md || echo "# Available scripts in package.json" >> docs/generated/commands.md
           echo '```' >> docs/generated/commands.md
 
       - name: 🎯 Update API Routes Documentation
