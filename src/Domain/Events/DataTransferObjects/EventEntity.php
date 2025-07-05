@@ -17,6 +17,10 @@ use Spatie\LaravelData\DataCollection;
 
 class EventEntity extends Data
 {
+    /**
+     * @param DataCollection<int, PictureDataEntity>|null $media
+     * @param DataCollection<int, UserProfileEntity>|null $invitedUsers
+     */
     public function __construct(
         public int             $id,
         public string          $uniqueIdentifier,
@@ -43,21 +47,24 @@ class EventEntity extends Data
         public bool            $canEdit = false,
     )
     {
-        $event   = Event::find($this->id);
+        $event = Event::find($this->id);
 
-        $this->filterMedia($event);
-        $this->canEdit = $this->canEdit($event);
+        if ($event !== null) {
+            $this->filterMedia($event);
+            $this->canEdit = $this->canEdit($event);
+        }
     }
 
     private function filterMedia(Event $event): void
     {
+        $mediaCollection = $event->getMedia('event-banner');
         $this->media = new DataCollection(
             PictureDataEntity::class,
-            $event->getMedia('event-banner')
+            $mediaCollection->map(fn($media) => PictureDataEntity::from($media))->toArray()
         );
     }
 
-    private function canEdit($event): bool
+    private function canEdit(Event $event): bool
     {
         if ($user = Auth::user()) {
             return $user->getKey() === $event->user_id;

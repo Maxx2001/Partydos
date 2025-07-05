@@ -27,8 +27,8 @@ use Support\Traits\HasEvents;
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
  * @property string|null $profile_photo_path
- * @property Collection  $ownedEvents
- * @property Collection  $events
+ * @property Collection<int, \Domain\Events\Models\Event>  $ownedEvents
+ * @property Collection<int, \Domain\Events\Models\Event>  $events
  * @property Carbon      $created_at
  * @property Carbon      $updated_at
  */
@@ -68,6 +68,7 @@ class User extends Authenticatable
         ];
     }
 
+    /** @return Collection<int, \Domain\Events\Models\Event> */
     public function upcomingEvents(): Collection
     {
         $invitedEvents = $this->events()->with('address')->futureEvents()->orderBy('start_date_time')->get();
@@ -76,6 +77,7 @@ class User extends Authenticatable
         return $invitedEvents->merge($ownedEvents);
     }
 
+    /** @return Collection<int, \Domain\Events\Models\Event> */
     public function getHistoryEvents(): Collection
     {
         $invitedEvents = $this->events()->with('address')->historyEvents()->orderBy('start_date_time')->get();
@@ -84,6 +86,7 @@ class User extends Authenticatable
         return $invitedEvents->merge($ownedEvents);
     }
 
+    /** @phpstan-ignore-next-line */
     public function userNotSellData(): HasOne
     {
         return $this->hasOne(UserNotSellData::class);

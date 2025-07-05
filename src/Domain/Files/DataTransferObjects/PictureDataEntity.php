@@ -20,9 +20,13 @@ class PictureDataEntity extends Data
         public string        $disk,
         public string        $conversions_disk,
         public int           $size,
+        /** @var array<string, mixed> */
         public array         $manipulations,
+        /** @var array<string, mixed> */
         public array         $custom_properties,
+        /** @var array<string, mixed> */
         public array         $generated_conversions,
+        /** @var array<string, mixed> */
         public array         $responsive_images,
         public ?int          $order_column,
         public string        $created_at,
@@ -34,7 +38,7 @@ class PictureDataEntity extends Data
         $this->filePath = $this->generateRelativePath();
     }
 
-    private function generateFullUrl(): ?string
+    private function generateFullUrl(): string
     {
         return (new GenerateFileUrl())->execute($this->model_type, $this->model_id, $this->id, $this->file_name);
     }

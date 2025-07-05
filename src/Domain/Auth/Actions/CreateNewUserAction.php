@@ -20,6 +20,7 @@ class CreateNewUserAction implements CreatesNewUsers
     /**
      * @throws ValidationException
      */
+    /** @param array<string, mixed> $input */
     public function create(array $input): User
     {
         Validator::make($input, [

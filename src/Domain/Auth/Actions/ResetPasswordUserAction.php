@@ -14,6 +14,11 @@ class ResetPasswordUserAction
     public function execute(UserResetPasswordEmailData $resetPasswordEmailData): void
     {
         $user = User::where('email', $resetPasswordEmailData->email)->first();
+        
+        if (!$user) {
+            throw new \Exception('User not found');
+        }
+        
         $token = Password::createToken($user);
 
         $route = route('password.reset-page', ['email' => $resetPasswordEmailData->email, 'token' => $token]);

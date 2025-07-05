@@ -23,10 +23,10 @@ class AuthenticatedEventUpdateAction
 
         if ($location = $authenticatedEventStoreData->location) {
             if ($location->id && $location->address) {
-                (New UpdateAddressAction())->execute($authenticatedEventStoreData->location);
+                (New UpdateAddressAction())->execute($location);
             }
             else if($location->address) {
-                $address = (New CreateAddressAction())->execute($authenticatedEventStoreData->location);
+                $address = (New CreateAddressAction())->execute($location);
                 $event->address()->save($address);
             } else{
                 $event->address()->delete();

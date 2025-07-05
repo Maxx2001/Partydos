@@ -14,7 +14,8 @@ class DateAdjustmentService
     public static function adjustEndDate(?string $startDateTime, ?string $endDateTime): ?string
     {
         if ($endDateTime && $startDateTime > $endDateTime) {
-            return date('Y-m-d H:i:s', strtotime($endDateTime . ' +1 day'));
+            $timestamp = strtotime($endDateTime . ' +1 day');
+            return $timestamp !== false ? date('Y-m-d H:i:s', $timestamp) : null;
         }
 
         return $endDateTime;

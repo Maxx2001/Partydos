@@ -1,66 +1,102 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 🚀 Laravel DTO - Domain Driven Design
 
-## About Laravel
+![Laravel DTO Banner](https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### A comprehensive demonstration of Domain Driven Design (DDD) architecture using Spatie Laravel Data for type-safe DTOs in Laravel.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+[![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
+[![Laravel Version](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com/)
+[![Vue.js](https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)](https://vuejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Inertia.js](https://img.shields.io/badge/Inertia.js-1.x-9553E9?style=for-the-badge&logo=inertia&logoColor=white)](https://inertiajs.com/)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![PHPStan Level](https://img.shields.io/badge/PHPStan-Level%208-brightgreen?style=for-the-badge)](https://phpstan.org/)
+[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/your-username/LaravelDTO/actions)
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-A%2B-brightgreen?style=for-the-badge)](https://github.com/your-username/LaravelDTO)
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+</div>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🌟 Features
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- 🏗️ **Clean DDD Architecture** - Proper separation of concerns with Domain, Application, and Support layers
+- 🛡️ **Type-Safe DTOs** - Powered by Spatie Laravel Data for bulletproof data handling
+- 🎯 **Domain Actions** - Encapsulated business logic with single responsibility
+- 🔒 **Authentication System** - Complete auth flow with password management
+- 🎨 **Modern Frontend** - Vue.js 3 + TypeScript + Inertia.js + Tailwind CSS
+- 🧪 **Comprehensive Testing** - Unit, Feature, and Integration tests
+- 📊 **Code Quality Tools** - PHPStan Level 8, ESLint, Prettier
+- 🤖 **Auto Documentation** - Comprehensive docs generated via CI/CD
+- 🐳 **Docker Ready** - Complete development environment with DDEV
+- 🚀 **CI/CD Pipeline** - GitHub Actions for testing, linting, and deployment
 
-## Laravel Sponsors
+## 📚 Documentation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+For detailed technical information, please refer to our comprehensive documentation:
 
-### Premium Partners
+- 📖 **[Architecture Guide](docs/ARCHITECTURE.md)** - Learn about the DDD structure and patterns
+- 🛠️ **[Local Development](docs/LOCAL_DEVELOPMENT.md)** - Get started with development setup
+- 🚀 **[Deployment Guide](docs/DEPLOYMENT.md)** - Production deployment instructions
+- 🔧 **[Pipeline Setup](docs/PIPELINE_SETUP.md)** - CI/CD configuration details
+- 📊 **[Code Quality](docs/CODE_QUALITY.md)** - Quality standards and tools
+- 🌐 **[API Reference](docs/API.md)** - Complete API documentation
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## 👥 Contributors
 
-## Contributing
+<div align="left">
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Thanks to these amazing people who have contributed to this project:
 
-## Code of Conduct
+### 🎯 Project Creator & Maintainer
+- **Max Felis** - *Nerd*
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 🤝 How to Become a Contributor
+Want to see your name here? We'd love your help! Check out the contribution guidelines below.
 
-## Security Vulnerabilities
+</div>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### How to Contribute
 
-## License
+We welcome contributions! Here's how you can help:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. 🍴 **Fork the repository**
+2. 🌿 **Create your feature branch** (`git checkout -b feature/amazing-feature`)
+3. 💯 **Write tests** for your changes
+4. ✅ **Run quality checks** (`composer test && ./vendor/bin/phpstan analyse && npm run lint`)
+5. 📝 **Commit your changes** (`git commit -m 'Add some amazing feature'`)
+6. 🚀 **Push to the branch** (`git push origin feature/amazing-feature`)
+7. 🎉 **Open a Pull Request**
+
+## 🙏 Acknowledgments
+
+- 🎖️ **[Spatie](https://spatie.be/)** - For the incredible Laravel Data package
+- 🚀 **[Laravel Team](https://laravel.com/team)** - For the amazing framework
+- 🎨 **[Tailwind CSS](https://tailwindcss.com/)** - For the utility-first CSS framework
+- ⚡ **[Vue.js Team](https://vuejs.org/about/team.html)** - For the progressive JavaScript framework
+- 🔗 **[Inertia.js](https://inertiajs.com/)** - For bridging the gap between server and client
+
+## 🌟 Show Your Support
+
+If this project helped you, please consider:
+
+- ⭐ **Starring this repository**
+- 🐛 **Reporting bugs** via issues
+- 💡 **Suggesting new features**
+- 📢 **Sharing with the community**
+- ☕ **Buying me a coffee** (if you're feeling generous!)
+
+<div align="center">
+
+**[⬆ Back to Top](#-laravel-dto---domain-driven-design)**
+
+---
+
+</div>
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). 

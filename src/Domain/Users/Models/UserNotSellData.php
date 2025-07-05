@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
  * App\Models\GuestUser
  *
  * @property int        $id
- * @property int.       $user_id
+ * @property int        $user_id
  * @property Carbon     $created_at
  * @property Carbon     $updated_at
  */
@@ -23,6 +23,7 @@ class UserNotSellData extends Model
         'user_id',
     ];
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

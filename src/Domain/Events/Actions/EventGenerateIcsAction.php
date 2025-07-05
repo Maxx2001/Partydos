@@ -13,7 +13,7 @@ class EventGenerateIcsAction
         $endDate          = Carbon::parse($event->start_date_time)->format('Ymd\THis');
         $eventName        = addslashes($event->title);
         $eventDescription = addslashes($event->description);
-        $eventLocation    = addslashes($event->location);
+        $eventLocation    = addslashes($event->address ? $event->address->address : '');
 
         // this format is necessary for the ics file to function
         return

@@ -15,13 +15,17 @@ class ProfileController extends Controller
 {
     public function edit(): Response
     {
+        /** @var \Domain\Users\Models\User $user */
+        $user = Auth::user();
+        
         return Inertia::render('Profile/Edit', [
-            'user' => UserProfileEntity::from(Auth::user()->toArray()),
+            'user' => UserProfileEntity::from($user->toArray()),
         ]);
     }
 
     public function update(ProfileUpdateData $profileUpdateData, UpdateProfileAction $updateProfileAction): RedirectResponse
     {
+        /** @var \Domain\Users\Models\User $user */
         $user = Auth::user();
         $updateProfileAction->execute($user, $profileUpdateData);
 

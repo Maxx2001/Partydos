@@ -16,7 +16,7 @@ class EventsController
 {
     public function index(ViewEventsAction $viewEventsAction): JsonResponse
     {
-        /* @var User $user */
+        /** @var User $user */
         $user = auth()->user();
 
         $events = $viewEventsAction->execute();

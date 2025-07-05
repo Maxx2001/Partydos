@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
                 'name' => 'Max',
             ],
             [
-                'email'             => 'contact@felis-ts.nl',
+                'email'             => 'max.felis11@gmail.com',
                 'password'          => bcrypt(config('auth.user_password')),
                 'email_verified_at' => now(),
             ]

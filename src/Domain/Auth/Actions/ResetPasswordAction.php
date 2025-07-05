@@ -11,6 +11,7 @@ class ResetPasswordAction
 {
     use PasswordValidationRules;
 
+    /** @param array<string, mixed> $input */
     public function reset(User $user, array $input): void
     {
         $user->forceFill([

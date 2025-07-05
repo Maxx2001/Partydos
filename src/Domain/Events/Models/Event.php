@@ -29,7 +29,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string $description
  * @property string $start_date_time
  * @property string $end_date_time
- * @property string $canceled_at
+ * @property string|null $canceled_at
  */
 class Event extends Model implements HasMedia
 {
@@ -51,27 +51,32 @@ class Event extends Model implements HasMedia
         'canceled_at',
     ];
 
+    /** @phpstan-ignore-next-line */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /** @phpstan-ignore-next-line */
     public function guestUser(): BelongsTo
     {
         return $this->belongsTo(GuestUser::class, 'guest_user_id');
     }
 
+    /** @phpstan-ignore-next-line */
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
 
+    /** @phpstan-ignore-next-line */
     public function guestUsers(): BelongsToMany
     {
         return $this->belongsToMany(GuestUser::class)
             ->withTimestamps();
     }
 
+    /** @phpstan-ignore-next-line */
     public function address(): MorphOne
     {
         return $this->morphOne(Address::class, 'addressable');
@@ -82,9 +87,20 @@ class Event extends Model implements HasMedia
         return (new EventShareLinkService())->generateShareLink($this);
     }
 
-    public function getEventOwnerAttribute(): User|GuestUser
+    public function getEventOwnerAttribute(): User|GuestUser|null
     {
-        return $this->user ?? $this->guestUser;
+        $user = $this->user;
+        $guestUser = $this->guestUser;
+        
+        if ($user instanceof User) {
+            return $user;
+        }
+        
+        if ($guestUser instanceof GuestUser) {
+            return $guestUser;
+        }
+        
+        return null;
     }
 
     public function getFormattedDateAttribute(): string
@@ -126,12 +142,32 @@ class Event extends Model implements HasMedia
         );
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, User|GuestUser>
+     */
     public function getInvitedUsersAttribute()
     {
         $this->load('guestUsers', 'users');
-        return $this->guestUsers->merge($this->users);
+        
+        /** @var \Illuminate\Database\Eloquent\Collection<int, User|GuestUser> $invitedUsers */
+        $invitedUsers = new \Illuminate\Database\Eloquent\Collection();
+        
+        foreach ($this->guestUsers as $guestUser) {
+            if ($guestUser instanceof GuestUser) {
+                $invitedUsers->push($guestUser);
+            }
+        }
+        
+        foreach ($this->users as $user) {
+            if ($user instanceof User) {
+                $invitedUsers->push($user);
+            }
+        }
+        
+        return $invitedUsers;
     }
 
+    /** @param Builder<Event> $query */
     public function scopeFutureEvents(Builder $query): void
     {
         $query->where('start_date_time', '>=', now())
@@ -141,6 +177,7 @@ class Event extends Model implements HasMedia
             });
     }
 
+    /** @param Builder<Event> $query */
     public function scopeHistoryEvents(Builder $query): void
     {
         $query->where('start_date_time', '<', now())

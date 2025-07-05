@@ -65,6 +65,10 @@ class AuthController
     public function resetPasswordPage(ResetPasswordUserData $resetPasswordUserData): Response
     {
         $user = User::where('email', $resetPasswordUserData->email)->first();
+        
+        if (!$user) {
+            abort(404, 'User not found');
+        }
 
         return Inertia::render('Auth/ResetPassword', [
             'token' => $resetPasswordUserData->token,
@@ -86,6 +90,7 @@ class AuthController
 
     public function deleteUser(Request $request, DeletesUsers $deleter): RedirectResponse
     {
+        /** @var User $user */
         $user = Auth::user();
 
         if (! Hash::check($request->password, $user->password)) {
@@ -110,6 +115,7 @@ class AuthController
 
     public function registerNotSellDataUser(RegisterNotSellDataUserAction $registerNotSellDataUserAction): RedirectResponse
     {
+        /** @var User $user */
         $user = Auth::user();
         $registerNotSellDataUserAction->execute($user);
 

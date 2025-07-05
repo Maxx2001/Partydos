@@ -11,6 +11,11 @@ class UpdateAddressAction
     public function execute(AddressUpdateData $addressCreateData): Address
     {
         $address = Address::find($addressCreateData->id);
+        
+        if (!$address) {
+            throw new \Exception('Address not found');
+        }
+        
         $address->fill($addressCreateData->all());
         $address->location = $this->removeCountryFromAddress($address->address);
         $address->save();

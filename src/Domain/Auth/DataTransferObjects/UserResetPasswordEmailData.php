@@ -13,6 +13,7 @@ class UserResetPasswordEmailData extends Data
     {
     }
 
+    /** @return array<string, mixed> */
     public static function rules(): array
     {
         return [

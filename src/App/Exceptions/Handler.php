@@ -37,12 +37,11 @@ class Handler extends ExceptionHandler
     {
         $response = parent::render($request, $e);
 
-        return $response;
         if (app()->environment(['local', 'testing'])) {
             return $response;
         }
 
-        $statusCode = $response->status();
+        $statusCode = $response->getStatusCode();
 
         if ($statusCode >= 400) {
             return Inertia::render('Error', [

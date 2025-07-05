@@ -10,7 +10,7 @@ class ViewEventsAction
 {
     public function execute()
     {
-        /* @var User $user */
+        /** @var User $user */
         $user = Auth::user();
 
         return EventEntity::collect(

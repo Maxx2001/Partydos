@@ -13,7 +13,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string $address
  * @property string|null $place_id
- * @property string|null location
+ * @property string|null $location
  * @property string $addressable_type
  * @property int $addressable_id
  * @property Carbon|null $created_at
@@ -30,6 +30,9 @@ class Address extends Model
         'location'
     ];
 
+    /**
+     * @return MorphTo<Model, $this>
+     */
     public function addressable(): MorphTo
     {
         return $this->morphTo();

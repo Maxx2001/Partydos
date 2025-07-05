@@ -14,8 +14,8 @@ use Support\Traits\HasEvents;
  * @property int        $id
  * @property string     $name
  * @property string     $email
- * @property Collection $ownedEvents
- * @property Collection $events
+ * @property Collection<int, \Domain\Events\Models\Event> $ownedEvents
+ * @property Collection<int, \Domain\Events\Models\Event> $events
  * @property Carbon     $created_at
  * @property Carbon     $updated_at
  */

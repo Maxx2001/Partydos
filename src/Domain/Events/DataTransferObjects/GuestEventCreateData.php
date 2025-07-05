@@ -3,6 +3,7 @@
 namespace Domain\Events\DataTransferObjects;
 
 use Domain\Addresses\DataTransferObjects\AddressCreateData;
+use Illuminate\Http\UploadedFile;
 use Spatie\LaravelData\Attributes\Validation\Rule;
 use Spatie\LaravelData\Data;
 use Illuminate\Validation\Rule as ValidationRule;
@@ -27,11 +28,15 @@ class GuestEventCreateData extends Data
         public ?string            $end_date_time,
 
         #[Rule(['image', 'mimes:jpg,png,jpeg,gif', 'max:5120'])]
-        public                    $image,
+        public ?UploadedFile      $image,
         public  string $email,
     ) {
     }
 
+    
+    /**
+     * @return array<string, mixed>
+     */
     public static function rules(): array
     {
         return [

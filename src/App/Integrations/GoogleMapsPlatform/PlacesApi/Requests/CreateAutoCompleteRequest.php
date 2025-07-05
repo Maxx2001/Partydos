@@ -16,9 +16,11 @@ class CreateAutoCompleteRequest extends Request implements HasBody
     protected Method $method = Method::POST;
 
     public function __construct(
+        /** @var array<string, mixed> */
         protected array $payload
     ){}
 
+    /** @return array<string, mixed> */
     public function defaultBody(): array
     {
         return $this->payload;
@@ -29,6 +31,7 @@ class CreateAutoCompleteRequest extends Request implements HasBody
         return ":autocomplete";
     }
 
+    /** @return array<int, SuggestionEntity> */
     public function createDtoFromResponse(Response $response): array
     {
         $data = $response->json();

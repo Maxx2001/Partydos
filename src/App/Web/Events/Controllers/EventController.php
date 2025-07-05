@@ -39,14 +39,15 @@ class EventController extends Controller
 {
     public function index(GetEventListsForUserAction $getEventListsForUserAction): Response
     {
+        /** @var \Domain\Users\Models\User $user */
         $user = auth()->user();
 
         $eventLists = $getEventListsForUserAction->execute($user);
 
         return Inertia::render('Events/Index', [
-            'events' => EventEntity::collect($eventLists->get('invitedEvents')),
-            'ownedEvents' =>  EventEntity::collect($eventLists->get('ownedEvents')),
-            'historyEvents' =>  EventEntity::collect($eventLists->get('historyEvents')),
+            'events' => EventEntity::collect($eventLists->get('invitedEvents') ?? collect()),
+            'ownedEvents' =>  EventEntity::collect($eventLists->get('ownedEvents') ?? collect()),
+            'historyEvents' =>  EventEntity::collect($eventLists->get('historyEvents') ?? collect()),
         ]);
     }
 
@@ -84,7 +85,9 @@ class EventController extends Controller
 
     public function edit(Event $event, CheckUserIsEventOwnerAction $checkOwnerAction): Response
     {
-        $checkOwnerAction->execute($event, Auth::user());
+        /** @var \Domain\Users\Models\User $user */
+        $user = Auth::user();
+        $checkOwnerAction->execute($event, $user);
 
         return Inertia::render('Events/Edit', [
             'event' => EventEntity::from($event->load('address'))
@@ -98,7 +101,9 @@ class EventController extends Controller
         CheckUserIsEventOwnerAction $checkOwnerAction
     ): RedirectResponse
     {
-        $checkOwnerAction->execute($event, \Illuminate\Support\Facades\Auth::user());
+        /** @var \Domain\Users\Models\User $user */
+        $user = \Illuminate\Support\Facades\Auth::user();
+        $checkOwnerAction->execute($event, $user);
 
         $event = $authenticatedEventUpdateAction->execute($event, $authenticatedEventUpdateData);
 
@@ -107,7 +112,9 @@ class EventController extends Controller
 
     public function destroy(Event $event, DestroyEventAction $destroyEventAction, CheckUserIsEventOwnerAction $checkOwnerAction): RedirectResponse
     {
-        $checkOwnerAction->execute($event, Auth::user());
+        /** @var \Domain\Users\Models\User $user */
+        $user = Auth::user();
+        $checkOwnerAction->execute($event, $user);
         $destroyEventAction->execute($event);
         return redirect()->route('users-events.index');
     }
@@ -139,6 +146,7 @@ class EventController extends Controller
 
     public function acceptInvite(Event $event): void
     {
+        /** @var \Domain\Users\Models\User $user */
         $user = Auth::user();
         $event->users()->attach($user);
 
@@ -147,6 +155,7 @@ class EventController extends Controller
 
     public function cancelInvite(Event $event): void
     {
+        /** @var \Domain\Users\Models\User $user */
         $user = Auth::user();
 
         $event->users()->detach($user);
@@ -187,7 +196,9 @@ class EventController extends Controller
     ): RedirectResponse
     {
         if ($loginAction->execute($loginData)) {
-            $acceptInvite->execute($event, Auth::user());
+            /** @var \Domain\Users\Models\User $user */
+            $user = Auth::user();
+            $acceptInvite->execute($event, $user);
             return redirect()->back();
         } else {
             return redirect()
@@ -202,14 +213,12 @@ class EventController extends Controller
         RegisterUserAction $registerUserAction,
         AcceptEventInviteAction $acceptInvite): RedirectResponse
     {
-
-        if ($registerUserAction->execute($registerUserData)) {
-            $acceptInvite->execute($event, Auth::user());
-            return redirect()->back();
-        } else {
-            return redirect()
-                ->back()
-                ->with('status', __('auth.failed'));
-        }
+        $registerUserAction->execute($registerUserData);
+        
+        /** @var \Domain\Users\Models\User $user */
+        $user = Auth::user();
+        $acceptInvite->execute($event, $user);
+        
+        return redirect()->back();
     }
 }

@@ -3,6 +3,7 @@
 namespace Domain\Events\DataTransferObjects;
 
 use Domain\Addresses\DataTransferObjects\AddressUpdateData;
+use Illuminate\Http\UploadedFile;
 use Spatie\LaravelData\Attributes\Validation\Rule;
 use Spatie\LaravelData\Data;
 
@@ -24,7 +25,7 @@ class AuthenticatedEventUpdateData extends Data
         public ?string $end_date_time,
 
         #[Rule(['nullable', 'image', 'mimes:jpg,png,jpeg', 'max:5120'])]
-        public $image,
+        public UploadedFile|null $image,
 
         #[Rule(['sometimes', 'boolean'])]
         public ?bool $remove_image = false,

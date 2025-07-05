@@ -8,6 +8,7 @@ use Support\Helpers\MediaFilter;
 
 class AttachMediaToModelAction
 {
+    /** @param array<int, mixed> $media */
     public static function execute(array $media, Model $model, ?string $fileSystemExtension = null): void
     {
         if (empty($media)) {
@@ -23,6 +24,11 @@ class AttachMediaToModelAction
 
         foreach ($newMedia as $mediaItem) {
             $mediaPath = $mediaItem->store(options: $modelName);
+            
+            if ($mediaPath === false) {
+                throw new \RuntimeException('Failed to store media file');
+            }
+            
             $model
                 ->addMedia(Storage::disk($modelName)
                     ->path($mediaPath))

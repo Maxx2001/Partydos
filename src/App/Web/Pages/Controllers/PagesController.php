@@ -4,12 +4,13 @@ namespace App\Web\Pages\Controllers;
 
 use Domain\Events\DataTransferObjects\EventEntity;
 use Inertia\Response;
+use Inertia\ResponseFactory;
 use Support\Controllers\Controller;
 
 class PagesController extends Controller
 {
 
-    public function index(): Response
+    public function index(): Response|ResponseFactory
     {
         $user = auth()->user();
         $upcomingEvents = !!$user ? EventEntity::collect($user->upcomingEvents()) : [];
@@ -21,17 +22,17 @@ class PagesController extends Controller
         ]);
     }
 
-    public function features(): Response
+    public function features(): Response|ResponseFactory
     {
         return inertia('Features/Index');
     }
 
-    public function contact(): Response
+    public function contact(): Response|ResponseFactory
     {
         return inertia('Contact/Index');
     }
 
-    public function privacyPolicy(): Response
+    public function privacyPolicy(): Response|ResponseFactory
     {
         return inertia('PrivacyPolicy/Index');
     }
