@@ -101,14 +101,19 @@ const onTimeChange = () => {
 
 const onEndTimeChange = () => {
     if (enableEndTime.value) {
-        let endDateTime = setHours(setMinutes(selectedDate.value, parseInt(selectedEndMinute.value)), parseInt(selectedEndHour.value));
+        // Ensure we have valid values before parsing
+        const endHour = selectedEndHour.value !== null ? parseInt(selectedEndHour.value) : parseInt(selectedHour.value);
+        const endMinute = selectedEndMinute.value !== null ? parseInt(selectedEndMinute.value) : parseInt(selectedMinute.value);
+        
+        let endDateTime = setHours(setMinutes(selectedDate.value, endMinute), endHour);
         if (isBefore(endDateTime, selectedDate.value) || endDateTime.getTime() === selectedDate.value.getTime()) {
             endDateTime = addDays(endDateTime, 1);
         }
         selectedEndHour.value = format(endDateTime, 'HH');
         selectedEndMinute.value = format(endDateTime, 'mm');
-    } {
-        selectedEndHour.value = null
+    } else {
+        selectedEndHour.value = null;
+        selectedEndMinute.value = null;
     }
     emitUpdate();
 };
