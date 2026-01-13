@@ -140,6 +140,7 @@ return [
             \Support\Providers\JetstreamServiceProvider::class,
             \Support\Providers\RouteServiceProvider::class,
             \Support\Providers\FortifyServiceProvider::class,
+            \Support\Providers\AuthServiceProvider::class,
             /*
             * Domain Service Providers...
             */

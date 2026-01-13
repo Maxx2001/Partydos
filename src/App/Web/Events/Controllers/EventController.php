@@ -21,7 +21,9 @@ use Domain\Events\DataTransferObjects\AuthenticatedEventUpdateData;
 use Domain\Events\DataTransferObjects\EventEntity;
 use Domain\Events\DataTransferObjects\EventInviteViewData;
 use Domain\Events\Models\Event;
+use Domain\Events\Services\EventParticipantService;
 use Domain\GuestUsers\Actions\CreateOrFindGuestUserAction;
+use Domain\Polls\Models\Poll;
 use Domain\Users\DataTransferObjects\RegisterUserData;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
@@ -54,12 +56,42 @@ class EventController extends Controller
     public function show(Event $event): Response
     {
         $viewData = EventInviteViewData::fromEvent($event);
+        $polls = collect();
+        $canViewPolls = false;
+        $canManagePolls = false;
+
+        /** @var \Domain\Users\Models\User|null $user */
+        $user = Auth::user();
+
+        if ($user) {
+            $participantService = new EventParticipantService();
+            $canViewPolls = $participantService->isParticipant($event, $user);
+            $canManagePolls = $participantService->isHost($event, $user);
+
+            if ($canViewPolls) {
+                $polls = Poll::query()
+                    ->where('event_id', $event->id)
+                    ->withCount('votes')
+                    ->latest()
+                    ->get()
+                    ->map(fn (Poll $poll) => [
+                        'id' => $poll->id,
+                        'question' => $poll->question,
+                        'status' => $poll->status,
+                        'voteMode' => $poll->vote_mode,
+                        'votesCount' => $poll->votes_count,
+                    ]);
+            }
+        }
 
         return Inertia::render('Events/Invite', [
             'event' => EventEntity::from($event->load('address')),
             'showInviteModal' => Session::get('event_created'),
             'showInviteButton' => $viewData->showInviteButton,
             'showCancelButton' => $viewData->showCancelButton,
+            'polls' => $polls,
+            'canViewPolls' => $canViewPolls,
+            'canManagePolls' => $canManagePolls,
         ])->withViewData([
             'title' => $event->title,
             'description' => $event->description,
