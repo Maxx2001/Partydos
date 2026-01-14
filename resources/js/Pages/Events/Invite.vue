@@ -15,6 +15,7 @@ import BaseModal from "@/Components/Base/BaseModal.vue";
 import {router} from "@inertiajs/vue3";
 import BaseOutlineButton from "@/Components/Base/BaseOutlineButton.vue";
 import EventShareButton from "@/Pages/Events/Partials/Invite/EventShareButton.vue";
+import ShoppingListSection from "@/Pages/Events/Partials/Invite/ShoppingList/ShoppingListSection.vue";
 
 const props = defineProps({
     event: {
@@ -30,6 +31,22 @@ const props = defineProps({
         default: true,
     },
     showCancelButton: {
+        type: Boolean,
+        default: false,
+    },
+    shoppingList: {
+        type: Object,
+        default: null,
+    },
+    shoppingListItemsMain: {
+        type: Array,
+        default: () => [],
+    },
+    shoppingListItemsGuest: {
+        type: Array,
+        default: () => [],
+    },
+    canViewShoppingList: {
         type: Boolean,
         default: false,
     },
@@ -93,6 +110,14 @@ const handleConfirm = () => {
                 :is-event-owner="event.canEdit"
                 :show-already-signed-up-message="showCancelButton"
                 @open-add-to-calendar-modal="eventAddToCalendarModel.openModal()"
+            />
+
+            <ShoppingListSection
+                v-if="canViewShoppingList"
+                :event="event"
+                :shopping-list="shoppingList"
+                :shopping-list-items-main="shoppingListItemsMain"
+                :shopping-list-items-guest="shoppingListItemsGuest"
             />
 
 

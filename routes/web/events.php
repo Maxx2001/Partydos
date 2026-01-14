@@ -1,6 +1,8 @@
 <?php
 
 use App\Web\Events\Controllers\EventController;
+use App\Web\ShoppingLists\Controllers\ShoppingListController;
+use App\Web\ShoppingLists\Controllers\ShoppingListItemController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('guest-events', EventController::class)->only('create', 'store');
@@ -36,4 +38,26 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::post('event-restore/{event}', [EventController::class, 'restoreEvent'])->name('events.restore');
 
     Route::delete('event/{event}', [EventController::class, 'destroy'])->name('events.delete');
+
+    Route::post('/events/{event}/shopping-list', [ShoppingListController::class, 'store'])
+        ->name('events.shopping-list.store');
+    Route::patch('/events/{event}/shopping-list', [ShoppingListController::class, 'update'])
+        ->name('events.shopping-list.update');
+    Route::get('/events/{event}/shopping-list', [ShoppingListController::class, 'show'])
+        ->name('events.shopping-list.show');
+
+    Route::post('/events/{event}/shopping-list/items', [ShoppingListItemController::class, 'store'])
+        ->name('shopping-list-items.store');
+    Route::patch('/shopping-list-items/{item}', [ShoppingListItemController::class, 'update'])
+        ->name('shopping-list-items.update');
+    Route::delete('/shopping-list-items/{item}', [ShoppingListItemController::class, 'destroy'])
+        ->name('shopping-list-items.destroy');
+    Route::post('/shopping-list-items/{item}/toggle-done', [ShoppingListItemController::class, 'toggleDone'])
+        ->name('shopping-list-items.toggle-done');
+    Route::post('/shopping-list-items/{item}/assign-self', [ShoppingListItemController::class, 'assignSelf'])
+        ->name('shopping-list-items.assign-self');
+    Route::post('/shopping-list-items/{item}/unassign', [ShoppingListItemController::class, 'unassign'])
+        ->name('shopping-list-items.unassign');
+    Route::post('/shopping-list-items/{item}/promote', [ShoppingListItemController::class, 'promoteToMain'])
+        ->name('shopping-list-items.promote');
 });
