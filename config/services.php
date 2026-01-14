@@ -41,5 +41,10 @@ return [
             'url' => env('GOOGLE_MAPS_PLATFORM_PLACES_API_URL'),
         ],
     ],
+    'googleCalendar' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect_uri' => env('GOOGLE_REDIRECT_URI'),
+    ],
 
 ];

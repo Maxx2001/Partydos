@@ -16,8 +16,10 @@ services:
             - DB_DATABASE=db
             - DB_USERNAME=root
             - DB_PASSWORD=rootpass
-            - PHP_UPLOAD_MAX_FILESIZE=10M
-            - PHP_POST_MAX_SIZE=10M
+            - PHP_UPLOAD_MAX_FILESIZE=100M
+            - PHP_POST_MAX_SIZE=100M
+            - PHP_MEMORY_LIMIT=256M
+            - PHP_MAX_EXECUTION_TIME=600
         networks:
             - dokploy-network
 
