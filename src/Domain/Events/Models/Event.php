@@ -7,6 +7,7 @@ use Domain\Addresses\Models\Address;
 use Domain\Events\Services\EventShareLinkService;
 use Domain\Events\Services\GoogleCalendarLinkService;
 use Domain\GuestUsers\Models\GuestUser;
+use Domain\Polls\Models\Poll;
 use Domain\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -74,6 +75,12 @@ class Event extends Model implements HasMedia
     {
         return $this->belongsToMany(GuestUser::class)
             ->withTimestamps();
+    }
+
+    /** @phpstan-ignore-next-line */
+    public function polls(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Poll::class);
     }
 
     /** @phpstan-ignore-next-line */
