@@ -5,6 +5,11 @@ namespace Domain\Users\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Domain\Profile\Models\Friendship;
+use Domain\Profile\Models\GuestbookEntry;
+use Domain\Profile\Models\Profile;
+use Domain\Profile\Models\ProfilePhoto;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -90,5 +95,35 @@ class User extends Authenticatable
     public function userNotSellData(): HasOne
     {
         return $this->hasOne(UserNotSellData::class);
+    }
+
+    /** @return HasOne<Profile, $this> */
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    /** @return HasMany<ProfilePhoto, $this> */
+    public function profilePhotos(): HasMany
+    {
+        return $this->hasMany(ProfilePhoto::class);
+    }
+
+    /** @return HasMany<GuestbookEntry, $this> */
+    public function guestbookEntries(): HasMany
+    {
+        return $this->hasMany(GuestbookEntry::class, 'profile_user_id');
+    }
+
+    /** @return HasMany<Friendship, $this> */
+    public function sentFriendRequests(): HasMany
+    {
+        return $this->hasMany(Friendship::class, 'requester_user_id');
+    }
+
+    /** @return HasMany<Friendship, $this> */
+    public function receivedFriendRequests(): HasMany
+    {
+        return $this->hasMany(Friendship::class, 'addressee_user_id');
     }
 }
