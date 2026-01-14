@@ -45,6 +45,7 @@ class EventEntity extends Data
         public Carbon          $createdAt,
         public Carbon          $updatedAt,
         public bool            $canEdit = false,
+        public ?array          $googleIntegration = null,
     )
     {
         $event = Event::find($this->id);
@@ -52,6 +53,7 @@ class EventEntity extends Data
         if ($event !== null) {
             $this->filterMedia($event);
             $this->canEdit = $this->canEdit($event);
+            $this->googleIntegration = $this->mapGoogleIntegration($event);
         }
     }
 
@@ -71,5 +73,18 @@ class EventEntity extends Data
         }
 
         return false;
+    }
+
+    private function mapGoogleIntegration(Event $event): ?array
+    {
+        if (! $event->relationLoaded('googleIntegration') || $event->googleIntegration === null) {
+            return null;
+        }
+
+        return [
+            'syncEnabled' => $event->googleIntegration->sync_enabled,
+            'externalEventId' => $event->googleIntegration->external_event_id,
+            'lastSyncedAt' => $event->googleIntegration->last_synced_at?->toIso8601String(),
+        ];
     }
 }

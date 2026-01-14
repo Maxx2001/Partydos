@@ -1,6 +1,7 @@
 <?php
 
 use App\Web\Events\Controllers\EventController;
+use App\Web\Events\Controllers\GoogleEventSyncController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('guest-events', EventController::class)->only('create', 'store');
@@ -36,4 +37,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::post('event-restore/{event}', [EventController::class, 'restoreEvent'])->name('events.restore');
 
     Route::delete('event/{event}', [EventController::class, 'destroy'])->name('events.delete');
+
+    Route::post('events/{event}/google/sync', [GoogleEventSyncController::class, 'sync'])
+        ->name('events.google.sync');
+    Route::post('events/{event}/google/toggle', [GoogleEventSyncController::class, 'toggle'])
+        ->name('events.google.toggle');
 });

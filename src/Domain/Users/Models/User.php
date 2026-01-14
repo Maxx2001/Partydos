@@ -5,6 +5,7 @@ namespace Domain\Users\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\GoogleAccount;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -90,5 +91,11 @@ class User extends Authenticatable
     public function userNotSellData(): HasOne
     {
         return $this->hasOne(UserNotSellData::class);
+    }
+
+    /** @return HasOne<GoogleAccount, $this> */
+    public function googleAccount(): HasOne
+    {
+        return $this->hasOne(GoogleAccount::class);
     }
 }

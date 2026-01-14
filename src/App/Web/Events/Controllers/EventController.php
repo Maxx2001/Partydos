@@ -56,10 +56,11 @@ class EventController extends Controller
         $viewData = EventInviteViewData::fromEvent($event);
 
         return Inertia::render('Events/Invite', [
-            'event' => EventEntity::from($event->load('address')),
+            'event' => EventEntity::from($event->load('address', 'googleIntegration')),
             'showInviteModal' => Session::get('event_created'),
             'showInviteButton' => $viewData->showInviteButton,
             'showCancelButton' => $viewData->showCancelButton,
+            'googleAccountConnected' => Auth::check() && Auth::user()?->googleAccount()->exists(),
         ])->withViewData([
             'title' => $event->title,
             'description' => $event->description,

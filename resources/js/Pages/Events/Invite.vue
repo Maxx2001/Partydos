@@ -2,7 +2,7 @@
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import EventInviteBanner from "@/Pages/Events/Partials/Invite/EventInviteBanner.vue";
 import EventParticipantsList from "@/Pages/Events/Partials/Invite/EventParticipantsList.vue";
-import {defineProps, onMounted, ref, toRefs} from "vue";
+import {computed, defineProps, onMounted, ref, toRefs} from "vue";
 import {useTitle} from "@/Composables/useTitle.js";
 import EventInviteHero from "@/Pages/Events/Partials/Invite/EventInviteHero.vue";
 import AOS from "aos";
@@ -33,6 +33,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    googleAccountConnected: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 useTitle(`Invite to ${props.event.title}`);
@@ -54,6 +58,25 @@ onMounted(() => {
 });
 
 const showCancelForm = ref(false);
+
+const googleIntegration = computed(() => props.event.googleIntegration);
+const googleSyncEnabled = computed(() => googleIntegration.value?.syncEnabled ?? false);
+
+const exportToGoogle = () => {
+    router.post(route('events.google.sync', { event: props.event.id }));
+};
+
+const toggleGoogleSync = () => {
+    router.post(route('events.google.toggle', { event: props.event.id }));
+};
+
+const formattedLastSyncedAt = computed(() => {
+    if (!googleIntegration.value?.lastSyncedAt) {
+        return null;
+    }
+
+    return new Date(googleIntegration.value.lastSyncedAt).toLocaleString();
+});
 
 const handleConfirm = () => {
     router.delete(
@@ -94,6 +117,63 @@ const handleConfirm = () => {
                 :show-already-signed-up-message="showCancelButton"
                 @open-add-to-calendar-modal="eventAddToCalendarModel.openModal()"
             />
+
+            <div v-if="event.canEdit" class="mx-auto w-full max-w-5xl px-6 pb-8">
+                <div class="rounded-2xl bg-white p-6 shadow-sm">
+                    <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                        <div>
+                            <h2 class="text-lg font-semibold text-slate-900">Google Calendar</h2>
+                            <p class="text-sm text-slate-500">
+                                Sync this event to your Google Calendar (one-way).
+                            </p>
+                        </div>
+                        <span
+                            class="w-fit rounded-full px-3 py-1 text-xs font-semibold"
+                            :class="googleAccountConnected ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-600'"
+                        >
+                            {{ googleAccountConnected ? "Connected" : "Not connected" }}
+                        </span>
+                    </div>
+
+                    <div class="mt-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                        <div class="flex flex-col gap-2">
+                            <div class="flex items-center gap-2 text-sm text-slate-600">
+                                <span class="font-medium">Auto-sync changes</span>
+                                <span
+                                    class="rounded-full px-2 py-0.5 text-xs font-semibold"
+                                    :class="googleSyncEnabled ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-600'"
+                                >
+                                    {{ googleSyncEnabled ? "Enabled" : "Off" }}
+                                </span>
+                            </div>
+                            <p v-if="formattedLastSyncedAt" class="text-xs text-slate-500">
+                                Last synced: {{ formattedLastSyncedAt }}
+                            </p>
+                            <p v-else class="text-xs text-slate-500">
+                                Not synced yet.
+                            </p>
+                        </div>
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+                            <button
+                                type="button"
+                                class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                                :disabled="!googleAccountConnected"
+                                @click="exportToGoogle"
+                            >
+                                Export to Google Calendar
+                            </button>
+                            <button
+                                type="button"
+                                class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+                                :disabled="!googleAccountConnected"
+                                @click="toggleGoogleSync"
+                            >
+                                {{ googleSyncEnabled ? "Disable auto-sync" : "Enable auto-sync" }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
             <div class="flex md:hidden justify-center pb-8" v-if="showCancelButton">
