@@ -7,12 +7,14 @@ use Domain\Addresses\Models\Address;
 use Domain\Events\Services\EventShareLinkService;
 use Domain\Events\Services\GoogleCalendarLinkService;
 use Domain\GuestUsers\Models\GuestUser;
+use Domain\ShoppingLists\Models\ShoppingList;
 use Domain\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -80,6 +82,12 @@ class Event extends Model implements HasMedia
     public function address(): MorphOne
     {
         return $this->morphOne(Address::class, 'addressable');
+    }
+
+    /** @return HasOne<ShoppingList, $this> */
+    public function shoppingList(): HasOne
+    {
+        return $this->hasOne(ShoppingList::class);
     }
 
     public function getShareLinkAttribute(): string

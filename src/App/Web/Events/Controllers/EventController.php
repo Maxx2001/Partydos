@@ -23,10 +23,13 @@ use Domain\Events\DataTransferObjects\EventInviteViewData;
 use Domain\Events\Models\Event;
 use Domain\GuestUsers\Actions\CreateOrFindGuestUserAction;
 use Domain\Users\DataTransferObjects\RegisterUserData;
+use Domain\ShoppingLists\Models\ShoppingList;
+use Domain\ShoppingLists\Services\ShoppingListPresenter;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 use Support\Controllers\Controller;
@@ -51,15 +54,37 @@ class EventController extends Controller
         ]);
     }
 
-    public function show(Event $event): Response
+    public function show(Event $event, ShoppingListPresenter $shoppingListPresenter): Response
     {
         $viewData = EventInviteViewData::fromEvent($event);
+        $shoppingListData = [
+            'list' => null,
+            'items_main' => [],
+            'items_guest' => [],
+        ];
+        $canViewShoppingList = false;
+
+        if ($user = Auth::user()) {
+            $shoppingList = $event->shoppingList ?? new ShoppingList();
+            $shoppingList->event()->associate($event);
+
+            if (Gate::forUser($user)->allows('view', $shoppingList)) {
+                $canViewShoppingList = true;
+                $shoppingListData = $shoppingListPresenter->present(
+                    $shoppingList->exists ? $shoppingList : null
+                );
+            }
+        }
 
         return Inertia::render('Events/Invite', [
             'event' => EventEntity::from($event->load('address')),
             'showInviteModal' => Session::get('event_created'),
             'showInviteButton' => $viewData->showInviteButton,
             'showCancelButton' => $viewData->showCancelButton,
+            'shoppingList' => $shoppingListData['list'],
+            'shoppingListItemsMain' => $shoppingListData['items_main'],
+            'shoppingListItemsGuest' => $shoppingListData['items_guest'],
+            'canViewShoppingList' => $canViewShoppingList,
         ])->withViewData([
             'title' => $event->title,
             'description' => $event->description,
