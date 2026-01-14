@@ -77,6 +77,11 @@ RUN rm -R /var/cache/apk \
 # Copy configuration
 COPY ./docker/php/php.ini /usr/local/etc/php/php.ini
 
+# Create and configure upload temporary directory
+RUN mkdir -p /tmp/php_uploads && \
+    chmod 777 /tmp/php_uploads && \
+    chown www-data:www-data /tmp/php_uploads
+
 # Copy files to working directory
 RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
 

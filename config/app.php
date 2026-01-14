@@ -56,7 +56,7 @@ return [
     */
 
     'url'      => env('APP_URL', 'http://localhost'),
-    'protocol' => env('APP_PROTOCOL', 'http'),
+    'protocol' => env('APP_PROTOCOL', 'https'),
 
     /*
     |--------------------------------------------------------------------------
@@ -137,6 +137,7 @@ return [
              * Application Service Providers...
              */
             AppServiceProvider::class,
+            App\Providers\AuthServiceProvider::class,
             \Support\Providers\JetstreamServiceProvider::class,
             \Support\Providers\RouteServiceProvider::class,
             \Support\Providers\FortifyServiceProvider::class,
