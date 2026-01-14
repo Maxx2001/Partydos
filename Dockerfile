@@ -89,6 +89,11 @@ RUN a2enmod rewrite
 # Copy the startup script into the image
 COPY startup.sh /usr/local/bin/startup.sh
 
+# Create and configure upload temporary directory
+RUN mkdir -p /tmp/php_uploads && \
+    chmod 777 /tmp/php_uploads && \
+    chown www-data:www-data /tmp/php_uploads
+
 # Copy PHP configuration
 COPY uploads.ini /usr/local/etc/php/conf.d/uploads.ini
 RUN chown -R www-data:www-data /usr/local/etc/php/conf.d/uploads.ini
@@ -98,10 +103,6 @@ RUN chmod +x /usr/local/bin/startup.sh
 
 # Set the Apache DocumentRoot to your public directory
 RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
-
-RUN echo "upload_max_filesize=10M" >> /usr/local/etc/php/conf.d/uploads.ini
-RUN echo "post_max_size=10M" >> /usr/local/etc/php/conf.d/uploads.ini
-RUN echo "memory_limit=256M" >> /usr/local/etc/php/conf.d/uploads.ini
 
 # Expose port 80 (HTTP)
 EXPOSE 80
